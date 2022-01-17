@@ -29,7 +29,7 @@ function customsize_lang() {
     return isset($customsize) ? esc_html($customsize->lang($s)) : $s;
 }
 
-calss customsize_woocommerce {
+class customsize_woocommerce {
      
     public $url;
 
@@ -42,4 +42,36 @@ calss customsize_woocommerce {
     public $upload_url;
 
     public $upload_path;
+
+    public $assetes_url;
+
+    public $chekout_url;
+    
+    public $admin_assetes_url;
+
+    public $ajax_url;
+
+    public $product_id;
+
+    public $prefix;
+
+    private $connector_fil = 'woo_connector.php';
+
+    public $function __construct() {
+            global $wpdb;
+
+            $this->prefix = 'customsize_';
+        $this->url = site_url('/?customsize=design');
+        $this->tool_url = site_url('/?customsize=design');
+
+        $this->admin_url = admin_url('admin.php?page=customdesign');
+
+        $this->path = dirname(__file__).DS;
+        
+        $this->app_path = $this->path . 'core'.DS;
+
+
 }
+
+<div class="col-me-5">
+</div>
