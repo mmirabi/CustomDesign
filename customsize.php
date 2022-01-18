@@ -796,7 +796,6 @@ class customdesign_woocommerce {
         	__( 'Help', 'customdesign' ), 
         	__( 'Help', 'customdesign' ),
         	'customdesign_access', 
-        	'https://help.customdesign.com'
         );
         
         add_submenu_page( 
@@ -2282,7 +2281,7 @@ class customdesign_woocommerce {
 	
 	public function update_message($response){
 		
-		?><script>document.querySelectorAll("#customdesign-hook-sfm-update .update-message.notice p")[0].innerHTML = '<?php echo esc_html__('There is a new version of CustomRugs - Rugs Designer Tool'); ?>. <a href="https://www.customdesign.com/changelogs/woocommerce/?utm_source=client-site&utm_medium=text&utm_campaign=update-page&utm_term=links&utm_content=woocommerce" target=_blank" target=_blank>View version <?php echo esc_html($response['new_version']); ?> details</a> or <a href="<?php echo admin_url( 'admin.php?page=customdesign&customdesign-page=updates' ); ?>">update now</a>.';</script><?php
+		?><script>document.querySelectorAll("#customdesign-hook-sfm-update .update-message.notice p")[0].innerHTML = '<?php echo esc_html__('There is a new version of CustomRugs - Rugs Designer Tool'); ?>. <a href="#" target=_blank" target=_blank>View version <?php echo esc_html($response['new_version']); ?> details</a> or <a href="<?php echo admin_url( 'admin.php?page=customdesign&customdesign-page=updates' ); ?>">update now</a>.';</script><?php
 	}
 	
 	public function my_orders_actions($actions, $order) {
