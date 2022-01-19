@@ -13,15 +13,17 @@ if($customdesign->is_app()) :
 <head>
     <meta charset="UTF-8">
     <title><?php echo $customdesign->lang($customdesign->cfg->settings['title']); ?></title>
-    <meta content="" name="viewport" />
-    <link rel="stylesheet" href="">
-    <link rel="stylesheet" media="" href="">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no" name="viewport" />
+    <link rel="stylesheet" href="<?php echo $customdesign->apply_filters('editor/app.css', $customdesign->cfg->asstest_url.'assetes/css/app.css?version=.CUSTOMDESIGN'); ?>">
+    <link rel="stylesheet" media="only screen and (max-width: 1170px)" href="<?php echo $customdesign->apply_filters('editor/responsive.css', $customdesign->cfg->assetes_url.'assetes/css/responsive.css?version='.CUSTOMDESIGN); ?>">
     <?php 
-    // if (is_file($customdesign->cfg->upload_path.'user_data'.DS.'custom.css')) {
+    if (is_file($customdesign->cfg->upload_path.'user_data'.DS.'custom.css')) {
+	?> <link rel="stylesheet" href="<?php echo $customdesign->cfg->upload_url; ?>user_data/custom.css?version=<?php echo $customdesign->cfg->settings['last_update']; ?>"> <?php 
+    }
 
-    // }
-    // ?>
-</head>
+	$customdesign->do_action('edito-header');
+
+?></head>
 <body>
 	<div class="wrapper">
 		<div id="CustomDesign" data-site="https://customdesig.com" data-processing="true" data-msg="<?php echo $customdesig->lang('Initializing'); ?>..">
@@ -79,3 +81,4 @@ if($customdesign->is_app()) :
 	<?php $customdesign->do_action('editor-footer'); ?>
 </body>
 </html>
+<?php endif;
