@@ -1,8 +1,8 @@
 {
     "remotePath": "./public_html/wp-content/plugins",
-    "host": "ftp.listirs.com",
-    "username": "y9kb49xzf2a6",
-    "password": "WyiT~lYQxI8i>",
+    "host": "",
+    "username": "",
+    "password": "",
     "port": 21,
     "secure": false,
     "protocol": "ftp",
