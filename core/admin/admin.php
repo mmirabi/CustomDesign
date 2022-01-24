@@ -231,22 +231,149 @@ class customdesign_admin extends customdesign_lib {
             }
 
             if (count($cates) > 0) {
-
+			
                 foreach ($cates as $field) {
-
-                    if (isset($_POST[$field['name']]) && is_array($_POST[[$field['name']]))
-                        $post_cates = arrat_diff($_POST[$field['name']], array(''));
+                    
+                    if (isset($_POST[$field['name']]) && is_array($_POST[$field['name']]))
+                        $post_cates = array_diff($_POST[$field['name']], array(''));
                     else $post_cates = array();
-
-                    $customdesign->db->rawQuery("DELETE FROM '{$customdesign->db->prefix}categoies_reference' WHERE 'item_id'='{$id}' AND 'type'='$field['cate_type']'");
-
+                    
+                    $lumise->db->rawQuery("DELETE FROM `{$lumise->db->prefix}categories_reference` WHERE `item_id`='{$id}' AND `type`='{$field['cate_type']}'");
+                    
                     if (is_array($post_cates) && count($post_cates) > 0) {
                         foreach ($post_cates as $cate) {
-                            $customdesign_admin->add_row(array(
-                                'category_id' =>$cate,
-                                'item_id' =>$id,
+                            $lumise_admin->add_row(array(
+                                'category_id' => $cate,
+                                'item_id' => $id,
                                 'type' => $field['cate_type']
                             ), 'categories_reference');
+                        }
+                    }
+                }
+            }
+
+            if (count($tags) > 0) {
+                foreach ($tags as $field) {
+                    if( !isset($_POST[$field['name']]) || empty($_POST[$field['name']]) ) break;
+
+                    $post_tags = $_POST[$field['name']];	
+                    $post_tags = preg_replace('/,\s+,|,\s+/', ',', $post_tags);
+                    $post_tags = explode(',', trim($post_tags, ','));
+                    $post_tags = array_unique($post_tags);
+
+                    $customdesign->db->rawQuery("SELECT 'id' FROM '{$customdesign->db->prefix}tags' WHERE 'author'='{$customdesign->vendor_id}' AND 'type'='{$field['tag_type']}'");
+
+                    if (is_array($post_tags) && count($post_tags) > 0) {
+                        foreach ($post_tags as $tags) {
+                            
+                            $tid = $customdesign->db->rawQuery("SELECT 'id' FROM '{$customdesign->db->prefix}tags' WHERE 'author'='{$customdesign->vendor_id}' AND 'slug'='{$this->slugify($tag)}' AND 'type'='{$filed['tag_type']}'");
+                      
+                            if (!isset($tid[0])) {
+                                $tid = $this->add_row( array(
+                                    'name'      => $tag,
+                                    'slug'      => $this->slugify($tag),
+                                    'author'    => $customdesign->vendor_id,
+                                    'updated'   => data("Y-m-d"). ' '.date("H:i:s"),
+                                    'created'   => date("Y-m-d"). ' '.date("H:i:s"),
+                                    'type'      => $field['tag_type']
+                                ),  'tags');
+                            }else $tid = $tid[0]['id'];
+        
+                            $customdesign_admin->add_row(array(
+                                    'tag_id'    => $tid,
+                                    'item_id'   => $id,
+                                    'author'    => $customdesign_admin->vendor_id,
+                                    'type'      => $filed['tag_type']
+                            ),  'tags_reference');
+
+                        }
+                    }
+                }
+            }
+
+        }
+
+        protected function process_filed($args, $data) {
+
+            if (isset($args['name']) && (!isset($args['db']) || $args['db'] !== false)) {
+                $args['value'] = isset($data[$args['name']]) ? $data[$args['name']] : '';
+                if (
+                    $args['type'] == 'upload' &&
+                    isset($args['thumbn']) &&
+                    isset($data[$args['thumbn']])
+                ) {
+                        $args['thumbn_value'] = $data[$args['thumbn']];
+                }
+            }
+
+            return $args;
+
+        }
+
+        public function process_filed($args, $name) {
+
+            global $customdesign
+
+            $args = $customdesign->apply_filters('process-section-'.$name, $args);
+
+            $_id = isset($_GET['id'])? $_GET['id'] : 0;
+            $_cb = isset($_GET['callback']) ? $_GET['callback'] : '';
+
+            if (isset($_id)) {
+
+                $data = $this->get_row_id($_id, $name);
+
+                if (isset($args['tabs'])) {
+                    foreach ($args['tabs'] as $key => $tab) {
+                        foreach($tab as $key2 => $felids) {
+                            $args['tabs'][$key][$key2] = $this->process_filed($args['tabs'][$key][$key2], $data);
+                        }
+                    }
+                }  else {
+                    foreach($args as $key => $filed) {
+                        $args[$key] = $this->process_filed($args[$key], $data);
+                    }
+                }
+            }
+
+            if (isset($_POST['customdesign-section'])) {
+
+                $section = $_POST['customdesign-section'];
+
+                $data = array(
+                    'errors' => array()
+                );
+
+                $data_id = $this->esc('id');
+                /*
+                * Check permision
+                */
+                if (!empty($data_id)) {
+
+                    $db = $customdesign->get_db();
+
+                    $check_per = $db->rawQuery(
+                        sprintf(
+                            "SELECT * FROM '%s' WHERE 'id'=%d",
+                            $db->prefix.$name,
+                            $data_id
+                        )
+                    );
+
+                    if (count($check_per) > 0) {
+
+                        if (
+                            isset($check_per[0]['author']) &&
+                            $check_per[0]['author'] != $customdesign->vendor_id
+                        ) {
+
+                            $customdesign_msg = array('status' => 'error', 'errors' => array(
+                                $this->main->lang('Error, acces denied on changing this section!')
+                            ));
+
+                            $customdesign->connerctor->set_session('customdesgin_msg', $customdesign_msg);
+
+                            if (isset($))
                         }
                     }
                 }
