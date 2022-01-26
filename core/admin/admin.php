@@ -312,7 +312,7 @@ class customdesign_admin extends customdesign_lib {
 
         public function process_filed($args, $name) {
 
-            global $customdesign
+            global $customdesign;
 
             $args = $customdesign->apply_filters('process-section-'.$name, $args);
 
@@ -373,12 +373,105 @@ class customdesign_admin extends customdesign_lib {
 
                             $customdesign->connerctor->set_session('customdesgin_msg', $customdesign_msg);
 
-                            if (isset($))
+                            if (isset($_POST['redirect'])) {
+                                $customdesign->redirect(erldecode($_POST['redirect']).(!empty($data_id) ? '?id='.$data_id : ''));
+                                exit;
+                            }
+
+                            $customdesign->redirect(
+                                $customdesign->cfg->admin_url .
+                                "customdesign-page=$section".
+                                (isset($data['type']) ? '&type='.$data['type'] : '').
+                                (isset($_GET['callback']) ? '&callback='.$_GET['callback'] : '')
+                            );
+
+                            exit;
+
                         }
                     }
                 }
+
+            /*
+			* End checking permision
+			*/
+
+            if (isset($args['tabs'])) {
+                foreach ($args['tabs'] as $key => $tab) {
+                    foreach($tab as $key2 => $field) {
+                        $data = $this->process_save_data($field, $data);
+                    }
+                }
+            } else {
+                foreach($args as $key => $field) {
+                    $data = $this->process_save_data($field, $data);
+                }
+            }
+
+            if ($section == 'font') {
+
+                $fi = 0;
+                $fn = $customdesign->lib->slugify($data['name']);
+                if(isset($data['name_desc']) && $data['name_desc'] != ''){
+                    $data['name_desc'] = preg_replace("/,/m", "", $data['name_desc']);
+                }
+
+				do {
+					$data['name'] = $fn.($fi > 0 ? '-'.$fi : '');
+					$fquery = "SELECT `id` FROM `{$customdesign->db->prefix}fonts`";
+					$fquery .= " WHERE `author`='{$customdesign->vendor_id}' AND `name` = '".$customdesign->lib->sql_esc($data['name'])."'";
+					if (!empty($data_id))
+						$fquery .= " AND `id` <> {$data_id}";
+					$check = $customdesign->db->rawQuery ($fquery);
+					$fi++;
+				} while (count($check) > 0);
+
+            }
+
+            if (isset($data['type'])) {
+
+                $data_slug = array();
+                $data['slug'] = $this->slugify($data['name']);
+
+                    if ($name = 'tags')
+                        $val = $this->get_rows_custom(array('slug', 'type'), 'tags');
+
+                    if ($name = 'categories')
+                        $val = $this->get_rows_custom(array('slug', 'type'), 'categories');
+
+                    foreach ($val as $value) {
+                        if ($value['type'] == $data['type']) {
+                            $data_slug[] = $value['slug'];
+                        }
+                    }
+
+                    if (in_array($data['slug'], $data_slug))
+                        $data['slug'] = $this->add_count($data['slug'], $data_slug);
+                    }
+
+                    if (empty($data_id))
+                        $data['created'] = data("Y-m-d").' '.data("H:i:s");
+
+                    $data['updated'] = data("Y-m-d").' '.data("H:i:s");
+
+                    if (count($data['errors']) == 0) {
+
+                        unset($data['errors']);
+
+                        if (!empty($data_id)) {
+                            $data = $customdesign->apply_filters('edit-section', $data, $name);
+                            $id = $this->edit_row( $data_id, $data, $name);
+                        } else {
+                            $data = $customdesign->apply_filters('new-section', $data, $name);
+                            $id = $this->add_new( $data, $name);
+                        }
+
+                        $customdesign->do_action('process-fields', $section, $id);
+
+                        $customdesign->connector->set_session('customdesign_msg', array('status' => 'success'));
+                    }
+
             }
         }
     }
 
-}
+};
