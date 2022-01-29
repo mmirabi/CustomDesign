@@ -238,11 +238,11 @@ class customdesign_admin extends customdesign_lib {
                         $post_cates = array_diff($_POST[$field['name']], array(''));
                     else $post_cates = array();
                     
-                    $lumise->db->rawQuery("DELETE FROM `{$lumise->db->prefix}categories_reference` WHERE `item_id`='{$id}' AND `type`='{$field['cate_type']}'");
+                    $customdesign->db->rawQuery("DELETE FROM `{$customdesign->db->prefix}categories_reference` WHERE `item_id`='{$id}' AND `type`='{$field['cate_type']}'");
                     
                     if (is_array($post_cates) && count($post_cates) > 0) {
                         foreach ($post_cates as $cate) {
-                            $lumise_admin->add_row(array(
+                            $customdesign_admin->add_row(array(
                                 'category_id' => $cate,
                                 'item_id' => $id,
                                 'type' => $field['cate_type']
@@ -310,7 +310,7 @@ class customdesign_admin extends customdesign_lib {
 
         }
 
-        public function process_filed($args, $name) {
+        public function process_data($args, $name) {
 
             global $customdesign;
 
@@ -468,10 +468,1476 @@ class customdesign_admin extends customdesign_lib {
                         $customdesign->do_action('process-fields', $section, $id);
 
                         $customdesign->connector->set_session('customdesign_msg', array('status' => 'success'));
+                    
+                    }
+                    
+                    if (isset($id) && is_array($id) && isset($id['error'])) {
+                        if (!isset($data['errors']))
+                            $data['errors'] = array();
+                        array_push($data['errors'], $id['error']);
                     }
 
+                    if (!isset($id) || empty($id)) {
+                        if (!isset($data['errors']))
+                            $data['errors'] = array();
+                        array_push($data['errors'], $customdesign->db->getLastError());
+                    }
+
+                    if (isset($data['errors']) && count($data['errors']) >0) {
+
+                        $customdesign_msg = array('status' => 'error', 'errors' => $data['errors']);
+                        $customdesign->connctor->set_session('customdesign_ms', $customdesign_msg);
+                    
+                    if (isset($_POST['redirect'])) {
+                        $customdesign->redirect(urldecode($_POST['redirect']).(!empty($data_id) ? '?id='.$data_id : ''));
+                        exit;
+                    }
+                    
+                    if (!empty($data_id)) {
+                        $customdesign->redirect($customdesign->cfg->admin_url . "customdesign-page=$section&id=$data_id&".(isset($data['type']) ? '&type='.$data['type'] : '').(isset($_GET['callback']) ? '&callback='.$_GET['callback'] : ''));
+                    } else {
+                        $customdesign->redirect($customdesign->cfg->admin_url . "customdesign-page=$section".(isset($data['type']) ? '&type='.$data['type'] : '').(isset($_GET['callback']) ? '&callback='.$_GET['callback'] : ''));
+                    }
+                    exit;
+
+                }
+
+                if (isset($id) && !empty($id)) {
+
+                    $this->process_save_reference($args, $id);
+
+                    if (!empty($_cb) && $this->process_callback($id, $_cb) === false)
+                        exit;
+                    
+                    if (isset($_POST['redirect'])) {
+                        $customdesign->redirect(urldecode($_POST['redirect']).'?id='.$id);
+                        exit;
+                    }
+                    
+                    $customdesign->redirect($customdesign->cfg->admin_url . "customdesign-page=$section&id=$id".(isset($data['type']) ? '&type='.$data['type'] : '').(!empty($_cb) ? '&callback='.$_cb : ''));
+
+                    exit;
+
+                }
+                
+            }
+
+            return $args;
+
+        }
+
+        public function process_callback($id = 0, $cb = '') {
+
+            global $customdesign;
+
+            switch ($cb) {
+                case 'edit-cms-product':
+                    $data = $customdesign->db->rawQuery("SELECT `name`,`stages`,`attributes` FROM `{$customdesign->db->prefix}products` WHERE `author`='{$customdesign->vendor_id}' AND `id`=$id");
+                    if (isset($data[0]) && isset($data[0]['stages'])) {
+                        $color = $customdesign->lib->get_color($data[0]['attributes']);
+                        echo "<script>top.customdesign_reset_products({
+                            id: '$id',
+                            name: '{$data[0]['name']}',
+                            color: '{$color}',
+                            stages: ".urldecode(base64_decode($data[0]['stages'])).
+                        "});</script>";
+                    }
+                    $customdesign->connector->set_session('customdesign_msg', array('status' => ''));
+                    return false;
+                break;
+                case 'edit-base-product':
+                    $data = $customdesign->db->rawQuery("SELECT `name`,`stages`,`attributes` FROM `{$customdesign->db->prefix}products` WHERE `author`='{$customdesign->vendor_id}' AND `id`=$id");
+                    if (isset($data[0]) && isset($data[0]['stages'])) {
+                        $color = $customdesign->lib->get_color($data[0]['attributes']);
+                        echo "<script>top.customdesign_reset_products({
+                            id: '$id',
+                            name: '{$data[0]['name']}',
+                            color: '{$color}',
+                            stages: ".urldecode(base64_decode($data[0]['stages'])).
+                        "});</script>";
+                    }
+                    $customdesign->connector->set_session('customdesign_msg', array('status' => ''));
+                    return false;
+                break;
+            }
+
+        }
+
+        public function process_settings_data($args) {
+            
+            global $customdesign;
+
+            $fields = array();
+            $data = array('errors' => array());
+            
+            if (isset($args['tabs'])) {
+                foreach ($args['tabs'] as $tab => $tab_fields) {
+                    foreach ($tab_fields as $i => $field) {
+                        if (isset($field['name'])) {
+                            $args['tabs'][$tab][$i]['value'] = $customdesign->get_option($field['name']);
+                            if (isset($_POST['customdesign-section']))
+                                $data = $this->process_save_data($field, $data);
+                        }
+                    }
+                }
+            } else {
+                foreach ($args as $i => $field) {
+                    if (isset($field['name'])) {
+                        $args[$i]['value'] = $customdesign->get_option($field['name']);
+                        if (isset($_POST['customdesign-section']))
+                            $data = $this->process_save_data($field, $data);
+                    }
+                }
+            }
+            
+            if (isset($_POST['customdesign-section'])) {
+                
+                if (isset($_POST['admin_email']) && !empty($_POST['admin_email'])) {
+                    if ($customdesign->cfg->settings['admin_email'] != trim($_POST['admin_email'])) {
+                        if (filter_var(trim($_POST['admin_email']), FILTER_VALIDATE_EMAIL)) {
+                            $customdesign->set_option('admin_email', trim($_POST['admin_email']));
+                        } else array_push($data['errors'], $customdesign->lang('Error: Invalid email format'));
+                    }
+                    if (isset($_POST['admin_password']) && !empty($_POST['admin_password'])) {
+                        if (
+                            !isset($_POST['re_admin_password']) || 
+                            empty($_POST['re_admin_password']) ||
+                            $_POST['admin_password'] != $_POST['re_admin_password'] ||
+                            strlen($_POST['admin_password']) < 8
+                        ) {
+                            array_push($data['errors'], $customdesign->lang('Error: Admin Passwords do not match or less than 8 characters'));
+                        }else{
+                            $customdesign->set_option('admin_password', md5(trim($_POST['admin_password'])));
+                        }
+                    }
+                }
+                
+                if (
+                    $_POST['customdesign-section'] == 'settings' &&
+                    count($data['errors']) === 0 && 
+                    !$customdesign->lib->render_css($data)
+                ) {
+                    $data['errors'][] = $customdesign->lang('Could not save the custom css to file');
+                    foreach ($data as $key => $val) {
+                        $customdesign->set_option($key, $val);
+                    }
+                    $customdesign->set_option('last_update', time());
+                }
+                
+                if (count($data['errors']) === 0) {
+        
+                    unset($data['errors']);
+                    
+                    if ($_POST['customdesign-section'] == 'settings') {
+                            
+                        $customdesign->lib->render_css($data);
+                        
+                        $customdesign->set_option('last_update', time());
+                        
+                        $customdesign->apply_filters('after_save_settings', $data);
+                        
+                    }
+                    
+                    foreach ($data as $key => $val) {
+                        $customdesign->set_option($key, $val);
+                    }
+                    
+                    $customdesign->connector->set_session('customdesign_msg', array('status' => 'success'));
+        
+                    if (!isset($_POST['customdesign-redirect']))
+                        $customdesign->redirect($customdesign->cfg->admin_url . "customdesign-page=settings");
+                    else $customdesign->redirect($_POST['customdesign-redirect']);
+                    
+                    exit;
+        
+                } else {
+                    $customdesign->connector->set_session('customdesign_msg', array('status' => 'error', 'errors' => $data['errors']));
+                    $customdesign->redirect($customdesign->cfg->admin_url . "customdesign-page=settings");
+                    exit;
+                }
+                
+            }
+            
+            return $args;
+
+        }
+        
+        public function render_custom_css($css) {
+            
+            global $customdesign;
+            $path = $customdesign->cfg->root_path.'assets'.DS.'css'.DS.'custom.css';
+
+            if (!empty($css)) {
+                $content = str_replace(
+                    array('&gt;', '; ', ' }', '{ ', "\r\n", "\r", "\n", "\t",'  ','    ','    '),
+                    array('>', ';', '}', '{', '', '', '', '', '', '', ''),
+                    $css
+                );
+                @file_put_contents($path, stripslashes($content));
             }
         }
+        
+        public function process_actions() {
+            
+            $do_action = $this->main->lib->esc('do_action');
+            if (isset($do_action)) {
+                switch ($do_action) {
+                    
+                    case 'verify-license' : 
+                    
+                        $key = $this->esc('key');
+                        
+                        if (empty($key) || strlen($key) != 36 || count(explode('-', $key)) != 5) {
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = array($this->main->lang('The purchase code is not valid'));
+                            $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                            return;
+                        }
+                        
+                        $check = $this->main->lib->remote_connect(
+                            $this->main->cfg->api_url.'updates/verify/',
+                            array(), 
+                            array(
+                                "Key: ".$key,
+                                "Referer: ".$_SERVER['HTTP_HOST'],
+                                "Platform: ".$this->main->connector->platform,
+                                "Scheme: ".$this->main->cfg->scheme,
+                                "Cookie: PHPSESSID=".str_replace('=', '', base64_encode($_SERVER['HTTP_HOST']))
+                            )
+                        );
+                        
+                        $check = @simplexml_load_string($check);
+                        
+                        $resp = (string)$check->response[0];
+                        $customdesign_msg = $this->main->connector->get_session('customdesign_msg');
+                        if (!is_array($customdesign_msg))
+                                $customdesign_msg = array();
+                                
+                        if ($resp == 'anti_spam') {
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = array($this->main->lang('It seems you have sent too many requests, please wait for a few minutes and try again later'));
+                        }else if ($resp == 'register_success') {
+                            $this->main->set_option('purchase_key', $key);
+                            $customdesign_msg['status'] = 'success';
+                            $customdesign_msg['msg'] =$this->main->lang('Your purchase code has been verified successfully');
+                        }else{
+                            $this->main->set_option('purchase_key', '');
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = array($this->main->lang('An error occurred').': '.strtoupper($resp));
+                        }
+                        
+                        $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                        
+                    break;
+                    
+                    case 'revoke-license' : 
+                        
+                        $key = $this->esc('key');
+                        
+                        if (empty($key) || strlen($key) != 36 || count(explode('-', $key)) != 5) {
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = array($this->main->lang('The purchase code is not valid'));
+                            $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                            return;
+                        }
+                        
+                        $check = $this->main->lib->remote_connect(
+                            $this->main->cfg->api_url.'updates/verify/',
+                            array(), 
+                            array(
+                                "Revoke: yes",
+                                "Key: ".$key,
+                                "Referer: ".$_SERVER['HTTP_HOST'],
+                                "Platform: ".$this->main->connector->platform,
+                                "Scheme: ".$this->main->cfg->scheme,
+                                "Cookie: PHPSESSID=".str_replace('=', '', base64_encode($_SERVER['HTTP_HOST']))
+                            )
+                        );
+                        
+                        $check = @simplexml_load_string($check);
+                        
+                        $resp = (string)$check->response[0];
+                        
+                        $customdesign_msg = $this->main->connector->get_session('customdesign_msg');
+                        if (!is_array($customdesign_msg))
+                                $customdesign_msg = array();
+                        
+                        if ($resp == 'anti_spam') {
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = array($this->main->lang('You sent too much request, please wait for a few minutes and try again'));
+                        }else if ($resp == 'success') {
+                            $this->main->set_option('purchase_key', '');
+                            $customdesign_msg['status'] = 'success';
+                            $customdesign_msg['msg'] =$this->main->lang('Your purchase code has been revoked successful');
+                        }else{
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = array($this->main->lang('An error occurred while processing this request, please try again later.').$resp);
+                        }
+                        
+                        $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                        
+                    break;
+                    
+                    case 'check-update':
+                        
+                        $data = $this->main->update->check();
+                        
+                        if ($data === null || !isset($data['version'])) {
+                            
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = array($this->main->lang('Something went wrong. We could not check the update this time, please check your connection and try again later.'));
+                            $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                        }
+                        
+                    break;
+                    
+                    case 'do-update':
+                        
+                        $key = $this->main->get_option('purchase_key');
+                        $sys = $this->main->lib->check_sys_update();
+                        
+                        if ($key === null || empty($key) || strlen($key) != 36 || count(explode('-', $key)) != 5) {
+                            $this->main->set_option('purchase_key', '');
+                            echo '<script type="text/javascript">window.location.href = "'.$this->main->cfg->admin_url.'customdesign-page=license";</script></body></html>';
+                            exit;
+                        
+                        } else if ($sys !== true) {
+                            
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = $sys;
+                            $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                            
+                        } else {
+                            
+                            $this->main->check_upload();
+                            $this->main->lib->delete_dir($this->main->cfg->upload_path.'tmpl');
+                            
+                            if (
+                                !is_dir($this->main->cfg->upload_path.'tmpl') && 
+                                !mkdir($this->main->cfg->upload_path.'tmpl', 0755)
+                            ) {
+                                
+                                $customdesign_msg['status'] = 'error';
+                                $customdesign_msg['errors'] = array(
+                                    $this->main->lang('Error: Could not create download folder, make sure that the permissions on customdesign-data directory is 755')
+                                );
+                                $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                                return;
+                            
+                            }
+                            
+                            $file = $this->main->cfg->upload_path.'tmpl/lumize.zip';
+                            
+                            $fh = $this->main->lib->remote_connect(
+                                $this->main->cfg->api_url.'updates/verify/',
+                                array(), 
+                                array(
+                                    "Download: yes",
+                                    "Key: ".$key,
+                                    "Referer: ".$_SERVER['HTTP_HOST'],
+                                    "Platform: ".$this->main->connector->platform,
+                                    "Scheme: ".$this->main->cfg->scheme,
+                                    "Cookie: PHPSESSID=".str_replace('=', '', base64_encode($_SERVER['HTTP_HOST']))
+                                )
+                            );
+                            
+                            $data = file_put_contents($file, $fh);
+                            @fclose($fh);
+                            
+                            if ($data === 0) {
+                                
+                                $customdesign_msg['status'] = 'error';
+                                $customdesign_msg['errors'] = array(
+                                    $this->main->lang('Error: Could not download file, make sure that the fopen() funtion on your server is enabled')
+                                );
+                                
+                                @unlink($file);
+                                
+                            } else if ($data < 250) {
+                                
+                                $customdesign_msg['status'] = 'error';
+                                $erro = @file_get_contents($file);
+                                $customdesign_msg['errors'] = array($this->main->lang('Error: ').$erro);
+                                
+                                @unlink($file);
+                                
+                            } else {
+                                
+                                $zip = new ZipArchive;
+                                $res = $zip->open($file);
+                                $rpath = str_replace(DS.'core'.DS, '', $this->main->cfg->root_path);
+                                
+                                if ($res === TRUE) {
+                                    
+                                    $zip->extractTo($this->main->cfg->upload_path.'tmpl');
+                                    $zip->close();
+                                    
+                                    if ($this->main->connector->update()) {
+                                        $customdesign_msg['status'] = 'success';
+                                        $customdesign_msg['msg'] = $this->main->lang('Congratulations, customdesign has updated successfully, enjoy it!');
+                                        $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                                        echo '<script type="text/javascript">window.location.href = "'.$this->main->cfg->admin_url.'customdesign-page=updates";</script></body></html>';
+                                        exit;
+                                    } else {
+                                        $customdesign_msg['status'] = 'error';
+                                        $customdesign_msg['errors'] = array($this->main->lang('Error: Could not move files'));
+                                    }
+                                    
+                                } else {
+                                    $customdesign_msg['status'] = 'error';
+                                    $customdesign_msg['errors'] = array($this->main->lang('Error: Could not open file').$file);
+                                }
+                                
+                            }
+                            
+                            $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                            
+                        }
+                        
+                    break;
+
+                    // end product function evantor
+
+                    case 'verify-license-addon-bundle' : 
+                    
+                        $key_addon_bundle = $this->esc('key');
+                        
+                        if (empty($key_addon_bundle) || strlen($key_addon_bundle) != 36 || count(explode('-', $key_addon_bundle)) != 5) {
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = array($this->main->lang('The purchase code is not valid'));
+                            $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                            return;
+                        }
+                        
+                        $check = $this->main->lib->remote_connect(
+                            $this->main->cfg->api_url.'updates/verify_addon_bundle/',
+                            array(), 
+                            array(
+                                "Key: ".$key_addon_bundle,
+                                "Referer: ".$_SERVER['HTTP_HOST'],
+                                "Platform: ".$this->main->connector->platform,
+                                "Scheme: ".$this->main->cfg->scheme,
+                                "Cookie: PHPSESSID=".str_replace('=', '', base64_encode($_SERVER['HTTP_HOST']))
+                            )
+                        );
+                        
+                        
+                        $check = @simplexml_load_string($check);
+                        
+                        $resp = (string)$check->response[0];
+                        $customdesign_msg = $this->main->connector->get_session('customdesign_msg');
+                        if (!is_array($customdesign_msg))
+                                $customdesign_msg = array();
+                                
+                        if ($resp == 'anti_spam') {
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = array($this->main->lang('It seems you have sent too many requests, please wait for a few minutes and try again later'));
+                        }else if ($resp == 'register_success') {
+                            $this->main->set_option('purchase_key_addon_bundle', $key_addon_bundle);
+                            $customdesign_msg['status'] = 'success';
+                            $customdesign_msg['msg'] =$this->main->lang('Your purchase code has been verified successfully');
+                        }else{
+                            $this->main->set_option('purchase_key_addon_bundle', '');
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = array($this->main->lang('An error occurred').': '.strtoupper($resp));
+                        }
+                        
+                        $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                        
+                    break;
+                    
+                    case 'revoke-license-addon-bundle' : 
+                        
+                        $key_addon_bundle = $this->esc('key');
+                        
+                        if (empty($key_addon_bundle) || strlen($key_addon_bundle) != 36 || count(explode('-', $key_addon_bundle)) != 5) {
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = array($this->main->lang('The purchase code is not valid'));
+                            $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                            return;
+                        }
+                        
+                        $check = $this->main->lib->remote_connect(
+                            $this->main->cfg->api_url.'updates/verify_addon_bundle/',
+                            array(), 
+                            array(
+                                "Revoke: yes",
+                                "Key: ".$key_addon_bundle,
+                                "Referer: ".$_SERVER['HTTP_HOST'],
+                                "Platform: ".$this->main->connector->platform,
+                                "Scheme: ".$this->main->cfg->scheme,
+                                "Cookie: PHPSESSID=".str_replace('=', '', base64_encode($_SERVER['HTTP_HOST']))
+                            )
+                        );
+                        
+                        $check = @simplexml_load_string($check);
+                        
+                        $resp = (string)$check->response[0];
+                        
+                        $customdesign_msg = $this->main->connector->get_session('customdesign_msg');
+                        if (!is_array($customdesign_msg))
+                                $customdesign_msg = array();
+                        
+                        if ($resp == 'anti_spam') {
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = array($this->main->lang('You sent too much request, please wait for a few minutes and try again'));
+                        }else if ($resp == 'success') {
+                            $this->main->set_option('purchase_key_addon_bundle', '');
+                            $customdesign_msg['status'] = 'success';
+                            $customdesign_msg['msg'] =$this->main->lang('Your purchase code has been revoked successful');
+                        }else{
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = array($this->main->lang('An error occurred while processing this request, please try again later.').$resp);
+                        }
+                        
+                        $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                        
+                    break;
+                    
+                    case 'check-update-addon-bundle':
+                        
+                        $data = $this->main->update->check();
+                        
+                        if ($data === null || !isset($data['version'])) {
+                            
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = array($this->main->lang('Something went wrong. We could not check the update this time, please check your connection and try again later.'));
+                            $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                        }
+                        
+                    break;
+                    
+                    case 'do-update-addon-bundle':
+                        
+                        $key = $this->main->get_option('purchase_key_addon_bundle');
+                        $sys = $this->main->lib->check_sys_update();
+                        
+                        if ($key === null || empty($key) || strlen($key) != 36 || count(explode('-', $key)) != 5) {
+                            $this->main->set_option('purchase_key_addon_bundle', '');
+                            echo '<script type="text/javascript">window.location.href = "'.$this->main->cfg->admin_url.'customdesign-page=license";</script></body></html>';
+                            exit;
+                        
+                        } else if ($sys !== true) {
+                            
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = $sys;
+                            $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                            
+                        } else {
+                            
+                            $this->main->check_upload();
+                            $this->main->lib->delete_dir($this->main->cfg->upload_path.'tmpl');
+                            
+                            if (
+                                !is_dir($this->main->cfg->upload_path.'tmpl') && 
+                                !mkdir($this->main->cfg->upload_path.'tmpl', 0755)
+                            ) {
+                                
+                                $customdesign_msg['status'] = 'error';
+                                $customdesign_msg['errors'] = array(
+                                    $this->main->lang('Error: Could not create download folder, make sure that the permissions on customdesign-data directory is 755')
+                                );
+                                $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                                return;
+                            
+                            }
+                            
+                            $file = $this->main->cfg->upload_path.'tmpl/lumize.zip';
+                            
+                            $fh = $this->main->lib->remote_connect(
+                                $this->main->cfg->api_url.'updates/verify/',
+                                array(), 
+                                array(
+                                    "Download: yes",
+                                    "Key: ".$key,
+                                    "Referer: ".$_SERVER['HTTP_HOST'],
+                                    "Platform: ".$this->main->connector->platform,
+                                    "Scheme: ".$this->main->cfg->scheme,
+                                    "Cookie: PHPSESSID=".str_replace('=', '', base64_encode($_SERVER['HTTP_HOST']))
+                                )
+                            );
+                            
+                            $data = file_put_contents($file, $fh);
+                            @fclose($fh);
+                            
+                            if ($data === 0) {
+                                
+                                $customdesign_msg['status'] = 'error';
+                                $customdesign_msg['errors'] = array(
+                                    $this->main->lang('Error: Could not download file, make sure that the fopen() funtion on your server is enabled')
+                                );
+                                
+                                @unlink($file);
+                                
+                            } else if ($data < 250) {
+                                
+                                $customdesign_msg['status'] = 'error';
+                                $erro = @file_get_contents($file);
+                                $customdesign_msg['errors'] = array($this->main->lang('Error: ').$erro);
+                                
+                                @unlink($file);
+                                
+                            } else {
+                                
+                                $zip = new ZipArchive;
+                                $res = $zip->open($file);
+                                $rpath = str_replace(DS.'core'.DS, '', $this->main->cfg->root_path);
+                                
+                                if ($res === TRUE) {
+                                    
+                                    $zip->extractTo($this->main->cfg->upload_path.'tmpl');
+                                    $zip->close();
+                                    
+                                    if ($this->main->connector->update()) {
+                                        $customdesign_msg['status'] = 'success';
+                                        $customdesign_msg['msg'] = $this->main->lang('Congratulations, customdesign has updated successfully, enjoy it!');
+                                        $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                                        echo '<script type="text/javascript">window.location.href = "'.$this->main->cfg->admin_url.'customdesign-page=updates";</script></body></html>';
+                                        exit;
+                                    } else {
+                                        $customdesign_msg['status'] = 'error';
+                                        $customdesign_msg['errors'] = array($this->main->lang('Error: Could not move files'));
+                                    }
+                                    
+                                } else {
+                                    $customdesign_msg['status'] = 'error';
+                                    $customdesign_msg['errors'] = array($this->main->lang('Error: Could not open file').$file);
+                                }
+                                
+                            }
+                            
+                            $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                            
+                        }
+                        
+                    break;
+
+                    // end product function evantor
+
+                    case 'verify-license-addon-vendor' : 
+                    
+                        $key_addon_vendor = $this->esc('key');
+                        
+                        if (empty($key_addon_vendor) || strlen($key_addon_vendor) != 36 || count(explode('-', $key_addon_vendor)) != 5) {
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = array($this->main->lang('The purchase code is not valid'));
+                            $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                            return;
+                        }
+                        $check = $this->main->lib->remote_connect(
+                            $this->main->cfg->api_url.'updates/verify_addon_vendor/',
+                            array(), 
+                            array(
+                                "Key: ".$key_addon_vendor,
+                                "Referer: ".$_SERVER['HTTP_HOST'],
+                                "Platform: ".$this->main->connector->platform,
+                                "Scheme: ".$this->main->cfg->scheme,
+                                "Cookie: PHPSESSID=".str_replace('=', '', base64_encode($_SERVER['HTTP_HOST']))
+                            )
+                        );
+                        
+                        
+                        $check = @simplexml_load_string($check);
+                        
+                        $resp = (string)$check->response[0];
+                        $customdesign_msg = $this->main->connector->get_session('customdesign_msg');
+                        if (!is_array($customdesign_msg))
+                                $customdesign_msg = array();
+                                
+                        if ($resp == 'anti_spam') {
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = array($this->main->lang('It seems you have sent too many requests, please wait for a few minutes and try again later'));
+                        }else if ($resp == 'register_success') {
+                            $this->main->set_option('purchase_key_addon_vendor', $key_addon_vendor);
+                            $customdesign_msg['status'] = 'success';
+                            $customdesign_msg['msg'] =$this->main->lang('Your purchase code has been verified successfully');
+                        }else{
+                            $this->main->set_option('purchase_key_addon_vendor', '');
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = array($this->main->lang('An error occurred').': '.strtoupper($resp));
+                        }
+                        
+                        $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                        
+                    break;
+                    
+                    case 'revoke-license-addon-vendor' : 
+                        
+                        $key_addon_vendor = $this->esc('key');
+                        
+                        if (empty($key_addon_vendor) || strlen($key_addon_vendor) != 36 || count(explode('-', $key_addon_vendor)) != 5) {
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = array($this->main->lang('The purchase code is not valid'));
+                            $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                            return;
+                        }
+                        
+                        $check = $this->main->lib->remote_connect(
+                            $this->main->cfg->api_url.'updates/verify_addon_vendor/',
+                            array(), 
+                            array(
+                                "Revoke: yes",
+                                "Key: ".$key_addon_vendor,
+                                "Referer: ".$_SERVER['HTTP_HOST'],
+                                "Platform: ".$this->main->connector->platform,
+                                "Scheme: ".$this->main->cfg->scheme,
+                                "Cookie: PHPSESSID=".str_replace('=', '', base64_encode($_SERVER['HTTP_HOST']))
+                            )
+                        );
+                        
+                        $check = @simplexml_load_string($check);
+                        
+                        $resp = (string)$check->response[0];
+                        
+                        $customdesign_msg = $this->main->connector->get_session('customdesign_msg');
+                        if (!is_array($customdesign_msg))
+                                $customdesign_msg = array();
+                        
+                        if ($resp == 'anti_spam') {
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = array($this->main->lang('You sent too much request, please wait for a few minutes and try again'));
+                        }else if ($resp == 'success') {
+                            $this->main->set_option('purchase_key_addon_vendor', '');
+                            $customdesign_msg['status'] = 'success';
+                            $customdesign_msg['msg'] =$this->main->lang('Your purchase code has been revoked successful');
+                        }else{
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = array($this->main->lang('An error occurred while processing this request, please try again later.').$resp);
+                        }
+                        
+                        $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                        
+                    break;
+                    
+                    case 'check-update-addon-vendor':
+                        
+                        $data = $this->main->update->check();
+                        
+                        if ($data === null || !isset($data['version'])) {
+                            
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = array($this->main->lang('Something went wrong. We could not check the update this time, please check your connection and try again later.'));
+                            $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                        }
+                        
+                    break;
+                    
+                    case 'do-update-addon-vendor':
+                        
+                        $key = $this->main->get_option('purchase_key');
+                        $sys = $this->main->lib->check_sys_update();
+                        
+                        if ($key === null || empty($key) || strlen($key) != 36 || count(explode('-', $key)) != 5) {
+                            $this->main->set_option('purchase_key', '');
+                            echo '<script type="text/javascript">window.location.href = "'.$this->main->cfg->admin_url.'customdesign-page=license";</script></body></html>';
+                            exit;
+                        
+                        } else if ($sys !== true) {
+                            
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = $sys;
+                            $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                            
+                        } else {
+                            
+                            $this->main->check_upload();
+                            $this->main->lib->delete_dir($this->main->cfg->upload_path.'tmpl');
+                            
+                            if (
+                                !is_dir($this->main->cfg->upload_path.'tmpl') && 
+                                !mkdir($this->main->cfg->upload_path.'tmpl', 0755)
+                            ) {
+                                
+                                $customdesign_msg['status'] = 'error';
+                                $customdesign_msg['errors'] = array(
+                                    $this->main->lang('Error: Could not create download folder, make sure that the permissions on customdesign-data directory is 755')
+                                );
+                                $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                                return;
+                            
+                            }
+                            
+                            $file = $this->main->cfg->upload_path.'tmpl/lumize.zip';
+                            
+                            $fh = $this->main->lib->remote_connect(
+                                $this->main->cfg->api_url.'updates/verify/',
+                                array(), 
+                                array(
+                                    "Download: yes",
+                                    "Key: ".$key,
+                                    "Referer: ".$_SERVER['HTTP_HOST'],
+                                    "Platform: ".$this->main->connector->platform,
+                                    "Scheme: ".$this->main->cfg->scheme,
+                                    "Cookie: PHPSESSID=".str_replace('=', '', base64_encode($_SERVER['HTTP_HOST']))
+                                )
+                            );
+                            
+                            $data = file_put_contents($file, $fh);
+                            @fclose($fh);
+                            
+                            if ($data === 0) {
+                                
+                                $customdesign_msg['status'] = 'error';
+                                $customdesign_msg['errors'] = array(
+                                    $this->main->lang('Error: Could not download file, make sure that the fopen() funtion on your server is enabled')
+                                );
+                                
+                                @unlink($file);
+                                
+                            } else if ($data < 250) {
+                                
+                                $customdesign_msg['status'] = 'error';
+                                $erro = @file_get_contents($file);
+                                $customdesign_msg['errors'] = array($this->main->lang('Error: ').$erro);
+                                
+                                @unlink($file);
+                                
+                            } else {
+                                
+                                $zip = new ZipArchive;
+                                $res = $zip->open($file);
+                                $rpath = str_replace(DS.'core'.DS, '', $this->main->cfg->root_path);
+                                
+                                if ($res === TRUE) {
+                                    
+                                    $zip->extractTo($this->main->cfg->upload_path.'tmpl');
+                                    $zip->close();
+                                    
+                                    if ($this->main->connector->update()) {
+                                        $customdesign_msg['status'] = 'success';
+                                        $customdesign_msg['msg'] = $this->main->lang('Congratulations, customdesign has updated successfully, enjoy it!');
+                                        $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                                        echo '<script type="text/javascript">window.location.href = "'.$this->main->cfg->admin_url.'customdesign-page=updates";</script></body></html>';
+                                        exit;
+                                    } else {
+                                        $customdesign_msg['status'] = 'error';
+                                        $customdesign_msg['errors'] = array($this->main->lang('Error: Could not move files'));
+                                    }
+                                    
+                                } else {
+                                    $customdesign_msg['status'] = 'error';
+                                    $customdesign_msg['errors'] = array($this->main->lang('Error: Could not open file').$file);
+                                }
+                                
+                            }
+                            
+                            $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                            
+                        }
+                        
+                    break;
+
+
+                    // end product function evantor
+
+                    case 'verify-license-addon-printful' : 
+                    
+                        $key_addon_printful = $this->esc('key');
+                        
+                        if (empty($key_addon_printful) || strlen($key_addon_printful) != 36 || count(explode('-', $key_addon_printful)) != 5) {
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = array($this->main->lang('The purchase code is not valid'));
+                            $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                            return;
+                        }
+                        $check = $this->main->lib->remote_connect(
+                            $this->main->cfg->api_url.'updates/verify_addon_printful/',
+                            array(), 
+                            array(
+                                "Key: ".$key_addon_printful,
+                                "Referer: ".$_SERVER['HTTP_HOST'],
+                                "Platform: ".$this->main->connector->platform,
+                                "Scheme: ".$this->main->cfg->scheme,
+                                "Cookie: PHPSESSID=".str_replace('=', '', base64_encode($_SERVER['HTTP_HOST']))
+                            )
+                        );
+                        
+                        
+                        $check = @simplexml_load_string($check);
+                        
+                        $resp = (string)$check->response[0];
+                        $customdesign_msg = $this->main->connector->get_session('customdesign_msg');
+                        if (!is_array($customdesign_msg))
+                                $customdesign_msg = array();
+                                
+                        if ($resp == 'anti_spam') {
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = array($this->main->lang('It seems you have sent too many requests, please wait for a few minutes and try again later'));
+                        }else if ($resp == 'register_success') {
+                            $this->main->set_option('purchase_key_addon_printful', $key_addon_printful);
+                            $customdesign_msg['status'] = 'success';
+                            $customdesign_msg['msg'] =$this->main->lang('Your purchase code has been verified successfully');
+                        }else{
+                            $this->main->set_option('purchase_key_addon_printful', '');
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = array($this->main->lang('An error occurred').': '.strtoupper($resp));
+                        }
+                        
+                        $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                        
+                    break;
+                    
+                    case 'revoke-license-addon-printful' : 
+                        
+                        $key_addon_printful = $this->esc('key');
+                        
+                        if (empty($key_addon_printful) || strlen($key_addon_printful) != 36 || count(explode('-', $key_addon_printful)) != 5) {
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = array($this->main->lang('The purchase code is not valid'));
+                            $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                            return;
+                        }
+                        
+                        $check = $this->main->lib->remote_connect(
+                            $this->main->cfg->api_url.'updates/verify_addon_printful/',
+                            array(), 
+                            array(
+                                "Revoke: yes",
+                                "Key: ".$key_addon_printful,
+                                "Referer: ".$_SERVER['HTTP_HOST'],
+                                "Platform: ".$this->main->connector->platform,
+                                "Scheme: ".$this->main->cfg->scheme,
+                                "Cookie: PHPSESSID=".str_replace('=', '', base64_encode($_SERVER['HTTP_HOST']))
+                            )
+                        );
+                        
+                        $check = @simplexml_load_string($check);
+                        
+                        $resp = (string)$check->response[0];
+                        
+                        $customdesign_msg = $this->main->connector->get_session('customdesign_msg');
+                        if (!is_array($customdesign_msg))
+                                $customdesign_msg = array();
+                        
+                        if ($resp == 'anti_spam') {
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = array($this->main->lang('You sent too much request, please wait for a few minutes and try again'));
+                        }else if ($resp == 'success') {
+                            $this->main->set_option('purchase_key_addon_printful', '');
+                            $customdesign_msg['status'] = 'success';
+                            $customdesign_msg['msg'] =$this->main->lang('Your purchase code has been revoked successful');
+                        }else{
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = array($this->main->lang('An error occurred while processing this request, please try again later.').$resp);
+                        }
+                        
+                        $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                        
+                    break;
+                    
+                    case 'check-update-addon-printful':
+                        
+                        $data = $this->main->update->check();
+                        
+                        if ($data === null || !isset($data['version'])) {
+                            
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = array($this->main->lang('Something went wrong. We could not check the update this time, please check your connection and try again later.'));
+                            $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                        }
+                        
+                    break;
+                    
+                    case 'do-update-addon-printful':
+                        
+                        $key = $this->main->get_option('purchase_key');
+                        $sys = $this->main->lib->check_sys_update();
+                        
+                        if ($key === null || empty($key) || strlen($key) != 36 || count(explode('-', $key)) != 5) {
+                            $this->main->set_option('purchase_key', '');
+                            echo '<script type="text/javascript">window.location.href = "'.$this->main->cfg->admin_url.'customdesign-page=license";</script></body></html>';
+                            exit;
+                        
+                        } else if ($sys !== true) {
+                            
+                            $customdesign_msg['status'] = 'error';
+                            $customdesign_msg['errors'] = $sys;
+                            $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                            
+                        } else {
+                            
+                            $this->main->check_upload();
+                            $this->main->lib->delete_dir($this->main->cfg->upload_path.'tmpl');
+                            
+                            if (
+                                !is_dir($this->main->cfg->upload_path.'tmpl') && 
+                                !mkdir($this->main->cfg->upload_path.'tmpl', 0755)
+                            ) {
+                                
+                                $customdesign_msg['status'] = 'error';
+                                $customdesign_msg['errors'] = array(
+                                    $this->main->lang('Error: Could not create download folder, make sure that the permissions on customdesign-data directory is 755')
+                                );
+                                $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                                return;
+                            
+                            }
+                            
+                            $file = $this->main->cfg->upload_path.'tmpl/lumize.zip';
+                            
+                            $fh = $this->main->lib->remote_connect(
+                                $this->main->cfg->api_url.'updates/verify/',
+                                array(), 
+                                array(
+                                    "Download: yes",
+                                    "Key: ".$key,
+                                    "Referer: ".$_SERVER['HTTP_HOST'],
+                                    "Platform: ".$this->main->connector->platform,
+                                    "Scheme: ".$this->main->cfg->scheme,
+                                    "Cookie: PHPSESSID=".str_replace('=', '', base64_encode($_SERVER['HTTP_HOST']))
+                                )
+                            );
+                            
+                            $data = file_put_contents($file, $fh);
+                            @fclose($fh);
+                            
+                            if ($data === 0) {
+                                
+                                $customdesign_msg['status'] = 'error';
+                                $customdesign_msg['errors'] = array(
+                                    $this->main->lang('Error: Could not download file, make sure that the fopen() funtion on your server is enabled')
+                                );
+                                
+                                @unlink($file);
+                                
+                            } else if ($data < 250) {
+                                
+                                $customdesign_msg['status'] = 'error';
+                                $erro = @file_get_contents($file);
+                                $customdesign_msg['errors'] = array($this->main->lang('Error: ').$erro);
+                                
+                                @unlink($file);
+                                
+                            } else {
+                                
+                                $zip = new ZipArchive;
+                                $res = $zip->open($file);
+                                $rpath = str_replace(DS.'core'.DS, '', $this->main->cfg->root_path);
+                                
+                                if ($res === TRUE) {
+                                    
+                                    $zip->extractTo($this->main->cfg->upload_path.'tmpl');
+                                    $zip->close();
+                                    
+                                    if ($this->main->connector->update()) {
+                                        $customdesign_msg['status'] = 'success';
+                                        $customdesign_msg['msg'] = $this->main->lang('Congratulations, customdesign has updated successfully, enjoy it!');
+                                        $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                                        echo '<script type="text/javascript">window.location.href = "'.$this->main->cfg->admin_url.'customdesign-page=updates";</script></body></html>';
+                                        exit;
+                                    } else {
+                                        $customdesign_msg['status'] = 'error';
+                                        $customdesign_msg['errors'] = array($this->main->lang('Error: Could not move files'));
+                                    }
+                                    
+                                } else {
+                                    $customdesign_msg['status'] = 'error';
+                                    $customdesign_msg['errors'] = array($this->main->lang('Error: Could not open file').$file);
+                                }
+                                
+                            }
+                            
+                            $this->main->connector->set_session('customdesign_msg', $customdesign_msg);
+                            
+                        }
+                        
+                    break;
+                    
+                }
+            }
+            
+        }
+        
+        public function check_caps($cap) {
+            
+            $data_action = isset($_POST['action']) ? $_POST['action'] : '';
+            
+            if (
+                in_array($data_action, array('active', 'deactive', 'delete')) &&
+                !$this->main->caps('customdesign_edit_'.$cap)
+            ) {
+                $this->main->connector->set_session('customdesign_msg', array(
+                        'status' => 'error', 
+                        'errors' => array($this->main->lang('Sorry, you are not allowed to do this action'))
+                    )
+                );
+                echo '<script type="text/javascript">window.location.reload();</script></body></html>';
+                exit;
+            }
+        }
+        
     }
 
-};
+    class customdesign_helper {
+
+        public function breadcrumb($customdesign_page, $type = null) {
+
+            global $customdesign;
+            global $customdesign_router;
+            return;
+            $arr = $customdesign->apply_filters('admin_breadcrumb', array(
+                'cliparts' => array(
+                    'title' => $customdesign->lang('Cliparts'),
+                    'link'   => $customdesign->cfg->admin_url.'customdesign-page=cliparts',
+                    'child' => array(
+                        'clipart' => array(
+                            'type'   => '',
+                            'title'  => $customdesign->lang('Clipart'),
+                            'link'   => $customdesign->cfg->admin_url.'customdesign-page=clipart',
+                        ),
+                        'categories' => array(
+                            'type'   => 'cliparts',
+                            'title'  => $customdesign->lang('Categories'),
+                            'link'   => $customdesign->cfg->admin_url.'customdesign-page=categories&type=cliparts',
+                        ),
+                        'category' => array(
+                            'type'   => 'cliparts',
+                            'title'  => $customdesign->lang('Category'),
+                            'link'   => $customdesign->cfg->admin_url.'customdesign-page=category&type=cliparts',
+                        ),
+                        'tags' => array(
+                            'type'   => 'cliparts',
+                            'title'  => $customdesign->lang('Tags'),
+                            'link'   => $customdesign->cfg->admin_url.'customdesign-page=tags&type=cliparts',
+                        ),
+                        'tag' => array(
+                            'type'   => 'cliparts',
+                            'title'  => $customdesign->lang('Tag'),
+                            'link'   => $customdesign->cfg->admin_url.'customdesign-page=tag&type=cliparts',
+                        ),
+                    ),
+                ),
+                'designs' => array(
+                    'title' => $customdesign->lang('Designs'),
+                    'link'   => $customdesign->cfg->admin_url.'customdesign-page=designs',
+                    'child' => array(
+                        'design' => array(
+                            'type'   => '',
+                            'title'  => $customdesign->lang('Design'),
+                            'link'   => $customdesign->cfg->admin_url.'customdesign-page=design',
+                        ),
+                    ),
+                ),
+                'templates' => array(
+                    'title' => $customdesign->lang('Templates'),
+                    'link'   => $customdesign->cfg->admin_url.'customdesign-page=templates',
+                    'child' => array(
+                        'template' => array(
+                            'type'   => '',
+                            'title'  => $customdesign->lang('Template'),
+                            'link'   => $customdesign->cfg->admin_url.'customdesign-page=template',
+                        ),
+                        'categories' => array(
+                            'type'   => 'templates',
+                            'title'  => $customdesign->lang('Categories'),
+                            'link'   => $customdesign->cfg->admin_url.'customdesign-page=categories&type=templates',
+                        ),
+                        'category' => array(
+                            'type'   => 'templates',
+                            'title'  => $customdesign->lang('Category'),
+                            'link'   => $customdesign->cfg->admin_url.'customdesign-page=category&type=templates',
+                        ),
+                        'tags' => array(
+                            'type'   => 'templates',
+                            'title'  => $customdesign->lang('Tags'),
+                            'link'   => $customdesign->cfg->admin_url.'customdesign-page=tags&type=templates',
+                        ),
+                        'tag' => array(
+                            'type'   => 'templates',
+                            'title'  => $customdesign->lang('Tag'),
+                            'link'   => $customdesign->cfg->admin_url.'customdesign-page=tag&type=templates',
+                        ),
+                    ),
+                ),
+                'products' => array(
+                    'title' => $customdesign->lang('Products'),
+                    'link'   => $customdesign->cfg->admin_url.'customdesign-page=products',
+                    'child' => array(
+                        'product' => array(
+                            'type'   => '',
+                            'title'  => $customdesign->lang('Product'),
+                            'link'   => $customdesign->cfg->admin_url.'customdesign-page=product',
+                        ),
+                        'categories' => array(
+                            'type'   => 'products',
+                            'title'  => $customdesign->lang('Product Categories'),
+                            'link'   => $customdesign->cfg->admin_url.'customdesign-page=categories&type=products',
+                        ),
+                        'category' => array(
+                            'type'   => 'products',
+                            'title'  => $customdesign->lang('Add New Category'),
+                            'link'   => $customdesign->cfg->admin_url.'customdesign-page=category&type=products',
+                        ),
+                    ),
+                ),
+                'shapes' => array(
+                    'title' => $customdesign->lang('Shapes'),
+                    'link'   => $customdesign->cfg->admin_url.'customdesign-page=shapes',
+                    'child' => array(
+                        'shape' => array(
+                            'type'   => '',
+                            'title'  => $customdesign->lang('Shape'),
+                            'link'   => $customdesign->cfg->admin_url.'customdesign-page=shape',
+                        ),
+                    ),
+                ),
+                'addons' => array(
+                    'title' => $customdesign->lang('Addons'),
+                    'link'   => $customdesign->cfg->admin_url.'customdesign-page=addons',
+                    'child' => array(
+                        'explore-addons' => array(
+                            'type'   => '',
+                            'title'  => $customdesign->lang('Explore'),
+                            'link'   => $customdesign->cfg->admin_url.'customdesign-page=explore-addons',
+                        ),
+                        'addons' => array(
+                            'type'   => '',
+                            'title'  => $customdesign->lang('Installed'),
+                            'link'   => $customdesign->cfg->admin_url.'customdesign-page=addons',
+                        ),
+                    ),
+                ),
+                'printings' => array(
+                    'title' => $customdesign->lang('Printing Type'),
+                    'link'   => $customdesign->cfg->admin_url.'customdesign-page=printings',
+                    'child' => array(
+                        'printing' => array(
+                            'type'   => '',
+                            'title'  => $customdesign->lang('Printing'),
+                            'link'   => $customdesign->cfg->admin_url.'customdesign-page=printing',
+                        ),
+                    ),
+                ),
+                'fonts' => array(
+                    'title' => $customdesign->lang('Fonts'),
+                    'link'   => $customdesign->cfg->admin_url.'customdesign-page=fonts',
+                    'child' => array(
+                        'font' => array(
+                            'type'   => '',
+                            'title'  => $customdesign->lang('Edit Font'),
+                            'link'   => $customdesign->cfg->admin_url.'customdesign-page=font',
+                        )
+                    ),
+                ),
+                'languages' => array(
+                    'title' => $customdesign->lang('Languages'),
+                    'link'   => $customdesign->cfg->admin_url.'customdesign-page=languages',
+                    'child' => array(
+                        'language' => array(
+                            'type'   => '',
+                            'title'  => $customdesign->lang('Language'),
+                            'link'   => $customdesign->cfg->admin_url.'customdesign-page=language',
+                        ),
+                    ),
+                ),
+                'orders' => array(
+                    'title' => $customdesign->lang('Orders'),
+                    'link'   => $customdesign->cfg->admin_url.'customdesign-page=orders',
+                ),
+                'settings' => array(
+                    'title' => $customdesign->lang('Settings'),
+                    'link'   => $customdesign->cfg->admin_url.'customdesign-page=settings',
+                )
+            ));
+
+            $html = '<ul class="customdesign_breadcrumb">';
+            
+            foreach ($arr as $keys => $values) {
+
+
+                if ($keys == $customdesign_page) {
+
+                    $html .= '<li><a href="'.$customdesign->cfg->admin_url.'customdesign-page=dashboard">'.$customdesign->lang('Dashboard').'</a></li><li><span>'.$values['title'].'</span></li>';
+
+                }
+
+                if (isset($values['child'])) {
+
+                    if (isset($values['child'][$customdesign_page]) && $values['child'][$customdesign_page]['type'] == $type) {
+
+                        $html .= '<li><a href="'.$customdesign->cfg->admin_url.'customdesign-page=dashboard">'.$customdesign->lang('Dashboard').'</a></li><li><a href="'.$values['link'].'">'.$values['title'].'</a></li>';
+
+                    }
+
+                    foreach ($values['child'] as $key => $child) {
+
+                        if ($key == $customdesign_page && $child['type'] == $type) {
+
+                            $html .= '<li><span>'.$child['title'].'</span></li>';
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            $html .= '</ul>';
+            
+            ob_start();
+                $customdesign->views->header_message();
+                $content = ob_get_contents();
+            ob_end_clean();
+            
+            if (!empty($content))
+                $html .= '<br><br>'.$content;
+            
+            return $html;
+
+        }
+
+        public function resize_image($file, $w, $h) {
+
+            $image_info = getimagesize($file);
+            $type = $image_info['mime'];
+            $width = $image_info[0];
+            $height = $image_info[1];
+            $ratio = $width/$height;
+            $img = array();
+
+            switch ($type) {
+                case 'image/jpeg':
+                    $image = imagecreatefromjpeg($file);
+                    break;
+                case 'image/jpg':
+                    $image = imagecreatefromjpeg($file);
+                    break;
+                case 'image/gif':
+                    $image = imagecreatefromgif($file);
+                    break;
+                case 'image/png':
+                    $image = imagecreatefrompng($file);
+                    break;
+                default:
+                    $img['type'] = 'error';
+                    break;
+            }
+
+            if ($w == 'auto' && preg_match('/^[0-9]+$/', $h)) {
+
+                if ($w/$h < $ratio) {
+                    $newwidth = $h*$ratio;
+                    $newheight = $h;
+                } else {
+                    $newwidth = $h/$ratio;
+                    $newheight = $h;
+                }
+
+            } else if (preg_match('/^[0-9]+$/', $w) && $h == 'auto') {
+
+                if ($w/$h > $ratio) {
+                    $newheight = $w*$ratio;
+                    $newwidth = $w;
+                } else {
+                    $newheight = $w/$ratio;
+                    $newwidth = $w;
+                }
+
+            } else if (preg_match('/^[0-9]+$/', $w) && preg_match('/^[0-9]+$/', $h)) {
+                $newwidth = $w;
+                $newheight = $h;
+            } else {
+                $img['size'] = 'error';
+            }
+
+            $new_image = imagecreatetruecolor($newwidth, $newheight);
+            imagefill($new_image, 0, 0, imagecolorallocate($new_image, 255, 255, 255));
+            imagecopyresampled($new_image, $image, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+
+            $before_etx = implode('.', array_pop(explode('.', $file)));
+            $file = $before_etx.'-thumbn.jpeg';
+            $count = 1;
+
+            while(file_exists($file)) {
+                $file = $before_etx.'-thumbn-'.$count.'.jpeg';
+                $count++;
+            }
+            $img['file'] = $file;
+
+            imagejpeg($new_image, $file, 75);
+            imagedestroy($image);
+
+            return $img;
+
+        }
+
+        public function upload_file( $file, $filename, $tar_file, $filetype, $filesize ) {
+            
+            if (!$this->main->caps('customdesign_can_upload')) {
+                echo $this->main->lang('Sorry, You do not have permission to upload');
+                exit;
+            }
+            
+            $target_file = $tar_file . basename($file[$filename]["name"]);
+                
+            $path_parts = pathinfo($target_file);
+            $imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
+
+            $rs = array();
+            $rs['file_name'] = basename($file[$filename]["name"]);
+            $rs['thumbnail'] = '';
+
+            $count = 1;
+            while (file_exists($target_file)) {
+                $rs['file_name'] = $path_parts['filename'].'-'.$count.'.'.$path_parts['extension'];
+                $target_file = $tar_file.$rs['file_name'];
+                $count++;
+            }
+
+            if (!in_array($imageFileType, $filetype)) {
+                $filetype = implode(', ', $filetype);
+                $rs['thumbnail'] = 'Sorry, only '.$filetype.' files are allowed.';
+            }
+
+            if ( $file[$filename]['size'] > $filesize ) {
+                $filesize = round ($filesize/1048576, 1);
+                $rs['thumbnail'] = 'Max size '.$filesize.'MB';
+            }
+            if (empty($rs['thumbnail'])) {
+                $rs['error'] = move_uploaded_file($file[$filename]["tmp_name"], $target_file);
+
+            }
+
+            return $rs;
+
+        }
+
+        public function format_uri( $string, $separator = '-' ){
+
+            $accents_regex = '~&([a-z]{1,2})(?:acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i';
+            $special_cases = array( '&' => 'and', "'" => '');
+            $string = mb_strtolower( trim( $string ), 'UTF-8' );
+            $string = str_replace( array_keys($special_cases), array_values( $special_cases), $string );
+            $string = preg_replace( $accents_regex, '$1', htmlentities( $string, ENT_QUOTES, 'UTF-8' ) );
+            $string = preg_replace("/[^a-z0-9]/u", "$separator", $string);
+            $string = preg_replace("/[$separator]+/u", "$separator", $string);
+
+            return $string;
+        }
+
+        public function import_sample_shapes($shapes) {
+
+            global $customdesign, $customdesign_router;
+            
+            for ($i = 0; $i < count($shapes); $i++) {
+                $customdesign->db->insert('shapes', array(
+                    "name" => "Shape ".($i+1),
+                    "content" => $shapes[$i],
+                    "author" => $customdesign->vendor_id,
+                    "active" => 1,
+                    "created" => date("Y-m-d").' '.date("h:i:sa"),
+                    "updated" => date("Y-m-d").' '.date("h:i:sa"),
+                ));
+            }
+
+            $customdesign->redirect($customdesign->cfg->admin_url.'customdesign-page=shapes');
+
+        }
+
+    }
+
+    global $customdesign_admin, $customdesign_pagination;
+    $customdesign_admin = new customdesign_admin();
+    $customdesign_pagination = new customdesign_pagination();
+    $customdesign_helper = new customdesign_helper();
