@@ -1,5 +1,5 @@
 
-.customrug-loading {
+.customdesign-loading {
     display: inline-block;
     background: rgb(255, 255, 255) url(../../../core/assets/images/loading.gif) no-repeat center center;
     width: 34px;
@@ -8,7 +8,7 @@
     border-radius: 100%;
 }
 
-.customrug-spinner {
+.customdesign-spinner {
     height: 20px;
     width: 20px;
     background: url(../../../core/assets/images/spinner.png) center center no-repeat;
@@ -19,18 +19,18 @@
     bottom: -2px;
 }
 
-.customrug-order-design-thumbnails img{
+.customdesign-order-design-thumbnails img{
     border: 1px solid #ccc;
     margin: 5px;
     padding: 5px;
     max-width: 70px;
 }
 
-.customrug-variations{
+.customdesign-variations{
     width: 100%;
 }
 
-dt.customrug-variation {
+dt.customdesign-variation {
     clear: left;
     display: block;
     float: left;
@@ -38,7 +38,7 @@ dt.customrug-variation {
     font-weight: bold;
 }
 
-dd.customrug-variation {
+dd.customdesign-variation {
     margin-left: 0px;
 }
 
@@ -56,38 +56,38 @@ dd.customrug-variation {
     text-align: center !important;
 }
 
-.customrug-spinner.white {
+.customdesign-spinner.white {
     background-image: url(../../../core/assets/images/spinner-white.png)
 }
 
-.customrug-spinner.x2 {
+.customdesign-spinner.x2 {
     height: 24px;
     width: 24px;
     background-size: 24px
 }
 
-.customrug-spinner.x3 {
+.customdesign-spinner.x3 {
     height: 30px;
     width: 30px;
     background-size: 30px
 }
 
-.customrug-spinner.x4 {
+.customdesign-spinner.x4 {
     height: 40px;
     width: 40px;
     background-size: 40px
 }
 
-.customrug-spinner.x5 {
+.customdesign-spinner.x5 {
     height: 50px;
     width: 50px;
     background-size: 50px
 }
-#customrug-cart-wrp form{
+#customdesign-cart-wrp form{
     padding: 20px 25px;
     text-align: left;
 }
-#customrug-cart-wrp form select {
+#customdesign-cart-wrp form select {
     display: inline-block;
     width: 300px;
     height: 35px;
@@ -97,7 +97,7 @@ dd.customrug-variation {
     border: 1px solid #999;
     margin: 13px 0 0;
 }
-#customrug-cart-wrp form > label,
+#customdesign-cart-wrp form > label,
 .woocommerce-variation-add-to-cart > label{
     margin-bottom: 0;
     text-transform: uppercase;
@@ -124,37 +124,37 @@ dd.customrug-variation {
 .cart-group input.input-text.qty.text{
     width: 350px;
 }
-#customrug-cart-wrp form table {
+#customdesign-cart-wrp form table {
     margin-bottom: 0px;
 }
-#customrug-cart-wrp form table tr td label {
+#customdesign-cart-wrp form table tr td label {
     font-size: 14px;
     font-weight: 600;
     padding-top: 13px;
 }
 
-#customrug-cart-wrp form table tr{
+#customdesign-cart-wrp form table tr{
     border-bottom: 0;
 }
-#customrug-cart-wrp form table tr td{
+#customdesign-cart-wrp form table tr td{
     text-transform: uppercase;
     display: table;
 }
-#customrug-cart-wrp form table tr td > a {
+#customdesign-cart-wrp form table tr td > a {
     padding-left: 20px;
     font-size: 14px;
 }
 
-#customrug-cart-wrp .attrs-wrap{
+#customdesign-cart-wrp .attrs-wrap{
     text-align: left;
 }
-#customrug-cart-wrp .attrs-wrap label{
+#customdesign-cart-wrp .attrs-wrap label{
     text-transform: uppercase;
     font-size: 14px;
     font-weight: 600;
     margin: 11px 0;
 }
-#customrug-cart-wrp .attrs-wrap input {
+#customdesign-cart-wrp .attrs-wrap input {
     width: 300px;
     border: 1px solid #999;
     height: 35px;
@@ -162,7 +162,7 @@ dd.customrug-variation {
     border-radius: 3px;
 }
 
-#customrug-cart-wrp .quantity input {
+#customdesign-cart-wrp .quantity input {
     border: 1px solid #999;
     margin: 10px 0 20px 0px;
     max-width: 300px;
@@ -172,20 +172,20 @@ dd.customrug-variation {
     color: #333;
 }
 
-#customrug-cart-wrp  button {
+#customdesign-cart-wrp  button {
     font-size: 14px;
     text-transform: uppercase;
     padding: 10px 15px;
 }
 
-#woocommerce-product-data ul.wc-tabs li.customrug_tab a:before{
+#woocommerce-product-data ul.wc-tabs li.customdesign_tab a:before{
     content: "\f513";
 }
-#customrug_product_data{
+#customdesign_product_data{
     padding-bottom: 14px;
     text-align: center;
 }
-#customrug_product_data .notice{
+#customdesign_product_data .notice{
     background: #fafafa;
     font-size: 14px;
     padding: 10px;
@@ -193,49 +193,49 @@ dd.customrug-variation {
     margin: 0 0 14px 0;
     border-left-color: #ffb900;
 }
-#customrug_product_data .button i.dashicons{
+#customdesign_product_data .button i.dashicons{
     font-size: 16px;
     display: inline-block;
     margin-top: 5px
 }
-#customrug-product-base{
+#customdesign-product-base{
     display: block;
     padding: 14px 14px 10px 14px;
 }
-#customrug-stages-wrp {
+#customdesign-stages-wrp {
     display: inline-block;
     width: auto;
     float: none;
 }
 
-#customrug-stages-wrp .customrug_tab_nav, 
-#customrug-stages-wrp .customrug_tabs, 
-#customrug-stages-wrp .customrug_tab_content, 
-#customrug-stages-wrp .customrug_tab_content .customrug-product-design {
+#customdesign-stages-wrp .customdesign_tab_nav, 
+#customdesign-stages-wrp .customdesign_tabs, 
+#customdesign-stages-wrp .customdesign_tab_content, 
+#customdesign-stages-wrp .customdesign_tab_content .customdesign-product-design {
     width: auto;
     clear: both;
     min-width: 380px;
 }
-.customrug_field_stages .customrug_tabs{
+.customdesign_field_stages .customdesign_tabs{
 	padding: 10px 0 0 0;
 }
-#customrug_product_data .customrug_tabs_wrapper {
+#customdesign_product_data .customdesign_tabs_wrapper {
     width: 100%;
 }
 
-#customrug_product_data .customrug_tab_nav {
+#customdesign_product_data .customdesign_tab_nav {
     float: left;
     width: 100%;
     margin: 0px;
 }
 
-#customrug_product_data .customrug_tab_nav li {
+#customdesign_product_data .customdesign_tab_nav li {
     float: left;
     margin: 0px;
     outline: none;
 }
 
-#customrug_product_data .customrug_tab_nav li a {
+#customdesign_product_data .customdesign_tab_nav li a {
     display: block;
     font-weight: 600;
     color: #54575a;
@@ -251,19 +251,19 @@ dd.customrug-variation {
     box-shadow: none;
 }
 
-#customrug_product_data .customrug_content .customrug_tab_nav li a:hover {
+#customdesign_product_data .customdesign_content .customdesign_tab_nav li a:hover {
     background: #fff;
     text-decoration: none;
 }
 
-#customrug_product_data .customrug_tab_nav li.active a {
+#customdesign_product_data .customdesign_tab_nav li.active a {
     background: #fdfdfd;
     color: #393749;
     border-bottom-color: #fdfdfd;
     box-shadow: none;
 }
 
-#customrug_product_data .customrug_tabs {
+#customdesign_product_data .customdesign_tabs {
     border: 1px solid #c7c7c7;
     padding: 20px;
     margin-top: -1px;
@@ -273,13 +273,13 @@ dd.customrug-variation {
     text-align: center;
     background: #fdfdfd;
 }
-#customrug-product-base span[data-view="product-name"]{
+#customdesign-product-base span[data-view="product-name"]{
     float: right;
     color: #888;
     font-size: 14px;
     text-align: left;
 }
-#customrug-product-base span[data-view="product-name"] text{
+#customdesign-product-base span[data-view="product-name"] text{
     max-width: 200px;
     white-space: nowrap;
     text-align: right;
@@ -287,14 +287,14 @@ dd.customrug-variation {
     overflow: hidden;
     margin-right: 5px;
 }
-#customrug-product-base span[data-view="product-name"] a{
+#customdesign-product-base span[data-view="product-name"] a{
     text-decoration: none;
 }
-#customrug_product_data .customrug_tab_content.active {
+#customdesign_product_data .customdesign_tab_content.active {
     display: inline-block;
 }
 
-#customrug_product_data .customrug_tab_content {
+#customdesign_product_data .customdesign_tab_content {
     width: auto;
     display: none;
     -webkit-animation: fadeEffect 0.4s;
@@ -304,44 +304,44 @@ dd.customrug-variation {
     left: 50%;
     transform: translateX(-50%);
 }
-#customrug_product_data .customrug_form_group {
+#customdesign_product_data .customdesign_form_group {
     float: left;
     width: 100%;
     margin-bottom: 20px;
 }
-#customrug_product_data .customrug_form_group.customrug_field_print{
+#customdesign_product_data .customdesign_form_group.customdesign_field_print{
     margin-bottom: 10px;
 }
-#customrug_product_data .customrug-stage-settings, #customrug_product_data .customrug-stage-body{
+#customdesign_product_data .customdesign-stage-settings, #customdesign_product_data .customdesign-stage-body{
     position: relative;
     float: left;
 }
-#customrug_product_data .customrug-stage-body{
+#customdesign_product_data .customdesign-stage-body{
 	text-align: center;
     width: 100%;
 }
-#customrug_product_data .customrug-stage-body .customrug-toggle{
+#customdesign_product_data .customdesign-stage-body .customdesign-toggle{
 	float: none;
 }
-#customrug_product_data .customrug-stage-body .customrug-toggle+label{
+#customdesign_product_data .customdesign-stage-body .customdesign-toggle+label{
 	position: relative;
     top: -8px;
     margin-left: 5px;
 }
-.customrug-stage-design-view{
+.customdesign-stage-design-view{
 	display: inline-block;
 	position: relative;
 	margin: 0px auto 0;
 	min-width: 150px;
 }
-#customrug_product_data .customrug-stage-settings .customrug-stage-btn {
+#customdesign_product_data .customdesign-stage-settings .customdesign-stage-btn {
     display: block;
     margin: 0 0 2px 0;
     white-space: nowrap;
     padding: 11px 0px 10px;
     background: #f3f3f3;
 }
-#customrug_template{
+#customdesign_template{
     position: relative;
     text-align: center;
     background: #fafafa;
@@ -349,51 +349,51 @@ dd.customrug-variation {
     padding: 10px;
     margin-bottom: 10px;
 }
-#customrug_template a[href="#delete"]{
+#customdesign_template a[href="#delete"]{
 	color: #ee7474;
 	font-size: 20px;
 	position: absolute;
 	top: 10px;
 	right: 10px;
 }
-#customrug_template a[href="#delete"]:hover{
+#customdesign_template a[href="#delete"]:hover{
 	color: #ac3737;	
 }
-#customrug_product_data .customrug-stage-settings.stage-disabled #customrug_product_data .customrug-stage-body {
+#customdesign_product_data .customdesign-stage-settings.stage-disabled #customdesign_product_data .customdesign-stage-body {
     background: transparent !important;
 }
 
-#customrug_product_data .customrug-stage-settings .customrug-stage-btn button {
+#customdesign_product_data .customdesign-stage-settings .customdesign-stage-btn button {
     float: none !important;
 }
 
-#customrug_product_data .customrug-stage-settings.stage-disabled .customrug-stage-btn {
+#customdesign_product_data .customdesign-stage-settings.stage-disabled .customdesign-stage-btn {
     bottom: 10px;
 }
-.customrug-stage-btn button[data-delete-base]{
+.customdesign-stage-btn button[data-delete-base]{
     color:#f12929;
 }
-#customrug_product_data .customrug-stage-settings.stage-disabled .customrug-stage-btn button[data-delete-base],
-#customrug_product_data .customrug-stage-settings .customrug-stage-btn button[data-revert-base] {
+#customdesign_product_data .customdesign-stage-settings.stage-disabled .customdesign-stage-btn button[data-delete-base],
+#customdesign_product_data .customdesign-stage-settings .customdesign-stage-btn button[data-revert-base] {
     display: none;
 }
-#customrug_product_data .customrug-stage-settings {
+#customdesign_product_data .customdesign-stage-settings {
     width: 100%;
     user-select: none;
 }
 
-#customrug_product_data .customrug-stage-settings img.customrug-stage-image {
+#customdesign_product_data .customdesign-stage-settings img.customdesign-stage-image {
     float: left;
     max-width: 400px;
     border: 1px solid rgb(255, 124, 124);
 }
-#customrug_product_data .customrug-stage-settings.stage-disabled img {
+#customdesign_product_data .customdesign-stage-settings.stage-disabled img {
 	display: none;
 }
-#customrug_product_data .customrug-stage-settings img[data-svg="1"] {
+#customdesign_product_data .customdesign-stage-settings img[data-svg="1"] {
 	width: 400px;	
 }
-#customrug_product_data .customrug-stage-body .customrug-stage-editzone {
+#customdesign_product_data .customdesign-stage-body .customdesign-stage-editzone {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -404,13 +404,13 @@ dd.customrug-variation {
     color: #bbb;
     transform: translateX(-50%) translateY(-50%);
 }
-#customrug_product_data .customrug-stage-body .customrug-stage-design-view [data-func]{
+#customdesign_product_data .customdesign-stage-body .customdesign-stage-design-view [data-func]{
     display: none;
 }
-#customrug_product_data .customrug-stage-body .customrug-stage-design-view:hover [data-func]{
+#customdesign_product_data .customdesign-stage-body .customdesign-stage-design-view:hover [data-func]{
     display: block;
 }
-#customrug_product_data .customrug-stage-body input[type="range"][data-func]{
+#customdesign_product_data .customdesign-stage-body input[type="range"][data-func]{
     position: absolute;
     top: calc(100% - 24px);
     left: 50%;
@@ -420,7 +420,7 @@ dd.customrug-variation {
     cursor: pointer;
 }
 
-#customrug_product_data .customrug-stage-body input[type="range"] {
+#customdesign_product_data .customdesign-stage-body input[type="range"] {
     -webkit-appearance: none;
     margin: 2px 0;
     width: 100%;
@@ -428,11 +428,11 @@ dd.customrug-variation {
     background: transparent;
 }
 
-#customrug_product_data .customrug-stage-body input[type=range]:focus {
+#customdesign_product_data .customdesign-stage-body input[type=range]:focus {
     outline: none;
 }
 
-#customrug_product_data .customrug-stage-body input[type=range]::-webkit-slider-runnable-track {
+#customdesign_product_data .customdesign-stage-body input[type=range]::-webkit-slider-runnable-track {
     width: 100%;
     height: 2px;
     cursor: pointer;
@@ -441,7 +441,7 @@ dd.customrug-variation {
     border-radius: 3px;
 }
 
-#customrug_product_data .customrug-stage-body input[type=range]::-webkit-slider-thumb {
+#customdesign_product_data .customdesign-stage-body input[type=range]::-webkit-slider-thumb {
     border: 1px solid #fff;
     height: 14px;
     width: 14px;
@@ -453,13 +453,13 @@ dd.customrug-variation {
     transition: all 150ms ease;
 }
 
-#customrug_product_data .customrug-stage-body input[type=range]::-webkit-slider-thumb:hover {
+#customdesign_product_data .customdesign-stage-body input[type=range]::-webkit-slider-thumb:hover {
     height: 18px;
     width: 18px;
     margin-top: -8px;
 }
 
-#customrug_product_data .customrug-stage-body .customrug-stage-editzone button{
+#customdesign_product_data .customdesign-stage-body .customdesign-stage-editzone button{
     border: none;
     background: #555;
     color: #fff;
@@ -474,7 +474,7 @@ dd.customrug-variation {
     position: relative;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
-#customrug_product_data .customrug-stage-body .customrug-stage-editzone button[data-label]:after{
+#customdesign_product_data .customdesign-stage-body .customdesign-stage-editzone button[data-label]:after{
     content: attr(data-label);
     position: absolute;
     top: calc(-100% - 3px);
@@ -487,7 +487,7 @@ dd.customrug-variation {
     border-radius: 3px;
     display: none;
 }
-#customrug_product_data .customrug-stage-body .customrug-stage-editzone button[data-label]:before{
+#customdesign_product_data .customdesign-stage-body .customdesign-stage-editzone button[data-label]:before{
     content: "";
     position: absolute;
     top: -26%;
@@ -497,20 +497,20 @@ dd.customrug-variation {
     border-top: 5px solid rgb(85, 85, 85);
     display: none;
 }
-#customrug_product_data .customrug-stage-body .customrug-stage-editzone button[data-label]:hover:before,
-#customrug_product_data .customrug-stage-body .customrug-stage-editzone button[data-label]:hover:after{
+#customdesign_product_data .customdesign-stage-body .customdesign-stage-editzone button[data-label]:hover:before,
+#customdesign_product_data .customdesign-stage-body .customdesign-stage-editzone button[data-label]:hover:after{
     display: block;
 }
-#customrug_product_data .customrug-stage-body .customrug-stage-editzone button[data-func="move"]{
+#customdesign_product_data .customdesign-stage-body .customdesign-stage-editzone button[data-func="move"]{
     cursor: move;
 }
-#customrug_product_data .customrug-stage-body .customrug-stage-editzone button:last-child{
+#customdesign_product_data .customdesign-stage-body .customdesign-stage-editzone button:last-child{
     border-right: 1px solid rgba(255, 255, 255, 0.15);
 }
-#customrug_product_data .customrug-stage-body .customrug-stage-editzone button:hover{
+#customdesign_product_data .customdesign-stage-body .customdesign-stage-editzone button:hover{
     background: #333;
 }
-#customrug_product_data .customrug-stage-body .customrug-stage-editzone button.design-template-btn{
+#customdesign_product_data .customdesign-stage-body .customdesign-stage-editzone button.design-template-btn{
     position: absolute;
     top: 50%;
     left: 50%;
@@ -522,17 +522,17 @@ dd.customrug-variation {
     background: #dcdcdc;
     color: #505050;
 }
-#customrug_product_data .customrug-stage-body .customrug-stage-editzone button.design-template-btn:hover{
+#customdesign_product_data .customdesign-stage-body .customdesign-stage-editzone button.design-template-btn:hover{
     background: #333;
     color: #eee;
     border-color: transparent;  
 }
-#customrug_product_data .customrug-stage-settings.stage-disabled #customrug_product_data .customrug-stage-body .customrug-stage-editzone,
-#customrug_product_data .customrug-stage-settings.stage-disabled #customrug_product_data .customrug-stage-body .editzone-ranges {
+#customdesign_product_data .customdesign-stage-settings.stage-disabled #customdesign_product_data .customdesign-stage-body .customdesign-stage-editzone,
+#customdesign_product_data .customdesign-stage-settings.stage-disabled #customdesign_product_data .customdesign-stage-body .editzone-ranges {
     display: none;
 }
 
-#customrug-stages-wrp #customrug_product_data .customrug-stage-body .customrug-stage-editzone div.editzone-funcs {
+#customdesign-stages-wrp #customdesign_product_data .customdesign-stage-body .customdesign-stage-editzone div.editzone-funcs {
     position: absolute;
     top: -1px;
     left: 50%;
@@ -550,12 +550,12 @@ dd.customrug-variation {
     display: flex;
 }
 
-#customrug_product_data .customrug-stage-body .customrug-stage-editzone .editzone-funcs small {
+#customdesign_product_data .customdesign-stage-body .customdesign-stage-editzone .editzone-funcs small {
     display: block;
     font-size: 12px;
     text-align: center;
 }
-#customrug_product_data .customrug-stage-body .customrug-stage-editzone .design-template-inner {
+#customdesign_product_data .customdesign-stage-body .customdesign-stage-editzone .design-template-inner {
     position: absolute;
     top: 0px;
     left: 0px;
@@ -566,7 +566,7 @@ dd.customrug-variation {
     z-index: 0;
     overflow: hidden;
 }
-#customrug_product_data .customrug-stage-body .customrug-stage-editzone .design-template-inner:after {
+#customdesign_product_data .customdesign-stage-body .customdesign-stage-editzone .design-template-inner:after {
     content: "";
     height: 100%;
     width: 100%;
@@ -574,7 +574,7 @@ dd.customrug-variation {
     top: 0px;
     left: 0px;
 }
-#customrug_product_data .customrug-stage-body .customrug-stage-editzone .design-template-inner img{
+#customdesign_product_data .customdesign-stage-body .customdesign-stage-editzone .design-template-inner img{
     user-select: none;
     position: absolute;
     left: 0px;
@@ -582,7 +582,7 @@ dd.customrug-variation {
     cursor: move;
     z-index: 10;
 }
-#customrug_product_data .customrug-stage-body .customrug-stage-editzone>i[data-func="resize"] {
+#customdesign_product_data .customdesign-stage-body .customdesign-stage-editzone>i[data-func="resize"] {
     position: absolute;
     bottom: -10px;
     right: -10px;
@@ -594,7 +594,7 @@ dd.customrug-variation {
     border-radius: 2px;
     z-index: 10;
 }
-#customrug_product_data .customrug-stage-body .customrug-stage-editzone>i[data-func="resize"][data-info]:after {
+#customdesign_product_data .customdesign-stage-body .customdesign-stage-editzone>i[data-func="resize"][data-info]:after {
     content: attr(data-info);
     position: absolute;
     top: -83%;
@@ -609,22 +609,22 @@ dd.customrug-variation {
     letter-spacing: 0.5px;
     white-space: nowrap;
 }
-#customrug_product_data .customrug-stage-body .customrug-stage-editzone>i[data-func="resize"]:hover {
+#customdesign_product_data .customdesign-stage-body .customdesign-stage-editzone>i[data-func="resize"]:hover {
     background: #000;
 }
-#customrug_product_data .customrug-stage-body .editzone-ranges{
+#customdesign_product_data .customdesign-stage-body .editzone-ranges{
     background: #f3f3f3;
     text-align: left;
     min-width: 150px;
     margin: 0px;
 }
-#customrug_product_data .customrug-stage-body .editzone-ranges .edr-row{
+#customdesign_product_data .customdesign-stage-body .editzone-ranges .edr-row{
     display: flex;
     text-align: left;
     clear: both;
     line-height: 30px;
 }
-#customrug_product_data .customrug-stage-body .editzone-ranges .edr-row label{
+#customdesign_product_data .customdesign-stage-body .editzone-ranges .edr-row label{
     display: inline-block;
     padding: 8px 10px;
     text-align: left;
@@ -634,14 +634,14 @@ dd.customrug-variation {
     width: auto;
     white-space: nowrap;
 }
-#customrug_product_data .customrug-stage-body .editzone-ranges .edr-row input{
+#customdesign_product_data .customdesign-stage-body .editzone-ranges .edr-row input{
     display: inline-block;
     width: 100%;
     margin-top: 14px;
     margin-right: 20px;
 }
 
-.customrug-toggle {
+.customdesign-toggle {
     position: relative;
     display: inline-block;
     width: 70px;
@@ -651,7 +651,7 @@ dd.customrug-variation {
     top: -3px;
 }
 
-.customrug-toggle input {
+.customdesign-toggle input {
     position: absolute;
     left: 0;
     z-index: 1;
@@ -662,7 +662,7 @@ dd.customrug-variation {
     cursor: pointer;
 }
 
-.customrug-toggle .customrug-toggle-label {
+.customdesign-toggle .customdesign-toggle-label {
     float: left;
     position: relative;
     width: 70px;
@@ -673,7 +673,7 @@ dd.customrug-variation {
     padding: 0;
 }
 
-.customrug-toggle .customrug-toggle-label:before {
+.customdesign-toggle .customdesign-toggle-label:before {
     content: attr(data-off);
     position: absolute;
     right: 10px;
@@ -688,7 +688,7 @@ dd.customrug-variation {
     width: 30px;
 }
 
-.customrug-toggle .customrug-toggle-label:after {
+.customdesign-toggle .customdesign-toggle-label:after {
     content: attr(data-on);
     position: absolute;
     left: 11px;
@@ -704,7 +704,7 @@ dd.customrug-variation {
     width: 30px;
 }
 
-.customrug-toggle .customrug-toggle-handle {
+.customdesign-toggle .customdesign-toggle-handle {
     position: absolute;
     content: "";
     height: 24px;
@@ -717,23 +717,23 @@ dd.customrug-variation {
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.15);
 }
 
-.customrug-toggle input:checked ~ .customrug-toggle-label:before {
+.customdesign-toggle input:checked ~ .customdesign-toggle-label:before {
     opacity: 0;
 }
 
-.customrug-toggle input:checked ~ .customrug-toggle-label:after {
+.customdesign-toggle input:checked ~ .customdesign-toggle-label:after {
     opacity: 1;
 }
 
-.customrug-toggle input:checked ~ .customrug-toggle-handle {
+.customdesign-toggle input:checked ~ .customdesign-toggle-handle {
     left: 43px;
 }
 
-.customrug-toggle input:checked ~ .customrug-toggle-label {
+.customdesign-toggle input:checked ~ .customdesign-toggle-label {
     background: #0073aa;
 }
 
-#customrug-lightbox {
+#customdesign-lightbox {
     position: fixed;
     z-index: 1000000000;
     top: 0;
@@ -744,7 +744,7 @@ dd.customrug-variation {
     -moz-osx-font-smoothing: grayscale;
 }
 
-#customrug-lightbox .kalb-overlay {
+#customdesign-lightbox .kalb-overlay {
     position: fixed;
     z-index: 1;
     background: rgba(0,0,0,.75);
@@ -754,7 +754,7 @@ dd.customrug-variation {
     left: 0
 }
 
-#customrug-lightbox #customrug-lightbox-body {
+#customdesign-lightbox #customdesign-lightbox-body {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -767,7 +767,7 @@ dd.customrug-variation {
     overflow: hidden;
 }
 
-#customrug-lightbox #customrug-lightbox-footer {
+#customdesign-lightbox #customdesign-lightbox-footer {
     width: 100%;
     float: left;
     background: #eee;
@@ -779,15 +779,15 @@ dd.customrug-variation {
     position: relative
 }
 
-#customrug-lightbox #customrug-lightbox-footer a {
+#customdesign-lightbox #customdesign-lightbox-footer a {
     color: #ff66a6
 }
 
-#customrug-lightbox #customrug-lightbox-footer button+button {
+#customdesign-lightbox #customdesign-lightbox-footer button+button {
     margin-left: 20px
 }
 
-#customrug-lightbox #customrug-lightbox-content {
+#customdesign-lightbox #customdesign-lightbox-content {
     overflow-y: auto;
     overflow-x: hidden;
     padding: 0px;
@@ -798,24 +798,24 @@ dd.customrug-variation {
     max-height: calc(90vh - 82px);
     min-height: 250px;
 }
-#customrug-lightbox #customrug-lightbox-content.full-screen {
+#customdesign-lightbox #customdesign-lightbox-content.full-screen {
     height: 99vh;
     max-height: 99vh;
 }
-#customrug-lightbox #customrug-lightbox-content i.customrug-spinner {
+#customdesign-lightbox #customdesign-lightbox-content i.customdesign-spinner {
     margin-top: 120px;
 }
 
-#customrug-lightbox #customrug-lightbox-content iframe {
+#customdesign-lightbox #customdesign-lightbox-content iframe {
     width: 100%;
     border: none;
     height: calc(90vh - 82px);
     float: left;
 }
-#customrug-lightbox #customrug-lightbox-content.full-screen iframe{
+#customdesign-lightbox #customdesign-lightbox-content.full-screen iframe{
     height: calc(99vh);	
 }
-#customrug-lightbox #customrug-lightbox-content textarea.s1 {
+#customdesign-lightbox #customdesign-lightbox-content textarea.s1 {
     width: 450px;
     height: 80px;
     border: 1px solid #ddd;
@@ -824,7 +824,7 @@ dd.customrug-variation {
     color: #555
 }
 
-#customrug-lightbox #customrug-lightbox-content h3.title {
+#customdesign-lightbox #customdesign-lightbox-content h3.title {
     border-bottom: 1px dotted #ccc;
     padding-bottom: 14px;
     margin-bottom: 20px;
@@ -840,7 +840,7 @@ dd.customrug-variation {
     font-weight: normal;
 }
 
-#customrug-lightbox #customrug-lightbox-content h3.title a {
+#customdesign-lightbox #customdesign-lightbox-content h3.title a {
     text-decoration: none;
     text-transform: initial;
     font-weight: normal;
@@ -856,18 +856,18 @@ dd.customrug-variation {
     line-height: 26px;
 }
 
-#customrug-lightbox #customrug-lightbox-content h3.title a:hover {
+#customdesign-lightbox #customdesign-lightbox-content h3.title a:hover {
     background: #3f4652;
     color: #eee;
 }
 
-#customrug-lightbox #customrug-lightbox-content h3.title a i {
+#customdesign-lightbox #customdesign-lightbox-content h3.title a i {
     font-size: 16px;
     bottom: -3px;
     position: relative;
 }
 
-#customrug-lightbox a.kalb-close {
+#customdesign-lightbox a.kalb-close {
     font-size: 18px;
     padding: 14px;
     color: #ccc;
@@ -879,26 +879,26 @@ dd.customrug-variation {
     opacity: .2;
     z-index: 3;
 }
-#customrug-lightbox a.kalb-close i{
+#customdesign-lightbox a.kalb-close i{
 	font-size: 30px;
 }
-#customrug-lightbox #customrug-lightbox-body:hover a.kalb-close {
+#customdesign-lightbox #customdesign-lightbox-body:hover a.kalb-close {
     opacity: 1
 }
 
-#customrug-lightbox a.kalb-close:hover {
+#customdesign-lightbox a.kalb-close:hover {
     color: #f70961
 }
 
 
-#customrug-lightbox #customrug-list-items-wrp {float: left;background: #3f4652;width: 100%;}
+#customdesign-lightbox #customdesign-list-items-wrp {float: left;background: #3f4652;width: 100%;}
 
-#customrug-lightbox #customrug-list-items-wrp ul {
+#customdesign-lightbox #customdesign-list-items-wrp ul {
     list-style: none;
     margin: 0px;
     padding: 0px;
 }
-#customrug-lightbox #customrug-list-items-wrp ul[data-view="navigation"] {
+#customdesign-lightbox #customdesign-list-items-wrp ul[data-view="navigation"] {
     float: left;
     width: calc(100% - 260px);
     margin-top: 54px;
@@ -907,20 +907,20 @@ dd.customrug-variation {
     box-sizing: border-box;
     border-bottom: 1px dotted #ccc;
 }
-#customrug-lightbox #customrug-list-items-wrp ul[data-view="navigation"] li{
+#customdesign-lightbox #customdesign-list-items-wrp ul[data-view="navigation"] li{
 	margin-bottom: 0px;
 	text-transform: capitalize;
 }
-#customrug-lightbox #customrug-list-items-wrp ul[data-view="navigation"]+ul[data-view="items"]{
+#customdesign-lightbox #customdesign-list-items-wrp ul[data-view="navigation"]+ul[data-view="items"]{
 	margin-top: 0px;
 }
-#customrug-lightbox #customrug-list-items-wrp ul[data-view="categories"] {
+#customdesign-lightbox #customdesign-list-items-wrp ul[data-view="categories"] {
     float: left;
     width: 260px;
     overflow: auto;
     max-height: calc(90vh - 122px);
 }
-#customrug-lightbox #customrug-list-items-wrp ul[data-view="categories"]>h3 {
+#customdesign-lightbox #customdesign-list-items-wrp ul[data-view="categories"]>h3 {
     text-transform: uppercase;
     font-size: 13px;
     background: rgb(47, 51, 58);
@@ -929,7 +929,7 @@ dd.customrug-variation {
     color: #eee;
     letter-spacing: .5px;
 }
-#customrug-lightbox #customrug-list-items-wrp ul[data-view="categories"] li {
+#customdesign-lightbox #customdesign-list-items-wrp ul[data-view="categories"] li {
     padding: 10px 10px 10px 12px;
     font-size: 15px;
     text-transform: capitalize;
@@ -940,7 +940,7 @@ dd.customrug-variation {
     color: #ccc;
     margin: 0px;
 }
-#customrug-lightbox #customrug-list-items-wrp ul[data-view="categories"] li[data-lv="0"]:before{
+#customdesign-lightbox #customdesign-list-items-wrp ul[data-view="categories"] li[data-lv="0"]:before{
     content: "\f345";
     font-family: dashicons;
     padding: 0;
@@ -948,21 +948,21 @@ dd.customrug-variation {
     margin-right: 2px;
     float: left;
 }
-#customrug-lightbox #customrug-list-items-wrp ul[data-view="categories"] li:hover {
+#customdesign-lightbox #customdesign-list-items-wrp ul[data-view="categories"] li:hover {
     background: rgba(238, 238, 238, 0.07);
 }
-#customrug-lightbox #customrug-list-items-wrp ul[data-view="categories"] li.active{
+#customdesign-lightbox #customdesign-list-items-wrp ul[data-view="categories"] li.active{
     background: #3fc7ba;
     color: #eee;
     border-bottom-color: #3fc7ba;
 }
-#customrug-lightbox #customrug-list-items-wrp ul[data-view="categories"] li:last-child {
+#customdesign-lightbox #customdesign-list-items-wrp ul[data-view="categories"] li:last-child {
 	border-bottom: none;
 }
-#customrug-lightbox #customrug-list-items-wrp ul[data-view="categories"] li:not([data-lv="0"]){
+#customdesign-lightbox #customdesign-list-items-wrp ul[data-view="categories"] li:not([data-lv="0"]){
     padding-left: 25px;
 }
-#customrug-lightbox #customrug-list-items-wrp ul[data-view="items"] {
+#customdesign-lightbox #customdesign-list-items-wrp ul[data-view="items"] {
     float: left;
     width: calc(100% - 260px);
     background: #f2f2f2;
@@ -972,7 +972,7 @@ dd.customrug-variation {
     position: relative;
     margin-top: 47px;
 }
-#customrug-lightbox #customrug-list-items-wrp ul[data-view="items"] li[data-view="noitem"]{
+#customdesign-lightbox #customdesign-list-items-wrp ul[data-view="items"] li[data-view="noitem"]{
     width: 94%;
     padding: 80px 0;
     box-sizing: border-box;
@@ -981,7 +981,7 @@ dd.customrug-variation {
     box-shadow: none;
     cursor: default;
 }
-#customrug-lightbox #customrug-list-items-wrp h3[data-view="top"] {
+#customdesign-lightbox #customdesign-list-items-wrp h3[data-view="top"] {
     text-transform: uppercase;
     font-size: 13px;
     background: #fafafa;
@@ -997,7 +997,7 @@ dd.customrug-variation {
     box-shadow: 0px 1px 3px 0 rgba(0,0,0,.1);
     line-height: 38px;
 }
-#customrug-lightbox #customrug-list-items-wrp h3[data-view="top"] a{
+#customdesign-lightbox #customdesign-list-items-wrp h3[data-view="top"] a{
     text-transform: capitalize;
     font-weight: 500;
     text-decoration: none;
@@ -1009,19 +1009,19 @@ dd.customrug-variation {
     color: #777;
     margin-left: 10px;
 }
-#customrug-lightbox #customrug-list-items-wrp h3[data-view="top"] a:hover{
+#customdesign-lightbox #customdesign-list-items-wrp h3[data-view="top"] a:hover{
     color: #333;
 }
-#customrug-lightbox #customrug-list-items-wrp h3[data-view="top"] a i{
+#customdesign-lightbox #customdesign-list-items-wrp h3[data-view="top"] a i{
     line-height: inherit;
     font-size: 14px;
     height: inherit;
     width: inherit;
 }
-#customrug-lightbox #customrug-list-items-wrp h3[data-view="top"] a:hover{
+#customdesign-lightbox #customdesign-list-items-wrp h3[data-view="top"] a:hover{
 	background: #ddd;	
 }
-#customrug-lightbox #customrug-list-items-wrp h3[data-view="top"] input{
+#customdesign-lightbox #customdesign-list-items-wrp h3[data-view="top"] input{
     height: 34px;
     border: none;
     padding: 0 10px;
@@ -1035,10 +1035,10 @@ dd.customrug-variation {
     float: right;
     margin-right: 30px;
 }
-#customrug-lightbox #customrug-list-items-wrp h3[data-view="top"] input:focus{
+#customdesign-lightbox #customdesign-list-items-wrp h3[data-view="top"] input:focus{
     background: #e5e5e5;
 }
-#customrug-lightbox #customrug-list-items-wrp ul[data-view="items"] li {
+#customdesign-lightbox #customdesign-list-items-wrp ul[data-view="items"] li {
     text-align: center;
     float: left;
     cursor: pointer;
@@ -1049,10 +1049,10 @@ dd.customrug-variation {
     margin: 0 0 20px 3%;
     position: relative;
 }
-#customrug-lightbox #customrug-list-items-wrp ul[data-view="items"] li:nth-child(3n+1){
+#customdesign-lightbox #customdesign-list-items-wrp ul[data-view="items"] li:nth-child(3n+1){
 	clear: both;
 }
-#customrug-lightbox #customrug-list-items-wrp ul[data-view="items"] li[data-loadmore]{
+#customdesign-lightbox #customdesign-list-items-wrp ul[data-view="items"] li[data-loadmore]{
     clear: both;
     display: inline-block;
     float: none;
@@ -1067,13 +1067,13 @@ dd.customrug-variation {
     width: 45%;
     color: #eee;
 }
-#customrug-lightbox #customrug-list-items-wrp ul[data-view="items"] li[data-loadmore]:hover{
+#customdesign-lightbox #customdesign-list-items-wrp ul[data-view="items"] li[data-loadmore]:hover{
     background: #181b21;	
 }
-#customrug-lightbox #customrug-list-items-wrp ul[data-view="items"] li[data-loadmore] .customrug-spinner{
+#customdesign-lightbox #customdesign-list-items-wrp ul[data-view="items"] li[data-loadmore] .customdesign-spinner{
 	margin: 0px;
 }
-#customrug-lightbox #customrug-list-items-wrp ul[data-view="items"] li[data-current="true"]:after{
+#customdesign-lightbox #customdesign-list-items-wrp ul[data-view="items"] li[data-current="true"]:after{
     position: absolute;
     content: "\f147";
     font-family: dashicons;
@@ -1088,13 +1088,13 @@ dd.customrug-variation {
     text-align: center;
     line-height: 25px;
 }
-#customrug-lightbox #customrug-list-items-wrp ul[data-view="items"] li span[data-view="thumbn"] {
+#customdesign-lightbox #customdesign-list-items-wrp ul[data-view="items"] li span[data-view="thumbn"] {
     display: inline-block;
     width: 100%;
     text-align: center;
     position: relative;
 }
-#customrug-lightbox #customrug-list-items-wrp ul[data-view="items"] li span[data-view="thumbn"]:after {
+#customdesign-lightbox #customdesign-list-items-wrp ul[data-view="items"] li span[data-view="thumbn"]:after {
     position: absolute;
     content: attr(data-start);
     left: 50%;
@@ -1112,11 +1112,11 @@ dd.customrug-variation {
     opacity: 0;
     letter-spacing: .5px;
 }
-#customrug-lightbox #customrug-list-items-wrp ul[data-view="items"] li:hover span[data-view="thumbn"]:after {
+#customdesign-lightbox #customdesign-list-items-wrp ul[data-view="items"] li:hover span[data-view="thumbn"]:after {
     opacity: 1;
     transform: translateX(-50%) translateY(-50%);
 }
-#customrug-lightbox #customrug-list-items-wrp ul[data-view="items"] li span[data-view="name"] {
+#customdesign-lightbox #customdesign-list-items-wrp ul[data-view="items"] li span[data-view="name"] {
     font-weight: 600;
     color: #3A3A3C;
     text-transform: uppercase;
@@ -1130,10 +1130,10 @@ dd.customrug-variation {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-#customrug-lightbox #customrug-list-items-wrp ul[data-view="items"] li:hover span[data-view="name"] {
+#customdesign-lightbox #customdesign-list-items-wrp ul[data-view="items"] li:hover span[data-view="name"] {
     color: #3fc7ba;
 }
-#customrug-lightbox #customrug-list-items-wrp ul[data-view="items"] li span[data-view="price"] {
+#customdesign-lightbox #customdesign-list-items-wrp ul[data-view="items"] li span[data-view="price"] {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -1141,15 +1141,15 @@ dd.customrug-variation {
     font-size: 14px;
     font-weight: 600;
 }
-#customrug-lightbox #customrug-list-items-wrp ul[data-view="items"] li img {
+#customdesign-lightbox #customdesign-list-items-wrp ul[data-view="items"] li img {
     max-height: 260px;
     display: inline-block;
     max-width: 100%;
 }
-#customrug-lightbox iframe{
+#customdesign-lightbox iframe{
 	display: block;
 	width: 100%;
 }
-.toplevel_page_customrug #message, .toplevel_page_customrug.wp-core-ui .notice.is-dismissible{
+.toplevel_page_customdesign #message, .toplevel_page_customdesign.wp-core-ui .notice.is-dismissible{
     display: none;
 }
