@@ -984,5 +984,3 @@ class customdesign_cart extends customdesign_lib
 */
 
 new customdesign_cart();
-
-
