@@ -1,0 +1,10 @@
+#adminmenumain, #wpadminbar, #wpfooter, .customdesign_breadcrumb{
+	display: none !important;
+}
+#wpcontent, html.wp-toolbar, #wpbody-content, .customdesign_wrapper{
+	margin: 0px !important;
+	padding: 0px !important;
+}
+.customdesign_wrapper{
+	width: 100% !important;
+}
