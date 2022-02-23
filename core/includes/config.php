@@ -1,9 +1,9 @@
 <?php
 /**
 *
-*	(p) package: CustomDesign
+*	(p) package: Custom Design
 *	(c) author:	Mehdi Mirabi
-*	(i) website: https://www.rugcustom.com
+*	(i) website: https://www.magicrugs.com
 *
 */
 

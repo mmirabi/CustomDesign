@@ -1,7 +1,7 @@
 <?php
 /**
-*	
-*	(p) package: CustomDesign
+*
+*	(p) package: Custom Design
 *	(c) author:	Mehdi Mirabi
 *	(i) website: https://www.magicrugs.com
 *
