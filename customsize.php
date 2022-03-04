@@ -18,7 +18,7 @@ if(!defined('DS')) {
 	}
 }
 if(!defined('CUSTOMDESIGN_WOO')) {
-	define('CUSTOMDESIGN_WOO', '1.0.0' );
+	define('CUSTOMDESIGN_WOO', '1.2.2' );
 }
 if ( ! defined( 'CUSTOMDESIGN_FILE' ) ) {
 	define('CUSTOMDESIGN_FILE', __FILE__ );
