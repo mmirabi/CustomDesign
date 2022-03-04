@@ -21,6 +21,7 @@ if (
         <form action="<?php echo $customdesign->cfg->admin_url ?>customdesign-page=addons"></form>
     </div>
 </div>
+
 <?php
 }
 ?>
