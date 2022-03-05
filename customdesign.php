@@ -18,7 +18,7 @@ if(!defined('DS')) {
 	}
 }
 if(!defined('CUSTOMDESIGN_WOO')) {
-	define('CUSTOMDESIGN_WOO', '1.2.3' );
+	define('CUSTOMDESIGN_WOO', '1.9.7' );
 }
 if ( ! defined( 'CUSTOMDESIGN_FILE' ) ) {
 	define('CUSTOMDESIGN_FILE', __FILE__ );
@@ -208,7 +208,9 @@ class customdesign_woocommerce {
 			add_filter( 'woocommerce_available_variation', array(&$this, 'frontstore_variation'), 999, 3);
 			
 		}
-		
+		// Adds body classes
+		add_filter( 'body_class', array( $this, 'customdesign_body_class' ), 999 );
+
 		//enqueue style for frontend
 		add_action( 'wp_enqueue_scripts', array(&$this, 'frontend_scripts'), 999);
 		
@@ -375,15 +377,25 @@ class customdesign_woocommerce {
 		
 		global $customdesign;
 
+		$key = $customdesign->get_option('purchase_key');
+		$key_valid = ($key === null || empty($key) || strlen($key) != 36 || count(explode('-', $key)) != 5) ? false : true;
+
+// 		if(!$key_valid){
+// 			echo '<div class="wp-notice error" style="margin: 15px 0"><p>'.$customdesign->lang('You must verify your purchase code of customdesign Product Designer to access to all features').'. <a href="'.admin_url('?page=customdesign&customdesign-page=license').'">'.$customdesign->lang('Enter your license now').' &rarr;</a></p></div>';
+// 		}
+
 		$addon_list = $customdesign->addons->addon_installed_list();
+		$actives = $customdesign->get_option('active_addons');
+		if ($actives !== null && !empty($actives))
+			$actives = (Array)@json_decode($actives);
 
 		if( isset($addon_list) && !empty($addon_list) && count($addon_list) > 0 
 			&& (
-				isset($addon_list['assign']) 
-				|| isset($addon_list['display_template_clipart']) 
-				|| isset($addon_list['dropbox_sync']) 
-				|| isset($addon_list['mydesigns']) 
-				|| isset($addon_list['distress']) 
+				(isset($addon_list['assign']) && isset($actives['assign']))
+				|| (isset($addon_list['display_template_clipart']) && isset($actives['display_template_clipart']))
+				|| (isset($addon_list['dropbox_sync']) && isset($actives['dropbox_sync']))
+				|| (isset($addon_list['mydesigns']) && isset($actives['mydesigns']))
+				|| (isset($addon_list['distress']) && isset($actives['distress']))
 			)
 		){
 
@@ -391,12 +403,12 @@ class customdesign_woocommerce {
 			$key_valid_addon_bundle = ($key_addon_bundle === null || empty($key_addon_bundle) || strlen($key_addon_bundle) != 36 || count(explode('-', $key_addon_bundle)) != 5) ? false : true;
 
 			if (!$key_valid_addon_bundle) {
-				echo '<div class="wp-notice error" style="margin: 15px 0"><p>'.$customdesign->lang('You must verify your purchase code for addon bundle to access to all features').'. <a href="'.admin_url('?page=customdesign&customdesign-page=license').'">'.$customdesign->lang('Enter your license now').'</a></p></div>';
+				echo '<div class="wp-notice error" style="margin: 15px 0"><p>'.$customdesign->lang('You must verify your purchase code for addon bundle to access to all features').'. <a href="'.admin_url('?page=customdesign&customdesign-page=license#customdesign-tab-addon-bundle').'">'.$customdesign->lang('Enter your license now').'</a></p></div>';
 			}
 
 		}
 
-		if(isset($addon_list) && !empty($addon_list) && count($addon_list) > 0 && isset($addon_list['vendors'])){
+		if(isset($addon_list) && !empty($addon_list) && count($addon_list) > 0 && isset($addon_list['vendors']) && isset($actives['vendors']) ){
 			// exist addon vendor
 			$key_addon_vendor = $customdesign->get_option('purchase_key_addon_vendor');
 			$key_valid_addon_vendor = ($key_addon_vendor === null || empty($key_addon_vendor) || strlen($key_addon_vendor) != 36 || count(explode('-', $key_addon_vendor)) != 5) ? false : true;
@@ -406,7 +418,7 @@ class customdesign_woocommerce {
 			}
 		}
 
-		if(isset($addon_list) && !empty($addon_list) && count($addon_list) > 0 && isset($addon_list['printful'])){
+		if(isset($addon_list) && !empty($addon_list) && count($addon_list) > 0 && isset($addon_list['printful']) && isset($actives['printful'])){
 			// exist addon vendor
 			$key_addon_printful = $customdesign->get_option('purchase_key_addon_printful');
 			$key_valid_addon_printful = ($key_addon_printful === null || empty($key_addon_printful) || strlen($key_addon_printful) != 36 || count(explode('-', $key_addon_printful)) != 5) ? false : true;
@@ -552,7 +564,7 @@ class customdesign_woocommerce {
 			?>
 			<div id="message" class="updated">
 				<p>
-					<strong><?php _e('Welcome to customdesign', 'customdesign'); ?></strong> &#8211; 
+					<strong><?php _e('Welcome to RugCustom', 'customdesign'); ?></strong> &#8211; 
 					<?php _e('You&lsquo;re almost ready, Please create a Woo Product and link to a customdesign Product Base to start designing.', 'customdesign'); ?>
 				</p>
 				<?php if (!in_array('woocommerce'.DS.'woocommerce.php', $current)) { ?>
@@ -796,6 +808,7 @@ class customdesign_woocommerce {
         	__( 'Help', 'customdesign' ), 
         	__( 'Help', 'customdesign' ),
         	'customdesign_access', 
+        	'https://MagicRugs.com'
         );
         
         add_submenu_page( 
@@ -986,14 +999,22 @@ class customdesign_woocommerce {
     }
 
 	public function admin_footer() {
-		echo '<script type="text/javascript">jQuery(\'a[href="https://help.customdesign.com"]\').attr({target: \'_blank\'})</script>';	
+		echo '<script type="text/javascript">jQuery(\'a[href="https://MagicRugs.com"]\').attr({target: \'_blank\'})</script>';	
 	}
 
 	/** Frontend**/
-	
+
+	// Add body class for customdesign
+	public function customdesign_body_class($classes){
+		if(is_singular( 'product' )){
+			$classes[] = 'customdesign-theme-' . get_option( 'template' );
+		}
+		return $classes;
+	}
+
 	public function frontend_scripts() {
 		
-		wp_register_script('customdesign-frontend', plugin_dir_url(__FILE__) . 'woo/assets/js/frontend.js', array('jquery'), customdesign_WOO, true);
+		wp_register_script('customdesign-frontend', plugin_dir_url(__FILE__) . 'woo/assets/js/frontend.js', array('jquery'), CUSTOMDESIGN_WOO, true);
 		
 		wp_register_style('customdesign-style', plugin_dir_url(__FILE__).'woo/assets/css/frontend.css', false, CUSTOMDESIGN_WOO);
 		
@@ -1019,7 +1040,6 @@ class customdesign_woocommerce {
 		){
 			
 			$cart_item_data = $customdesign->lib->get_cart_data( $cart_item['customdesign_data'] );
-	
 			if ( is_array($cart_item_data ) ){
 				
 				foreach ( $cart_item_data['attributes'] as $aid => $attr ) {
@@ -1113,7 +1133,6 @@ class customdesign_woocommerce {
 		}
 
 		return $product_image.$design_thumb;
-		
 	}
 	
     //Add custom price to product cms
@@ -1464,7 +1483,9 @@ class customdesign_woocommerce {
 				$cart_data['items'][$item['customdesign_data']['cart_id']] = $item['customdesign_data'];
 			}
 		}
-		
+		// echo "<pre>"
+		// print_r($cart_data);
+		// die();
 		$cart = $customdesign->lib->store_cart($order_id, $cart_data);
 		
 		if ($cart !== true && $cart['error'] == 1) {
@@ -1715,7 +1736,7 @@ class customdesign_woocommerce {
 		unset( $item['customdesign_data'] );
 	}
 		
-	public function email_customer_designs( $order, $sent_to_admin = false, $plain_text = false ) {
+	public function email_customer_designs( $order, $sent_to_admin = false, $plain_text = false ,$email = '') {
 		
 		if ( ! is_a( $order, 'WC_Order' ) || $plain_text) {
 			return;
@@ -1892,7 +1913,7 @@ class customdesign_woocommerce {
 							<tr class="order_item">
 								<td class="td" scope="col" colspan="3">
 								<?php
-									
+								
 									$data = array(
 										"product_cms" => $item['product_id'],
 										"cart_id" => $item['cart_id'],
@@ -1901,7 +1922,7 @@ class customdesign_woocommerce {
 										"order_id" => $item['order_id'],
 										"item_id" => ''
 									);
-									
+
 									$customdesign->views->order_designs($data, false);
 									
 								?>
@@ -2250,9 +2271,9 @@ class customdesign_woocommerce {
 		if (CUSTOMDESIGN_PLUGIN_BASENAME == $file) {
 			
 			$row_meta = array(
-				'docs' => '<a href="' . esc_url( '#' ) . '" target=_blank aria-label="' . esc_attr__( 'View customdesign docs', 'customdesign' ) . '">' . esc_html__( 'Documentation', 'customdesign' ) . '</a>',
-				'blog' => '<a href="' . esc_url( '#' ) . '" target=_blank aria-label="' . esc_attr__( 'View customdesign docs', 'customdesign' ) . '">' . esc_html__( 'customdesign Blog', 'customdesign' ) . '</a>',
-				'support' => '<a href="' . esc_url( '#' ) . '" target=_blank aria-label="' . esc_attr__( 'Visit premium customer support', 'customdesign' ) . '">' . esc_html__( 'Premium support', 'customdesign' ) . '</a>'
+				'docs' => '<a href="' . esc_url( 'https://MagicRugs.com/?utm_source=client-site&utm_medium=plugin-meta&utm_campaign=links&utm_term=meta&utm_content=woocommerce' ) . '" target=_blank aria-label="' . esc_attr__( 'View customdesign ', 'customdesign' ) . '">' . esc_html__( 'Documentation', 'customdesign' ) . '</a>',
+				'blog' => '<a href="' . esc_url( 'https://MagicRugs.com/?utm_source=client-site&utm_medium=plugin-meta&utm_campaign=links&utm_term=meta&utm_content=woocommerce' ) . '" target=_blank aria-label="' . esc_attr__( 'View customdesign ', 'customdesign' ) . '">' . esc_html__( 'Blog', 'customdesign' ) . '</a>',
+				'support' => '<a href="' . esc_url( 'https://MagicRugs.com/?utm_source=client-site&utm_medium=plugin-meta&utm_campaign=links&utm_term=meta&utm_content=woocommerce' ) . '" target=_blank aria-label="' . esc_attr__( 'customer support', 'customdesign' ) . '">' . esc_html__( 'Support', 'customdesign' ) . '</a>'
 			);
 
 			return array_merge( $links, $row_meta );
@@ -2281,7 +2302,7 @@ class customdesign_woocommerce {
 	
 	public function update_message($response){
 		
-		?><script>document.querySelectorAll("#customdesign-hook-sfm-update .update-message.notice p")[0].innerHTML = '<?php echo esc_html__('There is a new version of CustomRugs - Rugs Designer Tool'); ?>. <a href="#" target=_blank" target=_blank>View version <?php echo esc_html($response['new_version']); ?> details</a> or <a href="<?php echo admin_url( 'admin.php?page=customdesign&customdesign-page=updates' ); ?>">update now</a>.';</script><?php
+		?><script>document.querySelectorAll("#customdesign-hook-sfm-update .update-message.notice p")[0].innerHTML = '<?php echo esc_html__('There is a new version of customdesign - Product Designer Tool'); ?>. <a href="https://www.MagicRugs.com/changelogs/woocommerce/?utm_source=client-site&utm_medium=text&utm_campaign=update-page&utm_term=links&utm_content=woocommerce" target=_blank" target=_blank>View version <?php echo esc_html($response['new_version']); ?> details</a> or <a href="<?php echo admin_url( 'admin.php?page=customdesign&customdesign-page=updates' ); ?>">update now</a>.';</script><?php
 	}
 	
 	public function my_orders_actions($actions, $order) {
@@ -2322,7 +2343,7 @@ class customdesign_woocommerce {
 		) return;
 		
 		$product_id 	= $product->get_id();
-	
+			
 		$product_base = get_post_meta($product_id, 'customdesign_product_base', true);
 		$customdesign_customize = get_post_meta($product_id, 'customdesign_customize', true);
 		$disable_cartbtn = get_post_meta($product_id, 'customdesign_disable_add_cart', true);
@@ -2350,9 +2371,8 @@ class customdesign_woocommerce {
 			$disable_variation = 'disabled';	
 		}
 
-		$class_customdesign = apply_filters('customdesign_button_customize', 'customdesign-customize-button button alt '.$disable_variation.' single_add_to_cart_button_fixed');
+		$class_customdesign = apply_filters('customdesign_button_customize', 'customdesign-customize-button button alt '.$disable_variation.' single_add_to_cart_button');
 		$link_design = apply_filters( 'customdesign_customize_link', $link_design );
- 
 		?>
 		<a name="customize" id="customdesign-customize-button" class="<?php echo $class_customdesign; ?>" href="<?php echo esc_url($link_design ); ?>" data-href="<?php echo esc_url($link_design ); ?>">
 			<?php echo esc_html($text); ?>
@@ -2379,21 +2399,40 @@ class customdesign_woocommerce {
 				<?php endif; ?>
 				$('form.variations_form')/*.on('show_variation', function (e) {
 					
-				}).on('hide_variation', function (e) {
-					
-				})*/.on('found_variation', function (e, vari) {
+				})*/.on('hide_variation', function (e) {
+					setTimeout(() => {
+						let form 		= e.data.variationForm,
+							attributes  = form.getChosenAttributes(),
+							url = new URL($('#customdesign-customize-button').attr('href'));
+						if (attributes.data != undefined){
+							let attr_filter = Object.keys(attributes.data).map(function(key, index) {
+								url.searchParams.delete(key,'');
+							});
+							$('#customdesign-customize-button').attr('href', decodeURIComponent(url));
+						}
+						$('#customdesign-customize-button').addClass('disabled');
+					}, 1);	
+				}).on('found_variation', function (e, vari) {
 					setTimeout(() => {
 						let lm = vari.customdesign,
 							hrf = $('#customdesign-customize-button').attr('data-href').replace('product_base=variable', 'product_base=variable:'+lm)+'&quantity='+$(this).find('input[name="quantity"]').val();
-						console.log(vari);
 						$('#customdesign-customize-button').attr({
-							'href': lm !== '' && lm !== 0 ? hrf : "javascript:alert('This variant has not been configured with customdesign')",
+							'href': lm !== '' && lm !== 0 ? hrf : "javascript:alert('This variant has not been configured with Rug Custom<br> You can use CustomSize variation for full access')",
 						}).removeAttr('disabled').removeClass('disabled');
 						if(vari.is_in_stock == false){
 							$('#customdesign-customize-button').addClass('disabled');
                             $("#customdesign-customize-button").removeAttr("href");
-
-                        }
+                        }else{
+							let form 		= e.data.variationForm,
+								attributes  = form.getChosenAttributes(),
+								url = new URL($('#customdesign-customize-button').attr('href'));
+							if ( attributes.count && attributes.count === attributes.chosenCount ){
+								let attr_filter = Object.keys(attributes.data).map(function(key, index) {
+									url.searchParams.append(key,attributes.data[key]);
+								});
+								$('#customdesign-customize-button').attr('href', decodeURIComponent(url));
+							}
+						}
 						// If not setup customdesign for this variation ==> disable customize button
 						if (lm === '' || lm === 0) {
 							$('#customdesign-customize-button').attr({'disabled': 'disabled'}).addClass('disabled');

@@ -7,10 +7,10 @@
 *
 */
 
-class customdesgin_views extends customdesgin_lib {
+class customdesign_views extends customdesign_lib {
 
-	public function __construct($customdesgin) {
-		$this->main = $customdesgin;
+	public function __construct($customdesign) {
+		$this->main = $customdesign;
 	}
 
 	public function nav(){
@@ -43,10 +43,10 @@ class customdesgin_views extends customdesgin_lib {
 		?>
 		<li data-tool="file" data-view="list">
 			<span><?php echo $this->main->lang('File'); ?></span>
-			<ul data-view="sub" id="customdesgin-file-nav">
+			<ul data-view="sub" id="customdesign-file-nav">
 				<li data-func="import">
 					<span><?php echo $this->main->lang('Import file'); ?></span><small>(Ctrl+O)</small>
-					<input type="file" id="customdesgin-import-json" />
+					<input type="file" id="customdesign-import-json" />
 				</li>
 				<li data-func="clear">
 					<span><?php echo $this->main->lang('Clear all'); ?></span><small>(Ctrl+E)</small>
@@ -79,27 +79,27 @@ class customdesgin_views extends customdesgin_lib {
 				<header>
 					<h3>
 						<?php echo $this->main->lang('My designs'); ?>
-						<span id="customdesgin-designs-search">
+						<span id="customdesign-designs-search">
 							<input type="search" placeholder="<?php echo $this->main->lang('Search designs'); ?>" />
 						</span>
 					</h3>
-					<i class="customdesginx-android-close close" title="<?php echo $this->main->lang('Close'); ?>"></i>
+					<i class="customdesignx-android-close close" title="<?php echo $this->main->lang('Close'); ?>"></i>
 				</header>
 				<li>
-					<ul id="customdesgin-designs-category">
+					<ul id="customdesign-designs-category">
 						<li data-active="true">
-							<text><i class="customdesginx-ios-arrow-forward"></i> <?php echo $this->main->lang('All Categories'); ?></text>
+							<text><i class="customdesignx-ios-arrow-forward"></i> <?php echo $this->main->lang('All Categories'); ?></text>
 						</li>
 						<li>
-							<text><i class="customdesginx-ios-arrow-forward"></i> Category #1</text>
+							<text><i class="customdesignx-ios-arrow-forward"></i> Category #1</text>
 							<func>
-								<i class="customdesginx-edit" title="<?php echo $this->main->lang('Edit Category'); ?>"></i>
-								<i class="customdesginx-android-delete" title="<?php echo $this->main->lang('Delete Category'); ?>"></i>
+								<i class="customdesignx-edit" title="<?php echo $this->main->lang('Edit Category'); ?>"></i>
+								<i class="customdesignx-android-delete" title="<?php echo $this->main->lang('Delete Category'); ?>"></i>
 							</func>
 						</li>
-						<li data-func="add"><i class="customdesginx-android-add"></i> <?php echo $this->main->lang('New Category'); ?></li>
+						<li data-func="add"><i class="customdesignx-android-add"></i> <?php echo $this->main->lang('New Category'); ?></li>
 					</ul>
-					<ul id="customdesgin-saved-designs"></ul>
+					<ul id="customdesign-saved-designs"></ul>
 				</li>
 			</ul>
 		</li>
@@ -130,32 +130,32 @@ class customdesgin_views extends customdesgin_lib {
 		
 		?><li data-tool="print"<?php echo $alwd; ?>>
 			<span><?php echo $this->main->lang('Print'); ?></span>
-			<ul data-view="sub" id="customdesgin-print-nav" data-align="center">
+			<ul data-view="sub" id="customdesign-print-nav" data-align="center">
 				<header>
 					<h3>
 						<?php echo $this->main->lang('Print design'); ?>
 					</h3>
-					<i class="customdesginx-android-close close" title="<?php echo $this->main->lang('Close'); ?>"></i>
+					<i class="customdesignx-android-close close" title="<?php echo $this->main->lang('Close'); ?>"></i>
 				</header>
 				<li data-row="format">
 					<label><?php echo $this->main->lang('Select format'); ?>:</label>
 					<span>
-						<div class="customdesgin_radios">
-							<div class="customdesgin-radio">
+						<div class="customdesign_radios">
+							<div class="customdesign-radio">
 								<input type="radio" data-dp="format" class="doPrint" data-format="png" name="print-format" checked id="print-format-png">
-								<label class="customdesgin-cart-option-label" for="print-format-png">
+								<label class="customdesign-cart-option-label" for="print-format-png">
 									PNG <em class="check"></em>
 								</label>
 							</div>
-							<div class="customdesgin-radio">
+							<div class="customdesign-radio">
 								<input type="radio" data-dp="format" class="doPrint" data-format="svg" name="print-format" id="print-format-svg">
-								<label class="customdesgin-cart-option-label" for="print-format-svg">
+								<label class="customdesign-cart-option-label" for="print-format-svg">
 									SVG <em class="check"></em>
 								</label>
 							</div><!-- 
-							<div class="customdesgin-radio">
+							<div class="customdesign-radio">
 								<input type="radio" data-dp="format" class="doPrint" data-format="pdf" name="print-format" id="print-format-pdf">
-								<label class="customdesgin-cart-option-label" for="print-format-pdf">
+								<label class="customdesign-cart-option-label" for="print-format-pdf">
 									PDF <em class="check"></em>
 								</label>
 							</div> -->
@@ -204,44 +204,44 @@ class customdesgin_views extends customdesgin_lib {
 				</li>
 				<li data-row="base">
 					<label><?php echo $this->main->lang('Include base?'); ?></label>
-					<div class="customdesgin-switch">
-						<input data-dp="base" id="customdesgin-print-base" type="checkbox" value="" class="customdesgin-toggle-button doPrint">
-						<span class="customdesgin-toggle-label" data-on="YES" data-off="NO"></span>
-						<span class="customdesgin-toggle-handle"></span>
+					<div class="customdesign-switch">
+						<input data-dp="base" id="customdesign-print-base" type="checkbox" value="" class="customdesign-toggle-button doPrint">
+						<span class="customdesign-toggle-label" data-on="YES" data-off="NO"></span>
+						<span class="customdesign-toggle-handle"></span>
 					</div>
 				</li>
 				<li data-row="overflow">
 					<label><?php echo $this->main->lang('Hide overflow?'); ?></label>
-					<div class="customdesgin-switch">
-						<input data-dp="overflow" id="customdesgin-print-overflow" type="checkbox" value="" class="customdesgin-toggle-button doPrint">
-						<span class="customdesgin-toggle-label" data-on="YES" data-off="NO"></span>
-						<span class="customdesgin-toggle-handle"></span>
+					<div class="customdesign-switch">
+						<input data-dp="overflow" id="customdesign-print-overflow" type="checkbox" value="" class="customdesign-toggle-button doPrint">
+						<span class="customdesign-toggle-label" data-on="YES" data-off="NO"></span>
+						<span class="customdesign-toggle-handle"></span>
 					</div>
 				</li>
 				<li data-row="cropmarks" style="display: none;">
 					<label><?php echo $this->main->lang('Crop marks & bleed?'); ?></label>
-					<div class="customdesgin-switch">
-						<input data-dp="cropmarks" id="customdesgin-print-cropmarks" type="checkbox" value="" class="customdesgin-toggle-button doPrint">
-						<span class="customdesgin-toggle-label" data-on="YES" data-off="NO"></span>
-						<span class="customdesgin-toggle-handle"></span>
+					<div class="customdesign-switch">
+						<input data-dp="cropmarks" id="customdesign-print-cropmarks" type="checkbox" value="" class="customdesign-toggle-button doPrint">
+						<span class="customdesign-toggle-label" data-on="YES" data-off="NO"></span>
+						<span class="customdesign-toggle-handle"></span>
 					</div>
 				</li>
 				<li data-row="full" style="display: none;">
 					<label><?php echo $this->main->lang('Export all pages?'); ?></label>
-					<div class="customdesgin-switch">
-						<input data-dp="all_pages" id="customdesgin-print-full" type="checkbox" value="" class="customdesgin-toggle-button doPrint">
-						<span class="customdesgin-toggle-label" data-on="YES" data-off="NO"></span>
-						<span class="customdesgin-toggle-handle"></span>
+					<div class="customdesign-switch">
+						<input data-dp="all_pages" id="customdesign-print-full" type="checkbox" value="" class="customdesign-toggle-button doPrint">
+						<span class="customdesign-toggle-label" data-on="YES" data-off="NO"></span>
+						<span class="customdesign-toggle-handle"></span>
 					</div>
 				</li>
 				<li>
-					<button class="customdesgin-btn doPrint" data-dp="print" data-func="print">
+					<button class="customdesign-btn doPrint" data-dp="print" data-func="print">
 						<?php echo $this->main->lang('Print Now'); ?> 
-						<i class="customdesginx-printer"></i>
+						<i class="customdesignx-printer"></i>
 					</button>
-					<button class="customdesgin-btn gray doPrint" data-dp="download" data-func="download">
+					<button class="customdesign-btn gray doPrint" data-dp="download" data-func="download">
 						<?php echo $this->main->lang('Download'); ?> 
-						<i class="customdesginx-android-download"></i>
+						<i class="customdesignx-android-download"></i>
 					</button>
 				</li>
 			</ul>
@@ -258,31 +258,31 @@ class customdesgin_views extends customdesgin_lib {
 			<span>
 				<?php echo $this->main->lang('Share'); ?>
 			</span>
-			<ul data-view="sub" class="customdesgin-tabs-nav" data-align="center" id="customdesgin-shares-wrp" data-nav="link">
+			<ul data-view="sub" class="customdesign-tabs-nav" data-align="center" id="customdesign-shares-wrp" data-nav="link">
 				<header>
 					<h3>
 						<span data-tna="link"><?php echo $this->main->lang('Share Your Design'); ?></span>
 						<span data-tna="history">
 							<a href="#" data-func="nav" data-nav="link">
-								<i class="customdesginx-android-arrow-back" data-func="nav" data-nav="link"></i> 
+								<i class="customdesignx-android-arrow-back" data-func="nav" data-nav="link"></i> 
 								<?php echo $this->main->lang('Back to share'); ?>
 							</a>
 						</span>
 					</h3>
-					<i class="customdesginx-android-close close" title="Close"></i>
+					<i class="customdesignx-android-close close" title="Close"></i>
 				</header>
 				<li data-view="link" data-active="true">
 					<p data-phase="1" class="mb1">
 						<?php echo $this->main->lang('Create the link to share your current design for everyone'); ?>
 					</p>
 					<p data-view="link" class="mb1" data-phase="1">
-						<input type="text" placeholder="<?php echo $this->main->lang('Enter the title of design'); ?>" id="customdesgin-share-link-title" />
+						<input type="text" placeholder="<?php echo $this->main->lang('Enter the title of design'); ?>" id="customdesign-share-link-title" />
 					</p>
 					<p data-phase="1">
-						<button class="customdesgin-btn right" data-func="create-link">
+						<button class="customdesign-btn right" data-func="create-link">
 							<?php echo $this->main->lang('Create link'); ?>
 						</button>
-						<button class="customdesgin-btn right white mr1"  data-nav="history" data-func="nav">
+						<button class="customdesign-btn right white mr1"  data-nav="history" data-func="nav">
 							<?php echo $this->main->lang('View history'); ?>
 						</button>
 					</p>
@@ -297,20 +297,20 @@ class customdesgin_views extends customdesgin_lib {
 					<p class="mt1 mb1 right" data-phase="2">
 						<b><?php echo $this->main->lang('Share to'); ?>:</b>
 						<button data-network="facebook">
-							<i class="customdesginx-social-facebook"></i> Facebook
+							<i class="customdesignx-social-facebook"></i> Facebook
 						</button>
 						<button data-network="pinterest">
-							<i class="customdesginx-social-pinterest"></i> Pinterest
+							<i class="customdesignx-social-pinterest"></i> Pinterest
 						</button>
 						<button data-network="twitter">
-							<i class="customdesginx-social-twitter"></i> Twitter
+							<i class="customdesignx-social-twitter"></i> Twitter
 						</button>
 					</p>
 					<p class="mt1" data-phase="2">
-						<button class="customdesgin-btn right gray" data-func="do-again">
+						<button class="customdesign-btn right gray" data-func="do-again">
 							<?php echo $this->main->lang('Create another'); ?>
 						</button>
-						<button class="customdesgin-btn right white mr1"  data-nav="history" data-func="nav"><?php echo $this->main->lang('View history'); ?></button>
+						<button class="customdesign-btn right white mr1"  data-nav="history" data-func="nav"><?php echo $this->main->lang('View history'); ?></button>
 					</p>
 				</li>
 				<li data-view="history"></li>
@@ -328,10 +328,10 @@ class customdesgin_views extends customdesgin_lib {
 			<span>
 				<?php echo $this->main->lang('Help'); ?>
 			</span>
-			<ul data-view="sub" class="customdesgin-tabs-nav">
+			<ul data-view="sub" class="customdesign-tabs-nav">
 				<li data-view="header">
 					<h3 data-view="title"><?php echo $this->main->cfg->settings['help_title']; ?></h3>
-					<i class="customdesginx-android-close close" title="<?php echo $this->main->lang('Close'); ?>"></i>
+					<i class="customdesignx-android-close close" title="<?php echo $this->main->lang('Close'); ?>"></i>
 					<nav>
 						<?php
 
@@ -406,19 +406,19 @@ class customdesgin_views extends customdesgin_lib {
 		<?php } ?>
 		<li data-view="sp"></li>
 	</ul>
-	<svg id="customdesgin-nav-file" class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve" fill="#eee"><g xmlns="http://www.w3.org/2000/svg" id="__m">
+	<svg id="customdesign-nav-file" class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve" fill="#eee"><g xmlns="http://www.w3.org/2000/svg" id="__m">
 	<path d="M491.318,235.318H20.682C9.26,235.318,0,244.577,0,256s9.26,20.682,20.682,20.682h470.636    c11.423,0,20.682-9.259,20.682-20.682C512,244.578,502.741,235.318,491.318,235.318z"/><path d="M491.318,78.439H20.682C9.26,78.439,0,87.699,0,99.121c0,11.422,9.26,20.682,20.682,20.682h470.636    c11.423,0,20.682-9.26,20.682-20.682C512,87.699,502.741,78.439,491.318,78.439z"/><path d="M491.318,392.197H20.682C9.26,392.197,0,401.456,0,412.879s9.26,20.682,20.682,20.682h470.636    c11.423,0,20.682-9.259,20.682-20.682S502.741,392.197,491.318,392.197z"/>
 </g><g xmlns="http://www.w3.org/2000/svg" style="display:none;transform:scale(.85) translateY(3px);" id="__x"><path xmlns="http://www.w3.org/2000/svg" d="M505.943,6.058c-8.077-8.077-21.172-8.077-29.249,0L6.058,476.693c-8.077,8.077-8.077,21.172,0,29.249    C10.096,509.982,15.39,512,20.683,512c5.293,0,10.586-2.019,14.625-6.059L505.943,35.306    C514.019,27.23,514.019,14.135,505.943,6.058z"/><path d="M505.942,476.694L35.306,6.059c-8.076-8.077-21.172-8.077-29.248,0c-8.077,8.076-8.077,21.171,0,29.248l470.636,470.636    c4.038,4.039,9.332,6.058,14.625,6.058c5.293,0,10.587-2.019,14.624-6.057C514.018,497.866,514.018,484.771,505.942,476.694z"/></g></svg>
 	<ul data-block="left" data-resp="undo-redo">
 		<?php if($this->main->apply_filters('allow_undo', true)) {?>
-		<li id="customdesgin-design-undo" title="Ctrl+Z" class="disabled"><?php echo $this->main->lang('Undo'); ?></li>		
+		<li id="customdesign-design-undo" title="Ctrl+Z" class="disabled"><?php echo $this->main->lang('Undo'); ?></li>		
 		<?php }?>
 		<?php if($this->main->apply_filters('allow_redo', true)) {?>
-		<li id="customdesgin-design-redo" title="Ctrl+Shift+Z" class="disabled"><?php echo $this->main->lang('Redo'); ?></li>
+		<li id="customdesign-design-redo" title="Ctrl+Shift+Z" class="disabled"><?php echo $this->main->lang('Redo'); ?></li>
 		<?php }?>
 	</ul>
 	<ul data-block="right">
-		<!-- To add your code here, use the hook $customdesgin->add_action('before_language', function(){}) -->
+		<!-- To add your code here, use the hook $customdesign->add_action('before_language', function(){}) -->
 		<!-- Avalable hook: before_language -->
 		<?php
 		
@@ -444,7 +444,7 @@ class customdesgin_views extends customdesgin_lib {
 				<img src="<?php echo $this->main->cfg->assets_url; ?>assets/flags/<?php echo $active_lang; ?>.png" height="20" />
 				<!--text><?php echo $this->main->lang('Languages'); ?></text-->
 			</span>
-			<ul id="customdesgin-languages" data-view="sub" data-align="right">
+			<ul id="customdesign-languages" data-view="sub" data-align="right">
 				<header>
 					<h3><?php echo $this->main->lang('Languages'); ?></h3>
 				</header>
@@ -461,7 +461,7 @@ class customdesgin_views extends customdesgin_lib {
 						<span><img src="<?php echo $this->main->cfg->assets_url; ?>assets/flags/<?php echo $code; ?>.png" height="20" />
 						<?php echo $langs[$code]; ?></span>
 						<?php if ($code == $active_lang) {
-							echo '<i class="customdesginx-android-done"></i>';
+							echo '<i class="customdesignx-android-done"></i>';
 						}?>
 					</li>
 					<?php } ?>
@@ -496,25 +496,25 @@ class customdesgin_views extends customdesgin_lib {
 		<!-- Avalable hook: before_cart -->
 		<?php ob_start(); ?>
 		<li>
-			<span class="customdesgin-price customdesgin-product-price">0.0</span>
+			<span class="customdesign-price customdesign-product-price">0.0</span>
 		</li>
-		<li data-tool="cart" id="customdesgin-cart-options">
-			<button id="customdesgin-addToCart" title="<?php echo $this->main->lang('My cart'); ?>">
+		<li data-tool="cart" id="customdesign-cart-options">
+			<button id="customdesign-addToCart" title="<?php echo $this->main->lang('My cart'); ?>">
 				<img src="<?php echo $this->main->cfg->assets_url; ?>assets/images/cart.svg" with="25" alt="" />
 			</button>
-			<div data-view="sub" data-align="right" id="customdesgin-cart-items">
+			<div data-view="sub" data-align="right" id="customdesign-cart-items">
 				<header>
 					<h3><?php echo $this->main->lang('My Cart'); ?></h3>
-					<i class="customdesginx-android-close close" title="close"></i>
+					<i class="customdesignx-android-close close" title="close"></i>
 				</header>
 				<ul data-view="items"></ul>
 				<footer>
 					<a href="#details" data-func="details" data-view="cart-details">
-						<?php echo $this->main->lang('Cart details'); ?> <i class="customdesginx-android-open"></i>
+						<?php echo $this->main->lang('Cart details'); ?> <i class="customdesignx-android-open"></i>
 					</a>
-					<a href="#checkout" data-func="checkout" class="customdesgin-btn-primary">
+					<a href="#checkout" data-func="checkout" class="customdesign-btn-primary">
 						<?php echo $this->main->lang('Checkout'); ?>
-						<i class="customdesginx-android-arrow-forward"></i>
+						<i class="customdesignx-android-arrow-forward"></i>
 					</a>
 				</footer>
 			</div>
@@ -538,38 +538,38 @@ class customdesgin_views extends customdesgin_lib {
 				
 			if (in_array('product', $components)) {
 		?>
-		<li id="customdesgin-proceed">
-			<button id="customdesgin-cart-action" class="customdesgin-btn-primary" data-add="<?php echo $this->main->lang('Add to cart'); ?>" data-update="<?php echo $this->main->lang('Update cart'); ?>" data-action="update-cart">
+		<li id="customdesign-proceed">
+			<button id="customdesign-cart-action" class="customdesign-btn-primary" data-add="<?php echo $this->main->lang('Add to cart'); ?>" data-update="<?php echo $this->main->lang('Update cart'); ?>" data-action="update-cart">
 				<span><?php echo $this->main->lang('Add to cart'); ?></span> 
-				<i class="customdesginx-android-arrow-forward"></i>
+				<i class="customdesignx-android-arrow-forward"></i>
 			</button>
 		</li>
 		<?php		
 			} else {
 		?>
-		<li data-tool="proceed" data-callback="proceed" id="customdesgin-proceed">
+		<li data-tool="proceed" data-callback="proceed" id="customdesign-proceed">
 			<span>
-				<button id="customdesgin-continue-btn">
+				<button id="customdesign-continue-btn">
 					<?php echo $this->main->lang('Proceed'); ?> 
-					<i class="customdesginx-android-arrow-forward"></i>
+					<i class="customdesignx-android-arrow-forward"></i>
 				</button>
 			</span>
-			<div data-view="sub" data-align="right" id="customdesgin-product-attributes">
+			<div data-view="sub" data-align="right" id="customdesign-product-attributes">
 				<header>
 					<h3><?php echo $this->main->lang('Proceed to the next step'); ?></h3>
-					<i class="customdesginx-android-close close" title="close"></i>
+					<i class="customdesignx-android-close close" title="close"></i>
 				</header>
-				<div id="customdesgin-cart-wrp" data-view="attributes" class="smooth">
-					<div class="customdesgin-cart-options">
-						<div class="customdesgin-prints"></div>
-						<div class="customdesgin-cart-attributes" id="customdesgin-cart-attributes"></div>
+				<div id="customdesign-cart-wrp" data-view="attributes" class="smooth">
+					<div class="customdesign-cart-options">
+						<div class="customdesign-prints"></div>
+						<div class="customdesign-cart-attributes" id="customdesign-cart-attributes"></div>
 					</div>
 				</div>
 				<footer>
-					<strong class="customdesgin-product-price-wrp">
-						<?php echo $this->main->lang('Total:'); ?> <span class="customdesgin-product-price"></span>
+					<strong class="customdesign-product-price-wrp">
+						<?php echo $this->main->lang('Total:'); ?> <span class="customdesign-product-price"></span>
 					</strong>
-					<button id="customdesgin-cart-action" class="customdesgin-btn-primary" data-add="<?php echo $this->main->lang('Add to cart'); ?>" data-update="<?php echo $this->main->lang('Update cart'); ?>" data-action="update-cart">
+					<button id="customdesign-cart-action" class="customdesign-btn-primary" data-add="<?php echo $this->main->lang('Add to cart'); ?>" data-update="<?php echo $this->main->lang('Update cart'); ?>" data-action="update-cart">
 						<?php echo $this->main->lang('Add to cart'); ?> 
 						<img src="<?php echo $this->main->cfg->assets_url; ?>assets/images/cart.svg" />
 					</button>
@@ -608,27 +608,27 @@ class customdesgin_views extends customdesgin_lib {
 
 	?>
 
-	<ul class="customdesgin-top-nav left" data-mode="default">
-		<li id="customdesgin-general-status">
+	<ul class="customdesign-top-nav left" data-mode="default">
+		<li id="customdesign-general-status">
 			<span>
-				<text><i class="customdesginx-android-alert"></i> <?php echo $this->main->lang('Start designing by adding objects from the left side'); ?></text>
+				<text><i class="customdesignx-android-alert"></i> <?php echo $this->main->lang('Start designing by adding objects from the left side'); ?></text>
 			</span>
 		</li>
 	</ul>
 
-	<ul class="customdesgin-top-nav left" data-mode="group" data-grouped="false">
+	<ul class="customdesign-top-nav left" data-mode="group" data-grouped="false">
 		<!-- Avalable hook: before-tool-group -->
 		<?php echo $this->main->do_action('before-tool-group'); ?>
 		<li data-tool="ungroup" data-callback="group">
 			<span data-view="noicon">
-				<i class="customdesginx-android-done-all"></i> 
+				<i class="customdesignx-android-done-all"></i> 
 				<?php echo $this->main->lang('All selected objects are grouped'); ?> | 
 				<a href="#ungroup"><?php echo $this->main->lang('Ungroup?'); ?></a>
 			</span>
 		</li>
 		<li data-tool="group" data-callback="group">
 			<span data-tip="true" data-view="noicon"> 
-				<i class="customdesginx-link"></i> 
+				<i class="customdesignx-link"></i> 
 				<?php echo $this->main->lang('Group objects'); ?>
 				<span><?php echo $this->main->lang('Group the position of selected objects'); ?></span>
 			</span>
@@ -637,28 +637,28 @@ class customdesgin_views extends customdesgin_lib {
 		<?php echo $this->main->do_action('after-tool-group'); ?>
 	</ul>
 	
-	<ul class="customdesgin-top-nav left" data-mode="svg">
+	<ul class="customdesign-top-nav left" data-mode="svg">
 		<!-- Avalable hook: before-tool-svg -->
 		<?php echo $this->main->do_action('before-tool-svg'); ?>
 
 		<?php if($this->main->apply_filters('fill', true)): ?>
-		<li data-tool="svg" id="customdesgin-svg-colors" data-callback="svg" data-editor="false">
+		<li data-tool="svg" id="customdesign-svg-colors" data-callback="svg" data-editor="false">
 			<ul data-pos="left" data-view="sub">
 				<li data-view="title">
 					<h3>
 						<span><?php echo $this->main->lang('Fill options'); ?></span>
-						<i class="customdesginx-android-close close" title="close"></i>
+						<i class="customdesignx-android-close close" title="close"></i>
 					</h3>
 					<p class="flex<?php echo ($this->main->cfg->settings['enable_colors'] == '0' && !isset($_POST['printing'])) ? ' hidden' : ''; ?>">
-						<input type="search" placeholder="click to choose color" id="customdesgin-svg-fill" class="color" />
+						<input type="search" placeholder="click to choose color" id="customdesign-svg-fill" class="color" />
 						<?php if ($this->main->cfg->settings['enable_colors'] != '0' || isset($_POST['printing'])) { ?>
-						<span class="customdesgin-save-color" data-tip="true" data-target="svg-fill">
-							<i class="customdesginx-android-add"></i>
+						<span class="customdesign-save-color" data-tip="true" data-target="svg-fill">
+							<i class="customdesignx-android-add"></i>
 							<span><?php echo $this->main->lang('Save this color'); ?></span>
 						</span>
 						<?php } ?>
 					</p>
-					<ul id="customdesgin-color-presets" class="customdesgin-color-presets" data-target="svg-fill"></ul>
+					<ul id="customdesign-color-presets" class="customdesign-color-presets" data-target="svg-fill"></ul>
 				</li>
 			</ul>
 		</li>
@@ -668,13 +668,13 @@ class customdesgin_views extends customdesgin_lib {
 		<?php echo $this->main->do_action('after-tool-svg'); ?>
 	</ul>
 
-	<ul class="customdesgin-top-nav right" data-mode="default">
+	<ul class="customdesign-top-nav right" data-mode="default">
 		<!-- Avalable hook: before-tool-default -->
 		<?php $this->main->do_action('before-tool-default'); ?>
 		<?php if ($this->main->cfg->settings['dis_qrcode'] != '1' || $this->main->apply_filters('disable-qrcode', false)) { ?>
 		<li data-tool="callback" data-callback="qrcode">
 			<span data-tip="true">
-				<i class="customdesginx-qrcode-1"></i>
+				<i class="customdesignx-qrcode-1"></i>
 				<span><?php echo $this->main->lang('Create QRCode'); ?></span>
 			</span>
 		</li>
@@ -685,10 +685,10 @@ class customdesgin_views extends customdesgin_lib {
 			<ul data-pos="right" data-view="sub">
 				<li>
 					<label><?php echo $this->main->lang('Auto snap mode'); ?></label>
-					<span class="customdesgin-switch">
-						<input id="customdesgin-auto-alignment" data-name="AUTO-ALIGNMENT" type="checkbox" value="" class="customdesgin-toggle-button"<?php if ($this->main->cfg->settings['auto_snap'] == '1')echo ' checked';?>>
-						<span class="customdesgin-toggle-label" data-on="ON" data-off="OFF"></span>
-						<span class="customdesgin-toggle-handle"></span>
+					<span class="customdesign-switch">
+						<input id="customdesign-auto-alignment" data-name="AUTO-ALIGNMENT" type="checkbox" value="" class="customdesign-toggle-button"<?php if ($this->main->cfg->settings['auto_snap'] == '1')echo ' checked';?>>
+						<span class="customdesign-toggle-label" data-on="ON" data-off="OFF"></span>
+						<span class="customdesign-toggle-handle"></span>
 					</span>
 					<tip>
 						<i></i>
@@ -699,10 +699,10 @@ class customdesgin_views extends customdesgin_lib {
 					<label>
 						<?php echo $this->main->lang('Template append'); ?> 
 					</label>
-					<span class="customdesgin-switch">
-						<input id="customdesgin-template-append" data-name="TEMPLATE-APPEND" type="checkbox" value="" class="customdesgin-toggle-button"<?php if ($this->main->cfg->settings['template_append'] == '1')echo ' checked';?>>
-						<span class="customdesgin-toggle-label" data-on="ON" data-off="OFF"></span>
-						<span class="customdesgin-toggle-handle"></span>
+					<span class="customdesign-switch">
+						<input id="customdesign-template-append" data-name="TEMPLATE-APPEND" type="checkbox" value="" class="customdesign-toggle-button"<?php if ($this->main->cfg->settings['template_append'] == '1')echo ' checked';?>>
+						<span class="customdesign-toggle-label" data-on="ON" data-off="OFF"></span>
+						<span class="customdesign-toggle-handle"></span>
 					</span>
 					<tip>
 						<i></i>
@@ -713,10 +713,10 @@ class customdesgin_views extends customdesgin_lib {
 					<label>
 						<?php echo $this->main->lang('Replace image'); ?> 
 					</label>
-					<span class="customdesgin-switch">
-						<input id="customdesgin-replace-image" data-name="REPLACE-IMAGE" type="checkbox" value="" class="customdesgin-toggle-button"<?php if ($this->main->cfg->settings['replace_image'] == '1')echo ' checked';?>>
-						<span class="customdesgin-toggle-label" data-on="ON" data-off="OFF"></span>
-						<span class="customdesgin-toggle-handle"></span>
+					<span class="customdesign-switch">
+						<input id="customdesign-replace-image" data-name="REPLACE-IMAGE" type="checkbox" value="" class="customdesign-toggle-button"<?php if ($this->main->cfg->settings['replace_image'] == '1')echo ' checked';?>>
+						<span class="customdesign-toggle-label" data-on="ON" data-off="OFF"></span>
+						<span class="customdesign-toggle-handle"></span>
 					</span>
 					<tip>
 						<i></i>
@@ -737,13 +737,13 @@ class customdesgin_views extends customdesgin_lib {
 		<?php $this->main->do_action('after-tool-default'); ?>
 	</ul>
 	
-	<ul class="customdesgin-top-nav left" data-mode="image">
+	<ul class="customdesign-top-nav left" data-mode="image">
 		<!-- Avalable hook: before-tool-image -->
 		<?php $this->main->do_action('before-tool-image'); ?>
 		<?php if($this->main->apply_filters('replace-image', true)): ?>
 		<li data-tool="callback" data-callback="replace">
 			<span data-tip="true">
-				<i class="customdesginx-android-upload"></i>
+				<i class="customdesignx-android-upload"></i>
 				<span><?php echo $this->main->lang('Replace image'); ?></span>
 			</span>
 		</li>
@@ -751,7 +751,7 @@ class customdesgin_views extends customdesgin_lib {
 		<?php if($this->main->apply_filters('crop-image', true)): ?>
 		<li data-tool="callback" data-callback="crop">
 			<span data-tip="true">
-				<i class="customdesginx-crop"></i>
+				<i class="customdesignx-crop"></i>
 				<span><?php echo $this->main->lang('Crop'); ?></span>
 			</span>
 		</li>
@@ -759,14 +759,14 @@ class customdesgin_views extends customdesgin_lib {
 		<?php if($this->main->apply_filters('select-mask', true)): ?>
 		<li data-tool="masks" data-callback="select_mask">
 			<span data-tip="true">
-				<i class="customdesginx-android-star-outline"></i>
+				<i class="customdesignx-android-star-outline"></i>
 				<span><?php echo $this->main->lang('Mask'); ?></span>
 			</span>
 			<ul data-view="sub" data-pos="center">
 				<li data-view="title">
 					<h3>
 						<span><?php echo $this->main->lang('Select mask layer'); ?></span>
-						<i class="customdesginx-android-close close" title="close"></i>
+						<i class="customdesignx-android-close close" title="close"></i>
 					</h3>
 				</li>
 				<li data-view="list"></li>
@@ -776,28 +776,28 @@ class customdesgin_views extends customdesgin_lib {
 		<?php if($this->main->apply_filters('remove-background', true)): ?>
 		<li data-tool="filter">
 			<span data-tip="true">
-				<i class="customdesginx-erlenmeyer-flask-bubbles"></i>
+				<i class="customdesignx-erlenmeyer-flask-bubbles"></i>
 				<span><?php echo $this->main->lang('Remove background'); ?></span>
 			</span>
 			<ul data-view="sub">
 				<li data-view="title">
 					<h3>
 						<span><?php echo $this->main->lang('Remove background'); ?></span>
-						<i class="customdesginx-android-close close" title="close"></i>
+						<i class="customdesignx-android-close close" title="close"></i>
 					</h3>
 				</li>
 				<li>
 					<h3 class="nob">
 						<span><?php echo $this->main->lang('Deep'); ?>: </span>
 						<inp data-range="helper" data-value="0">
-							<input class="nol" type="range" id="customdesgin-image-fx-deep" data-value="0" min="0" max="200" value="0" data-image-fx="deep" data-view="customdesgin" />
+							<input class="nol" type="range" id="customdesign-image-fx-deep" data-value="0" min="0" max="200" value="0" data-image-fx="deep" data-view="customdesign" />
 						</inp>
 					</h3>
 				</li>
 				<li>
 					<h3 class="nob">
 						<span><?php echo $this->main->lang('Mode'); ?>: </span>
-						<select id="customdesgin-image-fx-mode" data-fx="mode">
+						<select id="customdesign-image-fx-mode" data-fx="mode">
 							<option value="light"><?php echo $this->main->lang('Light Background'); ?></option>
 							<option value="dark"><?php echo $this->main->lang('Dark Background'); ?></option>
 						</select>
@@ -809,26 +809,26 @@ class customdesgin_views extends customdesgin_lib {
 		<?php if($this->main->apply_filters('filter', true)): ?>
 		<li data-tool="advanced">
 			<span data-tip="true">
-				<i class="customdesginx-wand"></i>
+				<i class="customdesignx-wand"></i>
 				<span><?php echo $this->main->lang('Filters'); ?></span>
 			</span>
 			<ul data-view="sub">
 				<li data-view="title">
 					<h3>
 						<span><?php echo $this->main->lang('Filters'); ?></span>
-						<i class="customdesginx-android-close close" title="close"></i>
+						<i class="customdesignx-android-close close" title="close"></i>
 					</h3>
 				</li>
 				<li data-tool="filters">
 					<h3 class="nob">
-						<ul id="customdesgin-image-fx-fx"><li data-fx="" style="background-position: 0px 0px;"><span>Original</span></li><li data-fx="bnw" style="background-position: -92px 0px;"><span>B&amp;W</span></li><li data-fx="satya" style="background-position: -184px 0px;"><span>Satya</span></li><li data-fx="doris" style="background-position: -276px 0px;"><span>Doris</span></li><li data-fx="sanna" style="background-position: -368px 0px;"><span>Sanna</span></li><li data-fx="vintage" style="background-position: -460px 0px;"><span>Vintage</span></li><li data-fx="gordon" style="background-position: 0px -92px;"><span>Gordon</span></li><li data-fx="carl" style="background-position: -92px -92px;"><span>Carl</span></li><li data-fx="shaan" style="background-position: -184px -92px;"><span>Shaan</span></li><li data-fx="tonny" style="background-position: -276px -92px;"><span>Tonny</span></li><li data-fx="peter" style="background-position: -368px -92px;"><span>Peter</span></li><li data-fx="greg" style="background-position: -460px -92px;"><span>Greg</span></li><li data-fx="josh" style="background-position: 0px -184px;"><span>Josh</span></li><li data-fx="karen" style="background-position: -92px -184px;"><span>Karen</span></li><li data-fx="melissa" style="background-position: -184px -184px;"><span>Melissa</span></li><li data-fx="salomon" style="background-position: -276px -184px;"><span>Salomon</span></li><li data-fx="sophia" style="background-position: -368px -184px;"><span>Sophia</span></li><li data-fx="adrian" style="background-position: -460px -184px;"><span>Adrian</span></li><li data-fx="roxy" style="background-position: 0px -276px;"><span>Roxy</span></li><li data-fx="singe" style="background-position: -92px -276px;"><span>Singe</span></li><li data-fx="borg" style="background-position: -184px -276px;"><span>Borg</span></li><li data-fx="ventura" style="background-position: -276px -276px;"><span>Ventura</span></li><li data-fx="andy" style="background-position: -368px -276px;"><span>Andy</span></li><li data-fx="vivid" style="background-position: -460px -276px;"><span>Vivid</span></li><li data-fx="purple" style="background-position: 0px -368px;"><span>Purple</span></li><li data-fx="thresh" style="background-position: -92px -368px;"><span>Thresh</span></li><li data-fx="aqua" style="background-position: -184px -368px;"><span>Aqua</span></li><li data-fx="edgewood" style="background-position: -276px -368px;" data-selected="true"><span>Edge wood</span></li><li data-fx="aladin" style="background-position: -368px -368px;"><span>Aladin</span></li><li data-fx="amber" style="background-position: -460px -368px;"><span>Amber</span></li><li data-fx="anne" style="background-position: 0px -460px;"><span>Anne</span></li><li data-fx="doug" style="background-position: -92px -460px;"><span>Doug</span></li><li data-fx="earl" style="background-position: -184px -460px;"><span>Earl</span></li><li data-fx="kevin" style="background-position: -276px -460px;"><span>Kevin</span></li><li data-fx="polak" style="background-position: -368px -460px;"><span>Polak</span></li><li data-fx="stan" style="background-position: -460px -460px;"><span>Stan</span></li></ul>
+						<ul id="customdesign-image-fx-fx"><li data-fx="" style="background-position: 0px 0px;"><span>Original</span></li><li data-fx="bnw" style="background-position: -92px 0px;"><span>B&amp;W</span></li><li data-fx="satya" style="background-position: -184px 0px;"><span>Satya</span></li><li data-fx="doris" style="background-position: -276px 0px;"><span>Doris</span></li><li data-fx="sanna" style="background-position: -368px 0px;"><span>Sanna</span></li><li data-fx="vintage" style="background-position: -460px 0px;"><span>Vintage</span></li><li data-fx="gordon" style="background-position: 0px -92px;"><span>Gordon</span></li><li data-fx="carl" style="background-position: -92px -92px;"><span>Carl</span></li><li data-fx="shaan" style="background-position: -184px -92px;"><span>Shaan</span></li><li data-fx="tonny" style="background-position: -276px -92px;"><span>Tonny</span></li><li data-fx="peter" style="background-position: -368px -92px;"><span>Peter</span></li><li data-fx="greg" style="background-position: -460px -92px;"><span>Greg</span></li><li data-fx="josh" style="background-position: 0px -184px;"><span>Josh</span></li><li data-fx="karen" style="background-position: -92px -184px;"><span>Karen</span></li><li data-fx="melissa" style="background-position: -184px -184px;"><span>Melissa</span></li><li data-fx="salomon" style="background-position: -276px -184px;"><span>Salomon</span></li><li data-fx="sophia" style="background-position: -368px -184px;"><span>Sophia</span></li><li data-fx="adrian" style="background-position: -460px -184px;"><span>Adrian</span></li><li data-fx="roxy" style="background-position: 0px -276px;"><span>Roxy</span></li><li data-fx="singe" style="background-position: -92px -276px;"><span>Singe</span></li><li data-fx="borg" style="background-position: -184px -276px;"><span>Borg</span></li><li data-fx="ventura" style="background-position: -276px -276px;"><span>Ventura</span></li><li data-fx="andy" style="background-position: -368px -276px;"><span>Andy</span></li><li data-fx="vivid" style="background-position: -460px -276px;"><span>Vivid</span></li><li data-fx="purple" style="background-position: 0px -368px;"><span>Purple</span></li><li data-fx="thresh" style="background-position: -92px -368px;"><span>Thresh</span></li><li data-fx="aqua" style="background-position: -184px -368px;"><span>Aqua</span></li><li data-fx="edgewood" style="background-position: -276px -368px;" data-selected="true"><span>Edge wood</span></li><li data-fx="aladin" style="background-position: -368px -368px;"><span>Aladin</span></li><li data-fx="amber" style="background-position: -460px -368px;"><span>Amber</span></li><li data-fx="anne" style="background-position: 0px -460px;"><span>Anne</span></li><li data-fx="doug" style="background-position: -92px -460px;"><span>Doug</span></li><li data-fx="earl" style="background-position: -184px -460px;"><span>Earl</span></li><li data-fx="kevin" style="background-position: -276px -460px;"><span>Kevin</span></li><li data-fx="polak" style="background-position: -368px -460px;"><span>Polak</span></li><li data-fx="stan" style="background-position: -460px -460px;"><span>Stan</span></li></ul>
 					</h3>
 				</li>
 				<li>
 					<h3 class="nob">
 						<span><?php echo $this->main->lang('Brightness'); ?>: </span>
 						<inp data-range="helper" data-value="0">
-							<input type="range" id="customdesgin-image-fx-brightness" class="nol" data-value="0" min="-50" max="50" value="0" data-image-fx="brightness" data-view="customdesgin" data-range="0" data-between="true" />
+							<input type="range" id="customdesign-image-fx-brightness" class="nol" data-value="0" min="-50" max="50" value="0" data-image-fx="brightness" data-view="customdesign" data-range="0" data-between="true" />
 						</inp>
 					</h3>
 				</li>
@@ -836,7 +836,7 @@ class customdesgin_views extends customdesgin_lib {
 					<h3 class="nob">
 						<span><?php echo $this->main->lang('Saturation'); ?>: </span>
 						<inp data-range="helper" data-value="100">
-							<input type="range" id="customdesgin-image-fx-saturation" class="nol" data-value="100" min="0" max="100" value="100" data-image-fx="saturation" data-view="customdesgin" />
+							<input type="range" id="customdesign-image-fx-saturation" class="nol" data-value="100" min="0" max="100" value="100" data-image-fx="saturation" data-view="customdesign" />
 						</inp>
 					</h3>
 				</li>
@@ -844,7 +844,7 @@ class customdesgin_views extends customdesgin_lib {
 					<h3 class="nob">
 						<span><?php echo $this->main->lang('Contrast'); ?>: </span>
 						<inp data-range="helper" data-value="0">
-							<input type="range" id="customdesgin-image-fx-contrast" class="nol" data-value="0" min="-50" max="50" value="0" data-image-fx="contrast" data-view="customdesgin" data-range="0" data-between="true" />
+							<input type="range" id="customdesign-image-fx-contrast" class="nol" data-value="0" min="-50" max="50" value="0" data-image-fx="contrast" data-view="customdesign" data-range="0" data-between="true" />
 						</inp>
 					</h3>
 				</li>
@@ -858,63 +858,63 @@ class customdesgin_views extends customdesgin_lib {
 		<?php $this->main->do_action('after-tool-image'); ?>
 	</ul>
 
-	<ul class="customdesgin-top-nav left" data-mode="drawing">
+	<ul class="customdesign-top-nav left" data-mode="drawing">
 		<!-- Avalable hook: before-tool-drawing -->
 		<?php $this->main->do_action('before-tool-drawing'); ?>
 		<li>
-			<button id="customdesgin-discard-drawing" class="red mr1">
-				<i class="customdesginx-android-close"></i> <?php echo $this->main->lang('Discard drawing (ESC)'); ?>
+			<button id="customdesign-discard-drawing" class="red mr1">
+				<i class="customdesignx-android-close"></i> <?php echo $this->main->lang('Discard drawing (ESC)'); ?>
 			</button>
 			<?php echo $this->main->lang('Click then drag the mouse to start drawing.'); ?>
 			<b>Ctrl+Z</b> = undo, <b>Ctrl+Shift+Z</b> = redo
 		</li>
 	</ul>
 
-	<ul class="customdesgin-top-nav left" data-mode="standard">
+	<ul class="customdesign-top-nav left" data-mode="standard">
 		<!-- Avalable hook: before-tool-standard-left -->
 		<?php echo $this->main->do_action('before-tool-standard-left'); ?>
 		<li data-tool="qrcode-text">
 			<span data-tip="true">
-				<i class="customdesginx-qrcode-1"></i>
+				<i class="customdesignx-qrcode-1"></i>
 				<span><?php echo $this->main->lang('QRCode text'); ?></span>
-				<input type="text" onclick="this.focus()" class="nol customdesgin-edit-text" id="customdesgin-qrcode-text" placeholder="<?php echo $this->main->lang('Enter your text'); ?>" />
+				<input type="text" onclick="this.focus()" class="nol customdesign-edit-text" id="customdesign-qrcode-text" placeholder="<?php echo $this->main->lang('Enter your text'); ?>" />
 			</span>
 		</li>
 		<!-- Avalable hook: after-tool-standard-left -->
 		<?php echo $this->main->do_action('after-tool-standard-left'); ?>
 	</ul>
 
-	<ul class="customdesgin-top-nav right" data-mode="standard">
+	<ul class="customdesign-top-nav right" data-mode="standard">
 		<!-- Avalable hook: before-tool-standard-right -->
 		<?php $this->main->do_action('before-tool-standard-right'); ?>
 		<?php if($this->main->apply_filters('fill', true)): ?>
 		<li data-tool="fill">
 			<span data-tip="true">
-				<i class="customdesginx-paintbucket"></i>
+				<i class="customdesignx-paintbucket"></i>
 				<span><?php echo $this->main->lang('Fill options'); ?></span>
 			</span>
 			<ul data-pos="center" data-view="sub" id="fill-ops-sub">
 				<li data-view="title">
 					<h3>
 						<span><?php echo $this->main->lang('Fill options'); ?></span>
-						<i class="customdesginx-android-close close" title="close"></i>
+						<i class="customdesignx-android-close close" title="close"></i>
 					</h3>
 					<p class="flex<?php echo ($this->main->cfg->settings['enable_colors'] == '0' && !isset($_POST['printing'])) ? ' hidden' : ''; ?>">
-						<input type="search" placeholder="click to choose color" id="customdesgin-fill" class="color" data-pos="#fill-ops-sub" />
+						<input type="search" placeholder="click to choose color" id="customdesign-fill" class="color" data-pos="#fill-ops-sub" />
 						<?php if ($this->main->cfg->settings['enable_colors'] != '0' || isset($_POST['printing'])) { ?>
-						<span class="customdesgin-save-color" data-tip="true" data-target="fill">
-							<i class="customdesginx-android-add"></i>
+						<span class="customdesign-save-color" data-tip="true" data-target="fill">
+							<i class="customdesignx-android-add"></i>
 							<span><?php echo $this->main->lang('Save this color'); ?></span>
 						</span>
 						<?php } ?>
 					</p>
-					<ul id="customdesgin-color-presets" class="customdesgin-color-presets" data-target="fill"></ul>
+					<ul id="customdesign-color-presets" class="customdesign-color-presets" data-target="fill"></ul>
 				</li>
 				<li data-view="transparent">
 					<h3 class="nob">
 						<span><?php echo $this->main->lang('Transparent'); ?>: </span>
 						<inp data-range="helper" data-value="100%">
-							<input type="range" class="nol" id="customdesgin-transparent" data-value="100%" min="0" max="100" value="100" data-unit="%" data-ratio="0.01" data-action="opacity" />
+							<input type="range" class="nol" id="customdesign-transparent" data-value="100%" min="0" max="100" value="100" data-unit="%" data-ratio="0.01" data-action="opacity" />
 						</inp>
 					</h3>
 				</li>
@@ -922,20 +922,20 @@ class customdesgin_views extends customdesgin_lib {
 					<h3 class="nob">
 						<span><?php echo $this->main->lang('Stroke width'); ?>: </span>
 						<inp data-range="helper" data-value="0">
-							<input type="range" class="nol" id="customdesgin-stroke-width" data-action="strokeWidth" data-unit="px" data-value="0" min="0" max="100" value="0" />
+							<input type="range" class="nol" id="customdesign-stroke-width" data-action="strokeWidth" data-unit="px" data-value="0" min="0" max="100" value="0" />
 						</inp>
 					</h3>
 				</li>
 				<li data-view="stroke">
 					<h3 class="nob">
 						<span><?php echo $this->main->lang('Stroke color'); ?>: </span>
-						<input type="search" class="color<?php echo ($this->main->cfg->settings['enable_colors'] == '0' && !isset($_POST['printing'])) ? ' hidden' : ''; ?>" placeholder="<?php echo $this->main->lang('Select a color'); ?>"  data-pos="#fill-ops-sub" id="customdesgin-stroke" />
+						<input type="search" class="color<?php echo ($this->main->cfg->settings['enable_colors'] == '0' && !isset($_POST['printing'])) ? ' hidden' : ''; ?>" placeholder="<?php echo $this->main->lang('Select a color'); ?>"  data-pos="#fill-ops-sub" id="customdesign-stroke" />
 					</h3>
 					<?php if ($this->main->cfg->settings['enable_colors'] == '0' || isset($_POST['printing']) ) {
 						$colors = explode(':', $this->main->cfg->settings['colors']);
 						if (isset($colors[1])) {
 							$colors = explode(',', $colors[1]);
-							echo '<ul id="customdesgin-stroke-fix-colors">';
+							echo '<ul id="customdesign-stroke-fix-colors">';
 							foreach ($colors as $k => $v) {
 								$v = explode('@', $v);
 								echo '<li style="background: '.$v[0].'" title="'.(
@@ -951,24 +951,24 @@ class customdesgin_views extends customdesgin_lib {
 		<?php endif;?>
 		<li data-tool="un-group" data-callback="ungroup">
 			<span data-tip="true">
-				<i class="customdesginx-link"></i>
+				<i class="customdesignx-link"></i>
 				<span><?php echo $this->main->lang('Ungroup position'); ?></span>
 			</span>
 		</li>
 		<?php if($this->main->apply_filters('layers', true)): ?>
 		<li data-tool="arrange">
 			<span data-tip="true">
-				<i class="customdesginx-send-to-back"></i>
+				<i class="customdesignx-send-to-back"></i>
 				<span><?php echo $this->main->lang('Arrange layers'); ?></span>
 			</span>
 			<ul data-pos="center" data-view="sub">
 				<li class="flex">
 					<button data-arrange="back">
-						<i class="customdesginx-android-remove"></i>
+						<i class="customdesignx-android-remove"></i>
 						<?php echo $this->main->lang('Back'); ?>
 					</button>
 					<button data-arrange="forward" class="last">
-						<i class="customdesginx-android-add"></i>
+						<i class="customdesignx-android-add"></i>
 						<?php echo $this->main->lang('Forward'); ?>
 					</button>
 				</li>
@@ -978,78 +978,78 @@ class customdesgin_views extends customdesgin_lib {
 		<?php if($this->main->apply_filters('position', true)): ?>
 		<li data-tool="position">
 			<span data-tip="true">
-				<i class="customdesginx-android-apps"></i>
+				<i class="customdesignx-android-apps"></i>
 				<span><?php echo $this->main->lang('Position'); ?></span>
 			</span>
-			<ul data-pos="right" data-view="sub" id="customdesgin-position-wrp">
+			<ul data-pos="right" data-view="sub" id="customdesign-position-wrp">
 				<li data-view="title">
 					<h3>
 						<?php echo $this->main->lang('Object position'); ?>
-						<i class="customdesginx-android-close close" title="close"></i>
+						<i class="customdesignx-android-close close" title="close"></i>
 					</h3>
 					<p class="lock-postion">
 						<?php echo $this->main->lang('Lock object position'); ?>: 
-						<span class="customdesgin-switch" style="float: none;">
-							<input id="customdesgin-lock-position" type="checkbox" value="" class="customdesgin-toggle-button">
-							<span class="customdesgin-toggle-label" data-on="YES" data-off="NO"></span>
-							<span class="customdesgin-toggle-handle"></span>
+						<span class="customdesign-switch" style="float: none;">
+							<input id="customdesign-lock-position" type="checkbox" value="" class="customdesign-toggle-button">
+							<span class="customdesign-toggle-label" data-on="YES" data-off="NO"></span>
+							<span class="customdesign-toggle-handle"></span>
 						</span>
 					</p>
 				</li>
 
 				<li data-position="cv" data-tip="true">
-					<p><i class="customdesginx-move-vertical"></i></p>
+					<p><i class="customdesignx-move-vertical"></i></p>
 					<span><?php echo $this->main->lang('Center vertical'); ?></span>
 				</li>
 
 				<li data-position="tl" data-tip="true">
-					<p><i class="customdesginx-android-arrow-up _45deg"></i></p>
+					<p><i class="customdesignx-android-arrow-up _45deg"></i></p>
 					<span><?php echo $this->main->lang('Top left'); ?></span>
 				</li>
 				<li data-position="tc" data-tip="true">
-					<p><i class="customdesginx-android-arrow-up"></i></p>
+					<p><i class="customdesignx-android-arrow-up"></i></p>
 					<span><?php echo $this->main->lang('Top center'); ?></span>
 				</li>
 				<li data-position="tr" data-tip="true" class="mirX">
-					<p><i class="customdesginx-android-arrow-forward _135deg"></i></p>
+					<p><i class="customdesignx-android-arrow-forward _135deg"></i></p>
 					<span><?php echo $this->main->lang('Top right'); ?></span>
 				</li>
 
 
 				<li data-position="ch" data-tip="true" class="rota">
-					<p><i class="customdesginx-move-horizontal"></i></p>
+					<p><i class="customdesignx-move-horizontal"></i></p>
 					<span><?php echo $this->main->lang('Center Horizontal'); ?></span>
 				</li>
 
 				<li data-position="ml" data-tip="true">
-					<p><i class="customdesginx-android-arrow-back"></i></p>
+					<p><i class="customdesignx-android-arrow-back"></i></p>
 					<span><?php echo $this->main->lang('Middle left'); ?></span>
 				</li>
 				<li data-position="mc" data-tip="true">
-					<p><i class="customdesginx-android-radio-button-off"></i></p>
+					<p><i class="customdesignx-android-radio-button-off"></i></p>
 					<span><?php echo $this->main->lang('Middle center'); ?></span>
 				</li>
 				<li data-position="mr" data-tip="true">
-					<p><i class="customdesginx-android-arrow-forward"></i></p>
+					<p><i class="customdesignx-android-arrow-forward"></i></p>
 					<span><?php echo $this->main->lang('Middle right'); ?></span>
 				</li>
 
 				<li data-position="" data-tip="true">
-					<i class="customdesgin-icon-info"></i>
+					<i class="customdesign-icon-info"></i>
 					<span>
 						<?php echo $this->main->lang('Press &leftarrow; &uparrow; &rightarrow; &downarrow; to move 1 px, <br>Hit simultaneously SHIFT key to move 10px'); ?>
 					</span>
 				</li>
 				<li data-position="bl" data-tip="true" class="mirX">
-					<p><i class="customdesginx-android-arrow-down _45deg"></i></p>
+					<p><i class="customdesignx-android-arrow-down _45deg"></i></p>
 					<span><?php echo $this->main->lang('Bottom left'); ?></span>
 				</li>
 				<li data-position="bc" data-tip="true">
-					<p><i class="customdesginx-android-arrow-down"></i></p>
+					<p><i class="customdesignx-android-arrow-down"></i></p>
 					<span><?php echo $this->main->lang('Bottom center'); ?></span>
 				</li>
 				<li data-position="br" data-tip="true">
-					<p><i class="customdesginx-android-arrow-down _45deg"></i></p>
+					<p><i class="customdesignx-android-arrow-down _45deg"></i></p>
 					<span><?php echo $this->main->lang('Bottom right'); ?></span>
 				</li>
 			</ul>
@@ -1058,7 +1058,7 @@ class customdesgin_views extends customdesgin_lib {
 		<?php if($this->main->apply_filters('transform', true)): ?>
 		<li data-tool="transform">
 			<span data-tip="true">
-				<i class="customdesginx-android-options"></i>
+				<i class="customdesignx-android-options"></i>
 				<span><?php echo $this->main->lang('Transforms'); ?></span>
 			</span>
 			<ul data-pos="right" data-view="sub">
@@ -1066,7 +1066,7 @@ class customdesgin_views extends customdesgin_lib {
 					<h3 class="nob">
 						<span><?php echo $this->main->lang('Rotate'); ?>: </span>
 						<inp data-range="helper" data-value="0º">
-							<input type="range" id="customdesgin-rotate" data-value="0º" min="0" max="360" value="0" data-unit="º" data-range="0, 45, 90, 135, 180, 225, 270, 315" data-action="angle" />
+							<input type="range" id="customdesign-rotate" data-value="0º" min="0" max="360" value="0" data-unit="º" data-range="0, 45, 90, 135, 180, 225, 270, 315" data-action="angle" />
 						</inp>
 					</h3>
 				</li>
@@ -1074,7 +1074,7 @@ class customdesgin_views extends customdesgin_lib {
 					<h3 class="nob">
 						<span><?php echo $this->main->lang('Skew X'); ?>: </span>
 						<inp data-range="helper" data-value="0">
-							<input class="nol" type="range" id="customdesgin-skew-x" data-value="0" min="-30" max="30" value="0" data-unit="" data-action="skewX" data-range="0" data-between="true" />
+							<input class="nol" type="range" id="customdesign-skew-x" data-value="0" min="-30" max="30" value="0" data-unit="" data-action="skewX" data-range="0" data-between="true" />
 						</inp>
 					</h3>
 				</li>
@@ -1082,30 +1082,30 @@ class customdesgin_views extends customdesgin_lib {
 					<h3 class="nob">
 						<span><?php echo $this->main->lang('Skew Y'); ?>: </span>
 						<inp data-range="helper" data-value="0">
-							<input class="nol" type="range" id="customdesgin-skew-y" data-value="0" min="-30" max="30" value="0" data-unit="" data-action="skewY" data-range="0" data-between="true" />
+							<input class="nol" type="range" id="customdesign-skew-y" data-value="0" min="-30" max="30" value="0" data-unit="" data-action="skewY" data-range="0" data-between="true" />
 						</inp>
 					</h3>
 				</li>
 				<li class="center">
 					<?php echo $this->main->lang('Flip X'); ?>:
-					<div class="customdesgin-switch mr2">
-						<input id="customdesgin-flip-x" type="checkbox" value="" class="customdesgin-toggle-button">
-						<span class="customdesgin-toggle-label" data-on="ON" data-off="OFF"></span>
-						<span class="customdesgin-toggle-handle"></span>
+					<div class="customdesign-switch mr2">
+						<input id="customdesign-flip-x" type="checkbox" value="" class="customdesign-toggle-button">
+						<span class="customdesign-toggle-label" data-on="ON" data-off="OFF"></span>
+						<span class="customdesign-toggle-handle"></span>
 					</div>
 
 					<?php echo $this->main->lang('Flip Y'); ?>:
-					<div class="customdesgin-switch">
-						<input id="customdesgin-flip-y" type="checkbox" value="" class="customdesgin-toggle-button">
-						<span class="customdesgin-toggle-label" data-on="ON" data-off="OFF"></span>
-						<span class="customdesgin-toggle-handle"></span>
+					<div class="customdesign-switch">
+						<input id="customdesign-flip-y" type="checkbox" value="" class="customdesign-toggle-button">
+						<span class="customdesign-toggle-label" data-on="ON" data-off="OFF"></span>
+						<span class="customdesign-toggle-handle"></span>
 					</div>
 					<p class="blockinl">
-						<i class="customdesginx-android-bulb"></i>
+						<i class="customdesignx-android-bulb"></i>
 						<?php echo $this->main->lang('Free transform by press SHIFT+&#10529;'); ?>
 						<br>
-						<button id="customdesgin-reset-transform">
-							<i class="customdesginx-arrows-ccw"></i>
+						<button id="customdesign-reset-transform">
+							<i class="customdesignx-arrows-ccw"></i>
 							<?php echo $this->main->lang('Reset all transforms'); ?>
 						</button>
 					</p>
@@ -1117,7 +1117,7 @@ class customdesgin_views extends customdesgin_lib {
 		<?php echo $this->main->do_action('after-tool-standard-right'); ?>
 	</ul>
 
-	<ul class="customdesgin-top-nav left" data-mode="text" id="customdesgin-text-tools">
+	<ul class="customdesign-top-nav left" data-mode="text" id="customdesign-text-tools">
 		<!-- Avalable hook: before-tool-text -->
 		<?php echo $this->main->do_action('before-tool-text'); ?>
 		<li data-tool="font">
@@ -1128,11 +1128,11 @@ class customdesgin_views extends customdesgin_lib {
 				<span><?php echo $this->main->lang('Font family'); ?></span>
 			</span>
 			<ul data-pos="center" data-func="fonts" data-view="sub">
-				<li class="scroll smooth" id="customdesgin-fonts"></li>
+				<li class="scroll smooth" id="customdesign-fonts"></li>
 				<?php if ($this->main->connector->is_admin() || $this->main->cfg->settings['user_font'] !== '0') { ?>
 				<li class="bttm">
-					<button class="customdesgin-more-fonts">
-						<i class="customdesginx-android-open"></i> 
+					<button class="customdesign-more-fonts">
+						<i class="customdesignx-android-open"></i> 
 						<?php echo $this->main->lang('Get more fonts'); ?>
 					</button>
 				</li>
@@ -1141,19 +1141,19 @@ class customdesgin_views extends customdesgin_lib {
 		</li>
 		<li data-tool="spacing">
 			<span data-tip="true">
-				<i class="customdesginx-text f16"></i>
+				<i class="customdesignx-text f16"></i>
 				<span><?php echo $this->main->lang('Edit text'); ?></span>
 			</span>
 			<ul data-pos="right" data-view="sub">
 				<li data-view="title">
 					<h3>
 						<?php echo $this->main->lang('Edit text'); ?>
-						<i class="customdesginx-android-close close" title="Close"></i>
+						<i class="customdesignx-android-close close" title="Close"></i>
 					</h3>
 				</li>
 				<li>
 					<h3 class="nob">
-						<textarea type="text" class="nol customdesgin-edit-text" placeholder="Enter your text"></textarea>
+						<textarea type="text" class="nol customdesign-edit-text" placeholder="Enter your text"></textarea>
 					</h3>
 				</li>
 				<?php if($this->main->apply_filters('font-size', true)): ?>
@@ -1161,7 +1161,7 @@ class customdesgin_views extends customdesgin_lib {
 					<h3 class="nob">
 						<span><?php echo $this->main->lang('Font size'); ?>: </span>
 						<inp data-range="helper" data-value="16">
-							<input type="range" class="nol" id="customdesgin-font-size" data-action="fontSize" data-unit="px" data-value="16" min="6" max="144" value="16" />
+							<input type="range" class="nol" id="customdesign-font-size" data-action="fontSize" data-unit="px" data-value="16" min="6" max="144" value="16" />
 						</inp>
 					</h3>
 				</li>
@@ -1171,7 +1171,7 @@ class customdesgin_views extends customdesgin_lib {
 					<h3 class="nob">
 						<span class="min100"><?php echo $this->main->lang('Letter spacing'); ?> </span>
 						<inp data-range="helper" data-value="100%">
-							<input type="range" class="nol" id="customdesgin-letter-spacing" data-value="100%" min="0" max="1000" value="100" data-unit="" data-action="charSpacing" />
+							<input type="range" class="nol" id="customdesign-letter-spacing" data-value="100%" min="0" max="1000" value="100" data-unit="" data-action="charSpacing" />
 						</inp>
 					</h3>
 				</li>
@@ -1181,7 +1181,7 @@ class customdesgin_views extends customdesgin_lib {
 					<h3 class="nob">
 						<span class="min100"><?php echo $this->main->lang('Line height'); ?> </span>
 						<inp data-range="helper" data-value="10">
-							<input type="range" class="nol" id="customdesgin-line-height" data-value="10" min="1" max="50" value="10"  data-action="lineHeight" data-unit="px" data-ratio="0.1" />
+							<input type="range" class="nol" id="customdesign-line-height" data-value="10" min="1" max="50" value="10"  data-action="lineHeight" data-unit="px" data-ratio="0.1" />
 						</inp>
 					</h3>
 				</li>
@@ -1192,19 +1192,19 @@ class customdesgin_views extends customdesgin_lib {
 		<?php if($this->main->apply_filters('text-effect', true)): ?>
 		<li data-tool="text-effect">
 			<span data-tip="true">
-				<i class="customdesginx-vector"></i>
+				<i class="customdesignx-vector"></i>
 				<span><?php echo $this->main->lang('Text Effects'); ?></span>
 			</span>
 			<ul data-pos="right" data-view="sub">
 				<li data-view="title">
 					<h3>
 						<?php echo $this->main->lang('Text effects'); ?>
-						<i class="customdesginx-android-close close" title="Close"></i>
+						<i class="customdesignx-android-close close" title="Close"></i>
 					</h3>
 				</li>
-				<li id="customdesgin-text-effect">
+				<li id="customdesign-text-effect">
 					<h3 class="nob mb1">
-						<textarea type="text" class="nol ml0 customdesgin-edit-text" placeholder="<?php echo $this->main->lang('Enter your text'); ?>"></textarea>
+						<textarea type="text" class="nol ml0 customdesign-edit-text" placeholder="<?php echo $this->main->lang('Enter your text'); ?>"></textarea>
 						<button data-func="update-text-fx"><?php echo $this->main->lang('UPDATE TEXT'); ?></button>
 					</h3>
 					<span data-sef="images">
@@ -1213,17 +1213,17 @@ class customdesgin_views extends customdesgin_lib {
 						<img data-effect="bridge" src="<?php echo $this->main->cfg->assets_url; ?>assets/images/text-effect-bridge.png" height="80" />
 						<img data-effect="oblique" src="<?php echo $this->main->cfg->assets_url; ?>assets/images/text-effect-oblique.png" height="80" />
 					</span>
-					<div class="customdesgin-switch" style="display: none;">
-						<input id="customdesgin-curved" type="checkbox" value="" class="customdesgin-toggle-button">
-						<span class="customdesgin-toggle-label" data-on="ON" data-off="OFF"></span>
-						<span class="customdesgin-toggle-handle"></span>
+					<div class="customdesign-switch" style="display: none;">
+						<input id="customdesign-curved" type="checkbox" value="" class="customdesign-toggle-button">
+						<span class="customdesign-toggle-label" data-on="ON" data-off="OFF"></span>
+						<span class="customdesign-toggle-handle"></span>
 					</div>
 				</li>
 				<li data-func="curved">
 					<h3 class="nob">
 						<span><?php echo $this->main->lang('Radius'); ?> </span>
 						<inp data-range="helper" data-value="80">
-							<input type="range" class="nol" id="customdesgin-curved-radius" data-action="radius" data-value="80" min="-300" max="300" value="80" />
+							<input type="range" class="nol" id="customdesign-curved-radius" data-action="radius" data-value="80" min="-300" max="300" value="80" />
 						</inp>
 					</h3>
 				</li>
@@ -1231,7 +1231,7 @@ class customdesgin_views extends customdesgin_lib {
 					<h3 class="nob">
 						<span><?php echo $this->main->lang('Spacing'); ?> </span>
 						<inp data-range="helper" data-value="0">
-							<input type="range" class="nol" id="customdesgin-curved-spacing" data-action="spacing" data-value="0" min="0" max="100" value="0" />
+							<input type="range" class="nol" id="customdesign-curved-spacing" data-action="spacing" data-value="0" min="0" max="100" value="0" />
 						</inp>
 					</h3>
 				</li>
@@ -1239,7 +1239,7 @@ class customdesgin_views extends customdesgin_lib {
 					<h3 class="nob">
 						<span><?php echo $this->main->lang('Curve'); ?> </span>
 						<inp data-range="helper" data-value="0">
-							<input type="range" class="nol" id="customdesgin-text-fx-curve" data-callback="textFX" data-fx="curve" data-value="0" min="-100" max="100" data-ratio="0.1" value="0" />
+							<input type="range" class="nol" id="customdesign-text-fx-curve" data-callback="textFX" data-fx="curve" data-value="0" min="-100" max="100" data-ratio="0.1" value="0" />
 						</inp>
 					</h3>
 				</li>
@@ -1247,7 +1247,7 @@ class customdesgin_views extends customdesgin_lib {
 					<h3 class="nob">
 						<span><?php echo $this->main->lang('Height'); ?> </span>
 						<inp data-range="helper" data-value="100">
-							<input type="range" class="nol" id="customdesgin-text-fx-bottom" data-callback="textFX" data-fx="bottom" data-value="100" min="1" max="150" data-ratio="0.1" value="100" />
+							<input type="range" class="nol" id="customdesign-text-fx-bottom" data-callback="textFX" data-fx="bottom" data-value="100" min="1" max="150" data-ratio="0.1" value="100" />
 						</inp>
 					</h3>
 				</li>
@@ -1255,17 +1255,17 @@ class customdesgin_views extends customdesgin_lib {
 					<h3 class="nob">
 						<span><?php echo $this->main->lang('Offset'); ?> </span>
 						<inp data-range="helper" data-value="50">
-							<input type="range" class="nol" id="customdesgin-text-fx-offsety" data-callback="textFX" data-fx="offsetY" data-value="50" min="1" max="100" data-ratio="0.01" value="50" />
+							<input type="range" class="nol" id="customdesign-text-fx-offsety" data-callback="textFX" data-fx="offsetY" data-value="50" min="1" max="100" data-ratio="0.01" value="50" />
 						</inp>
 					</h3>
 				</li>
 				<li data-func="text-fx">
 					<h3 class="nob">
 						<span><?php echo $this->main->lang('Trident'); ?> </span>
-						<div class="customdesgin-switch">
-							<input id="customdesgin-text-fx-trident" data-fx="trident" type="checkbox" value="" class="customdesgin-toggle-button">
-							<span class="customdesgin-toggle-label" data-on="ON" data-off="OFF"></span>
-							<span class="customdesgin-toggle-handle"></span>
+						<div class="customdesign-switch">
+							<input id="customdesign-text-fx-trident" data-fx="trident" type="checkbox" value="" class="customdesign-toggle-button">
+							<span class="customdesign-toggle-label" data-on="ON" data-off="OFF"></span>
+							<span class="customdesign-toggle-handle"></span>
 						</div>
 					</h3>
 				</li>
@@ -1276,41 +1276,41 @@ class customdesgin_views extends customdesgin_lib {
 		<?php if($this->main->apply_filters('text-align', true)): ?>
 		<li data-tool="text-align">
 			<span data-tip="true">
-				<i class="customdesginx-align-center" id="customdesgin-text-align"></i>
+				<i class="customdesignx-align-center" id="customdesign-text-align"></i>
 				<span><?php echo $this->main->lang('Text align'); ?></span>
 			</span>
 			<ul data-pos="center" data-view="sub">
 				<li>
-					<i class="customdesginx-align-left text-format" data-align="left" title="<?php echo $this->main->lang('Text align left'); ?>"></i>
-					<i class="customdesginx-align-center text-format" data-align="center" title="<?php echo $this->main->lang('Text align center'); ?>"></i>
-					<i class="customdesginx-align-right text-format" data-align="right" title="<?php echo $this->main->lang('Text align right'); ?>"></i>
-					<i class="customdesginx-align-justify text-format" data-align="justify" title="<?php echo $this->main->lang('Text align justify'); ?>"></i>
+					<i class="customdesignx-align-left text-format" data-align="left" title="<?php echo $this->main->lang('Text align left'); ?>"></i>
+					<i class="customdesignx-align-center text-format" data-align="center" title="<?php echo $this->main->lang('Text align center'); ?>"></i>
+					<i class="customdesignx-align-right text-format" data-align="right" title="<?php echo $this->main->lang('Text align right'); ?>"></i>
+					<i class="customdesignx-align-justify text-format" data-align="justify" title="<?php echo $this->main->lang('Text align justify'); ?>"></i>
 				</li>
 			</ul>
 		</li>
 		<?php endif; ?>
 		<li class="text-format" data-format="upper">
 			<span data-tip="true">
-				<i class="customdesginx-letter"></i>
+				<i class="customdesignx-letter"></i>
 				<span><?php echo $this->main->lang('Uppercase / Lowercase'); ?></span>
 			</span>
 		</li>
 		<?php if($this->main->apply_filters('font-style', true)): ?>
 		<li class="text-format" data-format="bold">
 			<span data-tip="true">
-				<i class="customdesginx-bold"></i>
+				<i class="customdesignx-bold"></i>
 				<span><?php echo $this->main->lang('Font weight bold'); ?></span>
 			</span>
 		</li>
 		<li class="text-format" data-format="italic">
 			<span data-tip="true">
-				<i class="customdesginx-italic"></i>
+				<i class="customdesignx-italic"></i>
 				<span><?php echo $this->main->lang('Text style italic'); ?></span>
 			</span>
 		</li>
 		<li class="text-format" data-format="underline">
 			<span data-tip="true">
-				<i class="customdesginx-underline"></i>
+				<i class="customdesignx-underline"></i>
 				<span><?php echo $this->main->lang('Text underline'); ?></span>
 			</span>
 		</li>
@@ -1335,11 +1335,11 @@ class customdesgin_views extends customdesgin_lib {
 		
 		$menus = $this->main->cfg->editor_menus;
 	?>
-	<div id="customdesgin-left">
-		<div class="customdesgin-left-nav-wrp">
-			<ul class="customdesgin-left-nav">
+	<div id="customdesign-left">
+		<div class="customdesign-left-nav-wrp">
+			<ul class="customdesign-left-nav">
 				<li data-tab="design">
-					<i class="customdesginx-android-color-palette"></i>
+					<i class="customdesignx-android-color-palette"></i>
 					<?php echo $this->main->lang('Design'); ?>
 				</li>
 				<?php 
@@ -1375,11 +1375,11 @@ class customdesgin_views extends customdesgin_lib {
 				
 				<?php if ($this->main->cfg->settings['report_bugs'] != 0) { ?>
 				<li data-tab="bug" title="<?php echo $this->main->lang('Report bugs'); ?>">
-					<i class="customdesginx-bug"></i>
+					<i class="customdesignx-bug"></i>
 				</li>
 				<?php } ?>
 			</ul>
-			<i class="customdesginx-android-close active" id="customdesgin-side-close"></i>
+			<i class="customdesignx-android-close active" id="customdesign-side-close"></i>
 		</div>
 		
 		<?php 
@@ -1390,12 +1390,12 @@ class customdesgin_views extends customdesgin_lib {
 				
 				if (isset($menus[$comps[$i]])) {
 					
-					$claz = 'customdesgin-tab-body-wrp';
+					$claz = 'customdesign-tab-body-wrp';
 						
 					if (isset($menus[$comps[$i]]['class']) && !empty($menus[$comps[$i]]['class']))
 						$claz .= ' '.$menus[$comps[$i]]['class'];
 						
-					echo '<div id="customdesgin-'.$comps[$i].'" class="'.$claz.'">';
+					echo '<div id="customdesign-'.$comps[$i].'" class="'.$claz.'">';
 					if (isset($menus[$comps[$i]]['content']) && !empty($menus[$comps[$i]]['content']))
 						echo $menus[$comps[$i]]['content'];
 					echo '</div>';
@@ -1407,24 +1407,24 @@ class customdesgin_views extends customdesgin_lib {
 		?>
 		
 		<?php if ($this->main->cfg->settings['report_bugs'] != 0) { ?>
-		<div id="customdesgin-bug" class="customdesgin-tab-body-wrp customdesgin-left-form">
+		<div id="customdesign-bug" class="customdesign-tab-body-wrp customdesign-left-form">
 			<bug>
 				<h3><?php echo $this->main->lang('Bug Reporting'); ?></h3>
 				<p><?php echo $this->main->lang('Please let us know if you find any bugs on this design tool or just your opinion to improve the tool.'); ?></p>
 				<textarea placeholder="<?php echo $this->main->lang('Bug description (min 30 - max 1500 characters)'); ?>" maxlength="1500" data-id="report-content"></textarea>
-				<button class="customdesgin-btn submit">
-					<?php echo $this->main->lang('Send now'); ?> <i class="customdesginx-android-send"></i>
+				<button class="customdesign-btn submit">
+					<?php echo $this->main->lang('Send now'); ?> <i class="customdesignx-android-send"></i>
 				</button>
 				<p data-view="tips">
 					<?php echo $this->main->lang('Tips: If you want to send content with screenshots or videos, you can upload them to'); ?> 
 					<a href="https://imgur.com" target=_blank>imgur.com</a> 
 					<?php echo $this->main->lang('or any drive services and put links here.'); ?>
 				</p>
-				<center><i class="customdesginx-bug"></i></center>
+				<center><i class="customdesignx-bug"></i></center>
 			</bug>
 		</div>
 		<?php } ?>
-		<div id="customdesgin-x-thumbn-preview">
+		<div id="customdesign-x-thumbn-preview">
 			<header></header>
 			<div></div>
 			<footer></footer>
@@ -1436,11 +1436,11 @@ class customdesgin_views extends customdesgin_lib {
     public function printings()
     {
         ?>
-        <div class="customdesgin-prints customdesgin-cart-field">
-            <div class="customdesgin-add-cart-heading">
+        <div class="customdesign-prints customdesign-cart-field">
+            <div class="customdesign-add-cart-heading">
                 <?php echo $this->main->lang('Print Technologies'); ?>
             </div>
-			<div class="customdesgin_radios customdesgin_form_content">
+			<div class="customdesign_radios customdesign_form_content">
 	            <?php
 	            $rules = array();
 	            $items = $this->get_prints();
@@ -1456,13 +1456,13 @@ class customdesgin_views extends customdesgin_lib {
 	                    );
 
 	                ?>
-	            <div class="customdesgin-radio">
-	                <input type="radio" name="printing" value="<?php echo $print['id'];?>" id="customdesgin-print-<?php echo $print['id'];?>"/>
-	                <label for="customdesgin-print-<?php echo $print['id'];?>">
+	            <div class="customdesign-radio">
+	                <input type="radio" name="printing" value="<?php echo $print['id'];?>" id="customdesign-print-<?php echo $print['id'];?>"/>
+	                <label for="customdesign-print-<?php echo $print['id'];?>">
 	                <?php echo $print['title'];?>
 	                <div class="check"></div>
 	                </label>
-	                <em class="customdesgin-printing-desc">
+	                <em class="customdesign-printing-desc">
 	                    <?php echo $print['description'];?>
 	                </em>
 	            </div>
@@ -1484,23 +1484,23 @@ class customdesgin_views extends customdesgin_lib {
 
 	public function detail_header($args = array()) {
 
-		global $customdesgin, $customdesgin_router, $customdesgin_helper;
+		global $customdesign, $customdesign_router, $customdesign_helper;
 
-		echo '<div class="customdesgin_header">';
+		echo '<div class="customdesign_header">';
 		
 		if (!isset($args['pages']))
 			$args['pages'] = $args['page'].'s';
 			
 		if (!empty($_GET['id'])) {
-			echo '<h2><a href="'.$customdesgin->cfg->admin_url.'customdesgin-page='.$args['pages'].(isset($args['type']) ? '&type='.$args['type'] : '').'">'.$args['pages'].'</a> <i class="fa fa-angle-right"></i> '.$args['edit'].'</h2>'.
-					'<a href="'.$customdesgin->cfg->admin_url.'customdesgin-page='.$args['page'].(isset($args['type']) ? '&type='.$args['type'] : '').(isset($_GET['callback']) ? '&callback=edit-cms-product' : '').'" class="add-new customdesgin-button"><i class="fa fa-plus"></i> '.
+			echo '<h2><a href="'.$customdesign->cfg->admin_url.'customdesign-page='.$args['pages'].(isset($args['type']) ? '&type='.$args['type'] : '').'">'.$args['pages'].'</a> <i class="fa fa-angle-right"></i> '.$args['edit'].'</h2>'.
+					'<a href="'.$customdesign->cfg->admin_url.'customdesign-page='.$args['page'].(isset($args['type']) ? '&type='.$args['type'] : '').(isset($_GET['callback']) ? '&callback=edit-cms-product' : '').'" class="add-new customdesign-button"><i class="fa fa-plus"></i> '.
 					$args['add'].
 					'</a>';
 		} else {
-			echo '<h2><a href="'.$customdesgin->cfg->admin_url.'customdesgin-page='.$args['pages'].(isset($args['type']) ? '&type='.$args['type'] : '').'">'.$args['pages'].'</a> <i class="fa fa-angle-right"></i> '.$args['add'].'</h2>';
+			echo '<h2><a href="'.$customdesign->cfg->admin_url.'customdesign-page='.$args['pages'].(isset($args['type']) ? '&type='.$args['type'] : '').'">'.$args['pages'].'</a> <i class="fa fa-angle-right"></i> '.$args['add'].'</h2>';
 		}
 
-		echo $customdesgin_helper->breadcrumb(isset($_GET['customdesgin-page']) ? $_GET['customdesgin-page'] : '');
+		echo $customdesign_helper->breadcrumb(isset($_GET['customdesign-page']) ? $_GET['customdesign-page'] : '');
 
 		echo '</div>';
 
@@ -1510,22 +1510,22 @@ class customdesgin_views extends customdesgin_lib {
 
 	public function header_message(){
 
-		$customdesgin_msg = $this->main->connector->get_session('customdesgin_msg');
+		$customdesign_msg = $this->main->connector->get_session('customdesign_msg');
 		
-		if (isset($customdesgin_msg['status']) && $customdesgin_msg['status'] == 'error' && is_array($customdesgin_msg['errors'])) { ?>
+		if (isset($customdesign_msg['status']) && $customdesign_msg['status'] == 'error' && is_array($customdesign_msg['errors'])) { ?>
 
-			<div class="customdesgin_message err">
+			<div class="customdesign_message err">
 
 				<?php 
 					
-					foreach ($customdesgin_msg['errors'] as $val) {
+					foreach ($customdesign_msg['errors'] as $val) {
 						if (!empty($val)) {
-							echo '<em class="customdesgin_err"><i class="fa fa-times"></i>  ' . $val . '</em>';
+							echo '<em class="customdesign_err"><i class="fa fa-times"></i>  ' . $val . '</em>';
 						}
 					}
 					
-					$customdesgin_msg = array('status' => '');
-					$this->main->connector->set_session('customdesgin_msg', $customdesgin_msg);
+					$customdesign_msg = array('status' => '');
+					$this->main->connector->set_session('customdesign_msg', $customdesign_msg);
 					
 				?>
 
@@ -1533,34 +1533,34 @@ class customdesgin_views extends customdesgin_lib {
 
 		<?php }
 		
-		if (isset($customdesgin_msg['status']) && $customdesgin_msg['status'] == 'warn' && is_array($customdesgin_msg['errors'])) {
+		if (isset($customdesign_msg['status']) && $customdesign_msg['status'] == 'warn' && is_array($customdesign_msg['errors'])) {
 			?>
-			<div class="customdesgin_message warn">
+			<div class="customdesign_message warn">
 
 				<?php
-				echo '<em class="customdesgin_msg">'.(isset($customdesgin_msg['msg'])? $customdesgin_msg['msg'] : $this->main->lang('Your data has been successfully saved')).'</em>';
+				echo '<em class="customdesign_msg">'.(isset($customdesign_msg['msg'])? $customdesign_msg['msg'] : $this->main->lang('Your data has been successfully saved')).'</em>';
 				
-				if( isset($customdesgin_msg['errors']) ) {
-					foreach ($customdesgin_msg['errors'] as $val) {
-						echo '<em class="customdesgin_err"><i class="fa fa-times"></i>  ' . $val . '</em>';
-						$customdesgin_msg = array('status' => '');
-						$this->main->connector->set_session('customdesgin_msg', $customdesgin_msg);
+				if( isset($customdesign_msg['errors']) ) {
+					foreach ($customdesign_msg['errors'] as $val) {
+						echo '<em class="customdesign_err"><i class="fa fa-times"></i>  ' . $val . '</em>';
+						$customdesign_msg = array('status' => '');
+						$this->main->connector->set_session('customdesign_msg', $customdesign_msg);
 					}
 				}
-				$customdesgin_msg = array('status' => '');
+				$customdesign_msg = array('status' => '');
 				?>
 			</div>
 
 		<?php }
 
-		if (isset($customdesgin_msg['status']) && $customdesgin_msg['status'] == 'success') {
+		if (isset($customdesign_msg['status']) && $customdesign_msg['status'] == 'success') {
 
 		?>
-			<div class="customdesgin_message">
+			<div class="customdesign_message">
 				<?php
-					echo '<em class="customdesgin_suc"><i class="fa fa-check"></i> '.(isset($customdesgin_msg['msg'])? $customdesgin_msg['msg'] : $this->main->lang('Your data has been successfully saved')).'</em>';
-					$customdesgin_msg = array('status' => '');
-					$this->main->connector->set_session('customdesgin_msg', $customdesgin_msg);
+					echo '<em class="customdesign_suc"><i class="fa fa-check"></i> '.(isset($customdesign_msg['msg'])? $customdesign_msg['msg'] : $this->main->lang('Your data has been successfully saved')).'</em>';
+					$customdesign_msg = array('status' => '');
+					$this->main->connector->set_session('customdesign_msg', $customdesign_msg);
 				?>
 			</div>
 		<?php
@@ -1570,27 +1570,27 @@ class customdesgin_views extends customdesgin_lib {
 
     public function tabs_render($args, $tabs_id = '') {
 	    
-		global $customdesgin;
+		global $customdesign;
 	    
 	    if (isset($args['tabs'])) {
 
-		    echo '<div class="customdesgin_tabs_wrapper customdesgin_form_settings" data-id="'.$tabs_id.'">';
-		    echo '<ul class="customdesgin_tab_nav">';
+		    echo '<div class="customdesign_tabs_wrapper customdesign_form_settings" data-id="'.$tabs_id.'">';
+		    echo '<ul class="customdesign_tab_nav">';
 		    
 		    foreach (array_keys($args['tabs']) as $label) {
 				$str_att = explode(':', $label);
 				$label = (count($str_att) > 1)? $str_att[1]: $label;
 				echo '<li>';
-				echo '<a href="#customdesgin-tab-'.((count($str_att) > 1)? $str_att[0]: $this->slugify($label)).'">'.$label.'</a>';
+				echo '<a href="#customdesign-tab-'.((count($str_att) > 1)? $str_att[0]: $this->slugify($label)).'">'.$label.'</a>';
 				echo '</li>';
 			}
 			echo '</ul>';
-			echo '<div class="customdesgin_tabs">';
+			echo '<div class="customdesign_tabs">';
 
 		    foreach ($args['tabs'] as $label => $fields) {
 				$str_att = explode(':', $label);
 				$label = (count($str_att) > 1)? $str_att[1]: $label;				
-			    echo '<div class="customdesgin_tab_content" id="customdesgin-tab-'.((count($str_att) > 1)? $str_att[0]: $this->slugify($label)).'">';
+			    echo '<div class="customdesign_tab_content" id="customdesign-tab-'.((count($str_att) > 1)? $str_att[0]: $this->slugify($label)).'">';
 
 			    $this->fields_render($fields);
 			    echo '</div>';
@@ -1604,7 +1604,7 @@ class customdesgin_views extends customdesgin_lib {
 	    if (isset($_GET['id'])) {
 	    	echo '<input name="id" value="'.$_GET['id'].'" type="hidden" />';
 	    }
-		echo '<input type="hidden" name="' . $customdesgin->cfg->security_name . '" value="'.$customdesgin->cfg->security_code.'">';
+		echo '<input type="hidden" name="' . $customdesign->cfg->security_name . '" value="'.$customdesign->cfg->security_code.'">';
 	    echo '<input name="save_data" value="true" type="hidden" />';
 
     }
@@ -1621,7 +1621,7 @@ class customdesgin_views extends customdesgin_lib {
 
     public function field_render ($args = array()) {
 	    
-	    global $customdesgin;
+	    global $customdesign;
 	    
 	   if ($args['type'] !== 'tabs' && isset($args['value']) && is_string($args['value']))
 	    	$args['value'] = htmlentities(stripslashes($args['value']));
@@ -1632,12 +1632,12 @@ class customdesgin_views extends customdesgin_lib {
 		} else {
 			
 			if (isset($args['label']) && !empty($args['label'])) { ?>
-				<div class="customdesgin_form_group customdesgin_field_<?php echo $args['type']; ?>">
+				<div class="customdesign_form_group customdesign_field_<?php echo $args['type']; ?>">
 					<span><?php
 						echo (isset($args['label']) ? $args['label']: '');
 						echo (isset($args['required']) && $args['required'] === true ? '<em class="required">*</em>' : '');
 					?></span>
-					<div class="customdesgin_form_content">
+					<div class="customdesign_form_content">
 						<?php
 	
 							$this->field_render_content($args);
@@ -1659,9 +1659,9 @@ class customdesgin_views extends customdesgin_lib {
 
 	public function field_render_content ($args) {
 		
-		global $customdesgin;
+		global $customdesign;
 		
-		$customdesgin->do_action('before_field', $args);
+		$customdesign->do_action('before_field', $args);
 		
 		if (method_exists($this, 'field_'.$args['type'])) {
 			ob_start();
@@ -1670,9 +1670,9 @@ class customdesgin_views extends customdesgin_lib {
 			ob_end_clean();
 		} else $content = 'Field not exist: '.$args['type'];
 		
-		echo $customdesgin->apply_filters('render_field_'.$args['type'], $content, $args);
+		echo $customdesign->apply_filters('render_field_'.$args['type'], $content, $args);
 		
-		$customdesgin->do_action('after_field', $args);
+		$customdesign->do_action('after_field', $args);
 		
 	}
 
@@ -1719,22 +1719,22 @@ class customdesgin_views extends customdesgin_lib {
     
     public function field_admin_login ($args) {
 	?>
-		<div class="customdesgin_form_group customdesgin_field_input">
+		<div class="customdesign_form_group customdesign_field_input">
 			<span><?php echo $this->main->lang('Admin email'); ?></span>
-			<div class="customdesgin_form_content">
+			<div class="customdesign_form_content">
 				<input type="text" name="admin_email" value="<?php echo $this->main->cfg->settings['admin_email']; ?>">
 				<em class="notice"><?php echo $this->main->lang('Admin email to login and receive important emails'); ?></em>
 			</div>
 		</div>
-		<div class="customdesgin_form_group customdesgin_field_input">
+		<div class="customdesign_form_group customdesign_field_input">
 			<span><?php echo $this->main->lang('Admin password'); ?></span>
-			<div class="customdesgin_form_content">
+			<div class="customdesign_form_content">
 				<input type="password" placeholder="<?php echo $this->main->lang('Enter new password'); ?>" name="admin_password" value="" autocomplete="new-password"/>
 			</div>
 		</div>
-		<div class="customdesgin_form_group customdesgin_field_input">
+		<div class="customdesign_form_group customdesign_field_input">
 			<span> &nbsp; </span>
-			<div class="customdesgin_form_content">
+			<div class="customdesign_form_content">
 				<input type="password" placeholder="<?php echo $this->main->lang('Re-Enter new password'); ?>" name="re_admin_password" value="" autocomplete="new-password"/>
 			</div>
 		</div>
@@ -1753,7 +1753,7 @@ class customdesgin_views extends customdesgin_lib {
 
     public function field_toggle ($args) {
 	?>
-		<div class="customdesgin-toggle">
+		<div class="customdesign-toggle">
 			<input type="checkbox" name="<?php echo $args['name']; ?>" <?php
 				if (
 					$args['value'] === 1 || 
@@ -1763,19 +1763,19 @@ class customdesgin_views extends customdesgin_lib {
 					)
 					echo 'checked="true"';
 			?> value="1" />
-			<span class="customdesgin-toggle-label" data-on="Yes" data-off="No"></span>
-			<span class="customdesgin-toggle-handle"></span>
+			<span class="customdesign-toggle-label" data-on="Yes" data-off="No"></span>
+			<span class="customdesign-toggle-handle"></span>
 		</div>
 	<?php
     }
 
     public function field_parent ($args) {
 
-    	global $customdesgin_admin, $customdesgin_router;
+    	global $customdesign_admin, $customdesign_router;
     	if (isset($args['id'])){
-			$data = $customdesgin_admin->get_row_id($args['id'], 'categories');
+			$data = $customdesign_admin->get_row_id($args['id'], 'categories');
     	}
-		$cates = $customdesgin_admin->get_categories($args['cate_type']);
+		$cates = $customdesign_admin->get_categories($args['cate_type']);
 
    	?>
     	<select name="parent">
@@ -1820,16 +1820,16 @@ class customdesgin_views extends customdesgin_lib {
 
 	public function field_categories ($args) {
 
-		global $customdesgin, $customdesgin_admin, $customdesgin_router;
+		global $customdesign, $customdesign_admin, $customdesign_router;
 
-		$cates = $customdesgin_admin->get_categories($args['cate_type'], isset($args['parent']) ? $args['parent'] : null);
+		$cates = $customdesign_admin->get_categories($args['cate_type'], isset($args['parent']) ? $args['parent'] : null);
 
 		if (count($cates) > 0) {
 			
 			if (!isset($args['id']))
 				$args['id'] = 0;
 				
-			$dt = $customdesgin_admin->get_category_item($args['id'], $args['cate_type']);
+			$dt = $customdesign_admin->get_category_item($args['id'], $args['cate_type']);
 			$dt_id = isset($args['value']) && is_array($args['value']) ? $args['value'] : array();
 
 			foreach ($dt as $value) {
@@ -1850,17 +1850,17 @@ class customdesgin_views extends customdesgin_lib {
 				}
 			?>
 				<li style="padding-left: <?php echo $pd; ?>">
-					<div class="customdesgin_checkbox sty2 <?php echo $checked; ?>">
+					<div class="customdesign_checkbox sty2 <?php echo $checked; ?>">
 							<input type="checkbox" name="<?php
 								echo isset($args['name']) ? $args['name'].'[]' : '';
 							?>" class="action_check" value="<?php
 								echo $value['id'];
-							?>" class="action" id="customdesgin-cate-<?php
+							?>" class="action" id="customdesign-cate-<?php
 								echo $value['id'];
 							?>" <?php
 								echo $checked;
 							?> />
-							<label for="customdesgin-cate-<?php echo $value['id']; ?>">
+							<label for="customdesign-cate-<?php echo $value['id']; ?>">
 								<?php echo $value['name']; ?>
 								<em class="check"></em>
 							</label>
@@ -1870,14 +1870,14 @@ class customdesgin_views extends customdesgin_lib {
 			</ul>
 			<input type="checkbox" name="<?php echo $args['name']; ?>[]" checked="true" style="display:none;" value="" />
 			<?php if (!isset($args['create_new']) || $args['create_new'] !== false) { ?>
-			<a href="<?php echo $customdesgin->cfg->admin_url; ?>customdesgin-page=category&type=<?php echo $args['cate_type']; ?>" target=_blank class="customdesgin_add_cate">
+			<a href="<?php echo $customdesign->cfg->admin_url; ?>customdesign-page=category&type=<?php echo $args['cate_type']; ?>" target=_blank class="customdesign_add_cate">
 				<?php echo $this->main->lang('Add Category'); ?>
 			</a>
 			<?php } ?>
 		<?php } else  { ?>
 			<p class="no-data"><?php echo $this->main->lang('No categories have been created yet'); ?>. </p>
 			<?php if (!isset($args['create_new']) || $args['create_new'] !== false) { ?>
-			<a href="<?php echo $customdesgin->cfg->admin_url; ?>customdesgin-page=category&type=<?php echo $args['cate_type']; ?>" target=_blank  class="add-new">
+			<a href="<?php echo $customdesign->cfg->admin_url; ?>customdesign-page=category&type=<?php echo $args['cate_type']; ?>" target=_blank  class="add-new">
 				<?php echo $this->main->lang('Create new category'); ?>
 			</a>
 			<?php } ?>
@@ -1886,7 +1886,7 @@ class customdesgin_views extends customdesgin_lib {
 
     public function field_tags($args = array()) {
 
-	    global $customdesgin_admin, $customdesgin_router;
+	    global $customdesign_admin, $customdesign_router;
 
 	?>
 		<div class="list-tag">
@@ -1895,7 +1895,7 @@ class customdesgin_views extends customdesgin_lib {
 				$dt_name = array();
 				if (isset($args['id'])) {
 
-					$dt = $customdesgin_admin->get_tag_item($args['id'], $args['tag_type']);
+					$dt = $customdesign_admin->get_tag_item($args['id'], $args['tag_type']);
 
 					foreach ($dt as $value) {
 						$dt_name[] = $value['name'];
@@ -1911,7 +1911,7 @@ class customdesgin_views extends customdesgin_lib {
 		</div>
 		<script type="text/javascript"><?php
 
-			$tags = $customdesgin_admin->get_rows_custom(array ("id", "name", "slug", "type"),'tags');
+			$tags = $customdesign_admin->get_rows_custom(array ("id", "name", "slug", "type"),'tags');
 
 			// Autocomplete Tag
 			function js_str($s) {
@@ -1931,7 +1931,7 @@ class customdesgin_views extends customdesgin_lib {
 						$values[] = $value['name'];
 
 				}
-				echo 'var customdesgin_tag_values = ', js_array($values), ';';
+				echo 'var customdesign_tag_values = ', js_array($values), ';';
 			}
 		?></script>
 	<?php
@@ -1939,7 +1939,7 @@ class customdesgin_views extends customdesgin_lib {
 
     public function field_radios($args = array()) {
 	    if ($args['options']) {
-		    echo '<div class="customdesgin_radios">';
+		    echo '<div class="customdesign_radios">';
 		    foreach ($args['options'] as $option => $value) {
 				if (empty($args['value']) && empty($option))
 					unset($args['default']);
@@ -1949,11 +1949,11 @@ class customdesgin_views extends customdesgin_lib {
 			<div class="radio">
 				<input type="radio" name="<?php
 					echo isset($args['name']) ? $args['name'] : ''
-				?>" id="customdesgin-radios-<?php echo (isset($args['name']) ? $args['name'] : '').'-'.$option; ?>" <?php
+				?>" id="customdesign-radios-<?php echo (isset($args['name']) ? $args['name'] : '').'-'.$option; ?>" <?php
 					if ((empty($args['value']) && isset($args['default']) && $args['default'] == $option) || (isset($args['value']) && $args['value'] == $option))
 						echo 'checked="true"';
 				?> value="<?php echo $option; ?>">
-				<label for="customdesgin-radios-<?php echo (isset($args['name']) ? $args['name'] : '').'-'.$option; ?>">
+				<label for="customdesign-radios-<?php echo (isset($args['name']) ? $args['name'] : '').'-'.$option; ?>">
 					<?php echo $value; ?> <em class="check"></em>
 				</label>
 			</div>
@@ -1972,19 +1972,19 @@ class customdesgin_views extends customdesgin_lib {
 			$args['value'] = ( !empty($args['default']) && is_string($args['default']) ) ? explode(',', $args['default']) : array();
 		
 	    if (isset($args['options'])) {
-		    echo '<div class="customdesgin_checkboxes">';
+		    echo '<div class="customdesign_checkboxes">';
 		    $options = array_replace(array_flip($args['value']), $args['options']);
 		    foreach ($options as $option => $value) {
 			    if (isset($args['options'][$option])) {
 			?>
-				<div class="customdesgin_checkbox sty2 ">
+				<div class="customdesign_checkbox sty2 ">
 					<input type="checkbox" name="<?php
 						echo isset($args['name']) ? $args['name'].'[]' : ''
 					?>" class="action_check" value="<?php echo $option; ?>" <?php
 						if (in_array($option, $args['value']) || (!isset($args['value']) && $args['default'] == $option))
 							echo 'checked="true"';
-					?> id="customdesgin-checkboxes-<?php echo $option; ?>" />
-						<label for="customdesgin-checkboxes-<?php echo $option; ?>">
+					?> id="customdesign-checkboxes-<?php echo $option; ?>" />
+						<label for="customdesign-checkboxes-<?php echo $option; ?>">
 							<?php echo $value; ?> <em class="check"></em>
 						</label>
 				</div>
@@ -2040,19 +2040,19 @@ class customdesgin_views extends customdesgin_lib {
 
 		
 	    if (isset($args['options'])) {
-		    echo '<div class="customdesgin_filters">';
+		    echo '<div class="customdesign_filters">';
 		    $options = array_replace(array_flip($args['value']), $args['options']);
 		    foreach ($options as $option => $value) {
 			    if (isset($args['options'][$option])) {
 			?>
-				<div class="customdesgin_checkbox sty2 ">
+				<div class="customdesign_checkbox sty2 ">
 					<input type="checkbox" name="<?php
 						echo isset($args['name']) ? $args['name'].'[]' : ''
 					?>" class="action_check" value="<?php echo $option; ?>" <?php
 						if (in_array($option, $args['value']) || (!isset($args['value']) && $args['default'] == $option))
 							echo 'checked="true"';
-					?> id="customdesgin-filters-<?php echo $option; ?>" />
-						<label for="customdesgin-filters-<?php echo $option; ?>">
+					?> id="customdesign-filters-<?php echo $option; ?>" />
+						<label for="customdesign-filters-<?php echo $option; ?>">
 							<?php echo $value; ?> <em class="check"></em>
 						</label>
 				</div>
@@ -2081,7 +2081,7 @@ class customdesgin_views extends customdesgin_lib {
 		
 		if (count($prints) > 0) {
 			
-			echo '<div class="customdesgin_checkboxes">';	
+			echo '<div class="customdesign_checkboxes">';	
 			
 			if (isset($inp_val) && !empty($inp_val) && $inp_val !== null) {
 				$keys = array_flip(array_keys($inp_val));
@@ -2094,7 +2094,7 @@ class customdesgin_views extends customdesgin_lib {
 			foreach ($prints as $print) {
 				$calc = $this->main->lib->dejson($print['calculate']);
 		?>
-			<div class="customdesgin_checkbox sty2 ui-sortable-handle" data-type="<?php echo $calc->type; ?>">
+			<div class="customdesign_checkbox sty2 ui-sortable-handle" data-type="<?php echo $calc->type; ?>">
 				<input type="checkbox" name="helper-<?php 
 					echo $args['name']; 
 				?>[]" class="action_check" value="<?php echo $print['id']; ?>" <?php
@@ -2103,8 +2103,8 @@ class customdesgin_views extends customdesgin_lib {
 							isset($inp_val[$print['id']]) || 
 							isset($inp_val['_'.$print['id']]))
 						) ? ' checked' : '';
-				?> id="customdesgin-checkboxes-<?php echo $args['name'] . '-'. $print['id']; ?>">
-				<label for="customdesgin-checkboxes-<?php echo $args['name'] . '-'. $print['id']; ?>">
+				?> id="customdesign-checkboxes-<?php echo $args['name'] . '-'. $print['id']; ?>">
+				<label for="customdesign-checkboxes-<?php echo $args['name'] . '-'. $print['id']; ?>">
 					<?php echo $print['title']; ?> <em class="check"></em>
 				</label>
 				<?php
@@ -2113,7 +2113,7 @@ class customdesgin_views extends customdesgin_lib {
 						$first_obj = array_values((Array)$calc->values);
 						
 						if (count($first_obj) > 0) {
-							echo '<div class="customdesgin_radios field_children display_inline" data-parent="'.$print['id'].'">';
+							echo '<div class="customdesign_radios field_children display_inline" data-parent="'.$print['id'].'">';
 							$sizes = (Array)$first_obj[0];
 							$sizes = array_values($sizes);
 							$sizes = array_shift($sizes);
@@ -2162,8 +2162,8 @@ class customdesgin_views extends customdesgin_lib {
 
 	public function field_color($args) {
 	?>
-	<div class="customdesgin-field-color-wrp">
-		<ul class="customdesgin-field-color<?php echo (isset($args['selection']) && $args['selection'] === false) ? ' unselection' : ''; ?>">
+	<div class="customdesign-field-color-wrp">
+		<ul class="customdesign-field-color<?php echo (isset($args['selection']) && $args['selection'] === false) ? ' unselection' : ''; ?>">
 		<?php
 
 			if (!isset($args['value']) || empty($args['value'])) {
@@ -2208,30 +2208,30 @@ class customdesgin_views extends customdesgin_lib {
 		if (isset($attr['file']) && $attr['file'] == 'font') {
 			
 		?>
-			<h1 id="customdesgin-<?php echo $attr['name']; ?>-preview" contenteditable="true" style="display: none;"></h1>
+			<h1 id="customdesign-<?php echo $attr['name']; ?>-preview" contenteditable="true" style="display: none;"></h1>
 			<div class="img-preview">
 				<?php if (!empty($attr['value'])) { ?>
 					<input type="hidden" name="old-<?php echo $attr['name']; ?>" value="<?php echo $attr['value'] ?>">
 				<?php } ?>
-				<input type="file" id="customdesgin-<?php echo $attr['name']; ?>-file-upload" accept=".<?php echo $attr['file_type']; ?>" data-file-select="font" data-file-preview="#customdesgin-<?php echo $attr['name']; ?>-preview" data-file-input="#customdesgin-<?php echo $attr['name']; ?>-input" />
+				<input type="file" id="customdesign-<?php echo $attr['name']; ?>-file-upload" accept=".<?php echo $attr['file_type']; ?>" data-file-select="font" data-file-preview="#customdesign-<?php echo $attr['name']; ?>-preview" data-file-input="#customdesign-<?php echo $attr['name']; ?>-input" />
 
 				<input type="hidden" name="<?php
 					echo $attr['name'];
-				?>" id="customdesgin-<?php
+				?>" id="customdesign-<?php
 					echo $attr['name'];
 				?>-input" value="<?php
 					echo !empty($attr['value']) ? $attr['value'] : '';
-				?>" class="customdesgin-upload-helper-inp" data-file="<?php echo $attr['file']; ?>" />
+				?>" class="customdesign-upload-helper-inp" data-file="<?php echo $attr['file']; ?>" />
 
-				<label for="customdesgin-<?php echo $attr['name']; ?>-file-upload">
+				<label for="customdesign-<?php echo $attr['name']; ?>-file-upload">
 					<i class="fa fa-cloud-upload"></i> <?php echo $this->main->lang('Choose file'); ?> 
 					(*.<?php echo $attr['file_type']; ?>)
 				</label>
-				<button data-btn="true" data-file-delete="true"  data-file-preview="#customdesgin-<?php
+				<button data-btn="true" data-file-delete="true"  data-file-preview="#customdesign-<?php
 					echo $attr['name'];
-				?>-preview" data-file-input="#customdesgin-<?php
+				?>-preview" data-file-input="#customdesign-<?php
 					echo $attr['name'];
-				?>-input" data-file-thumbn="#customdesgin-<?php
+				?>-input" data-file-thumbn="#customdesign-<?php
 					echo $attr['name'];
 				?>-thumbn">
 					<i class="fa fa-trash"></i> <?php echo $this->main->lang('Remove file'); ?>
@@ -2241,7 +2241,7 @@ class customdesgin_views extends customdesgin_lib {
 			<script type="text/javascript">
 
 				<?php if (!empty($attr['value']) && !empty($attr['name'])) {
-					echo 'jQuery(document).ready(function() {customdesgin_font_preview("'.$attr['name'].'", "url('.(!empty($attr['value']) ? $this->main->cfg->upload_url.str_replace(TS, '/', $attr['value']) : '').')", "#customdesgin-'.$attr['name'].'-preview", "'.$attr['file_type'].'");})';
+					echo 'jQuery(document).ready(function() {customdesign_font_preview("'.$attr['name'].'", "url('.(!empty($attr['value']) ? $this->main->cfg->upload_url.str_replace(TS, '/', $attr['value']) : '').')", "#customdesign-'.$attr['name'].'-preview", "'.$attr['file_type'].'");})';
 				} ?>
 
 			</script>
@@ -2260,18 +2260,18 @@ class customdesgin_views extends customdesgin_lib {
 				<?php if (!empty($attr['value'])) { ?>
 					<img src="<?php
 					echo isset($attr['thumbn_value']) ? $attr['thumbn_value'] : $this->main->cfg->upload_url.'/'.$attr['value'];
-				?>" class="img-upload" id="customdesgin-<?php echo $attr['name']; ?>-preview" style="max-width:350px" />
-					<input type="hidden" id="customdesgin-<?php echo $attr['name']; ?>-input-old" name="old-<?php echo $attr['name']; ?>" value="<?php echo $attr['value'] ?>">
+				?>" class="img-upload" id="customdesign-<?php echo $attr['name']; ?>-preview" style="max-width:350px" />
+					<input type="hidden" id="customdesign-<?php echo $attr['name']; ?>-input-old" name="old-<?php echo $attr['name']; ?>" value="<?php echo $attr['value'] ?>">
 				<?php }else{ ?>
-					<img src="<?php echo $this->main->cfg->assets_url; ?>admin/assets/images/img-none.png" class="img-upload" id="customdesgin-<?php echo $attr['name']; ?>-preview" style="max-width:350px" />
+					<img src="<?php echo $this->main->cfg->assets_url; ?>admin/assets/images/img-none.png" class="img-upload" id="customdesign-<?php echo $attr['name']; ?>-preview" style="max-width:350px" />
 				<?php } ?>
-				<input type="file" id="customdesgin-<?php echo $attr['name']; ?>-file-upload" accept=".json,.lumi,.png,.jpg" data-file-select="design" data-file-preview="#customdesgin-<?php echo $attr['name']; ?>-preview" data-file-input="#customdesgin-<?php echo $attr['name']; ?>-input" />
+				<input type="file" id="customdesign-<?php echo $attr['name']; ?>-file-upload" accept=".json,.lumi,.png,.jpg" data-file-select="design" data-file-preview="#customdesign-<?php echo $attr['name']; ?>-preview" data-file-input="#customdesign-<?php echo $attr['name']; ?>-input" />
 
-				<input type="hidden" class="customdesgin-upload-helper-inp" accept=".json,.lumi" name="<?php
+				<input type="hidden" class="customdesign-upload-helper-inp" accept=".json,.lumi" name="<?php
 					echo $attr['name'];
-				?>" id="customdesgin-<?php
+				?>" id="customdesign-<?php
 					echo $attr['name'];
-				?>-input" data-file-preview="#customdesgin-<?php
+				?>-input" data-file-preview="#customdesign-<?php
 					echo $attr['name'];
 				?>-preview" value="<?php
 					echo !empty($attr['value']) ? $attr['value'] : '';
@@ -2285,14 +2285,14 @@ class customdesgin_views extends customdesgin_lib {
 	
 				<?php } ?>
 			
-				<label for="customdesgin-<?php echo $attr['name']; ?>-file-upload">
+				<label for="customdesign-<?php echo $attr['name']; ?>-file-upload">
 					<i class="fa fa-cloud-upload"></i> <?php echo $this->main->lang('Choose a file'); ?>
 				</label>
-				<button data-btn="true" data-file-delete="true"  data-file-preview="#customdesgin-<?php
+				<button data-btn="true" data-file-delete="true"  data-file-preview="#customdesign-<?php
 					echo $attr['name'];
-				?>-preview" data-file-input="#customdesgin-<?php
+				?>-preview" data-file-input="#customdesign-<?php
 					echo $attr['name'];
-				?>-input" data-file-thumbn="#customdesgin-<?php
+				?>-input" data-file-thumbn="#customdesign-<?php
 					echo $attr['name'];
 				?>-thumbn">
 					<i class="fa fa-trash"></i> <?php echo $this->main->lang('Remove file'); ?>
@@ -2317,25 +2317,25 @@ class customdesgin_views extends customdesgin_lib {
 							$attr['value']
 						);
 					
-				?>" class="img-upload" id="customdesgin-<?php echo $attr['name']; ?>-preview" />
+				?>" class="img-upload" id="customdesign-<?php echo $attr['name']; ?>-preview" />
 
-				<input type="hidden" id="customdesgin-<?php
+				<input type="hidden" id="customdesign-<?php
 				echo $attr['name'];
 			?>-input-old" name="old-<?php echo $attr['name']; ?>" value="<?php
 					echo !empty($attr['value']) ? $attr['value'] : '';
 				?>" />
 
 			<?php } else { ?>
-				<img src="<?php echo $this->main->cfg->assets_url; ?>admin/assets/images/img-none.png" class="img-upload" id="customdesgin-<?php echo $attr['name']; ?>-preview">
+				<img src="<?php echo $this->main->cfg->assets_url; ?>admin/assets/images/img-none.png" class="img-upload" id="customdesign-<?php echo $attr['name']; ?>-preview">
 			<?php } ?>
 
 			<input type="file" accept="<?php
 				echo isset($attr['accept']) ? $attr['accept'] : 'image/png,image/gif,image/jpeg,image/svg+xml';
-			?>" class="customdesgin-file-upload" id="<?php
+			?>" class="customdesign-file-upload" id="<?php
 				echo $attr['name'];
-			?>_file_upload" data-file-select="true" data-file-preview="#customdesgin-<?php
+			?>_file_upload" data-file-select="true" data-file-preview="#customdesign-<?php
 				echo $attr['name'];
-			?>-preview" data-file-input="#customdesgin-<?php
+			?>-preview" data-file-input="#customdesign-<?php
 				echo $attr['name'];
 			?>-input" <?php
 				if (!isset($attr['thumbn_width']) && !isset($attr['thumbn_height']))
@@ -2349,12 +2349,12 @@ class customdesgin_views extends customdesgin_lib {
 
 			<input type="hidden" name="<?php
 				echo $attr['name'];
-			?>" id="customdesgin-<?php
+			?>" id="customdesign-<?php
 				echo $attr['name'];
 			?>-input" value="<?php
 				echo !empty($attr['value']) ? $attr['value'] : '';
 
-			?>" class="customdesgin-upload-helper-inp" data-path="<?php echo !empty($attr['path']) ? $attr['path'] : ''; ?>" data-file="<?php echo isset($attr['file']) ? $attr['file'] : ''; ?>" />
+			?>" class="customdesign-upload-helper-inp" data-path="<?php echo !empty($attr['path']) ? $attr['path'] : ''; ?>" data-file="<?php echo isset($attr['file']) ? $attr['file'] : ''; ?>" />
 
 			<?php if (isset($attr['thumbn']) && isset($attr['thumbn_value'])) { ?>
 
@@ -2368,11 +2368,11 @@ class customdesgin_views extends customdesgin_lib {
 				<?php echo isset($attr['button_text']) ? $attr['button_text'] : $this->main->lang('Choose a file'); ?>
 			</label>
 			
-			<button data-btn="true" data-file-delete="true"  data-file-preview="#customdesgin-<?php
+			<button data-btn="true" data-file-delete="true"  data-file-preview="#customdesign-<?php
 				echo $attr['name'];
-			?>-preview" data-file-input="#customdesgin-<?php
+			?>-preview" data-file-input="#customdesign-<?php
 				echo $attr['name'];
-			?>-input" data-file-thumbn="#customdesgin-<?php
+			?>-input" data-file-thumbn="#customdesign-<?php
 				echo $attr['name'];
 			?>-thumbn">
 				<?php echo $this->main->lang('Remove file'); ?>
@@ -2384,7 +2384,7 @@ class customdesgin_views extends customdesgin_lib {
 	
 	public function field_stages($args) {
 		
-		global $customdesgin;
+		global $customdesign;
 		
 		$data = $this->dejson($args['value']);
 		
@@ -2395,17 +2395,17 @@ class customdesgin_views extends customdesgin_lib {
 		unset($stages->{'colors'});
 		
 	?>
-	<div class="customdesgin_form_group nomargin">
-		<h3><?php echo $customdesgin->lang('Configure designs'); ?></h3>
-		<p><?php echo $customdesgin->lang('Upload your product images, configure stages, edit zones. You can create new stage, change stage\'s name and arrange stages.'); ?></p>
-		<div class="customdesgin_tabs_wrapper customdesgin-stages-wrp" id="customdesgin-stages-wrp" data-id="stages">
-			<div class="customdesgin_tab_nav_wrap">
+	<div class="customdesign_form_group nomargin">
+		<h3><?php echo $customdesign->lang('Configure designs'); ?></h3>
+		<p><?php echo $customdesign->lang('Upload your product images, configure stages, edit zones. You can create new stage, change stage\'s name and arrange stages.'); ?></p>
+		<div class="customdesign_tabs_wrapper customdesign-stages-wrp" id="customdesign-stages-wrp" data-id="stages">
+			<div class="customdesign_tab_nav_wrap">
 				<i data-move="left" class="fa fa-chevron-left"></i>
-				<div class="customdesgin_tab_nav_inner">
-					<ul class="customdesgin_tab_nav">
+				<div class="customdesign_tab_nav_inner">
+					<ul class="customdesign_tab_nav">
 						<?php
 						if (count(array_keys((Array)$stages)) === 0) {
-							$id = $customdesgin->generate_id();
+							$id = $customdesign->generate_id();
 							$stages = array();
 							$stages[$id] = json_decode('{"edit_zone":{"height":270,"width":170,"left":-1,"top":12.5,"radius":"5"},"url":"products\/test_rugs.png","source":"raws","overlay":true,"product_width":400,"product_height":475,"template":{},"label":"Start stage"}');
 						}		
@@ -2414,7 +2414,7 @@ class customdesgin_views extends customdesgin_lib {
 							$label = isset($stage->label) ? rawurldecode($stage->label) : 'Untitled';
 						?>
 						<li>
-							<a href="#customdesgin-stage-<?php echo $key; ?>" data-label="<?php echo rawurlencode($label); ?>">
+							<a href="#customdesign-stage-<?php echo $key; ?>" data-label="<?php echo rawurlencode($label); ?>">
 								<?php
 									if (isset($stage->thumbnail) && !empty($stage->thumbnail)) {
 										echo '<span>';
@@ -2423,7 +2423,7 @@ class customdesgin_views extends customdesgin_lib {
 										echo '</span>';
 									}
 								?>
-								<!--i class="fa fa-image" data-edit="thumbnail" title="<?php echo $customdesgin->lang('Upload thumbnail'); ?>"></i-->
+								<!--i class="fa fa-image" data-edit="thumbnail" title="<?php echo $customdesign->lang('Upload thumbnail'); ?>"></i-->
 								<text><?php echo str_replace(array('<', '>'), array('&lt;', '&gt;'), $label); ?></text>
 								<svg data-func="remove" height="16px" width="16px" viewBox="-75 -75 370 370">
 									<path data-func="remove"  d="M131.804,106.491l75.936-75.936c6.99-6.99,6.99-18.323,0-25.312   c-6.99-6.99-18.322-6.99-25.312,0l-75.937,75.937L30.554,5.242c-6.99-6.99-18.322-6.99-25.312,0c-6.989,6.99-6.989,18.323,0,25.312   l75.937,75.936L5.242,182.427c-6.989,6.99-6.989,18.323,0,25.312c6.99,6.99,18.322,6.99,25.312,0l75.937-75.937l75.937,75.937   c6.989,6.99,18.322,6.99,25.312,0c6.99-6.99,6.99-18.322,0-25.312L131.804,106.491z"></path>
@@ -2432,7 +2432,7 @@ class customdesgin_views extends customdesgin_lib {
 						</li>
 						<?php } ?>
 						<li data-add="tab">
-							<a href="#add-stage" title="<?php echo $customdesgin->lang('Add new stage'); ?>">
+							<a href="#add-stage" title="<?php echo $customdesign->lang('Add new stage'); ?>">
 								<i data-func="add-stage" class="fa fa-plus"></i>
 							</a>
 						</li>
@@ -2440,7 +2440,7 @@ class customdesgin_views extends customdesgin_lib {
 				</div>
 				<i data-move="right" class="fa fa-chevron-right"></i>
 			</div>
-			<div class="customdesgin_tabs">
+			<div class="customdesign_tabs">
 			<?php
 				
 				$source = '';
@@ -2476,7 +2476,7 @@ class customdesgin_views extends customdesgin_lib {
 						
 						if (isset($sdata->template) && isset($sdata->template->id)) {
 							
-							$design = $customdesgin->lib->get_template($sdata->template->id);
+							$design = $customdesign->lib->get_template($sdata->template->id);
 							if (
 								$this->main->connector->platform == 'php' &&
 								(!is_array($design) || !isset($design['id']))
@@ -2486,24 +2486,24 @@ class customdesgin_views extends customdesgin_lib {
 						}else $design = null;
 					
 				?>
-					<div class="customdesgin_tab_content<?php
+					<div class="customdesign_tab_content<?php
 						if ($i++ === 0)echo " active";
-					?>" id="customdesgin-stage-<?php echo $stage; ?>" data-stage="<?php echo $stage; ?>">
-						<div class="customdesgin-stage-settings customdesgin-product-design<?php
-							echo (!empty($url) ? ' stage-enabled' : ' stage-disabled'); ?>" id="customdesgin-product-design-<?php echo $stage; ?>">
+					?>" id="customdesign-stage-<?php echo $stage; ?>" data-stage="<?php echo $stage; ?>">
+						<div class="customdesign-stage-settings customdesign-product-design<?php
+							echo (!empty($url) ? ' stage-enabled' : ' stage-disabled'); ?>" id="customdesign-product-design-<?php echo $stage; ?>">
 							<?php
 								$is_mask = 'false';
 								if ($overlay == '1')
 									$is_mask = 'true';
 							?>
-							<div class="customdesgin-stage-body" data-is-mask="<?php echo $is_mask; ?>">
-								<div class="customdesgin_form_content" style="<?php if(isset($sdata->hide_mark_layer) && $sdata->hide_mark_layer == true){ echo 'display:none;'; } ?>">
-									<div class="customdesgin-toggle">
+							<div class="customdesign-stage-body" data-is-mask="<?php echo $is_mask; ?>">
+								<div class="customdesign_form_content" style="<?php if(isset($sdata->hide_mark_layer) && $sdata->hide_mark_layer == true){ echo 'display:none;'; } ?>">
+									<div class="customdesign-toggle">
 										<input type="checkbox" name="is_mask" <?php
 											echo ($is_mask == 'true' ? 'checked="true"' : '');
 										?> />
-										<span class="customdesgin-toggle-label" data-on="Yes" data-off="No"></span>
-										<span class="customdesgin-toggle-handle"></span>
+										<span class="customdesign-toggle-label" data-on="Yes" data-off="No"></span>
+										<span class="customdesign-toggle-handle"></span>
 									</div>
 									<label data-view="mask-true">
 										<?php echo $this->main->lang('Use as a mask layer'); ?>.
@@ -2517,12 +2517,12 @@ class customdesgin_views extends customdesgin_lib {
 									</label>
 								</div>
 								<?php if (isset($_GET['action']) && $_GET['action'] == 'product_variation') { ?>
-								<div class="customdesgin_form_content fill-base-color">
+								<div class="customdesign_form_content fill-base-color">
 									<input type="text" value="<?php echo (isset($sdata->color) && $sdata->color !== '' ? $sdata->color : ''); ?>" placeholder="Fill color for product image" /> 
 									<input type="color" value="<?php echo (isset($sdata->color) && $sdata->color !== '' ? $sdata->color : ''); ?>" />
 								</div>
 								<?php } ?>
-								<div class="customdesgin-stage-design-view" <?php
+								<div class="customdesign-stage-design-view" <?php
 									if (isset($sdata->edit_zone)) {
 										echo ' data-info="scale ratio: '.$sdata->edit_zone->width.'x'.$sdata->edit_zone->height.'"';
 									}
@@ -2538,8 +2538,8 @@ class customdesgin_views extends customdesgin_lib {
 												$this->main->cfg->upload_url
 											).$url;
 										}
-									?>" data-url="<?php echo $url; ?>" data-source="<?php echo $source; ?>" class="customdesgin-stage-image" data-svg="<?php echo (strpos($url, '.svg') !== false); ?>" />
-									<div class="customdesgin-stage-editzone"<?php echo $limit; ?>>
+									?>" data-url="<?php echo $url; ?>" data-source="<?php echo $source; ?>" class="customdesign-stage-image" data-svg="<?php echo (strpos($url, '.svg') !== false); ?>" />
+									<div class="customdesign-stage-editzone"<?php echo $limit; ?>>
 										<?php if ($this->main->connector->platform == 'php') { ?>
 											<div class="editzone-funcs">
 												<button data-func="select-design" data-label="<?php echo $this->main->lang('Select Design Template'); ?>">
@@ -2712,12 +2712,12 @@ class customdesgin_views extends customdesgin_lib {
 										</div>
 										<div class="edr-row" data-row="include-base">
 											<label><?php echo $this->main->lang('Export include base'); ?>:</label>
-											<div class="customdesgin-toggle">
+											<div class="customdesign-toggle">
 												<input type="checkbox" <?php
 													echo (isset($sdata->include_base) && $sdata->include_base == 'yes' ? 'checked' : '');
 												?> data-name="include_base">
-												<span class="customdesgin-toggle-label" data-on="Yes" data-off="No"></span>
-												<span class="customdesgin-toggle-handle"></span>
+												<span class="customdesign-toggle-label" data-on="Yes" data-off="No"></span>
+												<span class="customdesign-toggle-handle"></span>
 											</div>
 											<a href="#tip" class="tip">
 												<i class="fa fa-question-circle"></i>
@@ -2726,12 +2726,12 @@ class customdesgin_views extends customdesgin_lib {
 										</div>
 										<div class="edr-row" data-row="crop-marks">
 											<label><?php echo $this->main->lang('Crop marks & bleed'); ?>:</label>
-											<div class="customdesgin-toggle">
+											<div class="customdesign-toggle">
 												<input type="checkbox" <?php
 													echo (isset($sdata->crop_marks_bleed) && $sdata->crop_marks_bleed == 'yes' ? 'checked' : '');
 												?> data-name="crop_marks_bleed">
-												<span class="customdesgin-toggle-label" data-on="Yes" data-off="No"></span>
-												<span class="customdesgin-toggle-handle"></span>
+												<span class="customdesign-toggle-label" data-on="Yes" data-off="No"></span>
+												<span class="customdesign-toggle-handle"></span>
 											</div>
 											<a href="#tip" class="tip">
 												<i class="fa fa-question-circle"></i>
@@ -2755,18 +2755,18 @@ class customdesgin_views extends customdesgin_lib {
 									</div>
 										
 								</div>
-								<div class="customdesgin-stage-btn" style="<?php if(isset($sdata->hide_size) && $sdata->hide_size == true){ echo 'display:none;'; } ?>"> 
-									<button type="button" class="customdesgin-button customdesgin-button-large" data-func="select">
+								<div class="customdesign-stage-btn" style="<?php if(isset($sdata->hide_size) && $sdata->hide_size == true){ echo 'display:none;'; } ?>"> 
+									<button type="button" class="customdesign-button customdesign-button-large" data-func="select">
 										<i class="fa fa-th"></i>
 										<?php echo $this->main->lang('Select product image'); ?>
 									</button>
 									<?php if ($this->main->connector->platform == 'php') { ?>
-									<button type="button" class="customdesgin-button customdesgin-button-large" data-func="download">
+									<button type="button" class="customdesign-button customdesign-button-large" data-func="download">
 										<i class="fa fa-download"></i>
 										<?php echo $this->main->lang('Download mockup'); ?>
 									</button>
 									<?php } ?>
-									<button type="button" class="customdesgin-button customdesgin-button-large" data-func="reset">
+									<button type="button" class="customdesign-button customdesign-button-large" data-func="reset">
 										<i class="fa fa-refresh"></i>
 										<?php echo $this->main->lang('Reset all'); ?>
 									</button>
@@ -2780,54 +2780,54 @@ class customdesgin_views extends customdesgin_lib {
 				?>
 			</div>
 		</div>
-		<textarea style="display: none;" id="customdesgin-field-stages-inp" class="stages-field" name="<?php echo isset($args['name']) ? $args['name'] : ''; ?>"><?php
+		<textarea style="display: none;" id="customdesign-field-stages-inp" class="stages-field" name="<?php echo isset($args['name']) ? $args['name'] : ''; ?>"><?php
 			echo isset($args['value']) ? $args['value'] : '';
 		?></textarea>
-		<div id="customdesgin-popup" class="customdesgin_form_group customdesgin_content">
-			<div class="customdesgin-popup-content">
+		<div id="customdesign-popup" class="customdesign_form_group customdesign_content">
+			<div class="customdesign-popup-content">
 				<header>
 					<h3>
 						<span><?php echo $this->main->lang('Select image for product base'); ?></span>
-						<button class="customdesgin-btn" data-act="samples">
+						<button class="customdesign-btn" data-act="samples">
 							<i class="fa fa-th"></i> 
 							<?php echo $this->main->lang('magicrugs samples'); ?>
 						</button>
-						<button class="customdesgin-btn hidden" data-act="uploaded">
+						<button class="customdesign-btn hidden" data-act="uploaded">
 							<i class="fa fa-arrow-left"></i> 
 							<?php echo $this->main->lang('My Uploaded'); ?>
 						</button>
 						<?php
-							if (!$customdesgin->caps('customdesgin_can_upload')) {
+							if (!$customdesign->caps('customdesign_can_upload')) {
 						?>
-						<button class="customdesgin-btn-primary" style="background-color: #bfbfbf !important;cursor: no-drop;" data-act="upload">
+						<button class="customdesign-btn-primary" style="background-color: #bfbfbf !important;cursor: no-drop;" data-act="upload">
 							<i class="fa fa-cloud-upload"></i> 
 							<?php echo $this->main->lang('Upload new image'); ?>
 						</button>
 						<small style="color:red"><?php echo $this->main->lang('Sorry, You are not allowed to upload files. Please ask the administrator for permission'); ?></small>
 						<?php } else { ?>
-						<button class="customdesgin-btn-primary" data-act="upload">
+						<button class="customdesign-btn-primary" data-act="upload">
 							<i class="fa fa-cloud-upload"></i> 
 							<?php echo $this->main->lang('Upload new image'); ?>
 						</button>
-						<a class="customdesgin-btn" href="https://magicrugs.com/" target="_blank"><?php echo $this->main->lang('See more product pictures'); ?></a>
+						<a class="customdesign-btn" href="https://magicrugs.com/" target="_blank"><?php echo $this->main->lang('See more product pictures'); ?></a>
 						<small><?php echo $this->main->lang('Accept file type: .jpg, .png, .svg (1KB -> 5MB)'); ?></small>
-						<input type="file" class="hidden" id="customdesgin-product-upload-input" />
+						<input type="file" class="hidden" id="customdesign-product-upload-input" />
 						<?php } ?>
 					</h3>
 					<span class="close-pop"><svg enable-background="new 0 0 32 32" height="32px" id="close" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M17.459,16.014l8.239-8.194c0.395-0.391,0.395-1.024,0-1.414c-0.394-0.391-1.034-0.391-1.428,0  l-8.232,8.187L7.73,6.284c-0.394-0.395-1.034-0.395-1.428,0c-0.394,0.396-0.394,1.037,0,1.432l8.302,8.303l-8.332,8.286  c-0.394,0.391-0.394,1.024,0,1.414c0.394,0.391,1.034,0.391,1.428,0l8.325-8.279l8.275,8.276c0.394,0.395,1.034,0.395,1.428,0  c0.394-0.396,0.394-1.037,0-1.432L17.459,16.014z" fill="#121313" id="Close"></path></svg></span>
 				</header>
-				<div id="customdesgin-base-images">
-					<p class="customdesgin-notice"><?php 
+				<div id="customdesign-base-images">
+					<p class="customdesign-notice"><?php 
 						echo $this->main->lang('Notice: If you want the upload product image have the ability to change color on the editor.'); 
 						echo ' <a href="https://magicrugs.com/" target="_blank">';
 						echo $this->main->lang('Read more Mask Image');
 						echo ' <i class="fa fa-arrow-circle-o-right"></i>';
 						echo '</a>';
 					?></p>
-					<ul class="customdesgin-stagle-list-base" id="customdesgin-uploaded-bases">
+					<ul class="customdesign-stagle-list-base" id="customdesign-uploaded-bases">
 						<li data-act="load-more" data-start="0"><?php echo $this->main->lang('Load more'); ?></li>
 					</ul>
-					<ul class="customdesgin-stagle-list-base hidden" id="customdesgin-sample-bases">
+					<ul class="customdesign-stagle-list-base hidden" id="customdesign-sample-bases">
 						<?php
 							foreach($this->main->cfg->base_default as $item) {
 								echo '<li><img data-act="base" data-src="products/'.$item.'" data-source="raws" src="'.$this->main->cfg->assets_url.'raws/products/'.$item.'" />';
@@ -2837,7 +2837,7 @@ class customdesgin_views extends customdesgin_lib {
 						?>
 					</ul>
 				</div>
-				<div id="customdesgin-base-upload-progress" class="hidden">
+				<div id="customdesign-base-upload-progress" class="hidden">
 					<div data-view="uploading" class="hidden">
 						<span></span>
 						<progress value="0" max="100"></progress>
@@ -2846,11 +2846,11 @@ class customdesgin_views extends customdesgin_lib {
 						<img src="" />
 						<h5><?php echo $this->main->lang('Upload completed!'); ?></h5>
 						<span>
-							<button class="customdesgin-button" data-act="use">
+							<button class="customdesign-button" data-act="use">
 								<i class="fa fa-check" data-act="use"></i> 
 								<?php echo $this->main->lang('Use this image'); ?>			
 							</button>
-							<button class="customdesgin-button customdesgin-button-primary" data-act="upload">
+							<button class="customdesign-button customdesign-button-primary" data-act="upload">
 								<i class="fa fa-cloud-upload" data-act="upload"></i> 
 								<?php echo $this->main->lang('Upload another'); ?>			
 							</button>
@@ -2861,11 +2861,11 @@ class customdesgin_views extends customdesgin_lib {
 						<svg  height="60px" width="60px" version="1.1" viewBox="0 0 32 32"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M17.459,16.014l8.239-8.194c0.395-0.391,0.395-1.024,0-1.414c-0.394-0.391-1.034-0.391-1.428,0  l-8.232,8.187L7.73,6.284c-0.394-0.395-1.034-0.395-1.428,0c-0.394,0.396-0.394,1.037,0,1.432l8.302,8.303l-8.332,8.286  c-0.394,0.391-0.394,1.024,0,1.414c0.394,0.391,1.034,0.391,1.428,0l8.325-8.279l8.275,8.276c0.394,0.395,1.034,0.395,1.428,0  c0.394-0.396,0.394-1.037,0-1.432L17.459,16.014z" fill="red"></path></svg>
 						<h5><?php echo $this->main->lang('Upload fail!'); ?></h5>
 						<span>
-							<button class="customdesgin-button" data-act="dismiss">
+							<button class="customdesign-button" data-act="dismiss">
 								<i class="fa fa-times" data-act="dismiss"></i> 
 								<?php echo $this->main->lang('Dismiss'); ?>			
 							</button>
-							<button class="customdesgin-button customdesgin-button-primary" data-act="upload">
+							<button class="customdesign-button customdesign-button-primary" data-act="upload">
 								<i class="fa fa-cloud-upload" data-act="upload"></i> 
 								<?php echo $this->main->lang('Try again'); ?>			
 							</button>
@@ -2874,14 +2874,14 @@ class customdesgin_views extends customdesgin_lib {
 				</div>
 			</div>
 		</div>
-		<input type="file" id="customdesgin-stages-upload-helper" style="display: none;" />
+		<input type="file" id="customdesign-stages-upload-helper" style="display: none;" />
 	</div>
 	<script type="text/javascript">
 		
-		var customdesgin_upload_url = '<?php echo $this->main->cfg->upload_url; ?>',
-			customdesgin_assets_url = '<?php echo $this->main->cfg->assets_url; ?>';
+		var customdesign_upload_url = '<?php echo $this->main->cfg->upload_url; ?>',
+			customdesign_assets_url = '<?php echo $this->main->cfg->assets_url; ?>';
 				
-		document.customdesginconfig = {
+		document.customdesignconfig = {
 			main: 'product',
 			ce: '<?php echo $this->main->lang('The color has exist, please select another'); ?>',
 			hs: '<?php echo $this->main->lang('No stages configured, please select image with Edit Area for a minimum of one stage in tab Product Design'); ?>',
@@ -2899,18 +2899,18 @@ class customdesgin_views extends customdesgin_lib {
 	
 	public function field_variations($args) {
 	?>
-		<div id="customdesgin-variations">
-			<div class="customdesgin-att-layout">
-				<div class="customdesgin-att-layout-default hidden">
+		<div id="customdesign-variations">
+			<div class="customdesign-att-layout">
+				<div class="customdesign-att-layout-default hidden">
 					<strong>Default Form Values:</strong>
 					<div class="att-layout-conditions"></div>
 				</div>
-				<div class="customdesgin-att-layout-create">
-					<button class="customdesgin-button" style="display: none;" data-act="add_variation">
+				<div class="customdesign-att-layout-create">
+					<button class="customdesign-button" style="display: none;" data-act="add_variation">
 						<i class="fa fa-plus" data-act="add_variation"></i> 
 						<?php echo $this->main->lang('Add new variation'); ?>
 					</button>
-					<button class="customdesgin-button" style="display: none;" data-act="bulk_edit_variation">
+					<button class="customdesign-button" style="display: none;" data-act="bulk_edit_variation">
 						<i class="fa fa-pencil" data-act="bulk_edit_variation"></i> 
 						<?php echo $this->main->lang('Bulk edit variations'); ?>
 					</button>
@@ -2921,9 +2921,9 @@ class customdesgin_views extends customdesgin_lib {
 						<?php echo $this->main->lang('Before you can add a variation you need to add some variation attributes on the Attributes tab.'); ?> <a href="https://magicrugs.com/backend-management/product-base/variables/?utm_source=clients&amp;utm_medium=links&amp;utm_campaign=client-site&amp;utm_term=attributes&amp;utm_content=<?php echo $this->main->connector->platform; ?>" target="_blank"><?php echo $this->main->lang('Learn more'); ?> &rarr;</a>
 					</p>
 				</div>
-				<div id="customdesgin-field-variations-items" class="customdesgin-field-layout-items"></div>
-				<div class="customdesgin-att-layout-tmpl hidden">
-					<div class="customdesgin-att-layout-item">
+				<div id="customdesign-field-variations-items" class="customdesign-field-layout-items"></div>
+				<div class="customdesign-att-layout-tmpl hidden">
+					<div class="customdesign-att-layout-item">
 						<div class="att-layout-headitem" data-act="toggle">
 							<div class="att-layout-conditions">
 								<strong data-act="toggle">#1</strong>
@@ -2959,10 +2959,10 @@ class customdesgin_views extends customdesgin_lib {
 							</div>
 							<div class="att-layout-body-field full pdtop">
 								<label><?php echo $this->main->lang('Configure printing techniques'); ?>:</label>
-								<div class="customdesgin-toggle">
+								<div class="customdesign-toggle">
 									<input type="checkbox" data-name="cfgprinting" data-cfgprinting="true" value="1">
-									<span class="customdesgin-toggle-label" data-on="Yes" data-off="No"></span>
-									<span class="customdesgin-toggle-handle"></span>
+									<span class="customdesign-toggle-label" data-on="Yes" data-off="No"></span>
+									<span class="customdesign-toggle-handle"></span>
 								</div>
 								<span class="tip">
 									<i class="fa fa-question-circle"></i>
@@ -2972,10 +2972,10 @@ class customdesgin_views extends customdesgin_lib {
 							</div>
 							<div class="att-layout-body-field full pdtop">
 								<label><?php echo $this->main->lang('Custom designs configuration'); ?>:</label>
-								<div class="customdesgin-toggle">
+								<div class="customdesign-toggle">
 									<input type="checkbox" data-name="cfgstages" data-cfgstages="true" value="1">
-									<span class="customdesgin-toggle-label" data-on="Yes" data-off="No"></span>
-									<span class="customdesgin-toggle-handle"></span>
+									<span class="customdesign-toggle-label" data-on="Yes" data-off="No"></span>
+									<span class="customdesign-toggle-handle"></span>
 								</div>
 								<span class="tip">
 									<i class="fa fa-question-circle"></i>
@@ -2988,20 +2988,20 @@ class customdesgin_views extends customdesgin_lib {
 				</div>
 			</div>
 		</div>
-		<textarea style="display: none;" id="customdesgin-field-variations-inp" class="stages-field" name="<?php echo isset($args['name']) ? $args['name'] : ''; ?>"><?php
+		<textarea style="display: none;" id="customdesign-field-variations-inp" class="stages-field" name="<?php echo isset($args['name']) ? $args['name'] : ''; ?>"><?php
 			echo isset($args['value']) ? $args['value'] : '';
 		?></textarea>
 	<?php
 	}
 	
 	public function field_shape($args) {
-	?><div id="customdesgin_shape_preview"></div><br />
-		<textarea name="<?php echo isset($args['name']) ? $args['name'] : ''; ?>" id="customdesgin_shape_content"><?php echo !empty($args['value']) ? $args['value'] : '&lt;svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0,0,100,100"&gt;&lt;polygon points="50 0, 0 100, 100 100"&gt;&lt;/polygon&gt;&lt;/svg&gt;' ?></textarea>
+	?><div id="customdesign_shape_preview"></div><br />
+		<textarea name="<?php echo isset($args['name']) ? $args['name'] : ''; ?>" id="customdesign_shape_content"><?php echo !empty($args['value']) ? $args['value'] : '&lt;svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0,0,100,100"&gt;&lt;polygon points="50 0, 0 100, 100 100"&gt;&lt;/polygon&gt;&lt;/svg&gt;' ?></textarea>
 		<script type="text/javascript">
 			window.onload = function() {
 
-				jQuery('#customdesgin_shape_content').on('input', function(e) {
-					jQuery('#customdesgin_shape_preview').html(this.value);
+				jQuery('#customdesign_shape_content').on('input', function(e) {
+					jQuery('#customdesign_shape_preview').html(this.value);
 				}).trigger('input');
 
 			};
@@ -3011,7 +3011,7 @@ class customdesgin_views extends customdesgin_lib {
 
 	public function field_print($args) {
 		
-		global $customdesgin;
+		global $customdesign;
 		
 		$printing_types = $args['prints_type'];
 		$prices = isset($args['value'])? $this->dejson($args['value']) : json_decode('{"type":"multi", "multi" : "true"}');
@@ -3026,18 +3026,18 @@ class customdesgin_views extends customdesgin_lib {
 		
 		?>
 		<div data-view="multi">
-			<div class="customdesgin-toggle">
+			<div class="customdesign-toggle">
 				<input type="checkbox" data-func="multi" <?php echo ((isset($prices->multi) && $prices->multi) ? 'checked' : ''); ?> value="1">
-				<span class="customdesgin-toggle-label" data-on="Yes" data-off="No"></span>
-				<span class="customdesgin-toggle-handle"></span>
+				<span class="customdesign-toggle-label" data-on="Yes" data-off="No"></span>
+				<span class="customdesign-toggle-handle"></span>
 			</div>
 			<em class="notice"><?php echo $this->main->lang('Allow setup price for each stage?'); ?></em>
 		</div>
 		<?php foreach ($printing_types as $type => $calcs) { ?>
-		<div class="customdesgin_radios">
+		<div class="customdesign_radios">
 			<div class="radio">
-				<input type="radio" data-func="type" name="customdesgin-printing-<?php echo $args['name']; ?>" id="customdesgin-radio-<?php echo $type; ?>" value="<?php echo $type; ?>" <?php if($type == $print_type) echo 'checked'; ?>>
-				<label for="customdesgin-radio-<?php echo $type; ?>">
+				<input type="radio" data-func="type" name="customdesign-printing-<?php echo $args['name']; ?>" id="customdesign-radio-<?php echo $type; ?>" value="<?php echo $type; ?>" <?php if($type == $print_type) echo 'checked'; ?>>
+				<label for="customdesign-radio-<?php echo $type; ?>">
 					<?php echo $calcs['label']; ?>
 					<div class="check"></div>
 				</label>
@@ -3045,14 +3045,14 @@ class customdesgin_views extends customdesgin_lib {
 					<?php echo $calcs['desc']; ?>
 				</em>
 			</div>
-            <div class="customdesgin_radio_content" data-type="<?php echo $type; ?>"></div>
+            <div class="customdesign_radio_content" data-type="<?php echo $type; ?>"></div>
 		</div>
 		<?php } ?>
 		<input type="hidden" name="<?php echo $args['name']; ?>" data-func="data-saved" value="<?php echo isset($args['value']) ? $args['value'] : ''; ?>" />
 		<p data-view="multi"></p>
 		<?php echo $this->main->lang('If you need to understand more about the printing cost calculator'); ?>. <a href="https://magicrugs.com/printing-cost-calculator/?utm_source=clients&utm_medium=links&utm_campaign=client-site&utm_term=attributes&utm_content=<?php echo $this->main->connector->platform; ?>" target=_blank><?php echo $this->main->lang('Click for more details'); ?></a>
 		<script>
-			document.customdesginconfig = {
+			document.customdesignconfig = {
 				main: 'printing',
 				ops: {
 					data: <?php echo json_encode( (object) $printing_types ); ?>,
@@ -3115,7 +3115,7 @@ class customdesgin_views extends customdesgin_lib {
 
 	}
 	public function field_groups($args) {
-		global $customdesgin;
+		global $customdesign;
 	
 	    $value = isset($args['value'])? $this->dejson($args['value']) : json_decode('{}');
 
@@ -3134,7 +3134,7 @@ class customdesgin_views extends customdesgin_lib {
 		<?php
 	}
 	public function field_resource($args) {
-		global $customdesgin;
+		global $customdesign;
 	;
 		if (!isset($args['tabs'])) {
 			echo 'Missing option tabs';
@@ -3150,17 +3150,17 @@ class customdesgin_views extends customdesgin_lib {
 		if ($values === null)
 			$values = array();
 
-		echo '<div class="customdesgin_tabs_wrapper customdesgin_form_settings">';
-		echo '<ul class="customdesgin_tab_nav">';
+		echo '<div class="customdesign_tabs_wrapper customdesign_form_settings">';
+		echo '<ul class="customdesign_tab_nav">';
 			foreach ($args['tabs'] as $key => $tab ) {
 				echo '<li>';
-				echo '<a href="#customdesgin-tab-'.$this->slugify($key).'">'.$tab['title'].'</a>';
+				echo '<a href="#customdesign-tab-'.$this->slugify($key).'">'.$tab['title'].'</a>';
 				echo '</li>';
 			}
 		echo '</ul>';
-		echo '<div class="customdesgin_tabs">';
+		echo '<div class="customdesign_tabs">';
 			foreach ($args['tabs'] as $key => $tab ) {
-			    echo '<div class="customdesgin_tab_content" id="customdesgin-tab-'.$this->slugify($key).'">';
+			    echo '<div class="customdesign_tab_content" id="customdesign-tab-'.$this->slugify($key).'">';
 				// if ( isset( $tab['callback'])  && method_exists($this, $tab['callback'])) {
 				// 	call_user_func( array($this,$tab['callback']), $key, $args, ( isset($value[$key]) ? $value[$key] : [] ));
 				// }
@@ -3183,7 +3183,7 @@ class customdesgin_views extends customdesgin_lib {
 	}
 
 	public function get_resource_fields($fieldset = ''){
-		global $customdesgin;
+		global $customdesign;
 		$fabric = array(
 			array(
 				'type' => 'toggle',
@@ -3429,7 +3429,7 @@ class customdesgin_views extends customdesgin_lib {
 	}
 
 	public function field_advance_option($args) {
-		global $customdesgin;
+		global $customdesign;
 		$advance = (isset($args['value']) && !empty($args['value'])) ? $this->dejson($args['value']) : json_decode('{"active" : false, "values" : {}}');
 		$option_fields = $args['option_fields'];
 		foreach ( $option_fields as $key => $field  ) {
@@ -3445,10 +3445,10 @@ class customdesgin_views extends customdesgin_lib {
 		}
 		?>
 		<div data-view="active">
-			<div class="customdesgin-toggle">
+			<div class="customdesign-toggle">
 				<input type="checkbox" data-func="active" <?php echo ((isset($advance->active) && $advance->active) ? 'checked' : ''); ?> value="1">
-				<span class="customdesgin-toggle-label" data-on="Yes" data-off="No"></span>
-				<span class="customdesgin-toggle-handle"></span>
+				<span class="customdesign-toggle-label" data-on="Yes" data-off="No"></span>
+				<span class="customdesign-toggle-handle"></span>
 			</div>
 		</div>
 		<?php 
@@ -3461,7 +3461,7 @@ class customdesgin_views extends customdesgin_lib {
 
 	public function field_google_fonts($args) {
 	?>
-	<div class="customdesgin-field-google_fonts">
+	<div class="customdesign-field-google_fonts">
 		<ul>
 			<?php
 				$fonts = json_decode(htmlspecialchars_decode(trim($args['value'])), true);
@@ -3477,7 +3477,7 @@ class customdesgin_views extends customdesgin_lib {
 						echo '</li>';
 					} 
 				} else {
-					echo '<p class="customdesgin-notice">'.$this->main->lang('No items found').'</p>';
+					echo '<p class="customdesign-notice">'.$this->main->lang('No items found').'</p>';
 				}
 			?>
 		</ul>
@@ -3495,10 +3495,10 @@ class customdesgin_views extends customdesgin_lib {
 	
 	public function field_attributes($args) {
 	?>
-	<div class="customdesgin_form_content">
-		<div class="customdesgin-att-layout">
-			<div class="customdesgin-att-layout-create">
-				<button class="customdesgin-button" data-act="add_attribute">
+	<div class="customdesign_form_content">
+		<div class="customdesign-att-layout">
+			<div class="customdesign-att-layout-create">
+				<button class="customdesign-button" data-act="add_attribute">
 					<i class="fa fa-plus" data-act="add_attribute"></i> 
 					<?php echo $this->main->lang('Add new attribute'); ?>
 				</button>
@@ -3506,14 +3506,14 @@ class customdesgin_views extends customdesgin_lib {
 				<a>/</a>
 				<a href="#expand" data-act="expand"><?php echo $this->main->lang('Expand'); ?></a>
 			</div>
-			<div id="customdesgin-field-attributes-items" class="customdesgin-field-layout-items"><?php
+			<div id="customdesign-field-attributes-items" class="customdesign-field-layout-items"><?php
 
 				$attrs = $this->dejson($args['value']);
 
 				
 			?></div>
-			<div class="customdesgin-att-layout-tmpl hidden">
-				<div class="customdesgin-att-layout-item">
+			<div class="customdesign-att-layout-tmpl hidden">
+				<div class="customdesign-att-layout-item">
 					<div class="att-layout-headitem" data-act="toggle">
 						<strong data-name="Untitled">Untitled</strong> 
 						<em data-view="attr-type">text</em>
@@ -3570,8 +3570,8 @@ class customdesgin_views extends customdesgin_lib {
 					</div>
 				</div>
 			</div>
-			<textarea data-func="value" id="customdesgin-field-attributes-inp"  style="display: none;" name="<?php echo isset($args['name']) ? $args['name'] : ''; ?>"><?php echo isset($args['value']) ? $args['value'] : ''; ?></textarea>
-			<script type="text/javascript">window.customdesgin_attribute_values_render = <?php 
+			<textarea data-func="value" id="customdesign-field-attributes-inp"  style="display: none;" name="<?php echo isset($args['name']) ? $args['name'] : ''; ?>"><?php echo isset($args['value']) ? $args['value'] : ''; ?></textarea>
+			<script type="text/javascript">window.customdesign_attribute_values_render = <?php 
 				
 				$values_render['_values'] = <<<EOF
 		
@@ -3599,17 +3599,17 @@ EOF;
 			
 		}
 		
-	?><div id="customdesgin_template"><?php
+	?><div id="customdesign_template"><?php
 		if (isset($template['screenshot'])) {
 			echo '<img src="'.$template['screenshot'].'" style="max-width: 250px;" /><br><a class="button" href="#delete"><i class="fa fa-times"></i></a>';
 		}
 	?></div>
-		<button data-btn="" id="customdesgin_template_btn" style="margin-left: 0px;">
+		<button data-btn="" id="customdesign_template_btn" style="margin-left: 0px;">
 			<i class="fa fa-th"></i>
 			<?php echo $this->main->lang('Select template'); ?>
 		</button>
 		<br />
-		<input type="hidden" name="<?php echo isset($args['name']) ? $args['name'] : ''; ?>" id="customdesgin_template_inp" value="<?php 
+		<input type="hidden" name="<?php echo isset($args['name']) ? $args['name'] : ''; ?>" id="customdesign_template_inp" value="<?php 
 			echo !empty($args['value']) ? $args['value'] : '';
 		?>" />
 		<?php if (!empty($args['value'])) { ?>
@@ -3623,13 +3623,13 @@ EOF;
 	
 	public function order_statuses($current = '', $submit = false){
 		
-		global $customdesgin;
+		global $customdesign;
 		
-		$statuses = $customdesgin->connector->statuses();
+		$statuses = $customdesign->connector->statuses();
 		
 		$current
 		?>
-		<select id="customdesgin_order_statuses" class="customdesgin_order_statuses" name="order_status">
+		<select id="customdesign_order_statuses" class="customdesign_order_statuses" name="order_status">
 	        <?php
 	            foreach ($statuses as $key => $value) {
 	            ?>
@@ -3640,13 +3640,13 @@ EOF;
 	    </select>
 		<?php
 		if ($submit) {
-			?> <input class="customdesgin_submit" type="submit" name="submit" value="<?php echo $this->main->lang('Change'); ?>"><?php
+			?> <input class="customdesign_submit" type="submit" name="submit" value="<?php echo $this->main->lang('Change'); ?>"><?php
 		}
 	}
 	
 	public function order_designs($data, $attr = true) {
 		
-		global $customdesgin_printings, $customdesgin;
+		global $customdesign_printings, $customdesign;
 		
 		$scrs = array();
 		
@@ -3881,11 +3881,11 @@ EOF;
 	
 							} else {
 	
-								echo '<dt class="customdesgin-variation">'.$name.':</dt>';
+								echo '<dt class="customdesign-variation">'.$name.':</dt>';
 	
 								foreach ($options as $option) {
 	
-									echo '<dd class="customdesgin-variation">'.$option.'</dd>';
+									echo '<dd class="customdesign-variation">'.$option.'</dd>';
 	
 								}
 	
@@ -3917,11 +3917,11 @@ EOF;
 	
 					
 	
-					if ($attr === true && isset($data_obj->printing) && is_array($customdesgin_printings)) {
+					if ($attr === true && isset($data_obj->printing) && is_array($customdesign_printings)) {
 	
 						
 	
-						foreach ($customdesgin_printings as $pmethod) {
+						foreach ($customdesign_printings as $pmethod) {
 	
 							if ($pmethod['id'] == $data_obj->printing) {
 	
@@ -4048,9 +4048,9 @@ EOF;
 							}
 							
 						} else {
-							echo '<dt class="customdesgin-variation">'.$name.':</dt>';
+							echo '<dt class="customdesign-variation">'.$name.':</dt>';
 							foreach ($options as $option) {
-								echo '<dd class="customdesgin-variation">'.$option.'</dd>';
+								echo '<dd class="customdesign-variation">'.$option.'</dd>';
 							}
 						}
 					}
@@ -4066,9 +4066,9 @@ EOF;
 					
 				}
 				
-				if ($attr === true && isset($data_obj->printing) && is_array($customdesgin_printings)) {
+				if ($attr === true && isset($data_obj->printing) && is_array($customdesign_printings)) {
 					
-					foreach ($customdesgin_printings as $pmethod) {
+					foreach ($customdesign_printings as $pmethod) {
 						if ($pmethod['id'] == $data_obj->printing) {
 							echo "<div>";
 							echo "<strong>".$this->main->lang('Printing').":</strong> ";
@@ -4094,7 +4094,7 @@ EOF;
 
 				foreach ($tempsData as $key => $detail) {
 					if(isset($detail->template) && isset($detail->template->id)){
-						$detailtemplate = $customdesgin->lib->get_template($detail->template->id);
+						$detailtemplate = $customdesign->lib->get_template($detail->template->id);
 						if($detailtemplate != null){
 							$tempsData->$key->template->screenshot = $detailtemplate['screenshot'];
 						}
@@ -4137,9 +4137,9 @@ EOF;
 		
 		if (count($scrs) > 0) {
 
-			global $customdesgin;
+			global $customdesign;
 
-			$key = $customdesgin->get_option('purchase_key');
+			$key = $customdesign->get_option('purchase_key');
 			$key_valid = ($key === null || empty($key) || strlen($key) != 36 || count(explode('-', $key)) != 5) ? false : true;
 			
 			$is_query = explode('?', $this->main->cfg->tool_url);
@@ -4189,7 +4189,7 @@ EOF;
 			if(!$key_valid){
 				$html .= '<p style="font-size:14px;"><font color="#E91E63">(*) ';
 				$html .= $this->main->lang('<span>Please enter your purchase code to display and download file designs</span></br>
-<b><a target="_blank" href="'.$this->main->cfg->admin_url.'customdesgin-page=license"style="font-weight: 700; text-decoration: underline; font-style: italic;">Enter purchase code now</a></b></br>
+<b><a target="_blank" href="'.$this->main->cfg->admin_url.'customdesign-page=license"style="font-weight: 700; text-decoration: underline; font-style: italic;">Enter purchase code now</a></b></br>
 <span>Notice: Each License can only be used for one domain.</br><a href="https://codecanyon.net/licenses/standard" target="blank" style="font-weight: 700; text-decoration: underline; font-style: italic;">Click to learn more about license term in Envato.</a></span>').'</font></p>';
 			}
 	
