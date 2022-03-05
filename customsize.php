@@ -4,7 +4,7 @@ Plugin Name: Customdesign - Rug Designer Tool
 Plugin URI: https://www.rugscustom.com/
 Description: The professional solution for designing & printing online
 Author: MehdiMirabi
-Version: 1.0.0
+Version: 1.2.2
 Author URI: http://mehdimnirabi.com/
 */
 
