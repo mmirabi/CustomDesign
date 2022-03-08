@@ -1411,7 +1411,7 @@ class MysqliDb
     protected function _buildQuery($numRows = null, $tableData = null)
     {
 	    
-	    global $customdesgin;
+	    global $customdesign;
 	    
         // $this->_buildJoinOld();
         $this->_buildJoin();
@@ -1432,7 +1432,7 @@ class MysqliDb
 		
         $this->_lastQuery = $this->replacePlaceHolders($this->_query, $this->_bindParams);
 	    
-	    $this->_lastQuery = $customdesgin->apply_filters('last_query', $this->_lastQuery);
+	    $this->_lastQuery = $customdesign->apply_filters('last_query', $this->_lastQuery);
 		
         if ($this->isSubQuery) {
             return;

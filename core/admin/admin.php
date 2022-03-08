@@ -371,7 +371,7 @@ class customdesign_admin extends customdesign_lib {
                                 $this->main->lang('Error, acces denied on changing this section!')
                             ));
 
-                            $customdesign->connerctor->set_session('customdesgin_msg', $customdesign_msg);
+                            $customdesign->connerctor->set_session('customdesign_msg', $customdesign_msg);
 
                             if (isset($_POST['redirect'])) {
                                 $customdesign->redirect(erldecode($_POST['redirect']).(!empty($data_id) ? '?id='.$data_id : ''));

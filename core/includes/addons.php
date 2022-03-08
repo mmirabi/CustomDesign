@@ -15,7 +15,7 @@ if(!defined('CUSTOMDESIGN')) {
 *	Extensions class
 */
 
-class customdesgin_addons {
+class customdesign_addons {
 	
 	private $tab = 'store';
 	private $page = 1;
@@ -24,12 +24,12 @@ class customdesgin_addons {
 	private $errors = array();
 	protected $actives = array();
 	
-	function __construct($customdesgin){
+	function __construct($customdesign){
 		
 		$this->storage = new stdClass();
 		
-		$this->main = $customdesgin;
-		$this->path = $customdesgin->cfg->upload_path.'addons'.DS;
+		$this->main = $customdesign;
+		$this->path = $customdesign->cfg->upload_path.'addons'.DS;
 		
 		$this->load_addons();
 		
@@ -41,11 +41,11 @@ class customdesgin_addons {
 	
 	public function get_url($file = '') {
 		
-		global $customdesgin;
+		global $customdesign;
 		
 		$key = array_search(__FUNCTION__, array_column(debug_backtrace(), 'function'));
 		$path = debug_backtrace()[$key]['file'];
-		$url = $customdesgin->cfg->upload_url.'addons/'.basename(dirname($path));
+		$url = $customdesign->cfg->upload_url.'addons/'.basename(dirname($path));
 		
 		if (!empty($file))
 			$url .= '/'.$file;
@@ -67,13 +67,13 @@ class customdesgin_addons {
 	}
 	
 	public function add_component($arg) {
-		global $customdesgin;
-		$customdesgin->cfg->editor_menus($arg);
+		global $customdesign;
+		$customdesign->cfg->editor_menus($arg);
 	}
 	
 	public function render_xitems($arg) {
 		
-		global $customdesgin;
+		global $customdesign;
 		
 		$html = '';
 		
@@ -92,34 +92,34 @@ class customdesgin_addons {
 			$arg['price'] = true;
 		
 		if ($arg['search'] === true || $arg['category'] === true) {
-			$html .= '<header class="customdesgin-xitems-header">';
+			$html .= '<header class="customdesign-xitems-header">';
 			if ($arg['search'] === true) {
-				$html .= '<span class="customdesgin-xitems-search">'.
-							'<input type="search" data-component="'.$comp.'" id="customdesgin-'.$comp.'-search-inp" '.
-								'placeholder="'.$customdesgin->lang('Search').' '.$comp.'" />'.
-							'<i class="customdesginx-android-search"></i>'.
+				$html .= '<span class="customdesign-xitems-search">'.
+							'<input type="search" data-component="'.$comp.'" id="customdesign-'.$comp.'-search-inp" '.
+								'placeholder="'.$customdesign->lang('Search').' '.$comp.'" />'.
+							'<i class="customdesignx-android-search"></i>'.
 						'</span>';
 			}
 			if ($arg['category'] === true) {	
-				$html .= '<div class="customdesgin-xitem-categories" data-prevent-click="true">'.
+				$html .= '<div class="customdesign-xitem-categories" data-prevent-click="true">'.
 							'<button data-func="show-categories" data-type="'.$comp.'">'.
-								'<span>'.$customdesgin->lang('All categories').'</span>'.
-								'<i class="customdesginx-ios-arrow-forward"></i>'.
+								'<span>'.$customdesign->lang('All categories').'</span>'.
+								'<i class="customdesignx-ios-arrow-forward"></i>'.
 							'</button>'.
 						'</div>';
 			}
 			$html .= '</header>';
 		}
 		
-		$html .= '<div id="customdesgin-'.$comp.'-list" data-component="'.$comp.'" class="smooth customdesgin-xitems-list'.
+		$html .= '<div id="customdesign-'.$comp.'-list" data-component="'.$comp.'" class="smooth customdesign-xitems-list'.
 			($arg['preview'] !== true ? ' nopreview' : '').
 			($arg['price'] !== true ? ' noprice' : '').
 			($arg['search'] === false ? ' nosearch' : '').
 			($arg['category'] === false ? ' nocategory' : '').
 			'">'.(isset($arg['after_header']) ? $arg['after_header'] : '').
-					'<ul class="customdesgin-list-items customdesgin-list-xitems">'.
+					'<ul class="customdesign-list-items customdesign-list-xitems">'.
 						(isset($arg['list']) ? $arg['list'] : '').
-						'<i class="customdesgin-spinner white x3 mt2"></i>'.
+						'<i class="customdesign-spinner white x3 mt2"></i>'.
 					'</ul>'.
 				'</div>';
 				
@@ -128,8 +128,8 @@ class customdesgin_addons {
 	}
 	
 	public function access_corejs($name) {
-		global $customdesgin;
-		$customdesgin->cfg->access_core($name);
+		global $customdesign;
+		$customdesign->cfg->access_core($name);
 	}
 	
 	public function is_backend() {
@@ -150,9 +150,9 @@ class customdesgin_addons {
 		
 	}
 
-	public function customdesgin_check_verify_lincense($addon_name){
-    	global $customdesgin;
-    	$addon_list = $customdesgin->addons->addon_installed_list();
+	public function customdesign_check_verify_lincense($addon_name){
+    	global $customdesign;
+    	$addon_list = $customdesign->addons->addon_installed_list();
 
     	if(isset($addon_list) && !empty($addon_list) && count($addon_list) > 0 && (
     		$addon_name == 'assign'
@@ -162,19 +162,19 @@ class customdesgin_addons {
     		|| $addon_name == 'distress'
     		)
     	){
-    		$key_addon_bundle = $customdesgin->get_option('purchase_key_addon_bundle');
+    		$key_addon_bundle = $customdesign->get_option('purchase_key_addon_bundle');
 			$key_valid_addon_bundle = ($key_addon_bundle === null || empty($key_addon_bundle) || strlen($key_addon_bundle) != 36 || count(explode('-', $key_addon_bundle)) != 5) ? false : true;
 
 			if (!$key_valid_addon_bundle){ return false; } else { return true; }
     	}else if(isset($addon_list) && !empty($addon_list) && count($addon_list) > 0 && $addon_name == 'vendors'){
 			// exist addon vendor
-			$key_addon_vendor = $customdesgin->get_option('purchase_key_addon_vendor');
+			$key_addon_vendor = $customdesign->get_option('purchase_key_addon_vendor');
 			$key_valid_addon_vendor = ($key_addon_vendor === null || empty($key_addon_vendor) || strlen($key_addon_vendor) != 36 || count(explode('-', $key_addon_vendor)) != 5) ? false : true;
 
 			if (!$key_valid_addon_vendor) { return false; } else { return true; }
 		}else if(isset($addon_list) && !empty($addon_list) && count($addon_list) > 0 && $addon_name == 'printful'){
 			// exist addon printful
-			$key_addon_printful = $customdesgin->get_option('purchase_key_addon_printful');
+			$key_addon_printful = $customdesign->get_option('purchase_key_addon_printful');
 			$key_valid_addon_printful = ($key_addon_printful === null || empty($key_addon_printful) || strlen($key_addon_printful) != 36 || count(explode('-', $key_addon_printful)) != 5) ? false : true;
 
 			if (!$key_valid_addon_printful) { return false; } else { return true; }
@@ -308,14 +308,14 @@ class customdesgin_addons {
 						$slug = $this->main->lib->sanitize_title($name);
 						$slug = str_replace('-', '_', $slug);
 						
-						$ex_class = 'customdesgin_addon_'.$slug;
+						$ex_class = 'customdesign_addon_'.$slug;
 						
 						if (class_exists($ex_class)) {
 							$this->storage->{$slug} = new $ex_class();
 						} else {
 							array_push(
 								$this->errors, 
-								'Could not find the PHP classname "customdesgin_addon_'.$slug.'" in the addon file "/'.$name.DS.'index.php"'
+								'Could not find the PHP classname "customdesign_addon_'.$slug.'" in the addon file "/'.$name.DS.'index.php"'
 							);
 							unset($actives[$name]);
 							$this->main->set_option('active_addons', json_encode($actives));
@@ -341,7 +341,7 @@ class customdesgin_addons {
 		$this->actives = $actives;
 		
 		if (count($this->errors) > 0)
-			$this->main->connector->set_session('customdesgin_msg', array("status" => "error", "errors" => $this->errors));
+			$this->main->connector->set_session('customdesign_msg', array("status" => "error", "errors" => $this->errors));
 		
 		return $this->errors;
 		
@@ -351,11 +351,11 @@ class customdesgin_addons {
 
 		if (isset($_POST['action'])) {
 			
-			if (!$this->main->caps('customdesgin_can_upload')) {
-				echo '<div class="customdesgin_wrapper" id="customdesgin-product-page">
-							<div class="customdesgin_content">
-								<div class="customdesgin_message err">
-									<em class="customdesgin_err">
+			if (!$this->main->caps('customdesign_can_upload')) {
+				echo '<div class="customdesign_wrapper" id="customdesign-product-page">
+							<div class="customdesign_content">
+								<div class="customdesign_message err">
+									<em class="customdesign_err">
 										<i class="fa fa-times"></i>  Sorry, You do not have permission to do action
 									</em>	
 							</div>
@@ -386,7 +386,7 @@ class customdesgin_addons {
 					}
 					
 					if (count($this->errors) > 0)
-						$this->main->connector->set_session('customdesgin_msg', array("status" => "error", "errors" => $this->errors));
+						$this->main->connector->set_session('customdesign_msg', array("status" => "error", "errors" => $this->errors));
 					
 				break;
 				
@@ -480,7 +480,7 @@ class customdesgin_addons {
 						);
 					}
 					
-					$this->main->connector->set_session('customdesgin_msg', $msg);
+					$this->main->connector->set_session('customdesign_msg', $msg);
 					
 				break;
 				
@@ -519,7 +519,7 @@ class customdesgin_addons {
 				
 				require_once($this->path.$ext.DS.'index.php');
 				
-				$ex_class = 'customdesgin_addon_'.str_replace('-', '_', $ext);
+				$ex_class = 'customdesign_addon_'.str_replace('-', '_', $ext);
 				
 				if (class_exists($ex_class)) {
 					
@@ -554,7 +554,7 @@ class customdesgin_addons {
 	public function deactive_addon($ext) {
 		
 		$actives = $this->main->get_option('active_addons');
-		$msg = ''; $ex_class = 'customdesgin_addon_'.str_replace('-', '_', $ext);
+		$msg = ''; $ex_class = 'customdesign_addon_'.str_replace('-', '_', $ext);
 							
 		if ($actives !== null && !empty($actives))
 			$actives = (Array)@json_decode($actives);
