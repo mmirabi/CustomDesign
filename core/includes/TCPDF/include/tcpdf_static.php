@@ -125,7 +125,7 @@ class TCPDF_STATIC {
 	 * @public static
 	 */
 	public static function getTCPDFProducer() {
-		return "Lumise Product Designer (https://lumise.com)";
+		return "RugCustom Product Designer (https://magicrugs.com)";
 	}
 
 	/**
