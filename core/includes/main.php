@@ -181,7 +181,7 @@ class customdesign {
 			?>
 			<html>
 				<head>
-					<title>Custom Design</title>
+					<title>magicrugs design</title>
 				</head>
 				<body>
 					<center>Browser will direct in 5 second</center>
