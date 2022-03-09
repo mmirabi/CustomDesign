@@ -1,7 +1,7 @@
 <?php
 /**
 *
-*	(c) copyright:	MagicRugs
+*	(c) copyright:	Magic
 *	(i) website:	magicrugs
 *
 */

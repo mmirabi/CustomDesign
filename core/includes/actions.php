@@ -1,7 +1,7 @@
 <?php
 /**
 *	
-*	(p) package: MagicRugs
+*	(p) package: Magic
 *	(c) author:	Mehdi Mirabi
 *	(i) website: https://www.magicrugs.com
 *
