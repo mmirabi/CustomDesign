@@ -1,3 +1,3 @@
-# CustomDesign woocommerce plugin 1.9.9
+# CustomDesign woocommerce plugin 2.0.0
 This plugin for designing rugs in WordPress (WooCommerce).
 More details will be added over time.
