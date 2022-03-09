@@ -1,27 +1,27 @@
 <?php
-	global $customdesign;
+	global $magic;
 
-	$key = $customdesign->get_option('purchase_key');
+	$key = $magic->get_option('purchase_key');
 	$key_valid = ($key === null || empty($key) || strlen($key) != 36 || count(explode('-', $key)) != 5) ? false : true;
 
-	$key_addon_bundle = $customdesign->get_option('purchase_key_addon_bundle');
+	$key_addon_bundle = $magic->get_option('purchase_key_addon_bundle');
 	$key_valid_addon_bundle = ($key_addon_bundle === null || empty($key_addon_bundle) || strlen($key_addon_bundle) != 36 || count(explode('-', $key_addon_bundle)) != 5) ? false : true;
 
-	$key_addon_vendor = $customdesign->get_option('purchase_key_addon_vendor');
+	$key_addon_vendor = $magic->get_option('purchase_key_addon_vendor');
 	$key_valid_addon_vendor = ($key_addon_vendor === null || empty($key_addon_vendor) || strlen($key_addon_vendor) != 36 || count(explode('-', $key_addon_vendor)) != 5) ? false : true;
 
-	$key_addon_printful = $customdesign->get_option('purchase_key_addon_printful');
+	$key_addon_printful = $magic->get_option('purchase_key_addon_printful');
 	$key_valid_addon_printful = ($key_addon_printful === null || empty($key_addon_printful) || strlen($key_addon_printful) != 36 || count(explode('-', $key_addon_printful)) != 5) ? false : true;
 ?>
 
 <style type="text/css">
-	ul.customdesign_tab_nav_remake{
+	ul.magic_tab_nav_remake{
 		margin-left: 0px !important;
 	}
-	ul.customdesign_tab_nav_remake li{
+	ul.magic_tab_nav_remake li{
 		list-style-type: none;
 	}
-	ul.customdesign_tab_nav_remake li a{
+	ul.magic_tab_nav_remake li a{
 		text-decoration: none;
 	}
 	.mb0{
@@ -31,178 +31,178 @@
 	    width: 100%;
 	}
 </style>
-<div class="customdesign_wrapper">
+<div class="magic_wrapper">
 
-	<div id="customdesign-license">
+	<div id="magic-license">
 		<h1>
-			<?php echo $customdesign->lang('License verification'); ?>
+			<?php echo $magic->lang('License verification'); ?>
 		</h1>
 		<?php if ($key_valid): ?>
-			<div class="customdesign-update-notice">
-				<?php echo $customdesign->lang('You must verify your purchase code before updating and access to all features'); ?>.	
+			<div class="magic-update-notice">
+				<?php echo $magic->lang('You must verify your purchase code before updating and access to all features'); ?>.	
 			</div>
 		<?php endif ?>
 
-		<?php $customdesign->views->header_message(); ?>
+		<?php $magic->views->header_message(); ?>
 
-		<div class="customdesign_tabs_wrapper customdesign_form_settings" data-id="license-verification">
-			<ul class="customdesign_tab_nav_remake">
-				<li class="active"><a href="#customdesign-tab-license-plugin">License verification</a></li>
-				<li><a href="#customdesign-tab-addon-bundle">License addon bundle</a></li>
-				<?php if ($customdesign->connector->platform == 'woocommerce'): ?>
-				<li><a href="#customdesign-tab-addon-vendor">License addon vendor</a></li>
+		<div class="magic_tabs_wrapper magic_form_settings" data-id="license-verification">
+			<ul class="magic_tab_nav_remake">
+				<li class="active"><a href="#magic-tab-license-plugin">License verification</a></li>
+				<li><a href="#magic-tab-addon-bundle">License addon bundle</a></li>
+				<?php if ($magic->connector->platform == 'woocommerce'): ?>
+				<li><a href="#magic-tab-addon-vendor">License addon vendor</a></li>
 				<?php endif; ?>
-				<?php if ($customdesign->connector->platform == 'woocommerce'): ?>
-				<li><a href="#customdesign-tab-addon-printful">License addon printful</a></li>
+				<?php if ($magic->connector->platform == 'woocommerce'): ?>
+				<li><a href="#magic-tab-addon-printful">License addon printful</a></li>
 				<?php endif; ?>
 			</ul>
-			<div class="customdesign_tabs">
-				<div class="customdesign_tab_content active" id="customdesign-tab-license-plugin" >
+			<div class="magic_tabs">
+				<div class="magic_tab_content active" id="magic-tab-license-plugin" >
 
 					<?php if ($key_valid): ?>
-						<div class="customdesign-update-notice success">
-							<?php echo $customdesign->lang('Your license has been verified, now your MagicRugs will be updated automatically and have access to all features'); ?>.
+						<div class="magic-update-notice success">
+							<?php echo $magic->lang('Your license has been verified, now your MagicRugs will be updated automatically and have access to all features'); ?>.
 						</div>
 					<?php endif; ?>
-					<form action="" method="POST" id="customdesign-license-form">
+					<form action="" method="POST" id="magic-license-form">
 						<?php if ($key_valid) { ?>
-						<input type="password" name="key" readonly size="58" value="<?php echo $key; ?>" placeholder="<?php echo $customdesign->lang('Enter your purchase code'); ?>" />
+						<input type="password" name="key" readonly size="58" value="<?php echo $key; ?>" placeholder="<?php echo $magic->lang('Enter your purchase code'); ?>" />
 						<input type="hidden" name="do_action" value="revoke-license" />
-						<button type="submit" class="customdesign_btn danger">
-							<?php echo $customdesign->lang('Revoke this license'); ?>
+						<button type="submit" class="magic_btn danger">
+							<?php echo $magic->lang('Revoke this license'); ?>
 						</button>
 						<script type="text/javascript">
-							jQuery('#customdesign-license-form').on('submit', function(e) {
-								if (!confirm("<?php echo $customdesign->lang('Are you sure? After revoking the license you can use it to verify another domain but you will not be able to use it to verify this domain again'); ?>.")) {
+							jQuery('#magic-license-form').on('submit', function(e) {
+								if (!confirm("<?php echo $magic->lang('Are you sure? After revoking the license you can use it to verify another domain but you will not be able to use it to verify this domain again'); ?>.")) {
 									e.preventDefault();
 								} else {
-									jQuery('#customdesign-license-form button.customdesign_btn').html('<i style="font-size: 16px;" class="fa fa-circle-o-notch fa-spin fa-fw"></i> please wait..');
+									jQuery('#magic-license-form button.magic_btn').html('<i style="font-size: 16px;" class="fa fa-circle-o-notch fa-spin fa-fw"></i> please wait..');
 								}
 							});
 						</script>
 						<?php } else { ?>
-						<input type="password" name="key" size="58" value="<?php echo $key; ?>" placeholder="<?php echo $customdesign->lang('Enter your purchase code'); ?>" />
+						<input type="password" name="key" size="58" value="<?php echo $key; ?>" placeholder="<?php echo $magic->lang('Enter your purchase code'); ?>" />
 						<input type="hidden" name="do_action" value="verify-license" />
-						<button type="submit" class="customdesign_btn primary loaclik">
-							<?php echo $customdesign->lang('Verify Now'); ?>
+						<button type="submit" class="magic_btn primary loaclik">
+							<?php echo $magic->lang('Verify Now'); ?>
 						</button>
 						&nbsp; 
-						<a class="customdesign_btn" href="https://www.magicrugs.com/pricing/?utm_source=client-site&utm_medium=text&utm_campaign=license-page&utm_term=links&utm_content=<?php echo $customdesign->connector->platform; ?>" target=_blank>
-							<?php echo $customdesign->lang('Buy a license'); ?>
+						<a class="magic_btn" href="https://www.magicrugs.com/pricing/?utm_source=client-site&utm_medium=text&utm_campaign=license-page&utm_term=links&utm_content=<?php echo $magic->connector->platform; ?>" target=_blank>
+							<?php echo $magic->lang('Buy a license'); ?>
 						</a>
 						<?php } ?>
 					</form>
 
 				</div>
-				<div class="customdesign_tab_content" id="customdesign-tab-addon-bundle" >
+				<div class="magic_tab_content" id="magic-tab-addon-bundle" >
 					
 					<?php if ($key_valid_addon_bundle): ?>
-						<div class="customdesign-update-notice success">
-							<?php echo $customdesign->lang('Your license has been verified, now your MagicRugs will be updated automatically and have access to all features'); ?>.
+						<div class="magic-update-notice success">
+							<?php echo $magic->lang('Your license has been verified, now your MagicRugs will be updated automatically and have access to all features'); ?>.
 						</div>
 					<?php endif; ?>
-					<form action="" method="POST" id="customdesign-license-form-addon-bundle">
+					<form action="" method="POST" id="magic-license-form-addon-bundle">
 						<?php if ($key_valid_addon_bundle) { ?>
-						<input type="password" name="key" readonly size="58" value="<?php echo $key_addon_bundle; ?>" placeholder="<?php echo $customdesign->lang('Enter your purchase code'); ?>" />
+						<input type="password" name="key" readonly size="58" value="<?php echo $key_addon_bundle; ?>" placeholder="<?php echo $magic->lang('Enter your purchase code'); ?>" />
 						<input type="hidden" name="do_action" value="revoke-license-addon-bundle" />
-						<button type="submit" class="customdesign_btn danger">
-							<?php echo $customdesign->lang('Revoke this license'); ?>
+						<button type="submit" class="magic_btn danger">
+							<?php echo $magic->lang('Revoke this license'); ?>
 						</button>
 						<script type="text/javascript">
-							jQuery('#customdesign-license-form-addon-bundle').on('submit', function(e) {
-								if (!confirm("<?php echo $customdesign->lang('Are you sure? After revoking the license you can use it to verify another domain but you will not be able to use it to verify this domain again'); ?>.")) {
+							jQuery('#magic-license-form-addon-bundle').on('submit', function(e) {
+								if (!confirm("<?php echo $magic->lang('Are you sure? After revoking the license you can use it to verify another domain but you will not be able to use it to verify this domain again'); ?>.")) {
 									e.preventDefault();
 								} else {
-									jQuery('#customdesign-license-form-addon-bundle button.customdesign_btn').html('<i style="font-size: 16px;" class="fa fa-circle-o-notch fa-spin fa-fw"></i> please wait..');
+									jQuery('#magic-license-form-addon-bundle button.magic_btn').html('<i style="font-size: 16px;" class="fa fa-circle-o-notch fa-spin fa-fw"></i> please wait..');
 								}
 							});
 						</script>
 						<?php } else { ?>
-						<input type="password" name="key" size="58" value="<?php echo $key_addon_bundle; ?>" placeholder="<?php echo $customdesign->lang('Enter your purchase code'); ?>" />
+						<input type="password" name="key" size="58" value="<?php echo $key_addon_bundle; ?>" placeholder="<?php echo $magic->lang('Enter your purchase code'); ?>" />
 						<input type="hidden" name="do_action" value="verify-license-addon-bundle" />
-						<button type="submit" class="customdesign_btn primary loaclik">
-							<?php echo $customdesign->lang('Verify Now'); ?>
+						<button type="submit" class="magic_btn primary loaclik">
+							<?php echo $magic->lang('Verify Now'); ?>
 						</button>
 						&nbsp; 
-						<a class="customdesign_btn" href="https://codecanyon.net/item/addons-bundle-for-customdesign-product-designer/25824664" target=_blank>
-							<?php echo $customdesign->lang('Buy a license'); ?>
+						<a class="magic_btn" href="https://codecanyon.net/item/addons-bundle-for-magic-product-designer/25824664" target=_blank>
+							<?php echo $magic->lang('Buy a license'); ?>
 						</a>
 						<?php } ?>
 					</form>
 
 				</div>
-				<?php if ($customdesign->connector->platform == 'woocommerce'): ?>
-				<div class="customdesign_tab_content" id="customdesign-tab-addon-vendor" >
+				<?php if ($magic->connector->platform == 'woocommerce'): ?>
+				<div class="magic_tab_content" id="magic-tab-addon-vendor" >
 					
 					<?php if ($key_valid_addon_vendor): ?>
-						<div class="customdesign-update-notice success">
-							<?php echo $customdesign->lang('Your license has been verified, now your MagicRugs will be updated automatically and have access to all features'); ?>.
+						<div class="magic-update-notice success">
+							<?php echo $magic->lang('Your license has been verified, now your MagicRugs will be updated automatically and have access to all features'); ?>.
 						</div>
 					<?php endif; ?>
-					<form action="" method="POST" id="customdesign-license-form-addon-vendor">
+					<form action="" method="POST" id="magic-license-form-addon-vendor">
 						<?php if ($key_valid_addon_vendor) { ?>
-						<input type="password" name="key" readonly size="58" value="<?php echo $key_addon_vendor; ?>" placeholder="<?php echo $customdesign->lang('Enter your purchase code'); ?>" />
+						<input type="password" name="key" readonly size="58" value="<?php echo $key_addon_vendor; ?>" placeholder="<?php echo $magic->lang('Enter your purchase code'); ?>" />
 						<input type="hidden" name="do_action" value="revoke-license-addon-vendor" />
-						<button type="submit" class="customdesign_btn danger">
-							<?php echo $customdesign->lang('Revoke this license'); ?>
+						<button type="submit" class="magic_btn danger">
+							<?php echo $magic->lang('Revoke this license'); ?>
 						</button>
 						<script type="text/javascript">
-							jQuery('#customdesign-license-form-addon-vendor').on('submit', function(e) {
-								if (!confirm("<?php echo $customdesign->lang('Are you sure? After revoking the license you can use it to verify another domain but you will not be able to use it to verify this domain again'); ?>.")) {
+							jQuery('#magic-license-form-addon-vendor').on('submit', function(e) {
+								if (!confirm("<?php echo $magic->lang('Are you sure? After revoking the license you can use it to verify another domain but you will not be able to use it to verify this domain again'); ?>.")) {
 									e.preventDefault();
 								} else {
-									jQuery('#customdesign-license-form-addon-vendor button.customdesign_btn').html('<i style="font-size: 16px;" class="fa fa-circle-o-notch fa-spin fa-fw"></i> please wait..');
+									jQuery('#magic-license-form-addon-vendor button.magic_btn').html('<i style="font-size: 16px;" class="fa fa-circle-o-notch fa-spin fa-fw"></i> please wait..');
 								}
 							});
 						</script>
 						<?php } else { ?>
-						<input type="password" name="key" size="58" value="<?php echo $key_addon_vendor; ?>" placeholder="<?php echo $customdesign->lang('Enter your purchase code'); ?>" />
+						<input type="password" name="key" size="58" value="<?php echo $key_addon_vendor; ?>" placeholder="<?php echo $magic->lang('Enter your purchase code'); ?>" />
 						<input type="hidden" name="do_action" value="verify-license-addon-vendor" />
-						<button type="submit" class="customdesign_btn primary loaclik">
-							<?php echo $customdesign->lang('Verify Now'); ?>
+						<button type="submit" class="magic_btn primary loaclik">
+							<?php echo $magic->lang('Verify Now'); ?>
 						</button>
 						&nbsp; 
-						<a class="customdesign_btn" href="https://codecanyon.net/item/vendors-design-launcher-addon-for-customdesign-product-designer/24082588" target=_blank>
-							<?php echo $customdesign->lang('Buy a license'); ?>
+						<a class="magic_btn" href="https://codecanyon.net/item/vendors-design-launcher-addon-for-magic-product-designer/24082588" target=_blank>
+							<?php echo $magic->lang('Buy a license'); ?>
 						</a>
 						<?php } ?>
 					</form>
 				</div>
 				<?php endif; ?>
 
-				<?php if ($customdesign->connector->platform == 'woocommerce'): ?>
-				<div class="customdesign_tab_content" id="customdesign-tab-addon-printful" >
+				<?php if ($magic->connector->platform == 'woocommerce'): ?>
+				<div class="magic_tab_content" id="magic-tab-addon-printful" >
 					
 					<?php if ($key_valid_addon_printful): ?>
-						<div class="customdesign-update-notice success">
-							<?php echo $customdesign->lang('Your license has been verified, now your MagicRugs will be updated automatically and have access to all features'); ?>.
+						<div class="magic-update-notice success">
+							<?php echo $magic->lang('Your license has been verified, now your MagicRugs will be updated automatically and have access to all features'); ?>.
 						</div>
 					<?php endif; ?>
-					<form action="" method="POST" id="customdesign-license-form-addon-printful">
+					<form action="" method="POST" id="magic-license-form-addon-printful">
 						<?php if ($key_valid_addon_printful) { ?>
-						<input type="password" name="key" readonly size="58" value="<?php echo $key_addon_printful; ?>" placeholder="<?php echo $customdesign->lang('Enter your purchase code'); ?>" />
+						<input type="password" name="key" readonly size="58" value="<?php echo $key_addon_printful; ?>" placeholder="<?php echo $magic->lang('Enter your purchase code'); ?>" />
 						<input type="hidden" name="do_action" value="revoke-license-addon-printful" />
-						<button type="submit" class="customdesign_btn danger">
-							<?php echo $customdesign->lang('Revoke this license'); ?>
+						<button type="submit" class="magic_btn danger">
+							<?php echo $magic->lang('Revoke this license'); ?>
 						</button>
 						<script type="text/javascript">
-							jQuery('#customdesign-license-form-addon-printful').on('submit', function(e) {
-								if (!confirm("<?php echo $customdesign->lang('Are you sure? After revoking the license you can use it to verify another domain but you will not be able to use it to verify this domain again'); ?>.")) {
+							jQuery('#magic-license-form-addon-printful').on('submit', function(e) {
+								if (!confirm("<?php echo $magic->lang('Are you sure? After revoking the license you can use it to verify another domain but you will not be able to use it to verify this domain again'); ?>.")) {
 									e.preventDefault();
 								} else {
-									jQuery('#customdesign-license-form-addon-printful button.customdesign_btn').html('<i style="font-size: 16px;" class="fa fa-circle-o-notch fa-spin fa-fw"></i> please wait..');
+									jQuery('#magic-license-form-addon-printful button.magic_btn').html('<i style="font-size: 16px;" class="fa fa-circle-o-notch fa-spin fa-fw"></i> please wait..');
 								}
 							});
 						</script>
 						<?php } else { ?>
-						<input type="password" name="key" size="58" value="<?php echo $key_addon_printful; ?>" placeholder="<?php echo $customdesign->lang('Enter your purchase code'); ?>" />
+						<input type="password" name="key" size="58" value="<?php echo $key_addon_printful; ?>" placeholder="<?php echo $magic->lang('Enter your purchase code'); ?>" />
 						<input type="hidden" name="do_action" value="verify-license-addon-printful" />
-						<button type="submit" class="customdesign_btn primary loaclik">
-							<?php echo $customdesign->lang('Verify Now'); ?>
+						<button type="submit" class="magic_btn primary loaclik">
+							<?php echo $magic->lang('Verify Now'); ?>
 						</button>
 						&nbsp; 
-						<a class="customdesign_btn" href="https://codecanyon.net/item/vendors-design-launcher-addon-for-customdesign-product-designer/24082588" target=_blank>
-							<?php echo $customdesign->lang('Buy a license'); ?>
+						<a class="magic_btn" href="https://codecanyon.net/item/vendors-design-launcher-addon-for-magic-product-designer/24082588" target=_blank>
+							<?php echo $magic->lang('Buy a license'); ?>
 						</a>
 						<?php } ?>
 					</form>
@@ -211,16 +211,16 @@
 			</div>
 		</div>
 
-		<h3 class="mb0"><?php echo $customdesign->lang('More details'); ?></h3>
+		<h3 class="mb0"><?php echo $magic->lang('More details'); ?></h3>
 		<ul>
-			<li><?php echo $customdesign->lang('The license key is the purchase code which was created at Envato after purchasing the product'); ?>.</li>
-			<li><?php echo $customdesign->lang('You can not use a license for more than one domain, but you can revoke it from an unused domain to verify the new domain'); ?>.</li>
-			<li><?php echo $customdesign->lang('Once you have revoked your license at a domain, you will not be able to use it to verify that domain again'); ?>.</li>
-			<li><?php echo $customdesign->lang('Each license can only be verified up to 3 times, including your localhost and excluding subdomains or subfolders'); ?>.</li>
+			<li><?php echo $magic->lang('The license key is the purchase code which was created at Envato after purchasing the product'); ?>.</li>
+			<li><?php echo $magic->lang('You can not use a license for more than one domain, but you can revoke it from an unused domain to verify the new domain'); ?>.</li>
+			<li><?php echo $magic->lang('Once you have revoked your license at a domain, you will not be able to use it to verify that domain again'); ?>.</li>
+			<li><?php echo $magic->lang('Each license can only be verified up to 3 times, including your localhost and excluding subdomains or subfolders'); ?>.</li>
 			<li>
-				<a href="https://help.market.envato.com/hc/en-us/articles/202822600-Where-Is-My-Purchase-Code" target=_blank><?php echo $customdesign->lang('How to find the purchase code'); ?>?</a> 
-				<?php echo $customdesign->lang('If you do not have a license yet'); ?> 
-				<a href="https://www.magicrugs.com/pricing/?utm_source=client-site&utm_medium=text&utm_campaign=license-page&utm_term=links&utm_content=<?php echo $customdesign->connector->platform; ?>" target=_blank><?php echo $customdesign->lang(' get a purchase code'); ?>.</a>
+				<a href="https://help.market.envato.com/hc/en-us/articles/202822600-Where-Is-My-Purchase-Code" target=_blank><?php echo $magic->lang('How to find the purchase code'); ?>?</a> 
+				<?php echo $magic->lang('If you do not have a license yet'); ?> 
+				<a href="https://www.magicrugs.com/pricing/?utm_source=client-site&utm_medium=text&utm_campaign=license-page&utm_term=links&utm_content=<?php echo $magic->connector->platform; ?>" target=_blank><?php echo $magic->lang(' get a purchase code'); ?>.</a>
 			</li>
 		</ul>
 
@@ -230,21 +230,21 @@
 <style type="text/css">
 	
 /* Tab style */
-.customdesign_tabs_wrapper {
+.magic_tabs_wrapper {
     float: left;
     width: 100%;
 }
 
-.customdesign_tab_nav_remake {
+.magic_tab_nav_remake {
     float: left;
     width: 100%;
 }
 
-.customdesign_tab_nav_remake li {
+.magic_tab_nav_remake li {
     float: left;
 }
 
-html body .customdesign_wrapper .customdesign_tab_nav_remake li a {
+html body .magic_wrapper .magic_tab_nav_remake li a {
     display: inline-block;
     font-weight: 500;
     color: #54575a !important;
@@ -259,25 +259,25 @@ html body .customdesign_wrapper .customdesign_tab_nav_remake li a {
     user-select: none;
     -webkit-user-select: none;
 }
-html body .customdesign_wrapper .customdesign_tab_nav_remake li:not([data-add]) a i{
+html body .magic_wrapper .magic_tab_nav_remake li:not([data-add]) a i{
     display: inline-block;
     padding: 0px;
     width: 0px;
     margin: 0px;
 }
-html body .customdesign_wrapper .customdesign_tab_nav_remake li:not([data-add]) a>i:before{
+html body .magic_wrapper .magic_tab_nav_remake li:not([data-add]) a>i:before{
     display: none;
 }
-html body .customdesign_wrapper .customdesign_tab_nav_remake li a>i:hover:before{
+html body .magic_wrapper .magic_tab_nav_remake li a>i:hover:before{
     color: #000 !important;
 }
-html body .customdesign_wrapper .customdesign_tab_nav_remake li.active a>i{
+html body .magic_wrapper .magic_tab_nav_remake li.active a>i{
     width: auto;
     position: relative;
     bottom: -2px;
     right: 3px;
 }
-html body .customdesign_wrapper .customdesign_tab_nav_remake li:not([data-add]) a>i:after{
+html body .magic_wrapper .magic_tab_nav_remake li:not([data-add]) a>i:after{
     position: absolute;
     content: "";
     top: 0px;
@@ -286,33 +286,33 @@ html body .customdesign_wrapper .customdesign_tab_nav_remake li:not([data-add]) 
     height: 101%;
     z-index: 1;
 }
-html body .customdesign_wrapper .customdesign_tab_nav_remake li.active:not([data-add]) a>i:after{
+html body .magic_wrapper .magic_tab_nav_remake li.active:not([data-add]) a>i:after{
     z-index: -1;
 }
-html body .customdesign_wrapper .customdesign_tab_nav_remake li.active a>i:before{
+html body .magic_wrapper .magic_tab_nav_remake li.active a>i:before{
     display: inline-block;
     color: #969696;
     transition: all ease 250ms;
     bottom: -2px;
     position: relative;
 }
-.customdesign_content .customdesign_tab_nav_remake li a:hover {
+.magic_content .magic_tab_nav_remake li a:hover {
     background: #fff;
     text-decoration: none;
     opacity: 1 !important;
 }
-html body .customdesign_wrapper .customdesign_tab_nav_remake li[data-add] a>i{
+html body .magic_wrapper .magic_tab_nav_remake li[data-add] a>i{
     display: inline-block;
     margin: 0;
     font-size: 14px !important;
     height: 16px;
 }
-html body .customdesign_wrapper .customdesign_tab_nav_remake li.active a {
+html body .magic_wrapper .magic_tab_nav_remake li.active a {
     background: #fff;
     color: #393749;
     border-bottom-color: #fff;
 }
-html body .customdesign_wrapper .customdesign_tab_nav_remake li a text{
+html body .magic_wrapper .magic_tab_nav_remake li a text{
     padding: 3px 5px;
     border: 1px dashed transparent;
     position: relative;
@@ -320,10 +320,10 @@ html body .customdesign_wrapper .customdesign_tab_nav_remake li a text{
     transition: all ease 100ms;
     min-height: 23px;
 }
-html body .customdesign_wrapper .customdesign_tab_nav_remake li.active a text{
+html body .magic_wrapper .magic_tab_nav_remake li.active a text{
     cursor: text;
 }
-.customdesign-stages-wrp .customdesign_tab_nav_remake li.active a text:after{
+.magic-stages-wrp .magic_tab_nav_remake li.active a text:after{
     content: "\f040";
     padding: 0 5px;
     color: #cccccc;
@@ -336,26 +336,26 @@ html body .customdesign_wrapper .customdesign_tab_nav_remake li.active a text{
     cursor: pointer;
     transition: color ease 250ms;
 }
-.customdesign-stages-wrp .customdesign_tab_nav_remake li.active a text:hover:after{
+.magic-stages-wrp .magic_tab_nav_remake li.active a text:hover:after{
     color: #54575a;
 }
-html body .customdesign_wrapper .customdesign_tab_nav_remake li a span{
+html body .magic_wrapper .magic_tab_nav_remake li a span{
     margin-top: -10px;
     margin-bottom: -10px;
 }
-html body .customdesign_wrapper .customdesign_tab_nav_remake li a img{
+html body .magic_wrapper .magic_tab_nav_remake li a img{
     height: 30px;
     display: inline-block;
     border-radius: 2px;
     transition: opacity ease 250ms;
 }
-html body .customdesign_wrapper .customdesign_tab_nav_remake li.active a img:hover{
+html body .magic_wrapper .magic_tab_nav_remake li.active a img:hover{
     opacity: 0.5;
 }
-html body .customdesign_wrapper .customdesign_tab_nav_remake li a span+i:before{
+html body .magic_wrapper .magic_tab_nav_remake li a span+i:before{
     display: none !important; 
 }
-.customdesign_tabs {
+.magic_tabs {
     float: left;
     width: 100%;
     border: 1px solid #c7c7c7;
@@ -363,28 +363,28 @@ html body .customdesign_wrapper .customdesign_tab_nav_remake li a span+i:before{
     margin-top: -1px;
 }
 
-.customdesign_tab_content.active {
+.magic_tab_content.active {
     display: block;
 }
-#customdesign-tab-design h3 {
+#magic-tab-design h3 {
     font-weight: 400;
     font-size: 22px;
 }
-.customdesign_tab_content {
+.magic_tab_content {
     float: left;
     width: 100%;
     display: none;
     -webkit-animation: fadeEffect 0.4s;
     animation: fadeEffect 0.4s;
 }
-.customdesign_tab_content div[data-view="table"] {
+.magic_tab_content div[data-view="table"] {
     overflow: auto;
     max-height: 400px;
 }
-.customdesign_content div[data-view="table"] table tbody td:first-child{
+.magic_content div[data-view="table"] table tbody td:first-child{
     width: 80px;
 }
-#customdesign-popup, .customdesign-popup {
+#magic-popup, .magic-popup {
     position: fixed;
     top: 0px;
     left: 0px;
@@ -396,7 +396,7 @@ html body .customdesign_wrapper .customdesign_tab_nav_remake li a span+i:before{
     z-index: 1000000000000;
 }
 
-.customdesign-popup-content {
+.magic-popup-content {
     width: 1080px;
     max-width: 80%;
     height: 80vh;
@@ -409,19 +409,19 @@ html body .customdesign_wrapper .customdesign_tab_nav_remake li a span+i:before{
     top: calc(10vh - 15px);
 }
 
-.customdesign-popup-content.customdesign-multi-cliparts {
+.magic-popup-content.magic-multi-cliparts {
     width: 60%;
 }
 
-.customdesign-multi-cliparts .customdesign_form_group > span{
+.magic-multi-cliparts .magic_form_group > span{
     width: 140px;
 }
-.customdesign-multi-cliparts .customdesign_form_group .customdesign_form_content{
+.magic-multi-cliparts .magic_form_group .magic_form_content{
     width: calc(100% - 140px);
     max-width: 100%;
     text-align: left;
 }
-.customdesign-multi-cliparts .customdesign_form_group input[type="text"]{
+.magic-multi-cliparts .magic_form_group input[type="text"]{
     max-width: 100%;
 }
 </style>
@@ -434,24 +434,24 @@ $(document).ready(function(){
 		console.log(para);
 		para = para.substring(1, para.length);
 
-		$('ul.customdesign_tab_nav_remake li').removeClass('active');
-		$('div.customdesign_tab_content').removeClass('active');
+		$('ul.magic_tab_nav_remake li').removeClass('active');
+		$('div.magic_tab_content').removeClass('active');
 
-		$('ul.customdesign_tab_nav_remake li a[href="#'+para+'"]').parent().addClass('active');
-		$('div.customdesign_tab_content[id="'+para+'"]').addClass('active');
+		$('ul.magic_tab_nav_remake li a[href="#'+para+'"]').parent().addClass('active');
+		$('div.magic_tab_content[id="'+para+'"]').addClass('active');
 	}
 
 	function returnPara(url = ''){
 		return url.match(/#.+$/g)[0];
 	}
 
-	$('ul.customdesign_tab_nav_remake a').click(function(){
+	$('ul.magic_tab_nav_remake a').click(function(){
 		var active = $(this).attr('href').substring(1, $(this).attr('href').length);
-		$('ul.customdesign_tab_nav_remake li').removeClass('active');
-		$('div.customdesign_tab_content').removeClass('active');
+		$('ul.magic_tab_nav_remake li').removeClass('active');
+		$('div.magic_tab_content').removeClass('active');
 
 		$(this).parent().addClass('active');
-		$('div.customdesign_tab_content[id="'+active+'"]').addClass('active');
+		$('div.magic_tab_content[id="'+active+'"]').addClass('active');
 	});
 });
 </script>

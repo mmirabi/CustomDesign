@@ -1,27 +1,27 @@
 <?php
-	global $customdesign;
+	global $magic;
 ?><script>
-	var CustomdesignDesign = {
-		url : "<?php echo htmlspecialchars_decode($customdesign->cfg->url); ?>",
-		admin_url : "<?php echo htmlspecialchars_decode($customdesign->cfg->admin_url); ?>",
-		ajax : "<?php echo htmlspecialchars_decode($customdesign->cfg->admin_ajax_url); ?>",
-		assets : "<?php echo $customdesign->cfg->assets_url; ?>",
-		jquery : "<?php echo $customdesign->cfg->load_jquery; ?>",
-		nonce : "<?php echo customdesign_secure::create_nonce('CUSTOMDESIGN_ADMIN') ?>",
+	var MagicDesign = {
+		url : "<?php echo htmlspecialchars_decode($magic->cfg->url); ?>",
+		admin_url : "<?php echo htmlspecialchars_decode($magic->cfg->admin_url); ?>",
+		ajax : "<?php echo htmlspecialchars_decode($magic->cfg->admin_ajax_url); ?>",
+		assets : "<?php echo $magic->cfg->assets_url; ?>",
+		jquery : "<?php echo $magic->cfg->load_jquery; ?>",
+		nonce : "<?php echo magic_secure::create_nonce('MAGIC_ADMIN') ?>",
 		filter_ajax: function(ops) {
 			return ops;
 		},
-		js_lang : <?php echo json_encode($customdesign->cfg->js_lang); ?>,
+		js_lang : <?php echo json_encode($magic->cfg->js_lang); ?>,
 	};
 </script>
-<script src="<?php echo $customdesign->cfg->admin_assets_url;?>js/vendors.js?version=<?php echo CUSTOMDESIGN; ?>"></script>
-<script src="<?php echo $customdesign->cfg->admin_assets_url;?>js/tag-it.min.js?version=<?php echo CUSTOMDESIGN; ?>"></script>
-<script src="<?php echo $customdesign->cfg->admin_assets_url;?>js/main.js?version=<?php echo CUSTOMDESIGN; ?>"></script>
+<script src="<?php echo $magic->cfg->admin_assets_url;?>js/vendors.js?version=<?php echo MAGIC; ?>"></script>
+<script src="<?php echo $magic->cfg->admin_assets_url;?>js/tag-it.min.js?version=<?php echo MAGIC; ?>"></script>
+<script src="<?php echo $magic->cfg->admin_assets_url;?>js/main.js?version=<?php echo MAGIC; ?>"></script>
 <?php
 	
-	$customdesign->do_action('editor-footer');
+	$magic->do_action('editor-footer');
 	
-	if ($customdesign->connector->platform == 'php') {
+	if ($magic->connector->platform == 'php') {
 		echo '</body></html>';
 	}
 ?>

@@ -1,7 +1,7 @@
 <?php
 /**
 *
-*	(p) package: Custom Design
+*	(p) package: MagicRugs
 *	(c) author:	Mehdi Mirabi
 *	(i) website: https://www.magicrugs.com
 *
@@ -10,9 +10,9 @@
 if (!defined('DS'))
 	define('DS', DIRECTORY_SEPARATOR);
 
-define('CUSTOMDESIGN', '2.0');
+define('MAGIC', '2.0');
 
-class customdesign {
+class magic {
 
 	protected $db;
 	protected $views;
@@ -32,21 +32,21 @@ class customdesign {
 	
 	public function __construct() {
 		
-		define('CUSTOMDESIGN_CORE_PATH', dirname(__FILE__));
+		define('MAGIC_CORE_PATH', dirname(__FILE__));
 		
-		require_once( CUSTOMDESIGN_CORE_PATH . DS. 'config.php' );
-		require_once( CUSTOMDESIGN_CORE_PATH . DS. 'lib.php' );
-		require_once( CUSTOMDESIGN_CORE_PATH . DS. 'views.php' );
-		require_once( CUSTOMDESIGN_CORE_PATH . DS. 'interg.php' );
-		require_once( CUSTOMDESIGN_CORE_PATH . DS. 'addons.php' );
-		require_once( CUSTOMDESIGN_CORE_PATH . DS. 'update.php' );
+		require_once( MAGIC_CORE_PATH . DS. 'config.php' );
+		require_once( MAGIC_CORE_PATH . DS. 'lib.php' );
+		require_once( MAGIC_CORE_PATH . DS. 'views.php' );
+		require_once( MAGIC_CORE_PATH . DS. 'interg.php' );
+		require_once( MAGIC_CORE_PATH . DS. 'addons.php' );
+		require_once( MAGIC_CORE_PATH . DS. 'update.php' );
 		
 	}
 
 	public function init(){
 		
-		$this->connector = new customdesign_connector();
-		$this->cfg = new customdesign_cfg($this->connector);
+		$this->connector = new magic_connector();
+		$this->cfg = new magic_cfg($this->connector);
 
 		if (
 			property_exists($this->cfg, 'database') &&
@@ -62,7 +62,7 @@ class customdesign {
 				isset($parse_host[1])? $parse_host[1] : '3306'
 			);
 			
-			$this->db->prefix = isset($this->cfg->database['prefix']) ? $this->cfg->database['prefix'] : 'customdesign_';
+			$this->db->prefix = isset($this->cfg->database['prefix']) ? $this->cfg->database['prefix'] : 'magic_';
 			$this->db->rawQuery("SET SQL_MODE='ALLOW_INVALID_DATES'");
 			
 		}
@@ -74,25 +74,25 @@ class customdesign {
 			
 		$this->dbready = true;
 		
-		require_once(CUSTOMDESIGN_CORE_PATH.DS.'actions.php');
+		require_once(MAGIC_CORE_PATH.DS.'actions.php');
 		
-		$this->views = new customdesign_views($this);
-		$this->lib = new customdesign_lib($this);
-		$this->router = $this->esc('customdesign-router');
+		$this->views = new magic_views($this);
+		$this->lib = new magic_lib($this);
+		$this->router = $this->esc('magic-router');
 		
 		if(!empty($this->router) && $this->router == 'admin') 
-			define('CUSTOMDESIGN_ADMIN', true);
+			define('MAGIC_ADMIN', true);
 		
 		if (is_callable(array(&$this->connector, 'capabilities')))
 			$this->add_filter('capabilities', array(&$this->connector, 'capabilities'));
 		
-		$this->update = new customdesign_update();
+		$this->update = new magic_update();
 		
 		$this->cfg->init();
 		
-		$this->addons = new customdesign_addons($this);
+		$this->addons = new magic_addons($this);
 		
-		$this->logger = new customdesign_logger($this->cfg->upload_path . 'logs' . DS . 'debug.log');
+		$this->logger = new magic_logger($this->cfg->upload_path . 'logs' . DS . 'debug.log');
 		
 		$this->cfg->apply_filters($this);
 	}
@@ -121,8 +121,8 @@ class customdesign {
 	}
 
 	static function globe(){
-		global $customdesign;
-		return $customdesign;
+		global $magic;
+		return $magic;
 	}
 
 	public function lang($s) {
@@ -336,7 +336,7 @@ class customdesign {
 		if(isset($this->connector->platform) && $this->connector->platform == 'php'){
 			if (isset($langs[$code])) {
 				$this->cfg->active_language = $code;
-				$this->connector->set_session('customdesign-active-lang', $code);
+				$this->connector->set_session('magic-active-lang', $code);
 			}
 		}
 
@@ -344,19 +344,19 @@ class customdesign {
 			// backend language 
 			if (isset($langs[$code]) && is_admin()) {
 				$this->cfg->active_language_backend = $code;
-				$this->connector->set_session('customdesign-active-lang-backend', $code);
+				$this->connector->set_session('magic-active-lang-backend', $code);
 			}
 
 			// frontend language 
 			if (isset($langs[$code]) && !is_admin()) {
 				$this->cfg->active_language_frontend = $code;
-				$this->connector->set_session('customdesign-active-lang-frontend', $code);
+				$this->connector->set_session('magic-active-lang-frontend', $code);
 			}
 		}
 
 		if (isset($langs[$code]) && !isset($this->connector->platform) ) {
 			$this->cfg->active_language = $code;
-			$this->connector->set_session('customdesign-active-lang', $code);
+			$this->connector->set_session('magic-active-lang', $code);
 		}
 	}
 
@@ -516,7 +516,7 @@ class customdesign {
 }
 
 /*==========================================*/
-global $customdesign;
-$customdesign = new customdesign();
-$customdesign->init();
+global $magic;
+$magic = new magic();
+$magic->init();
 /*==========================================*/

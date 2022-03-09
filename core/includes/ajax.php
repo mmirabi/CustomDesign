@@ -1,16 +1,16 @@
 <?php
 /**
 *
-*   (p) package: Custom Design
-*   (c) author: Mehdi Mirabi
-*   (i) website: https://www.magicrugs.com
+*	(p) package: MagicRugs
+*	(c) author:	Mehdi Mirabi
+*	(i) website: https://www.magicrugs.com
 *
 */
 
 require_once('lib.php');
 
 /*=============================*/
-class customdesign_ajax extends customdesign_lib {
+class magic_ajax extends magic_lib {
 
 	private $actions = array(
 		'init' => true,
@@ -23,7 +23,7 @@ class customdesign_ajax extends customdesign_lib {
 		'duplicate_item' => false,
 		'add_tags' => false,
 		'remove_tags' => false,
-		'customdesign_set_price' => false,
+		'magic_set_price' => false,
 		'change_lang' => true,
 		'edit_language_text' => false,
 		'categories' => false,
@@ -60,14 +60,14 @@ class customdesign_ajax extends customdesign_lib {
 
 	public function __construct() {
 		
-		global $customdesign;
+		global $magic;
 		
 		$this->action = isset($_POST['action']) ? htmlspecialchars($_POST['action']) : '';
 		$this->nonce = isset($_POST['nonce']) ? explode(":", htmlspecialchars($_POST['nonce'])) : array('', '');
 		
 		if (isset($_GET['action']) && $_GET['action'] == 'check-update') {
 			header('HTTP/1.0 200');
-			print_r($customdesign->update->check());
+			print_r($magic->update->check());
 			exit;
 		}
 		
@@ -82,7 +82,7 @@ class customdesign_ajax extends customdesign_lib {
 			$this->nonce = isset($_REQUEST['nonce']) ? explode(":", htmlspecialchars($_REQUEST['nonce'])) : array('', '');
 		}
 		
-		if ($customdesign->cfg->settings['report_bugs'] == 1 || $customdesign->cfg->settings['report_bugs'] == 2)
+		if ($magic->cfg->settings['report_bugs'] == 1 || $magic->cfg->settings['report_bugs'] == 2)
 			$this->actions['send_bug'] = true;
 			
 		// Call to actions
@@ -94,22 +94,22 @@ class customdesign_ajax extends customdesign_lib {
 			!method_exists($this, $this->action) ||
 			(
 				$this->actions[$this->action] !== true &&
-				!$customdesign->connector->is_admin()
+				!$magic->connector->is_admin()
 			)
 		) {
 			return header('HTTP/1.0 403 Forbidden');
 		}
 		
-		$this->main = $customdesign;
+		$this->main = $magic;
 
 		if ($this->action == 'extend')
 			return $this->extend();
 			
-		$this->aid = str_replace("'", "", $customdesign->connector->cookie('customdesign-AID'));
+		$this->aid = str_replace("'", "", $magic->connector->cookie('magic-AID'));
 		
-		if (true || customdesign_secure::check_nonce($this->nonce[0], $this->nonce[1])) {
+		if (true || magic_secure::check_nonce($this->nonce[0], $this->nonce[1])) {
 			header('HTTP/1.0 200');
-			$customdesign->do_action('ajax');
+			$magic->do_action('ajax');
 			call_user_func_array(array(&$this, $this->action), array());
 		} else {
 			return header('HTTP/1.0 403 Forbidden');
@@ -122,11 +122,11 @@ class customdesign_ajax extends customdesign_lib {
 		$name = isset($_POST['name']) ? htmlspecialchars($_POST['name']) : '';
 		$nonce = isset($_POST['nonce']) ? htmlspecialchars($_POST['nonce']) : '';
 
-		if (empty($name) || empty($nonce) || !customdesign_secure::nonce_exist($name, $nonce)) {
+		if (empty($name) || empty($nonce) || !magic_secure::nonce_exist($name, $nonce)) {
 			echo '-1';
 			exit;
 		}else{
-			echo customdesign_secure::create_nonce($name);
+			echo magic_secure::create_nonce($name);
 			exit;
 		}
 
@@ -171,7 +171,7 @@ class customdesign_ajax extends customdesign_lib {
 			exit;
 		}
 
-		$scan = $this->scan_languages(CUSTOMDESIGN_CORE_PATH);
+		$scan = $this->scan_languages(MAGIC_CORE_PATH);
 		// Scan addons
 		$addon_scan = $this->scan_languages($this->main->cfg->upload_path.'addons');
 		
@@ -355,7 +355,7 @@ class customdesign_ajax extends customdesign_lib {
 
 			header('Content-Type: application/json');
 			echo json_encode(array(
-				"error" => $this->main->lang('The system does not have permission to write files in the upload folder: ').$customdesign->upload_path,
+				"error" => $this->main->lang('The system does not have permission to write files in the upload folder: ').$magic->upload_path,
 				"name" => $data['name']
 			));
 
@@ -455,7 +455,7 @@ class customdesign_ajax extends customdesign_lib {
 			exit; 
 		}
 		
-		$cap = 'customdesign_edit_'.$post['data']['type'].'-s';
+		$cap = 'magic_edit_'.$post['data']['type'].'-s';
 		$cap = str_replace(array('s-s', '-s'), array('s', 's'), $cap);
 		
 		if (!$this->main->caps($cap)) {
@@ -521,11 +521,11 @@ class customdesign_ajax extends customdesign_lib {
 
 	public function duplicate_item() {
 
-		global $customdesign;
+		global $magic;
 		$post = $_POST;
 		$data = array();
 		
-		$cap = 'customdesign_edit_'.$post['data']['table'].'-s';
+		$cap = 'magic_edit_'.$post['data']['table'].'-s';
 		$cap = str_replace(array('s-s', '-s'), array('s', 's'), $cap);
 		
 		if (!$this->main->caps($cap)) {
@@ -561,11 +561,11 @@ class customdesign_ajax extends customdesign_lib {
 		$data = $this->get_row_id($id, $post['data']['table']);
 
 		if (isset($data['name']))
-			$data['url'] = $customdesign->cfg->admin_url.'customdesign-page=product&id='.$data['id'];
+			$data['url'] = $magic->cfg->admin_url.'magic-page=product&id='.$data['id'];
 
 		if (isset($data['title'])){
 			$data['name'] = $data['title'];
-			$data['url'] = $customdesign->cfg->admin_url.'customdesign-page=printing&id='.$data['id'];
+			$data['url'] = $magic->cfg->admin_url.'magic-page=printing&id='.$data['id'];
 		}
 
 		if (count($data) > 0) {
@@ -587,7 +587,7 @@ class customdesign_ajax extends customdesign_lib {
    
 		$post = $_POST;
 
-		$cap = 'customdesign_edit_'.$post['data']['type'].'-s';
+		$cap = 'magic_edit_'.$post['data']['type'].'-s';
 		$cap = str_replace(array('s-s', '-s'), array('s', 's'), $cap);
 		
 		if (!$this->main->caps($cap)) {
@@ -726,12 +726,12 @@ class customdesign_ajax extends customdesign_lib {
 
 	}
 
-	public function customdesign_set_price() {
+	public function magic_set_price() {
 		
 		$post = $_POST;
 		$data = array();
 		
-		$cap = 'customdesign_edit_'.$post['data']['type'].'-s';
+		$cap = 'magic_edit_'.$post['data']['type'].'-s';
 		$cap = str_replace(array('s-s', '-s'), array('s', 's'), $cap);
 		
 		if (!$this->main->caps($cap)) {
@@ -773,7 +773,7 @@ class customdesign_ajax extends customdesign_lib {
 			$hist = 0;
 		
 		$check_share  =  $this->main->apply_filters('verify-share',$hist);
-		if ((!isset($_POST['aid']) || $_POST['aid'] != $this->main->connector->cookie('customdesign-AID')) && $check_share !== true) {
+		if ((!isset($_POST['aid']) || $_POST['aid'] != $this->main->connector->cookie('magic-AID')) && $check_share !== true) {
 			echo json_encode(array( 
 				"success" => 0,
 				"message" => $this->main->lang('Error, user is not authenticated')
@@ -868,7 +868,7 @@ class customdesign_ajax extends customdesign_lib {
 	
 	public function get_shares() {
 		
-		$aid = $this->main->connector->cookie('customdesign-AID');
+		$aid = $this->main->connector->cookie('magic-AID');
 		$index = $this->main->lib->esc('index');
 		
 		if (empty($index))
@@ -906,7 +906,7 @@ class customdesign_ajax extends customdesign_lib {
 		$rss = @simplexml_load_string($rss);
 
 		if ($rss !== null && is_object($rss)) {
-			$html = '<div class="customdesign_container">';
+			$html = '<div class="magic_container">';
 
 			$count0 = count($rss->channel->head);
 
@@ -917,7 +917,7 @@ class customdesign_ajax extends customdesign_lib {
 				$icon = $item->icon;
 				$color = $item->color;
 				$title = $item->title;
-				$html .= '<div class="customdesign-col customdesign-col-3">
+				$html .= '<div class="magic-col magic-col-3">
 							<a class="lusime_box_stats" href="'.$link.'" target= "_blank">
 								<i class="'.$icon.'" style="background: '.$color.'"></i>
 								<div class="box_right">
@@ -956,9 +956,9 @@ class customdesign_ajax extends customdesign_lib {
 				$time = $item->time;
 				$thumb = $item->thumb;
 				$description = $item->description;
-				$html .= '<div class="customdesign_wrap"><figure><img src="'.$thumb.'"></figure>';
-				$html .= '<div class="customdesign_right"><a href="'.$link.'" target="_blank">'.$title.'</a>';
-				$html .= '<div class="customdesign_meta"><span><i class="fa fa-folder-o" aria-hidden="true"></i>'.$cate.'</span><span><i class="fa fa-clock-o" aria-hidden="true"></i>'.$time.'</span></div>';
+				$html .= '<div class="magic_wrap"><figure><img src="'.$thumb.'"></figure>';
+				$html .= '<div class="magic_right"><a href="'.$link.'" target="_blank">'.$title.'</a>';
+				$html .= '<div class="magic_meta"><span><i class="fa fa-folder-o" aria-hidden="true"></i>'.$cate.'</span><span><i class="fa fa-clock-o" aria-hidden="true"></i>'.$time.'</span></div>';
 				$html .= '<p>'.$description.'</p></div></div>';
 
 			}
@@ -989,7 +989,7 @@ class customdesign_ajax extends customdesign_lib {
 		
 	public function delete_link_share() {
 		
-		$aid = $this->main->connector->cookie('customdesign-AID');
+		$aid = $this->main->connector->cookie('magic-AID');
 		$id = $this->main->lib->esc('id');
 		$post_aid = $this->main->lib->esc('aid');
 		
@@ -1031,9 +1031,9 @@ class customdesign_ajax extends customdesign_lib {
 	}
 	
 	public function upload_product_images() {
-		global $customdesign;
+		global $magic;
 
-		if (!$this->main->caps('customdesign_can_upload')) {
+		if (!$this->main->caps('magic_can_upload')) {
 			echo $this->main->lang('Sorry, You do not have permission to upload');
 			exit;
 		}
@@ -1042,7 +1042,7 @@ class customdesign_ajax extends customdesign_lib {
 		$check = $this->main->check_upload($time);
 		
 		$vendor = isset($_POST['vendor']) ? $_POST['vendor'] : 'false';
-		if($customdesign->connector->platform == 'woocommerce'){
+		if($magic->connector->platform == 'woocommerce'){
 			$uid = get_current_user_id();
 		} else {
 			$uid = '1';
@@ -1091,7 +1091,7 @@ class customdesign_ajax extends customdesign_lib {
 	
 	public function upload() {
 		
-		if (!$this->main->caps('customdesign_can_upload')) {
+		if (!$this->main->caps('magic_can_upload')) {
 			echo $this->main->lang('Sorry, You do not have permission to upload');
 			exit;
 		}
@@ -1150,7 +1150,7 @@ class customdesign_ajax extends customdesign_lib {
 	
 	public function upload_stages($matches) {
 		
-		if (!$this->main->caps('customdesign_can_upload')) {
+		if (!$this->main->caps('magic_can_upload')) {
 			echo $this->main->lang('Sorry, You do not have permission to delete');
 			exit;
 		}
@@ -1216,14 +1216,14 @@ class customdesign_ajax extends customdesign_lib {
 	
 	public function pdf() {
 		
-		global $customdesign;
+		global $magic;
 		
 		$fonts = isset($_GET['fonts']) ? urldecode($_GET['fonts']) : '';
 		$fonts = explode('|', $fonts);
 		
 		$nocache = array();
 		
-		$fpath = $customdesign->cfg->upload_path.'fonts'.DS;
+		$fpath = $magic->cfg->upload_path.'fonts'.DS;
 		
 		if (count($fonts) > 0) {
 			
@@ -1234,14 +1234,14 @@ class customdesign_ajax extends customdesign_lib {
 			
 			if (count($nocache) > 0) {
 				
-				$query = "SELECT * FROM `{$customdesign->db->prefix}fonts` WHERE `author`='{$this->main->vendor_id}' AND `name` IN ('".implode("','", $nocache)."') AND `active`= 1";
+				$query = "SELECT * FROM `{$magic->db->prefix}fonts` WHERE `author`='{$this->main->vendor_id}' AND `name` IN ('".implode("','", $nocache)."') AND `active`= 1";
 				
-				$db_fonts = $customdesign->db->rawQuery($query);
+				$db_fonts = $magic->db->rawQuery($query);
 
 				if (count($db_fonts) > 0) {
 					foreach ($db_fonts as $font) {
-						if (is_file($customdesign->cfg->upload_path.$font['upload_ttf'])) {
-							copy($customdesign->cfg->upload_path.$font['upload_ttf'], $fpath.$font['name'].'.ttf');
+						if (is_file($magic->cfg->upload_path.$font['upload_ttf'])) {
+							copy($magic->cfg->upload_path.$font['upload_ttf'], $fpath.$font['name'].'.ttf');
 							if (($key = array_search($font['name'], $nocache)) !== false) {
 							    unset($nocache[$key]);
 							}
@@ -1252,7 +1252,7 @@ class customdesign_ajax extends customdesign_lib {
 			
 			if (count($nocache) > 0) {
 				
-				$gcfg = $customdesign->lib->remote_connect('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyCrsTDigL61TFHYPHTZduQP1cGi8CLfp90');
+				$gcfg = $magic->lib->remote_connect('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyCrsTDigL61TFHYPHTZduQP1cGi8CLfp90');
 				
 				$gcfg = json_decode($gcfg);
 				
@@ -1260,7 +1260,7 @@ class customdesign_ajax extends customdesign_lib {
 					foreach ($gcfg->items as $item) {
 						if (in_array($item->family, $nocache)) {
 							if (!is_file($fpath.$item->family.'.ttf')) {
-								$fdata = $customdesign->lib->remote_connect($item->files->regular);
+								$fdata = $magic->lib->remote_connect($item->files->regular);
 								if (!empty($fdata)) {
 									file_put_contents($fpath.$item->family.'.ttf', $fdata);
 								}
@@ -1273,7 +1273,7 @@ class customdesign_ajax extends customdesign_lib {
 		
 		}
 		
-	?><!DOCTYPE html><html><head><title>Customdesign</title><script type="text/javascript">var fonts = {<?php
+	?><!DOCTYPE html><html><head><title>Magic</title><script type="text/javascript">var fonts = {<?php
 		foreach ($fonts as $font) {
 			if (is_file($fpath.$font.'.ttf')) {
 				echo '"'.$font.'": "'.base64_encode(file_get_contents($fpath.$font.'.ttf')).'",';
@@ -1345,20 +1345,20 @@ function renderPDF(svgs, url) {
         }
     });
     doc.end()
-};</script><script type="text/javascript" src="<?php echo $customdesign->cfg->assets_url.'assets/js/pdfkit.js?version='.CUSTOMDESIGN; ?>"></script></head><body></body></html><?php	
+};</script><script type="text/javascript" src="<?php echo $magic->cfg->assets_url.'assets/js/pdfkit.js?version='.MAGIC; ?>"></script></head><body></body></html><?php	
 		exit;
 		
 	}
 	
 	public function load_more_bases() {
 
-		global $customdesign;
+		global $magic;
 		
 		$start = isset($_POST['start']) ? $_POST['start'] : 0;
 		$limit = isset($_POST['limit']) ? $_POST['limit'] : 30;
 		$vendor = isset($_POST['vendor']) ? $_POST['vendor'] : 'false';
 		
-		if($customdesign->connector->platform == 'woocommerce'){
+		if($magic->connector->platform == 'woocommerce'){
 			$uid = get_current_user_id();
 		} else {
 			$uid = '1';
@@ -1397,7 +1397,7 @@ function renderPDF(svgs, url) {
 	
 	public function edit_name_product_image() {
 		
-		if (!$this->main->caps('customdesign_can_upload')) {
+		if (!$this->main->caps('magic_can_upload')) {
 			echo $this->main->lang('Sorry, You do not have permission to edit name');
 			exit;
 		}
@@ -1421,8 +1421,8 @@ function renderPDF(svgs, url) {
 	}
 	
 	public function delete_base_image() {
-		global $customdesign;
-		if (!$this->main->caps('customdesign_can_upload')) {
+		global $magic;
+		if (!$this->main->caps('magic_can_upload')) {
 			echo $this->main->lang('Sorry, You do not have permission to delete');
 			exit;
 		}
@@ -1430,7 +1430,7 @@ function renderPDF(svgs, url) {
 		$file = isset($_POST['file']) ? $_POST['file'] : '';
 		$vendor = isset($_POST['vendor']) ? $_POST['vendor'] : 'false';
 		
-		if($customdesign->connector->platform == 'woocommerce'){
+		if($magic->connector->platform == 'woocommerce'){
 			$uid = get_current_user_id();
 		} else {
 			$uid = '1';
@@ -1499,14 +1499,14 @@ function renderPDF(svgs, url) {
 		$id = $this->main->db->insert('bugs', array(
 			'content' => substr(urldecode(base64_decode($_POST['content'])), 0, 1500),
 			'status' => 'new',
-			'customdesign' => 0,
+			'magic' => 0,
 			'author' => $this->main->vendor_id,
 			'created' => date("Y-m-d").' '.date("H:i:s"),
 			'updated' => date("Y-m-d").' '.date("H:i:s")
 		));
 		
 		if ($this->main->cfg->settings['report_bugs'] == 2)
-			$this->report_bug_customdesign($id);
+			$this->report_bug_magic($id);
 		
 		echo json_encode(array(
 			"success" => 1
@@ -1515,34 +1515,34 @@ function renderPDF(svgs, url) {
 	}
 	
 	public function report_bug() {
-		echo $this->report_bug_customdesign($_POST['id']) ? 'Success' : 'Fail';
+		echo $this->report_bug_magic($_POST['id']) ? 'Success' : 'Fail';
 	}
 	
 	public function product_variation() {
-		include (CUSTOMDESIGN_CORE_PATH.DS.'..'.DS.'admin'.DS.'pages'.DS.'product-variation.php');
+		include (MAGIC_CORE_PATH.DS.'..'.DS.'admin'.DS.'pages'.DS.'product-variation.php');
 		exit;
 	}
 	
 	public function load_layout($echo = true){
-		global $customdesign;
+		global $magic;
 		$layouts = [];
 		$printing_id = isset($_POST['printing']) ? intval($_POST['printing']) : 0;
 		$false = function () {  return false; };
 		$true = function () {  return true; };
 		
 		if($printing_id){
-			$printing = $customdesign->db->rawQueryOne(
-				"SELECT * FROM `{$customdesign->db->prefix}printings` WHERE `author`='{$this->main->vendor_id}' AND `active`='1' AND id=".(Int)$printing_id
+			$printing = $magic->db->rawQueryOne(
+				"SELECT * FROM `{$magic->db->prefix}printings` WHERE `author`='{$this->main->vendor_id}' AND `active`='1' AND id=".(Int)$printing_id
 			);
-			$printing = $customdesign->apply_filters('printing', $printing, $printing_id);
+			$printing = $magic->apply_filters('printing', $printing, $printing_id);
 			
 			if ($printing && isset($printing['layout']) && !empty($printing['layout'])) {
-				$layout = $customdesign->lib->dejson($printing['layout']);
+				$layout = $magic->lib->dejson($printing['layout']);
 				
 				$actions = ['file', 'design', 'print', 'share', 'help', 'undo', 'redo', 'zoom', 'preview'];
-				$toolbars = $customdesign->cfg->settings['toolbars'];
+				$toolbars = $magic->cfg->settings['toolbars'];
 
-				$components = $customdesign->cfg->settings['components'];
+				$components = $magic->cfg->settings['components'];
 				if (is_string($components))
 					$components = explode(',', $components);
 
@@ -1672,7 +1672,7 @@ function renderPDF(svgs, url) {
 		$settings = $this->main->cfg->settings;
 		
 		$cfg = array(
-			"version" => CUSTOMDESIGN,
+			"version" => MAGIC,
 			"theme_color" => explode('@', explode(':', $settings['colors'])[0])[0],
 			"stages" => array(),
 			"currency" => $settings['currency'],
@@ -1699,7 +1699,7 @@ function renderPDF(svgs, url) {
 			"ajax" => $this->main->cfg->ajax_url,
 			"assets" => $this->main->cfg->assets_url,
 			"jquery" => $this->main->cfg->load_jquery,
-			"nonce" => customdesign_secure::create_nonce('CUSTOMDESIGN-SECURITY'),
+			"nonce" => magic_secure::create_nonce('MAGIC-SECURITY'),
 			"max_upload_size" => (int)ini_get('post_max_size'),
 			"access_core" => is_array($this->main->cfg->access_core) ? implode(',', $this->main->cfg->access_core) : $this->main->cfg->access_core,
 			"design" => $this->main->esc('design_print'),
@@ -1736,7 +1736,6 @@ function renderPDF(svgs, url) {
 	}
 
 }
-
 /*----------------------*/
-new customdesign_ajax();
+new magic_ajax();
 /*----------------------*/

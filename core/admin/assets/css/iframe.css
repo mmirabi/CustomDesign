@@ -1,10 +1,10 @@
-#adminmenumain, #wpadminbar, #wpfooter, .customdesign_breadcrumb{
+#adminmenumain, #wpadminbar, #wpfooter, .magic_breadcrumb{
 	display: none !important;
 }
-#wpcontent, html.wp-toolbar, #wpbody-content, .customdesign_wrapper{
+#wpcontent, html.wp-toolbar, #wpbody-content, .magic_wrapper{
 	margin: 0px !important;
 	padding: 0px !important;
 }
-.customdesign_wrapper{
+.magic_wrapper{
 	width: 100% !important;
 }

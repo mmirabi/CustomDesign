@@ -1,23 +1,23 @@
 <?php
 /**
 *
-*   (p) package: Custom Design
-*   (c) author: Mehdi Mirabi
-*   (i) website: https://www.magicrugs.com
+*	(p) package: MagicRugs
+*	(c) author:	Mehdi Mirabi
+*	(i) website: https://www.magicrugs.com
 *
 */
 
-class customdesign_tmpl_register {
+class magic_tmpl_register {
 	
 	public function reg_editor_menus() {
 
-		global $customdesign;
+		global $magic;
 		
 		return array(
 			
 			'product' => array(
-				"label" => $customdesign->lang('Product'),
-				"icon" => "customdesignx-cube",
+				"label" => $magic->lang('Product'),
+				"icon" => "magicx-cube",
 				"callback" => "",
 				"load" => "",
 				"content" =>
@@ -27,152 +27,152 @@ class customdesign_tmpl_register {
 						<sku></sku>'.
 						(
 							!isset($_GET['product_base']) || strpos($_GET['product_base'], 'variable:') === false ?
-							'<button class="customdesign-btn white" id="customdesign-change-product">
-								'.$customdesign->lang('Change product').'
-								<i class="customdesignx-arrow-swap"></i>
+							'<button class="magic-btn white" id="magic-change-product">
+								'.$magic->lang('Change product').'
+								<i class="magicx-arrow-swap"></i>
 							</button>' : ''
 						).
 						'<desc>
 							<span></span>
-							&nbsp;&nbsp;<a href="#more">'.$customdesign->lang('More').'</a>
+							&nbsp;&nbsp;<a href="#more">'.$magic->lang('More').'</a>
 						</desc>
 					</header>
-					<div id="customdesign-cart-wrp" data-view="attributes" class="smooth">
-						<div class="customdesign-cart-options">
-							<div class="customdesign-prints"></div>
-							<div class="customdesign-cart-attributes" id="customdesign-cart-attributes"></div>
+					<div id="magic-cart-wrp" data-view="attributes" class="smooth">
+						<div class="magic-cart-options">
+							<div class="magic-prints"></div>
+							<div class="magic-cart-attributes" id="magic-cart-attributes"></div>
 						</div>
 					</div>'
 			),
 			
 			'templates' => array(
-				"label" => $customdesign->lang('Templates'),
-				"icon" => "customdesign-icon-star",
+				"label" => $magic->lang('Templates'),
+				"icon" => "magic-icon-star",
 				"callback" => "",
 				"load" => "templates",
-				"class" => "customdesign-x-thumbn",
+				"class" => "magic-x-thumbn",
 				"content" =>
 					'<header>
-						<span class="customdesign-templates-search">
-							<input type="search" id="customdesign-templates-search-inp" placeholder="'.$customdesign->lang('Search templates').'" />
-							<i class="customdesignx-android-search"></i>
+						<span class="magic-templates-search">
+							<input type="search" id="magic-templates-search-inp" placeholder="'.$magic->lang('Search templates').'" />
+							<i class="magicx-android-search"></i>
 						</span>
-						<div class="customdesign-template-categories" data-prevent-click="true">
+						<div class="magic-template-categories" data-prevent-click="true">
 							<button data-func="show-categories" data-type="templates">
-								<span>'.$customdesign->lang('All categories').'</span>
-								<i class="customdesignx-ios-arrow-forward"></i>
+								<span>'.$magic->lang('All categories').'</span>
+								<i class="magicx-ios-arrow-forward"></i>
 							</button>
 						</div>
 					</header>
-					<div id="customdesign-templates-list" class="smooth">
-						<ul class="customdesign-list-items">
-							<i class="customdesign-spinner white x3 mt2"></i>
+					<div id="magic-templates-list" class="smooth">
+						<ul class="magic-list-items">
+							<i class="magic-spinner white x3 mt2"></i>
 						</ul>
 					</div>'
 			),
 			
 			'cliparts' => array(
-				"label" => $customdesign->lang('Cliparts'),
-				"icon" => "customdesign-icon-heart",
+				"label" => $magic->lang('Cliparts'),
+				"icon" => "magic-icon-heart",
 				"callback" => "",
 				"load" => "cliparts",
-				"class" => "customdesign-x-thumbn",
+				"class" => "magic-x-thumbn",
 				"content" =>
 					'<header>
-						<span class="customdesign-cliparts-search">
-							<input type="search" id="customdesign-cliparts-search-inp" placeholder="'.$customdesign->lang('Search cliparts').'" />
-							<i class="customdesignx-android-search"></i>
+						<span class="magic-cliparts-search">
+							<input type="search" id="magic-cliparts-search-inp" placeholder="'.$magic->lang('Search cliparts').'" />
+							<i class="magicx-android-search"></i>
 						</span>
-						<div class="customdesign-clipart-categories" data-prevent-click="true">
+						<div class="magic-clipart-categories" data-prevent-click="true">
 							<button data-func="show-categories" data-type="cliparts">
-								<span>'.$customdesign->lang('All categories').'</span>
-								<i class="customdesignx-ios-arrow-forward"></i>
+								<span>'.$magic->lang('All categories').'</span>
+								<i class="magicx-ios-arrow-forward"></i>
 							</button>
 						</div>
 					</header>
-					<div id="customdesign-cliparts-list" class="smooth">
-						<ul class="customdesign-list-items">
-							<i class="customdesign-spinner white x3 mt2"></i>
+					<div id="magic-cliparts-list" class="smooth">
+						<ul class="magic-list-items">
+							<i class="magic-spinner white x3 mt2"></i>
 						</ul>
 					</div>'
 			),
 			
 			'text' => array(
-				"label" => $customdesign->lang('Text'),
-				"icon" => "customdesignx-character",
+				"label" => $magic->lang('Text'),
+				"icon" => "magicx-character",
 				"callback" => "",
 				"load" => "",
 				"class" => "smooth",
 				"content" =>
-					'<p class="gray">'.$customdesign->lang('Click or drag to add text').'</p>
+					'<p class="gray">'.$magic->lang('Click or drag to add text').'</p>
 					<span draggable="true" data-act="add" data-ops=\'[{"fontFamily":"Anton","text": "CurvedText", "fontSize": 30, "font":["","regular"],"bridge":{"bottom":2,"curve":-4.5,"oblique":false,"offsetY":0.5,"trident":false},"type":"curvedText"}]\'>
-						<img height="70" src="'.$customdesign->cfg->assets_url.'assets/images/text-sample-curved.png" />
+						<img height="70" src="'.$magic->cfg->assets_url.'assets/images/text-sample-curved.png" />
 					</span>
 					<span draggable="true" data-act="add" data-ops=\'[{"fontFamily":"Anton","text": "10", "fontSize": 100, "font":["","regular"],"type":"i-text", "charSpacing": 40, "top": -50},{"fontFamily":"Poppins","text": "Messi", "fontSize": 30, "font":["","regular"],"type":"i-text", "charSpacing": 40, "top": 10}]\' style="text-align: center;">
-						<img height="70" src="'.$customdesign->cfg->assets_url.'assets/images/text-number.png" />
+						<img height="70" src="'.$magic->cfg->assets_url.'assets/images/text-number.png" />
 					</span>
 					<span draggable="true" data-act="add" data-ops=\'[{"fontFamily":"Anton","text": "Oblique","fontSize":60,"font":["","regular"],"bridge":{"bottom":4.5,"curve":10,"oblique":true,"offsetY":0.5,"trident":false},"type":"text-fx"}]\'>
-						<img height="70" src="'.$customdesign->cfg->assets_url.'assets/images/text-sample-oblique.png" />
+						<img height="70" src="'.$magic->cfg->assets_url.'assets/images/text-sample-oblique.png" />
 					</span>
 					<span draggable="true" data-act="add" data-ops=\'[{"fontFamily":"Anton","text": "Bridge","fontSize":70,"font":["","regular"],"bridge":{"bottom":2,"curve":-4.5,"oblique":false,"offsetY":0.5,"trident":false},"type":"text-fx"}]\'>
-						<img height="70" src="'.$customdesign->cfg->assets_url.'assets/images/text-sample-bridge-1.png" />
+						<img height="70" src="'.$magic->cfg->assets_url.'assets/images/text-sample-bridge-1.png" />
 					</span>
 					<span draggable="true" data-act="add" data-ops=\'[{"fontFamily":"Anton","text": "Bridge","fontSize":70,"font":["","regular"],"bridge":{"bottom":2,"curve":-2.5,"oblique":false,"offsetY":0.1,"trident":false},"type":"text-fx"}]\'>
-						<img height="70" src="'.$customdesign->cfg->assets_url.'assets/images/text-sample-bridge-2.png" />
+						<img height="70" src="'.$magic->cfg->assets_url.'assets/images/text-sample-bridge-2.png" />
 					</span>
 					<span draggable="true" data-act="add" data-ops=\'[{"fontFamily":"Anton","text": "Bridge","fontSize":70,"font":["","regular"],"bridge":{"bottom":2,"curve":-3,"oblique":false,"offsetY":0.5,"trident":true},"type":"text-fx"}]\'>
-						<img height="70" src="'.$customdesign->cfg->assets_url.'assets/images/text-sample-bridge-3.png" />
+						<img height="70" src="'.$magic->cfg->assets_url.'assets/images/text-sample-bridge-3.png" />
 					</span>
 					<span draggable="true" data-act="add" data-ops=\'[{"fontFamily":"Anton","text": "Bridge","fontSize":70,"font":["","regular"],"bridge":{"bottom":5,"curve":5,"oblique":false,"offsetY":0.5,"trident":false},"type":"text-fx"}]\'>
-						<img height="70" src="'.$customdesign->cfg->assets_url.'assets/images/text-sample-bridge-4.png" />
+						<img height="70" src="'.$magic->cfg->assets_url.'assets/images/text-sample-bridge-4.png" />
 					</span>
 					<span draggable="true" data-act="add" data-ops=\'[{"fontFamily":"Anton","text": "Bridge","fontSize":70,"font":["","regular"],"bridge":{"bottom":2.5,"curve":2.5,"oblique":false,"offsetY":0.05,"trident":false},"type":"text-fx"}]\'>
-						<img height="70" src="'.$customdesign->cfg->assets_url.'assets/images/text-sample-bridge-5.png" />
+						<img height="70" src="'.$magic->cfg->assets_url.'assets/images/text-sample-bridge-5.png" />
 					</span>
 					<span draggable="true" data-act="add" data-ops=\'[{"fontFamily":"Anton","text": "Bridge","fontSize":70,"font":["","regular"],"bridge":{"bottom":3,"curve":2.5,"oblique":false,"offsetY":0.5,"trident":true},"type":"text-fx"}]\'>
-						<img height="70" src="'.$customdesign->cfg->assets_url.'assets/images/text-sample-bridge-6.png" />
+						<img height="70" src="'.$magic->cfg->assets_url.'assets/images/text-sample-bridge-6.png" />
 					</span>
-					<span id="customdesign-text-mask-guide">
-						<img height="70" src="'.$customdesign->cfg->assets_url.'assets/images/text-sample-mask.png" />
+					<span id="magic-text-mask-guide">
+						<img height="70" src="'.$magic->cfg->assets_url.'assets/images/text-sample-mask.png" />
 					</span>
-					<div id="customdesign-text-ext"></div>'.
-					($customdesign->connector->is_admin() || $customdesign->cfg->settings['user_font'] !== '0' ? '<button class="customdesign-btn mb2 customdesign-more-fonts">'.$customdesign->lang('Load more 878+ fonts').'</button>' : '')
+					<div id="magic-text-ext"></div>'.
+					($magic->connector->is_admin() || $magic->cfg->settings['user_font'] !== '0' ? '<button class="magic-btn mb2 magic-more-fonts">'.$magic->lang('Load more 878+ fonts').'</button>' : '')
 			),
 			
 			'uploads' => array(
-				"label" => $customdesign->lang('Images'),
-				"icon" => "customdesign-icon-picture",
+				"label" => $magic->lang('Images'),
+				"icon" => "magic-icon-picture",
 				"callback" => "",
 				"load" => "images",
-				"class" => "customdesign-x-thumbn",
+				"class" => "magic-x-thumbn",
 				"content" =>
-					(($customdesign->connector->is_admin() || $customdesign->cfg->settings['disable_resources'] != 1) ? 
-					'<header class="images-from-socials customdesign_form_group">
+					(($magic->connector->is_admin() || $magic->cfg->settings['disable_resources'] != 1) ? 
+					'<header class="images-from-socials magic_form_group">
 						<button class="active" data-nav="internal">
-							<i class="customdesign-icon-cloud-upload"></i>
-							'.$customdesign->lang('Upload').'
+							<i class="magic-icon-cloud-upload"></i>
+							'.$magic->lang('Upload').'
 						</button>
 						<button data-nav="external">
-							<i class="customdesign-icon-magnifier"></i>
-							'.$customdesign->lang('Resources').'
+							<i class="magic-icon-magnifier"></i>
+							'.$magic->lang('Resources').'
 						</button>
 					</header>' : '').
 					'<div data-tab="internal" class="active">
-						<div id="customdesign-upload-form">
-							<i class="customdesign-icon-cloud-upload"></i>
-							<span>'.$customdesign->lang('Click or drop images here').'</span>
+						<div id="magic-upload-form">
+							<i class="magic-icon-cloud-upload"></i>
+							<span>'.$magic->lang('Click or drop images here').'</span>
 							<input type="file" multiple="true" />
 						</div>
-						<div id="customdesign-upload-list">
-							<ul class="customdesign-list-items"></ul>
+						<div id="magic-upload-list">
+							<ul class="magic-list-items"></ul>
 						</div>
 					</div>
-					<div data-tab="external" id="customdesign-external-images"></div>'
+					<div data-tab="external" id="magic-external-images"></div>'
 			),
 			
 			'shapes' => array(
-				"label" => $customdesign->lang('Shapes'),
-				"icon" => "customdesignx-diamond",
+				"label" => $magic->lang('Shapes'),
+				"icon" => "magicx-diamond",
 				"callback" => "",
 				"load" => "shapes",
 				"class" => "smooth",
@@ -180,8 +180,8 @@ class customdesign_tmpl_register {
 			),
 			
 			'layers' => array(
-				"label" => $customdesign->lang('Layers'),
-				"icon" => "customdesign-icon-layers",
+				"label" => $magic->lang('Layers'),
+				"icon" => "magic-icon-layers",
 				"callback" => "layers",
 				"load" => "",
 				"class" => "smooth",
@@ -189,33 +189,33 @@ class customdesign_tmpl_register {
 			),
 			
 			'drawing' => array(
-				"label" => $customdesign->lang('Drawing'),
-				"icon" => "customdesign-icon-note",
+				"label" => $magic->lang('Drawing'),
+				"icon" => "magic-icon-note",
 				"callback" => "",
 				"load" => "",
-				"class" => "customdesign-left-form",
+				"class" => "magic-left-form",
 				"content" => 
-					'<h3>'.$customdesign->lang('Free drawing mode').'</h3>
+					'<h3>'.$magic->lang('Free drawing mode').'</h3>
 					<div>
-						<label>'.$customdesign->lang('Size').'</label>
+						<label>'.$magic->lang('Size').'</label>
 						<inp data-range="helper" data-value="1">
-							<input id="customdesign-drawing-width" data-callback="drawing" value="1" min="1" max="100" data-value="1" type="range" />
+							<input id="magic-drawing-width" data-callback="drawing" value="1" min="1" max="100" data-value="1" type="range" />
 						</inp>
 					</div>
-					<div'.($customdesign->cfg->settings['enable_colors'] == '0' ? ' class="hidden"' : '').'>
-						<input id="customdesign-drawing-color" placeholder="'.$customdesign->lang('Click to choose color').'" type="search" class="color" />
-						<span class="customdesign-save-color" data-tip="true" data-target="drawing-color">
-							<i class="customdesignx-android-add"></i>
-							<span>'.$customdesign->lang('Save this color').'</span>
+					<div'.($magic->cfg->settings['enable_colors'] == '0' ? ' class="hidden"' : '').'>
+						<input id="magic-drawing-color" placeholder="'.$magic->lang('Click to choose color').'" type="search" class="color" />
+						<span class="magic-save-color" data-tip="true" data-target="drawing-color">
+							<i class="magicx-android-add"></i>
+							<span>'.$magic->lang('Save this color').'</span>
 						</span>
 					</div>
 					<div>
-						<ul class="customdesign-color-presets" data-target="drawing-color"></ul>
+						<ul class="magic-color-presets" data-target="drawing-color"></ul>
 					</div>
 					<div class="gray">
 						<span>
-							<i class="customdesignx-android-bulb"></i>
-							'.$customdesign->lang('Tips: Mouse wheel on the canvas to quick change the brush size').'
+							<i class="magicx-android-bulb"></i>
+							'.$magic->lang('Tips: Mouse wheel on the canvas to quick change the brush size').'
 						</span>
 					</div>'
 			)
@@ -224,14 +224,14 @@ class customdesign_tmpl_register {
 	
 	public function reg_product_attributes() {
 		
-		global $customdesign;
+		global $magic;
 		
 		$arg = $this->color_options();
 		
 		$color_options = $this->build_form( $arg );
 		
 		$arg['extend']['content'] = '<input type="checkbox" data-op-name="is_multiple" \'+(data.multiple ? "checked" : "")+\' id="multiple-\'+random_id+\'" /> \
-			<label for="multiple-\'+random_id+\'">'.$customdesign->lang('Allow select multiple colors').'</label>';
+			<label for="multiple-\'+random_id+\'">'.$magic->lang('Allow select multiple colors').'</label>';
 		$arg['extend']['return'] = 'values.multiple = wrp.find(\'input[data-op-name="is_multiple"]\').prop(\'checked\');';
 		
 		$picker_options = $this->build_form( $arg );
@@ -244,14 +244,14 @@ class customdesign_tmpl_register {
 			),
 			
 			'select' => array(
-				'title' => $customdesign->lang('Drop down'),
+				'title' => $magic->lang('Drop down'),
 				'use_variation' => true,
 				'values' => $this->build_form($this->form_options()),
 				'render' => $this->render_select()
 			),
 			
 			'product_color' => array(
-				'title' => $customdesign->lang('Product colors'),
+				'title' => $magic->lang('Product colors'),
 				'unique' => true,
 				'use_variation' => true,
 				'values' => $color_options,
@@ -259,35 +259,35 @@ class customdesign_tmpl_register {
 			),
 			
 			'color' => array(
-				'title' => $customdesign->lang('Color picker'),
+				'title' => $magic->lang('Color picker'),
 				'values' => $picker_options,
 				'render' => $this->render_picker()
 			),
 			
 			'input' => array(
-				'title' => $customdesign->lang('Input text'),
+				'title' => $magic->lang('Input text'),
 				'default' => '',
 				'placeholder' => '',
 				'render' => <<<EOF
-					return '<input type="text" name="'+data.id+'" class="customdesign-cart-param" value="'+data.value.replace(/\"/g, '&#x22;')+'" '+(data.required ? 'required' : '')+' />';			
+					return '<input type="text" name="'+data.id+'" class="magic-cart-param" value="'+data.value.replace(/\"/g, '&#x22;')+'" '+(data.required ? 'required' : '')+' />';			
 EOF
 			),
 			
 			'text' => array(
-				'title' => $customdesign->lang('Textarea'),
+				'title' => $magic->lang('Textarea'),
 				'default' => '',
 				'placeholder' => '',
 				'render' => <<<EOF
-					return '<textarea type="text" name="'+data.id+'" class="customdesign-cart-param" '+(data.required ? 'required' : '')+'>'+data.value.replace(/\>/g, '&gt;').replace(/\</g, '&lt;')+'</textarea>';			
+					return '<textarea type="text" name="'+data.id+'" class="magic-cart-param" '+(data.required ? 'required' : '')+'>'+data.value.replace(/\>/g, '&gt;').replace(/\</g, '&lt;')+'</textarea>';			
 EOF
 			),
 			
 			/*'checkbox' => array(
-				'title' => $customdesign->lang('Multiple checkbox'),
+				'title' => $magic->lang('Multiple checkbox'),
 				'values' => $select_options,
 				'render' => <<<EOF
 					
-					var wrp = $('<div class="customdesign_checkboxes"></div>');
+					var wrp = $('<div class="magic_checkboxes"></div>');
 					
 					if (!data.value)
 						data.value = [];
@@ -296,10 +296,10 @@ EOF
 					
 					data.values.map(function(op) {
 						
-						var new_op 	= '<div class="customdesign_checkbox">';
+						var new_op 	= '<div class="magic_checkbox">';
 						
-						new_op 	+= '<input type="checkbox" name="'+data.id+'" class="customdesign-cart-param action_check" value="'+op.value+'" id="'+(data.id + '-' +op.value)+'" '+(data.required ? 'required' : '')+' '+(data.value.indexOf(op.value) > -1 ? 'checked' : '')+' />';
-						new_op 	+= '<label for="'+(data.id + '-' +op.value)+'" class="customdesign-cart-option-label">'+
+						new_op 	+= '<input type="checkbox" name="'+data.id+'" class="magic-cart-param action_check" value="'+op.value+'" id="'+(data.id + '-' +op.value)+'" '+(data.required ? 'required' : '')+' '+(data.value.indexOf(op.value) > -1 ? 'checked' : '')+' />';
+						new_op 	+= '<label for="'+(data.id + '-' +op.value)+'" class="magic-cart-option-label">'+
 										op.title.replace(/\</g, '&lt;').replace(/\>/g, '&gt;')+
 										'<em class="check"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="14px" viewBox="0 0 12 13" xml:space="preserve"><path fill="#4DB6AC" d="M0.211,6.663C0.119,6.571,0.074,6.435,0.074,6.343c0-0.091,0.045-0.229,0.137-0.32l0.64-0.64 c0.184-0.183,0.458-0.183,0.64,0L1.538,5.43l2.515,2.697c0.092,0.094,0.229,0.094,0.321,0l6.13-6.358l0.032-0.026l0.039-0.037 c0.186-0.183,0.432-0.12,0.613,0.063l0.64,0.642c0.183,0.184,0.183,0.457,0,0.64l0,0l-7.317,7.592 c-0.093,0.092-0.184,0.139-0.321,0.139s-0.228-0.047-0.319-0.139L0.302,6.8L0.211,6.663z"/></svg></em>'+
 										'</label>';
@@ -316,12 +316,12 @@ EOF
 			),*/
 
 			'options' => array(
-				'title' => $customdesign->lang('Options'),
+				'title' => $magic->lang('Options'),
 				'values' => $this->build_form($this->form_options(array(
 					"multiple" => true,
 					"extend" => array(
 						"content" => '<input type="checkbox" data-op-name="is_multiple" \'+(data.multiple ? "checked" : "")+\' id="multiple-\'+random_id+\'" /> \
-					<label for="multiple-\'+random_id+\'">'.$customdesign->lang('Allow select multiple options').'</label>',
+					<label for="multiple-\'+random_id+\'">'.$magic->lang('Allow select multiple options').'</label>',
 						"return" => 'values.multiple = wrp.find(\'input[data-op-name="is_multiple"]\').prop(\'checked\');'
 					)
 				))),
@@ -329,7 +329,7 @@ EOF
 			),
 			
 			'quantity' => array(
-				'title' => $customdesign->lang('Quantity'),
+				'title' => $magic->lang('Quantity'),
 				'unique' => true,
 				'values' => $this->quantity_options(),
 				'render' => $this->render_quantity()
@@ -340,7 +340,7 @@ EOF
 	
 	public function build_form($ops = array()) {
 		
-		global $customdesign;
+		global $magic;
 		
 		/*array(
 			"id" => __,
@@ -366,7 +366,7 @@ EOF
 			$ops = array();
 			
 		if (!isset($ops['id']))
-			$ops['id'] = $customdesign->generate_id();
+			$ops['id'] = $magic->generate_id();
 		
 		if (!isset($ops['cols']))
 			$ops['cols'] = array();
@@ -384,8 +384,8 @@ EOF
 		
 		if (!isset($ops['btns'])) {
 			$ops['btns'] = array(
-				"add" => $customdesign->lang('Add option'),
-				"clear" => $customdesign->lang('Clear options')
+				"add" => $magic->lang('Add option'),
+				"clear" => $magic->lang('Clear options')
 			);
 		}
 		
@@ -396,8 +396,8 @@ EOF
 		$_content = (isset($ops['extend']['content']) ? $ops['extend']['content'] : '');
 		$_return = (isset($ops['extend']['return']) ? $ops['extend']['return'] : '');
 		$_trigger = (isset($ops['extend']['trigger']) ? $ops['extend']['trigger'] : '');
-		$_add = (isset($ops['extend']['add']) ? $ops['extend']['add'] : $customdesign->lang('Add option'));
-		$_clear = (isset($ops['extend']['clear']) ? $ops['extend']['clear'] : $customdesign->lang('Clear options'));
+		$_add = (isset($ops['extend']['add']) ? $ops['extend']['add'] : $magic->lang('Add option'));
+		$_clear = (isset($ops['extend']['clear']) ? $ops['extend']['clear'] : $magic->lang('Clear options'));
 		
 		foreach ($ops['cols'] as $col) {
 			$thead .= '<th width="'.$col['width'].'">'.$col['title'].'</th>';
@@ -417,9 +417,9 @@ EOF
 					data = values;
 			} catch (ex) {data = {};};
 			
-			var content = '<div class="customdesign-field-options-wrp rbd">\
+			var content = '<div class="magic-field-options-wrp rbd">\
 						{$_content}\
-						<table class="customdesign-field-options rtc">\
+						<table class="magic-field-options rtc">\
 							<thead>{$thead}</thead>\
 							<tbody>';
 						
@@ -434,10 +434,10 @@ EOF
 					<tfoot>\
 						<tr>\
 							<td colspan="5" style="text-align:center;">\
-								<button class="customdesign-button customdesign-button-primary" data-func="add-option">\
+								<button class="magic-button magic-button-primary" data-func="add-option">\
 									<i class="fa fa-plus"></i> {$_add}\
 								</button> &nbsp; \
-								<button class="customdesign-button" data-func="clear-options">\
+								<button class="magic-button" data-func="clear-options">\
 									<i class="fa fa-eraser"></i> {$_clear}\
 								</button>\
 							</td>\
@@ -463,7 +463,7 @@ EOF
 						(option.value === undefined || option.value === '') &&
 						option.title !== undefined
 					) {
-						// option.value = customdesign.slugify(option.title); old code, not support non ascii value
+						// option.value = magic.slugify(option.title); old code, not support non ascii value
 						option.value = encodeURIComponent(option.title);
 					}
 					
@@ -485,7 +485,7 @@ EOF
 					
 				var row = $('<tr>{$tbody}</tr>');
 				
-				wrp.find('table.customdesign-field-options tbody').append(row);
+				wrp.find('table.magic-field-options tbody').append(row);
 				row.find('input').on('change', wrp.export_value);
 					
 				wrp.export_value();
@@ -497,7 +497,7 @@ EOF
 				events: {
 					'button[data-func="add-option"]': 'add_option',
 					'button[data-func="clear-options"]': 'clear_options',
-					'table.customdesign-field-options tbody': 'func',
+					'table.magic-field-options tbody': 'func',
 					'input[data-op-name="is_multiple"]': 'is_multiple'
 				},
 				add_option: function(e) {
@@ -534,40 +534,40 @@ EOF;
 	
 	public function form_options($ops = array()) {
 		
-		global $customdesign;
+		global $magic;
 		
 		$args = array(
 			'cols' => array(
 				array(
 					'width' => '60%',
 					'id' => 'title',
-					'title' => $customdesign->lang('Title').'\
+					'title' => $magic->lang('Title').'\
 								<span class="tip">\
 									<i class="fa fa-question-circle"></i>\
 									<span>\
-									'.$customdesign->lang('The title of this option, it will display for select').'\
+									'.$magic->lang('The title of this option, it will display for select').'\
 									</span>\
 								</span>',
-					'content' => '<input type="text" data-op-name="title" value="\'+customdesign.esc(option.title)+\'" />',
+					'content' => '<input type="text" data-op-name="title" value="\'+magic.esc(option.title)+\'" />',
 					'return' => '$(this).find(\'input[data-op-name="title"]\').val()'
 				),
 				array(
 					'width' => '20%',
 					'id' => 'price',
-					'title' => $customdesign->lang('Price').'\
+					'title' => $magic->lang('Price').'\
 								<span class="tip">\
 									<i class="fa fa-question-circle"></i>\
 									<span>\
-									'.$customdesign->lang('The custom price + or - to the total when select this option').'\
+									'.$magic->lang('The custom price + or - to the total when select this option').'\
 									</span>\
 								</span>',
-					'content' => '<input type="text" data-op-name="price" value="\'+customdesign.esc(option.price)+\'" />',
+					'content' => '<input type="text" data-op-name="price" value="\'+magic.esc(option.price)+\'" />',
 					'return' => '$(this).find(\'input[data-op-name="price"]\').val()'
 				),
 				array(
 					'width' => '10%',
 					'id' => 'default',
-					'title' => $customdesign->lang('Default'),
+					'title' => $magic->lang('Default'),
 					'content' => '<center><input type="'.(isset($ops['multiple']) && $ops['multiple'] === true ? '\'+(data.multiple ? \'checkbox\' : \'radio\')+\'' : 'radio').'" name="\'+random_id+\'" data-op-name="default" \'+(option.default ? \'checked\' : \'\')+\' /></center>',
 					'return' => '$(this).find(\'input[data-op-name="default"]\').prop(\'checked\')'
 				),
@@ -589,17 +589,17 @@ EOF;
 	
 	public function render_select() {
 		
-		global $customdesign;
+		global $magic;
 		
 		return <<<EOF
 				
-			var el = '<select name="'+(data.id)+'" class="customdesign-cart-param" '+(data.required ? 'required' : '')+'>';
+			var el = '<select name="'+(data.id)+'" class="magic-cart-param" '+(data.required ? 'required' : '')+'>';
 			
 			if (typeof data.values == 'object' && typeof data.values.options == 'object') {
 				data.values.options.map(function (op){
 					var new_title = op.title.replace(/-/g, " ");
 					//new_title = new_title.replace(/[^a-zA-Z0-9 ]+/g, "");
-					el += '<option value="'+op.value.replace(/\"/g, '&quot;')+'"'+(data.value == op.value ? ' selected' : '')+'>'+new_title+(op.price !== '' ? ' ('+customdesign.fn.price(op.price)+')' : '')+'</option>';
+					el += '<option value="'+op.value.replace(/\"/g, '&quot;')+'"'+(data.value == op.value ? ' selected' : '')+'>'+new_title+(op.price !== '' ? ' ('+magic.fn.price(op.price)+')' : '')+'</option>';
 				});
 			};
 			
@@ -612,34 +612,34 @@ EOF;
 	
 	public function render_color() {
 		
-		global $customdesign;
+		global $magic;
 		
 		return <<<EOF
 				
-			var el = $('<ul class="customdesign-product-color"></ul>'), 
+			var el = $('<ul class="magic-product-color"></ul>'), 
 				valid_value = false;
 				
-			el.append('<li data-color="" data-tip="true"><span>{$customdesign->lang('Clear selected')}</span></li>');
+			el.append('<li data-color="" data-tip="true"><span>{$magic->lang('Clear selected')}</span></li>');
 			if (typeof data.values == 'object' && typeof data.values.options == 'object') {
 				data.values.options.map(function(v) {
 					if (v.value !== '') {
-						el.append('<li data-color="'+v.value+'" style="background-color:'+v.value+'" data-tip="true"><span>'+v.title.replace(/\"/g, '&quot;')+(v.price !== '' ? (' ('+(parseFloat(v.price) > 0 ? '+' : '')+customdesign.fn.price(v.price)+')') : '')+'</span></li>');
+						el.append('<li data-color="'+v.value+'" style="background-color:'+v.value+'" data-tip="true"><span>'+v.title.replace(/\"/g, '&quot;')+(v.price !== '' ? (' ('+(parseFloat(v.price) > 0 ? '+' : '')+magic.fn.price(v.price)+')') : '')+'</span></li>');
 						if (data.value === v.value) 
 							valid_value = true;
 					}
 				});
 			};
 			
-			el.append('<input type="hidden" name="'+data.id+'" class="color customdesign-cart-param" value="'+(valid_value ? data.value : '')+'" '+(data.required ? 'required' : '')+' />');
+			el.append('<input type="hidden" name="'+data.id+'" class="color magic-cart-param" value="'+(valid_value ? data.value : '')+'" '+(data.required ? 'required' : '')+' />');
 			
 			el.find('li[data-color]').on('click', function(e) {
 				$(this).parent().find('li.choosed').removeClass('choosed');
 				$(this).addClass('choosed')
-					   .closest('.customdesign_form_content')
-					   .find('input.customdesign-cart-param')
+					   .closest('.magic_form_content')
+					   .find('input.magic-cart-param')
 					   .val(this.getAttribute('data-color'))
 					   .trigger('change');
-				setTimeout(customdesign.fn.product_color, 1, this.getAttribute('data-color'));
+				setTimeout(magic.fn.product_color, 1, this.getAttribute('data-color'));
 				e.preventDefault();
 			});
 			
@@ -654,23 +654,23 @@ EOF;
 	
 	public function render_picker() {
 		
-		global $customdesign;
+		global $magic;
 		
 		return <<<EOF
 		
-			var el = $('<ul class="customdesign-product-color"></ul>'), valid_value = false;
+			var el = $('<ul class="magic-product-color"></ul>'), valid_value = false;
 			
-			el.append('<li data-color="" data-tip="true"><span>{$customdesign->lang('Clear color')}</span></li>');
+			el.append('<li data-color="" data-tip="true"><span>{$magic->lang('Clear color')}</span></li>');
 			if (typeof data.values == 'object' && typeof data.values.options == 'object') {
 				data.values.options.map(function(v) {
 					if (v.value !== '') {
-						el.append('<li data-color="'+v.value+'" style="background-color:'+v.value+'" data-tip="true"><span>'+v.title.replace(/\"/g, '&quot;')+(v.price !== '' ? (' ('+(parseFloat(v.price) > 0 ? '+' : '')+customdesign.fn.price(v.price)+')') : '')+'</span></li>');
+						el.append('<li data-color="'+v.value+'" style="background-color:'+v.value+'" data-tip="true"><span>'+v.title.replace(/\"/g, '&quot;')+(v.price !== '' ? (' ('+(parseFloat(v.price) > 0 ? '+' : '')+magic.fn.price(v.price)+')') : '')+'</span></li>');
 						if (data.value === v.value)
 							valid_value = true;
 					}
 				});
 			};
-			el.append('<input type="hidden" name="'+data.id+'" class="customdesign-cart-param" value="'+(valid_value ? data.value : '')+'" '+(data.required ? 'required' : '')+' />');
+			el.append('<input type="hidden" name="'+data.id+'" class="magic-cart-param" value="'+(valid_value ? data.value : '')+'" '+(data.required ? 'required' : '')+' />');
 			
 			el.find('li[data-color]').on('click', function(e) {
 				
@@ -695,8 +695,8 @@ EOF;
 						val.push(this.getAttribute('data-color'));	
 				});
 				
-				_this.closest('.customdesign_form_content')
-					   .find('input.customdesign-cart-param')
+				_this.closest('.magic_form_content')
+					   .find('input.magic-cart-param')
 					   .val(val.join(decodeURI("%0A")))
 					   .trigger('change');
 					   
@@ -719,11 +719,11 @@ EOF;
 	
 	public function render_options() {
 		
-		global $customdesign;
+		global $magic;
 		
 		return <<<EOF
 			
-			var wrp = $('<div class="'+(data.multiple === true ? 'customdesign_checkboxes' : 'customdesign_radios')+'"></div>');
+			var wrp = $('<div class="'+(data.multiple === true ? 'magic_checkboxes' : 'magic_radios')+'"></div>');
 			
 			if (!data.value)
 				data.value = [];
@@ -735,15 +735,15 @@ EOF;
 					
 					var tip = '';
 					if (op.price !== '') {
-						tip = ' &nbsp; <span data-tip="true" style="line-height: 28px;"><i class="customdesignx-android-alert"></i><span style="text-align:left">{$customdesign->lang('Price/quantity')}: '+(parseFloat(op.price) > 0 ? '+' : '' )+customdesign.fn.price(op.price)+'</span></span>';
+						tip = ' &nbsp; <span data-tip="true" style="line-height: 28px;"><i class="magicx-android-alert"></i><span style="text-align:left">{$magic->lang('Price/quantity')}: '+(parseFloat(op.price) > 0 ? '+' : '' )+magic.fn.price(op.price)+'</span></span>';
 					}
 					
 					if (data.values.multiple === true) {
 						
-						var new_op 	= '<div class="customdesign_checkbox">';
+						var new_op 	= '<div class="magic_checkbox">';
 						
-						new_op 	+= '<input type="checkbox" name="'+data.id+'" class="customdesign-cart-param action_check" value="'+op.value+'" id="'+(data.id + '-' +op.value)+'" '+(data.required ? 'required' : '')+' '+(data.value.indexOf(op.value) > -1 ? 'checked' : '')+' />';
-						new_op 	+= '<label for="'+(data.id + '-' +op.value)+'" class="customdesign-cart-option-label">'+
+						new_op 	+= '<input type="checkbox" name="'+data.id+'" class="magic-cart-param action_check" value="'+op.value+'" id="'+(data.id + '-' +op.value)+'" '+(data.required ? 'required' : '')+' '+(data.value.indexOf(op.value) > -1 ? 'checked' : '')+' />';
+						new_op 	+= '<label for="'+(data.id + '-' +op.value)+'" class="magic-cart-option-label">'+
 										op.title.replace(/\</g, '&lt;').replace(/\>/g, '&gt;')+
 										'<em class="check"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="14px" viewBox="0 0 12 13" xml:space="preserve"><path fill="#4DB6AC" d="M0.211,6.663C0.119,6.571,0.074,6.435,0.074,6.343c0-0.091,0.045-0.229,0.137-0.32l0.64-0.64 c0.184-0.183,0.458-0.183,0.64,0L1.538,5.43l2.515,2.697c0.092,0.094,0.229,0.094,0.321,0l6.13-6.358l0.032-0.026l0.039-0.037 c0.186-0.183,0.432-0.12,0.613,0.063l0.64,0.642c0.183,0.184,0.183,0.457,0,0.64l0,0l-7.317,7.592 c-0.093,0.092-0.184,0.139-0.321,0.139s-0.228-0.047-0.319-0.139L0.302,6.8L0.211,6.663z"/></svg></em>'+
 										'</label>'+tip;
@@ -752,10 +752,10 @@ EOF;
 						
 					} else {
 						
-						var new_op 	= $('<div class="customdesign-radio">'+
-								'<input type="radio" class="customdesign-cart-param" name="'+data.id+'" value="'+op.value+'" id="'+data.id+'-'+op.value+'"'+(data.value.indexOf(op.value) > -1 ? ' checked' : '')+(data.required ? ' required' : '')+' />'+
-			                	'<label class="customdesign-cart-option-label" for="'+data.id+'-'+op.value+'">'+op.title+' <em class="check"></em></label>'+tip+
-								'<em class="customdesign-cart-option-desc"></em>'+
+						var new_op 	= $('<div class="magic-radio">'+
+								'<input type="radio" class="magic-cart-param" name="'+data.id+'" value="'+op.value+'" id="'+data.id+'-'+op.value+'"'+(data.value.indexOf(op.value) > -1 ? ' checked' : '')+(data.required ? ' required' : '')+' />'+
+			                	'<label class="magic-cart-option-label" for="'+data.id+'-'+op.value+'">'+op.title+' <em class="check"></em></label>'+tip+
+								'<em class="magic-cart-option-desc"></em>'+
 							'</div>');
 							
 					};
@@ -772,7 +772,7 @@ EOF;
 	
 	public function render_quantity() {
 		
-		global $customdesign;
+		global $magic;
 		
 		return <<<EOF
 			
@@ -781,7 +781,7 @@ EOF;
 			
 			if (data.values.type == 'package' && data.values.package_options !== undefined) {
 				
-				var el = '<select '+(data.required ? 'required' : '')+' name="'+data.id+'" class="customdesign-cart-param" required>';
+				var el = '<select '+(data.required ? 'required' : '')+' name="'+data.id+'" class="magic-cart-param" required>';
 				
 				data.values.package_options.map(function (op){
 					el += '<option value="'+encodeURI(op.value)+'"'+(data.value == op.value ? ' selected' : '')+'>'+op.title+'</option>';
@@ -795,9 +795,9 @@ EOF;
 			var minmax = [];
 			
 			if (data.values.min_qty !== undefined && data.values.min_qty !== '')
-				minmax.push('{$customdesign->lang('Min total')}: '+data.values.min_qty);
+				minmax.push('{$magic->lang('Min total')}: '+data.values.min_qty);
 			if (data.values.max_qty !== undefined && data.values.max_qty !== '')
-				minmax.push('{$customdesign->lang('Max total')}: '+data.values.max_qty);
+				minmax.push('{$magic->lang('Max total')}: '+data.values.max_qty);
 			
 			if (data.values.type == 'multiple' && data.values.multiple_options !== undefined) {
 				
@@ -810,7 +810,7 @@ EOF;
 					} catch (ex) {data.value = {};}		
 				};
 				
-				var el = '<div class="customdesign-cart-field-quantity">', val, tip;
+				var el = '<div class="magic-cart-field-quantity">', val, tip;
 		
 				data.values.multiple_options.map(function (op, i){
 					
@@ -831,32 +831,32 @@ EOF;
 					};
 					
 					if (op.min_qty !== '')
-						tip.push('{$customdesign->lang('Min quantity')}: '+op.min_qty);
+						tip.push('{$magic->lang('Min quantity')}: '+op.min_qty);
 					if (op.max_qty !== '')
-						tip.push('{$customdesign->lang('Max quantity')}: '+op.max_qty);
+						tip.push('{$magic->lang('Max quantity')}: '+op.max_qty);
 					if (op.price !== '')
-						tip.push('{$customdesign->lang('Price/quantity')}: '+(parseFloat(op.price) > 0 ? '+' : '' )+customdesign.fn.price(op.price));
+						tip.push('{$magic->lang('Price/quantity')}: '+(parseFloat(op.price) > 0 ? '+' : '' )+magic.fn.price(op.price));
 					
 					el += '<p>\
 							<em>\
 								<input type="number" data-min="'+op.min_qty+'" data-max="'+op.max_qty+'" data-id="'+op.value+'" value="'+val+'" />\
 							</em>\
 							<strong>'+op.title+'</strong>\
-							'+(tip.length > 0 ? '<span data-tip="true" style="line-height: 34px;"><i class="customdesignx-android-alert"></i><span style="text-align:left">'+tip.join('<br>')+'</span></span>' : '')+'\
+							'+(tip.length > 0 ? '<span data-tip="true" style="line-height: 34px;"><i class="magicx-android-alert"></i><span style="text-align:left">'+tip.join('<br>')+'</span></span>' : '')+'\
 						</p>'
 				});
 				
 				if (minmax.length > 0)
 					el += '<p data-notice>'+minmax.join(', ')+'</p>';
 					
-				el += '<input type="hidden" '+(data.required ? 'required' : '')+' data-format="json" data-min="'+data.values.min_qty+'" data-max="'+data.values.max_qty+'" class="customdesign-cart-param" name="'+data.id+'" value="'+data.value+'"/>\
+				el += '<input type="hidden" '+(data.required ? 'required' : '')+' data-format="json" data-min="'+data.values.min_qty+'" data-max="'+data.values.max_qty+'" class="magic-cart-param" name="'+data.id+'" value="'+data.value+'"/>\
 					</div>';
 				
 				var new_op = $(el);
 				
 				var return_values = function () {
 				
-					var inp = new_op.find('input.customdesign-cart-param'),
+					var inp = new_op.find('input.magic-cart-param'),
 						min = parseInt(inp.attr('data-min')),
 						max = parseInt(inp.attr('data-max')),
 						val = {}, 
@@ -884,13 +884,13 @@ EOF;
 					
 					if (!isNaN(min) && min > qty) {
 						inp.val('').change();
-						inp.after('<em class="customdesign-required-msg">{$customdesign->lang('Error: Invalid min total quantity')}</em>');
+						inp.after('<em class="magic-required-msg">{$magic->lang('Error: Invalid min total quantity')}</em>');
 						return;
 					};
 					
 					if (!isNaN(max) && max < qty) {
 						inp.val('').change();
-						inp.after('<em class="customdesign-required-msg">{$customdesign->lang('Error: Invalid max total quantity')}</em>');
+						inp.after('<em class="magic-required-msg">{$magic->lang('Error: Invalid max total quantity')}</em>');
 						return;
 					};
 					
@@ -912,16 +912,16 @@ EOF;
 				data.value = 1;
 			else data.value = parseInt(data.value);
 			
-			var new_op = $('<div class="customdesign-cart-field-quantity">\
+			var new_op = $('<div class="magic-cart-field-quantity">\
 						<em data-action="minus"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 491.858 491.858" xml:space="preserve" width="10px" height="10px"><path d="M465.167,211.613H240.21H26.69c-8.424,0-26.69,11.439-26.69,34.316s18.267,34.316,26.69,34.316h213.52h224.959    c8.421,0,26.689-11.439,26.689-34.316S473.59,211.613,465.167,211.613z" fill="#888"/></svg></em>\
-						<em class="customdesign-cart-field-value" data-tip="true">\
-							<input type="number" '+(data.required ? 'required' : '')+' data-min="'+data.values.min_qty+'" data-max="'+data.values.max_qty+'" class="customdesign-cart-param" name="'+data.id+'" value="'+(data.value !== '' ? data.value : 1)+'"/>\
+						<em class="magic-cart-field-value" data-tip="true">\
+							<input type="number" '+(data.required ? 'required' : '')+' data-min="'+data.values.min_qty+'" data-max="'+data.values.max_qty+'" class="magic-cart-param" name="'+data.id+'" value="'+(data.value !== '' ? data.value : 1)+'"/>\
 							'+(minmax.length > 0 ? '<span>'+minmax.join(', ')+'</span>' : '')+'\
 						</em>\
 						<em data-action="plus"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http d://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 491.86 491.86" xml:space="preserve" width="10px" height="10px"><path d="M465.167,211.614H280.245V26.691c0-8.424-11.439-26.69-34.316-26.69s-34.316,18.267-34.316,26.69v184.924H26.69    C18.267,211.614,0,223.053,0,245.929s18.267,34.316,26.69,34.316h184.924v184.924c0,8.422,11.438,26.69,34.316,26.69    s34.316-18.268,34.316-26.69V280.245H465.17c8.422,0,26.69-11.438,26.69-34.316S473.59,211.614,465.167,211.614z" fill="#888"/></svg></em>\
 					</div>');
 				
-				new_op.find('input.customdesign-cart-param').on('blur', function (e){
+				new_op.find('input.magic-cart-param').on('blur', function (e){
 						
 					var val = parseInt(this.value),
 						min = parseInt(this.getAttribute('data-min')),
@@ -943,8 +943,8 @@ EOF;
 				new_op.find('em[data-action]').on('click', function (){
 					
 					var action = $(this).data('action'),
-						wrp = $(this).closest('.customdesign-cart-field-quantity'),
-						inp = wrp.find('input.customdesign-cart-param'),
+						wrp = $(this).closest('.magic-cart-field-quantity'),
+						inp = wrp.find('input.magic-cart-param'),
 						min = parseInt(inp.attr('data-min')),
 						max = parseInt(inp.attr('data-max'));
 						val = parseInt(inp.val());
@@ -979,53 +979,53 @@ EOF;
 	
 	public function color_options() {
 		
-		global $customdesign;
+		global $magic;
 		
 		return array(
 			'cols' => array(
 				array(
 					'width' => '50%',
 					'id' => 'title',
-					'title' => $customdesign->lang('Color Title').'\
+					'title' => $magic->lang('Color Title').'\
 								<span class="tip">\
 									<i class="fa fa-question-circle"></i>\
 									<span>\
-									'.$customdesign->lang('The title of color, it will display instead of hex code').'\
+									'.$magic->lang('The title of color, it will display instead of hex code').'\
 									</span>\
 								</span>',
-					'content' => '<input type="text" data-op-name="title" value="\'+customdesign.esc(option.title)+\'" />',
+					'content' => '<input type="text" data-op-name="title" value="\'+magic.esc(option.title)+\'" />',
 					'return' => '$(this).find(\'input[data-op-name="title"]\').val()'
 				),
 				array(
 					'width' => '20%',
 					'id' => 'value',
-					'title' => $customdesign->lang('Color Value').'\
+					'title' => $magic->lang('Color Value').'\
 								<span class="tip">\
 									<i class="fa fa-question-circle"></i>\
 									<span>\
-									'.$customdesign->lang('The color value, hex code or name of color').'\
+									'.$magic->lang('The color value, hex code or name of color').'\
 									</span>\
 								</span>',
-					'content' => '<input type="text" readonly style="background:\'+customdesign.esc(option.value)+\';border:none;text-align:center;border-radius: 2px;color: \'+customdesign.invert_color(option.value)+\'" type="text" data-op-name="value" value="\'+customdesign.esc(option.value)+\'"/>',
+					'content' => '<input type="text" readonly style="background:\'+magic.esc(option.value)+\';border:none;text-align:center;border-radius: 2px;color: \'+magic.invert_color(option.value)+\'" type="text" data-op-name="value" value="\'+magic.esc(option.value)+\'"/>',
 					'return' => '$(this).find(\'input[data-op-name="value"]\').val()'
 				),
 				array(
 					'width' => '20%',
 					'id' => 'price',
-					'title' => $customdesign->lang('Price').'\
+					'title' => $magic->lang('Price').'\
 								<span class="tip">\
 									<i class="fa fa-question-circle"></i>\
 									<span>\
-									'.$customdesign->lang('The custom price + or - to the total when select this color').'\
+									'.$magic->lang('The custom price + or - to the total when select this color').'\
 									</span>\
 								</span>',
-					'content' => '<input type="text" data-op-name="price" value="\'+customdesign.esc(option.price)+\'" />',
+					'content' => '<input type="text" data-op-name="price" value="\'+magic.esc(option.price)+\'" />',
 					'return' => '$(this).find(\'input[data-op-name="price"]\').val()'
 				),
 				array(
 					'width' => '5%',
 					'id' => 'default',
-					'title' => $customdesign->lang('Default'),
+					'title' => $magic->lang('Default'),
 					'content' => '<center><input type="\'+(data.multiple ? \'checkbox\' : \'radio\')+\'" name="\'+random_id+\'" data-op-name="default" \'+(option.default ? \'checked\' : \'\')+\' /></center>',
 					'return' => '$(this).find(\'input[data-op-name="default"]\').prop(\'checked\')'
 				),
@@ -1037,15 +1037,15 @@ EOF;
 				)
 			),
 			'extend' => array(
-				'add' => $customdesign->lang('Add new color'),
-				'clear' => $customdesign->lang('Clear all colors'),
+				'add' => $magic->lang('Add new color'),
+				'clear' => $magic->lang('Clear all colors'),
 				'trigger' => <<<EOF
 					
 					wrp.find('button[data-func="add-option"]').off('click').on('click', function(e) {
 						
 						e.data = triggerObjects.general_events;
 						e.data.ex_return_colors = function(cw) {
-							$('#customdesign-list-colors-body ul.colors-ul li[data-color]').each(function(){
+							$('#magic-list-colors-body ul.colors-ul li[data-color]').each(function(){
 								var color = this.getAttribute('data-color');
 								if (
 									$(this).find('input[type="checkbox"]').prop('checked') &&
@@ -1076,7 +1076,7 @@ EOF
 	
 	public function quantity_options() {
 		
-		global $customdesign;
+		global $magic;
 		
 		return <<<EOF
 				
@@ -1096,37 +1096,37 @@ EOF
 			if (values.package_options === undefined)
 				values.package_options = [{title: 'Package 1', value: '10', price: ''}, {title: 'Package 2', value: '50', price: '-1'}];
 			
-			var content = '<div class="customdesign-field-options-wrp rbd">\
+			var content = '<div class="magic-field-options-wrp rbd">\
 					<p class="quantity-layout">\
-						<label>{$customdesign->lang('Layout')}: </label>\
+						<label>{$magic->lang('Layout')}: </label>\
 						<select data-name="layout">\
-							<option value="standard">{$customdesign->lang('Standard')}</option>\
-							<option '+(values.type == 'multiple' ? 'selected' : '')+' value="multiple">{$customdesign->lang('Multiple')}</option>\
-							<option '+(values.type == 'package' ? 'selected' : '')+' value="package">{$customdesign->lang('Package')}</option>\
+							<option value="standard">{$magic->lang('Standard')}</option>\
+							<option '+(values.type == 'multiple' ? 'selected' : '')+' value="multiple">{$magic->lang('Multiple')}</option>\
+							<option '+(values.type == 'package' ? 'selected' : '')+' value="package">{$magic->lang('Package')}</option>\
 						</select>\
-						<label>{$customdesign->lang('Min Quantity')}: </label>\
-						<input type="text" data-name="min-qty" value="'+customdesign.esc(values.min_qty)+'" />\
-						<label>{$customdesign->lang('Max Quantity')}: </label>\
-						<input type="text" data-name="max-qty" value="'+customdesign.esc(values.max_qty)+'" />\
+						<label>{$magic->lang('Min Quantity')}: </label>\
+						<input type="text" data-name="min-qty" value="'+magic.esc(values.min_qty)+'" />\
+						<label>{$magic->lang('Max Quantity')}: </label>\
+						<input type="text" data-name="max-qty" value="'+magic.esc(values.max_qty)+'" />\
 					</p>';
 						
-				content += '<table class="customdesign-field-options rtc multiple_options '+(values.type != 'multiple' ? 'hidden' : '')+'">\
+				content += '<table class="magic-field-options rtc multiple_options '+(values.type != 'multiple' ? 'hidden' : '')+'">\
 					<thead>\
-						<th width="30%">{$customdesign->lang('Title')}</th>\
+						<th width="30%">{$magic->lang('Title')}</th>\
 						<th width="20%"> \
-							{$customdesign->lang('Price')}\
+							{$magic->lang('Price')}\
 							<span class="tip">\
 								<i class="fa fa-question-circle"></i>\
 								<span>\
-								{$customdesign->lang('The custom price + or - for each quantity')}\
+								{$magic->lang('The custom price + or - for each quantity')}\
 								</span>\
 							</span>\
 						</th>\
 						<th width="20%"> \
-							{$customdesign->lang('Min Qty')}\
+							{$magic->lang('Min Qty')}\
 						</th>\
 						<th width="20%"> \
-							{$customdesign->lang('Max Qty')}\
+							{$magic->lang('Max Qty')}\
 						</th>\
 						<th width="10%"></th>\
 					</thead>\
@@ -1136,10 +1136,10 @@ EOF
 					
 					values.multiple_options.map(function(item) {
 						content += '<tr>\
-								<td width="30%"><input type="text" data-name="title" value="'+customdesign.esc(item.title)+'" /></td>\
-								<td width="20%"><input type="text" data-name="price" value="'+customdesign.esc(item.price)+'" /></td>\
-								<td width="20%"><input type="text" data-name="min-qty" value="'+customdesign.esc(item.min_qty)+'" /></td>\
-								<td width="20%"><input type="text" data-name="max-qty" value="'+customdesign.esc(item.max_qty)+'" /></td>\
+								<td width="30%"><input type="text" data-name="title" value="'+magic.esc(item.title)+'" /></td>\
+								<td width="20%"><input type="text" data-name="price" value="'+magic.esc(item.price)+'" /></td>\
+								<td width="20%"><input type="text" data-name="min-qty" value="'+magic.esc(item.min_qty)+'" /></td>\
+								<td width="20%"><input type="text" data-name="max-qty" value="'+magic.esc(item.max_qty)+'" /></td>\
 								<td width="10%"><i class="fa fa-times" data-func="delete"></i></td>\
 							</tr>';
 					});
@@ -1149,11 +1149,11 @@ EOF
 						<tfoot>\
 							<tr>\
 								<td colspan="5" style="text-align:center;">\
-									<button class="customdesign-button customdesign-button-primary" data-func="add-multiple">\
-										<i class="fa fa-plus"></i> {$customdesign->lang('Add new quantity')}\
+									<button class="magic-button magic-button-primary" data-func="add-multiple">\
+										<i class="fa fa-plus"></i> {$magic->lang('Add new quantity')}\
 									</button> &nbsp; \
-									<button class="customdesign-button" data-func="clear-options">\
-										<i class="fa fa-eraser"></i> {$customdesign->lang('Clear all quantity')}\
+									<button class="magic-button" data-func="clear-options">\
+										<i class="fa fa-eraser"></i> {$magic->lang('Clear all quantity')}\
 									</button>\
 								</td>\
 							</tr>\
@@ -1163,16 +1163,16 @@ EOF
 				
 				
 				
-				content += '<table class="customdesign-field-options rtc package_options '+(values.type != 'package' ? 'hidden' : '')+'">\
+				content += '<table class="magic-field-options rtc package_options '+(values.type != 'package' ? 'hidden' : '')+'">\
 					<thead>\
-						<th width="40%">{$customdesign->lang('Package Title')}</th>\
-						<th width="20%">{$customdesign->lang('Quantity')}</th>\
+						<th width="40%">{$magic->lang('Package Title')}</th>\
+						<th width="20%">{$magic->lang('Quantity')}</th>\
 						<th width="20%"> \
-							{$customdesign->lang('Price')}\
+							{$magic->lang('Price')}\
 							<span class="tip">\
 								<i class="fa fa-question-circle"></i>\
 								<span>\
-								{$customdesign->lang('The custom price + or - for each quantity')}\
+								{$magic->lang('The custom price + or - for each quantity')}\
 								</span>\
 							</span>\
 						</th>\
@@ -1184,9 +1184,9 @@ EOF
 					
 					values.package_options.map(function(item) {
 						content += '<tr>\
-								<td width="50%"><input type="text" data-name="title" value="'+customdesign.esc(item.title)+'" /></td>\
-								<td width="20%"><input type="text" data-name="value" value="'+customdesign.esc(item.value)+'" /></td>\
-								<td width="20%"><input type="text" data-name="price" value="'+customdesign.esc(item.price)+'" /></td>\
+								<td width="50%"><input type="text" data-name="title" value="'+magic.esc(item.title)+'" /></td>\
+								<td width="20%"><input type="text" data-name="value" value="'+magic.esc(item.value)+'" /></td>\
+								<td width="20%"><input type="text" data-name="price" value="'+magic.esc(item.price)+'" /></td>\
 								<td width="10%"><i class="fa fa-times" data-func="delete"></i></td>\
 							</tr>';
 					});
@@ -1196,11 +1196,11 @@ EOF
 						<tfoot>\
 							<tr>\
 								<td colspan="4" style="text-align:center;">\
-									<button class="customdesign-button customdesign-button-primary" data-func="add-package">\
-										<i class="fa fa-plus"></i> {$customdesign->lang('Add new package')}\
+									<button class="magic-button magic-button-primary" data-func="add-package">\
+										<i class="fa fa-plus"></i> {$magic->lang('Add new package')}\
 									</button> &nbsp; \
-									<button class="customdesign-button" data-func="clear-options">\
-										<i class="fa fa-eraser"></i> {$customdesign->lang('Clear all packages')}\
+									<button class="magic-button" data-func="clear-options">\
+										<i class="fa fa-eraser"></i> {$magic->lang('Clear all packages')}\
 									</button>\
 								</td>\
 							</tr>\
@@ -1220,10 +1220,10 @@ EOF
 					multiple_options: [],
 					package_options: []
 				};
-				wrp.find('table.customdesign-field-options.multiple_options tbody tr').each(function() {
+				wrp.find('table.magic-field-options.multiple_options tbody tr').each(function() {
 					if ($(this).find('input[data-name="title"]').val() !== '') {
 						values.multiple_options.push({
-							value: customdesign.slugify($(this).find('input[data-name="title"]').val()),	
+							value: magic.slugify($(this).find('input[data-name="title"]').val()),	
 							title: $(this).find('input[data-name="title"]').val(),	
 							price: $(this).find('input[data-name="price"]').val(),
 							min_qty: $(this).find('input[data-name="min-qty"]').val(),
@@ -1231,7 +1231,7 @@ EOF
 						});
 					}
 				});
-				wrp.find('table.customdesign-field-options.package_options tbody tr').each(function() {
+				wrp.find('table.magic-field-options.package_options tbody tr').each(function() {
 					if ($(this).find('input[data-name="title"]').val() !== '') {
 						values.package_options.push({
 							value: $(this).find('input[data-name="value"]').val(),
@@ -1261,17 +1261,17 @@ EOF
 					'button[data-func="add-multiple"]': 'add_multiple',
 					'button[data-func="add-package"]': 'add_package',
 					'button[data-func="clear-options"]': 'clear_options',
-					'table.customdesign-field-options tbody': 'func'
+					'table.magic-field-options tbody': 'func'
 				},
 				
 				layout: function(e) {
 					
-					wrp.find('table.customdesign-field-options').addClass('hidden');
+					wrp.find('table.magic-field-options').addClass('hidden');
 					
 					if (this.value == 'multiple') {
-						wrp.find('table.customdesign-field-options.multiple_options').removeClass('hidden');
+						wrp.find('table.magic-field-options.multiple_options').removeClass('hidden');
 					} else if (this.value == 'package') {
-						wrp.find('table.customdesign-field-options.package_options').removeClass('hidden');
+						wrp.find('table.magic-field-options.package_options').removeClass('hidden');
 					}
 					
 					wrp.export_value();

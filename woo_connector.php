@@ -1,8 +1,8 @@
 <?php
 
-if(!class_exists('customdesign_connector')){
+if(!class_exists('magic_connector')){
 
-	class customdesign_connector {
+	class magic_connector {
         
         protected $woo;
         
@@ -10,28 +10,28 @@ if(!class_exists('customdesign_connector')){
         
         public function __construct() {
 
-            global $customdesign, $customdesign_woo, $wpdb;
+            global $magic, $magic_woo, $wpdb;
 			
-            $this->woo = $customdesign_woo;
+            $this->woo = $magic_woo;
             $this->platform = 'woocommerce';
             
-            $admin_url = admin_url('admin.php?page=customdesign&');
+            $admin_url = admin_url('admin.php?page=magic&');
             
             $this->config = array(
-				"url" => $customdesign_woo->tool_url,
-				"tool_url" => $customdesign_woo->tool_url,
-				"logo" => $customdesign_woo->assets_url . 'assets/images/logo.v3.png',
-				"ajax_url" => $customdesign_woo->ajax_url,
-				"admin_ajax_url" => $customdesign_woo->admin_ajax_url,
-				"assets_url" => $customdesign_woo->assets_url,
+				"url" => $magic_woo->tool_url,
+				"tool_url" => $magic_woo->tool_url,
+				"logo" => $magic_woo->assets_url . 'assets/images/logo.v3.png',
+				"ajax_url" => $magic_woo->ajax_url,
+				"admin_ajax_url" => $magic_woo->admin_ajax_url,
+				"assets_url" => $magic_woo->assets_url,
 				"load_jquery" => true,
-				"root_path" => $customdesign_woo->app_path,
-				"upload_path" => $customdesign_woo->upload_path,
-				"upload_url" => $customdesign_woo->upload_url,
-				"checkout_url" => $customdesign_woo->checkout_url,
+				"root_path" => $magic_woo->app_path,
+				"upload_path" => $magic_woo->upload_path,
+				"upload_url" => $magic_woo->upload_url,
+				"checkout_url" => $magic_woo->checkout_url,
                 
                 //admin setting
-                "admin_assets_url" => $customdesign_woo->admin_assets_url,
+                "admin_assets_url" => $magic_woo->admin_assets_url,
                 "admin_url" => $admin_url,
 				
 				"database" => array(
@@ -39,37 +39,39 @@ if(!class_exists('customdesign_connector')){
                     "user" => DB_USER,
                     "pass" => DB_PASSWORD,
                     "name" => DB_NAME,
-					"prefix" => 'customdesign_'
+					"prefix" => 'magic_'
                 )
 			);
 			
-			$customdesign->add_filter('product_price', array(&$this, 'filter_product_price'));
-			$customdesign->add_filter('product', array(&$this, 'filter_product'));
-			$customdesign->add_filter('products', array(&$this, 'filter_products'));
-			$customdesign->add_filter('query_products', array(&$this, 'query_products'));
-			$customdesign->add_filter('order_status', array(&$this, 'order_status_name'));
-			$customdesign->add_action('before_order_products', array(&$this, 'update_order_status'));
-			$customdesign->add_filter('product_base_price', array(&$this, 'product_base_price'));
-			$customdesign->add_filter('product_templates', array(&$this, 'product_templates'));
-			$customdesign->add_filter('settings_fields', array(&$this, 'settings_fields'));
-			$customdesign->add_filter('product_tabs', array(&$this, 'product_tabs'));
-			$customdesign->add_filter('init_settings', array(&$this, 'init_settings'));
-			$customdesign->add_filter('after_save_settings', array(&$this, 'after_save_settings'));
+			$magic->add_filter('product_price', array(&$this, 'filter_product_price'));
+			$magic->add_filter('product', array(&$this, 'filter_product'));
+			$magic->add_filter('products', array(&$this, 'filter_products'));
+			$magic->add_filter('query_products', array(&$this, 'query_products'));
+			$magic->add_filter('order_status', array(&$this, 'order_status_name'));
+			$magic->add_action('before_order_products', array(&$this, 'update_order_status'));
+			$magic->add_filter('product_base_price', array(&$this, 'product_base_price'));
+			$magic->add_filter('product_templates', array(&$this, 'product_templates'));
+			$magic->add_filter('settings_fields', array(&$this, 'settings_fields'));
+			$magic->add_filter('product_tabs', array(&$this, 'product_tabs'));
+			$magic->add_filter('init_settings', array(&$this, 'init_settings'));
+			$magic->add_filter('after_save_settings', array(&$this, 'after_save_settings'));
 			
 			// Filter before listing all product bases
-			$customdesign->add_filter('list_products', array(&$this, 'list_products'));
+			$magic->add_filter('list_products', array(&$this, 'list_products'));
 			
-			$customdesign->add_filter('back_link', array(&$this, 'backToShop_link'));
+			$magic->add_filter('back_link', array(&$this, 'backToShop_link'));
             
             if (!is_admin()) {
-	            $customdesign->add_action('ajax', array(&$this, 'ajax'));
-	            $customdesign->add_action('js_init', array(&$this, 'js_init'));
-	            $customdesign->add_filter('get_product', array(&$this, 'get_product'));
-	           //$customdesign->add_filter('js_init', array(&$this, 'editor_js_init'));
+	            $magic->add_action('ajax', array(&$this, 'ajax'));
+	            $magic->add_action('js_init', array(&$this, 'js_init'));
+	            $magic->add_filter('get_product', array(&$this, 'get_product'));
+	            //$magic->add_filter('js_init', array(&$this, 'editor_js_init'));
+				//$magic->add_filter('file-nav', function(){return false;});
+				//$magic->add_filter('design-nav', function(){return false;});
             }
             
         }
-
+		
         public function get_session($name) {
             return isset($_SESSION[$name]) ? $_SESSION[$name] : null;
         }
@@ -84,18 +86,18 @@ if(!class_exists('customdesign_connector')){
 		
         public function is_admin() {
 			
-			return current_user_can('customdesign_access') ? true : false;
+			return current_user_can('magic_access') ? true : false;
 		}
 		
 		public function is_login() {
-			global $customdesign;
-			return $customdesign->connector->cookie('uid') || 0;
+			global $magic;
+			return $magic->connector->cookie('uid') || 0;
 			
 		}
 		
 		public function ajax () {
 			
-			global $customdesign;
+			global $magic;
 			
 			if (
 				isset($_POST['subaction']) &&
@@ -124,14 +126,14 @@ if(!class_exists('customdesign_connector')){
 			    $variation    = $variation_id ? $variable_product->get_available_variation( $variation_id ) : false;
 			   
 			    if (
-			    	!isset($variation['customdesign']) ||
-			    	$variation['customdesign'] === 0
+			    	!isset($variation['magic']) ||
+			    	$variation['magic'] === 0
 			    ) {
 				    echo '{"success": false, "message": "Error, The variation you choose does not support custom designs."}';
 			    	exit;
 			    }
 				
-				$products = $this->get_product(array(), 'variable:'.$variation['customdesign']);
+				$products = $this->get_product(array(), 'variable:'.$variation['magic']);
 
 				// if(isset($products[0]['ext_attributes']) && !empty($products[0]['ext_attributes'])){
 				// 	foreach ($products[0]['ext_attributes'] as $key => $detailArr) {
@@ -145,8 +147,8 @@ if(!class_exists('customdesign_connector')){
 				
 				echo json_encode(array(
 					"success" => true,
-					"id" => $variation['customdesign'],
-					"data" => $customdesign->lib->prepare_product($products[0])
+					"id" => $variation['magic'],
+					"data" => $magic->lib->prepare_product($products[0])
 				));
 				
 				exit;
@@ -158,7 +160,7 @@ if(!class_exists('customdesign_connector')){
         public function capabilities($cap) {
 	        
 			$_cap = current_user_can($cap);
-		    $_cap = apply_filters('customdesign_woo_capabilities', $_cap, $cap);
+		    $_cap = apply_filters('magic_woo_capabilities', $_cap, $cap);
 		    
 		    return $_cap;
 		    
@@ -204,7 +206,7 @@ if(!class_exists('customdesign_connector')){
 			if(isset($_POST['product_cms']) && $_POST['product_cms'] != $data['product'])
 				$data['product'] = $_POST['product_cms'];
 			
-			global $wpdb, $customdesign;
+			global $wpdb, $magic;
 			
 			$cms_product = $wpdb->get_results(
 				sprintf(
@@ -213,7 +215,7 @@ if(!class_exists('customdesign_connector')){
 					(Int)$data['product']
 				)
 			);
-			$cms_template = get_post_meta($data['product'], 'customdesign_design_template', true );
+			$cms_template = get_post_meta($data['product'], 'magic_design_template', true );
 		
 			if (!isset($cms_product[0]))
 				return null;
@@ -273,9 +275,9 @@ if(!class_exists('customdesign_connector')){
 				
 			}
 			
-			$data['name'] = $customdesign->lang($cms_product[0]->post_title);
+			$data['name'] = $magic->lang($cms_product[0]->post_title);
 			$data['sku'] = get_post_meta($data['product'], '_sku', true);
-			$data['description'] = $customdesign->lang($cms_product[0]->post_content);
+			$data['description'] = $magic->lang($cms_product[0]->post_content);
 			
 			return $data;
 	        
@@ -284,9 +286,9 @@ if(!class_exists('customdesign_connector')){
         public function filter_products($products) {
 			
 			$results = array();
-			global $wpdb, $customdesign;
+			global $wpdb, $magic;
 			
-			$task = $customdesign->lib->esc('task');
+			$task = $magic->lib->esc('task');
 			
 			/*
 			*	Select all product base	for task on CMS product
@@ -305,9 +307,9 @@ if(!class_exists('customdesign_connector')){
 						
 						if (isset($cms_product[0])) {
 							
-							$data['name'] = $customdesign->lang($cms_product[0]->post_title);
+							$data['name'] = $magic->lang($cms_product[0]->post_title);
 							if(!isset($data['description']) || $data['description'] == '' || $data['description'] == null){
-								$data['description'] = $customdesign->lang($cms_product[0]->post_content);
+								$data['description'] = $magic->lang($cms_product[0]->post_content);
 							}
 							if(function_exists('wc_get_product')){
 								$_product = wc_get_product( $data['product'] );
@@ -315,13 +317,13 @@ if(!class_exists('customdesign_connector')){
 							}
 							
 							//get list of templates
-							$cms_template = get_post_meta($data['product'], 'customdesign_design_template', true );
+							$cms_template = get_post_meta($data['product'], 'magic_design_template', true );
 							$data['templates'] = array();
 							
 							if (isset($cms_template) && !empty($cms_template) && $cms_template != '%7B%7D') {
 								$cms_template = json_decode(urldecode($cms_template), true);
 								foreach ($cms_template as $s => $n) {
-									$template = $customdesign->lib->get_template($cms_template[$s]['id']);
+									$template = $magic->lib->get_template($cms_template[$s]['id']);
 									$cms_template[$s]['upload'] = $template['upload'];
 									$cms_template[$s]['price'] = isset($template['price']) ? $template['price'] : 0;
 								}
@@ -342,7 +344,7 @@ if(!class_exists('customdesign_connector')){
         
 		public function query_products($query, $args) {
 			
-			global $wpdb, $customdesign;
+			global $wpdb, $magic;
 			
 			$search = $args['s'];
 			
@@ -352,13 +354,13 @@ if(!class_exists('customdesign_connector')){
 			
 			return array(
 				"SELECT SQL_CALC_FOUND_ROWS p.*",
-				"FROM {$customdesign->db->prefix}products p",
+				"FROM {$magic->db->prefix}products p",
 				"LEFT JOIN {$wpdb->prefix}posts wpp ON wpp.id = p.`product`",
 				(!empty($args['category']) ?
-					"LEFT JOIN {$customdesign->db->prefix}categories_reference cref ON cref.item_id = p.id ".
-					"WHERE `p`.`author` = '{$customdesign->vendor_id}' AND p.active = 1 AND wpp.post_status = 'publish' AND cref.category_id = ".$args['category'].$search
+					"LEFT JOIN {$magic->db->prefix}categories_reference cref ON cref.item_id = p.id ".
+					"WHERE `p`.`author` = '{$magic->vendor_id}' AND p.active = 1 AND wpp.post_status = 'publish' AND cref.category_id = ".$args['category'].$search
 					:
-					"WHERE `p`.`author` = '{$customdesign->vendor_id}' AND p.active = 1 AND wpp.post_status = 'publish'".$search
+					"WHERE `p`.`author` = '{$magic->vendor_id}' AND p.active = 1 AND wpp.post_status = 'publish'".$search
 				),
 				"GROUP BY p.id",
 				"ORDER BY p.`order`, p.`id` ASC",
@@ -439,7 +441,7 @@ if(!class_exists('customdesign_connector')){
 
         public function products_order($order_id, $filter, $orderby, $ordering) {
 	        
-            global $wpdb, $customdesign;
+            global $wpdb, $magic;
 
             $items = array('rows' => array());
 
@@ -508,9 +510,9 @@ if(!class_exists('customdesign_connector')){
 
 		public function add_to_cart( $data ) {
 
-			global $woocommerce, $customdesign, $customdesign_cart_adding;
+			global $woocommerce, $magic, $magic_cart_adding;
 			
-			$customdesign_cart_adding = true;
+			$magic_cart_adding = true;
 			
 			if ( is_array($data) && isset($woocommerce) ) {
 				
@@ -518,21 +520,21 @@ if(!class_exists('customdesign_connector')){
 				
 				foreach( WC()->cart->get_cart() as $cart_item_key => $item ){
 					if( 
-						isset($item['customdesign_data'])
+						isset($item['magic_data'])
 						&& 
 						(
-							( isset( $item['customdesign_incart'] ) && !$item['customdesign_incart'] ) ||
-							!isset( $item['customdesign_incart'] ) 
+							( isset( $item['magic_incart'] ) && !$item['magic_incart'] ) ||
+							!isset( $item['magic_incart'] ) 
 						)
 					) { 
 						$woocommerce->cart->remove_cart_item( $cart_item_key );
 					}
 				}
 				
-				if ( $customdesign->connector->get_session('customdesign_cart_removed') == null )
+				if ( $magic->connector->get_session('magic_cart_removed') == null )
 					$removed_items = array();
 				else 
-					$removed_items = $customdesign->connector->get_session('customdesign_cart_removed');
+					$removed_items = $magic->connector->get_session('magic_cart_removed');
 				
 				
 				/*
@@ -550,16 +552,24 @@ if(!class_exists('customdesign_connector')){
 						$item['cart_id'] = $cart_id;
 						
 						$extra_option = array(
-							'customdesign_data' => $item
+							'magic_data' => $item
 						);
 
 						$variation_id = null;
+						$variations = null;
 						
 						if(strpos($item['id'], 'variable') !== false){
 							$variation_id = intval(preg_replace('/[^0-9]+/mi', '', $item['id']));
+							$variations = (array)$item['ext_attributes'];
+							foreach($variations  as $key => $variation){
+								$attribute_key = 'attribute_' . sanitize_title( $key );
+								$variations[$attribute_key] = $variation;
+							}
 						}
-
-						$woocommerce->cart->add_to_cart( $product_id, 1 , $variation_id, null, $extra_option );
+						//$woocommerce->cart->add_to_cart( $product_id, 1 , $variation_id, $variations , $extra_option );
+						if ( false == $woocommerce->cart->add_to_cart( $product_id, 1 , $variation_id, $variations , $extra_option )) {
+							return false;
+						}
 						
 					}
 					
@@ -569,7 +579,7 @@ if(!class_exists('customdesign_connector')){
 				
 				$removed_items = array_diff( $removed_items, $cart_ids );
 				
-				$customdesign->connector->set_session('customdesign_cart_removed', $removed_items );
+				$magic->connector->set_session('magic_cart_removed', $removed_items );
 				
 				return wc_get_cart_url();
 				
@@ -597,7 +607,7 @@ if(!class_exists('customdesign_connector')){
 		
 		public function product_base_price($price, $product_id){
 			
-			global $customdesign;
+			global $magic;
 			
 			if(function_exists('wc_get_product')){
 				$product = wc_get_product( $product_id );
@@ -614,7 +624,7 @@ if(!class_exists('customdesign_connector')){
 			
 			if ($item->cms_id) {
 				
-				$cms_template = get_post_meta($item->cms_id, 'customdesign_design_template', true );
+				$cms_template = get_post_meta($item->cms_id, 'magic_design_template', true );
 				
 				$template_price = 0;
 				
@@ -641,13 +651,13 @@ if(!class_exists('customdesign_connector')){
 		
 		public function product_tabs($arg) {
 			
-			global $customdesign, $wpdb;
+			global $magic, $wpdb;
 			
 			if (isset($_GET['id'])) {
 				
 				$product = $_GET['id'];
 
-				foreach ($arg['tabs']['details:' . $customdesign->lang('Details')] as $index => $field) {
+				foreach ($arg['tabs']['details:' . $magic->lang('Details')] as $index => $field) {
 					if(
 					 	$field['name'] == 'product' &&
 						$product > 0
@@ -657,7 +667,7 @@ if(!class_exists('customdesign_connector')){
 						    'post_type'		=> array( 'product' ),
 						    'meta_query'	=> array(
 						        array(
-						            'key'       => 'customdesign_product_base',
+						            'key'       => 'magic_product_base',
 						            'value'     => $product,
 						        ),
 						    ),
@@ -670,8 +680,8 @@ if(!class_exists('customdesign_connector')){
 						        $products[get_the_ID()] = get_the_title();
 						    }
 							
-							$arg['tabs']['details:' . $customdesign->lang('Details')][$index]['options'] = $products;
-							$arg['tabs']['details:' . $customdesign->lang('Details')][$index]['type'] = 'dropbox';
+							$arg['tabs']['details:' . $magic->lang('Details')][$index]['options'] = $products;
+							$arg['tabs']['details:' . $magic->lang('Details')][$index]['type'] = 'dropbox';
 						}
 						
 						
@@ -683,7 +693,7 @@ if(!class_exists('customdesign_connector')){
 		
 		public function settings_fields($arg){
 			
-			global $customdesign;
+			global $magic;
 			
 			$pages = get_pages();
 			
@@ -693,72 +703,72 @@ if(!class_exists('customdesign_connector')){
 				$pages_list[$page->ID] = $page->post_title;
 			}
 			
-			$arg['tabs']['shop:'.$customdesign->lang('Shop')][] = array(
+			$arg['tabs']['shop:'.$magic->lang('Shop')][] = array(
 				'type' 		=> 'dropbox',
 				'name' 		=> 'editor_page',
 				'value' 	=> '',
-				'label' 	=> $customdesign->lang('Editor Page'),
-				'desc' 		=> $customdesign->lang('Page to display customdesign editor for design.'),
+				'label' 	=> $magic->lang('Editor Page'),
+				'desc' 		=> $magic->lang('Page to display MagicRugs editor for design.'),
 				'options' 	=> $pages_list
 			);
 			
-			$arg['tabs']['shop:'.$customdesign->lang('Shop')][] = array(
+			$arg['tabs']['shop:'.$magic->lang('Shop')][] = array(
 				'type' => 'input',
 				'name' => 'btn_text',
 				'value' => 'Customize',
-				'label' => $customdesign->lang('Button Text'),
-				'desc' => $customdesign->lang('Customize button text. Default: Customize'),
+				'label' => $magic->lang('Button Text'),
+				'desc' => $magic->lang('Customize button text. Default: Customize'),
 			);
 			
-			$arg['tabs']['shop:'.$customdesign->lang('Shop')][] = array(
+			$arg['tabs']['shop:'.$magic->lang('Shop')][] = array(
 				'type' => 'toggle',
 				'name' => 'btn_list',
 				'value' => 1,
-				'label' => $customdesign->lang('Button Listing'),
-				'desc' => $customdesign->lang('Show Customize button on list products page or other listing'),
+				'label' => $magic->lang('Button Listing'),
+				'desc' => $magic->lang('Show Customize button on list products page or other listing'),
 			);
 			
-			$arg['tabs']['shop:'.$customdesign->lang('Shop')][] = array(
+			$arg['tabs']['shop:'.$magic->lang('Shop')][] = array(
 				'type' => 'toggle',
 				'name' => 'btn_page',
 				'value' => 1,
-				'label' => $customdesign->lang('Button Product Page'),
-				'desc' => $customdesign->lang('Show Customize button on product page'),
+				'label' => $magic->lang('Button Product Page'),
+				'desc' => $magic->lang('Show Customize button on product page'),
 			);
 			
-			$arg['tabs']['shop:'.$customdesign->lang('Shop')][] = array(
+			$arg['tabs']['shop:'.$magic->lang('Shop')][] = array(
 				'type' => 'toggle',
 				'name' => 'email_design',
 				'value' => 1,
-				'label' => $customdesign->lang('Designs details in email'),
-				'desc' => $customdesign->lang('Send details of designs in email for admin when orders are created, send to user when orders are completed'),
+				'label' => $magic->lang('Designs details in email'),
+				'desc' => $magic->lang('Send details of designs in email for admin when orders are created, send to user when orders are completed'),
 			);
 			
-			$arg['tabs']['editor:'.$customdesign->lang('Editor')][] = array(
+			$arg['tabs']['editor:'.$magic->lang('Editor')][] = array(
 				'type' => 'toggle',
 				'name' => 'editor_iframe',
 				'value' => 0,
 				'default' => 'no',
-				'label' => $customdesign->lang('Show header & footer'),
-				'desc' => $customdesign->lang('Display customdesign editor in a page with header and footer of your theme'),
+				'label' => $magic->lang('Show header & footer'),
+				'desc' => $magic->lang('Display MagicRugs editor in a page with header and footer of your theme'),
 			);
 			
-			$arg['tabs']['editor:'.$customdesign->lang('Editor')][] = array(
+			$arg['tabs']['editor:'.$magic->lang('Editor')][] = array(
 				'type' => 'input',
 				'name' => 'editor_iframe_width',
 				'value' => 0,
 				'default' => '100%',
-				'label' => $customdesign->lang('Set width for editor'),
-				'desc' => $customdesign->lang('Set width for editor in case you set showing header & footer (px, %, vw)'),
+				'label' => $magic->lang('Set width for editor'),
+				'desc' => $magic->lang('Set width for editor in case you set showing header & footer (px, %, vw)'),
 			);
 			
-			$arg['tabs']['editor:'.$customdesign->lang('Editor')][] = array(
+			$arg['tabs']['editor:'.$magic->lang('Editor')][] = array(
 				'type' => 'input',
 				'name' => 'editor_iframe_height',
 				'value' => 0,
 				'default' => '80vh',
-				'label' => $customdesign->lang('Set height for editor'),
-				'desc' => $customdesign->lang('Set height for editor in case you set showing header & footer (px, %, vw)'),
+				'label' => $magic->lang('Set height for editor'),
+				'desc' => $magic->lang('Set height for editor in case you set showing header & footer (px, %, vw)'),
 			);
 			
 			return $arg;
@@ -767,7 +777,7 @@ if(!class_exists('customdesign_connector')){
 		public function init_settings($settings){
 			
 			$settings = array_merge($settings, array(
-				'editor_page' => get_option('customdesign_editor_page', 0),
+				'editor_page' => get_option('magic_editor_page', 0),
 				'btn_list' => 1,
 				'btn_text' => 'Customize',
 				'btn_page' => 1,
@@ -795,9 +805,9 @@ if(!class_exists('customdesign_connector')){
 			};
 	
 			if (isset($data['editor_page']))
-				update_option('customdesign_editor_page', $data['editor_page']);
+				update_option('magic_editor_page', $data['editor_page']);
 	
-			update_option('customdesign_config', $config);
+			update_option('magic_config', $config);
 	
 		}
 		
@@ -808,7 +818,7 @@ if(!class_exists('customdesign_connector')){
 				$_POST['product_source'] == 'woo-variation'
 			) {
 				
-				global $customdesign;
+				global $magic;
 				
 				if (!isset($query['limit']))
 					$query['limit'] = 12;
@@ -846,7 +856,7 @@ if(!class_exists('customdesign_connector')){
 				    's' => $query['s'],
 				    'meta_query' => array(
 					    array(
-					        'key' => '_variation_customdesign',
+					        'key' => '_variation_magic',
 					        'value'   => array(''),
 					        'compare' => 'NOT IN'
 					    )
@@ -859,16 +869,16 @@ if(!class_exists('customdesign_connector')){
 				$products = array();
 				
 				foreach ($variations as $vari) {
-					$lumi_data = get_post_meta($vari->ID, '_variation_customdesign', true);
+					$lumi_data = get_post_meta($vari->ID, '_variation_magic', true);
 					$lumi = json_decode(urldecode($lumi_data), true);
-					$stages = $customdesign->lib->dejson($lumi['stages']);
+					$stages = $magic->lib->dejson($lumi['stages']);
 					$thumbnail_url = '';
 					foreach ($stages as $stage) {
 						if (empty($thumbnail_url)) {
 							if ($stage->source == 'raws')
-								$thumbnail_url = $customdesign->cfg->assets_url.'raws/'.$stage->url;
+								$thumbnail_url = $magic->cfg->assets_url.'raws/'.$stage->url;
 							else
-								$thumbnail_url = $customdesign->cfg->upload_url.$stage->url;
+								$thumbnail_url = $magic->cfg->upload_url.$stage->url;
 						}
 					}
 					array_push($products, array(
@@ -880,7 +890,7 @@ if(!class_exists('customdesign_connector')){
 						"thumbnail_url" => $thumbnail_url,
 						"template" => "0",
 						"description" => $vari->post_excerpt,
-						"customdesign_data" => $lumi_data,
+						"magic_data" => $lumi_data,
 						"stages" =>  $lumi['stages'],
 						"variations" => "",
 						"attributes" => "",
@@ -917,26 +927,26 @@ if(!class_exists('customdesign_connector')){
 		}
 		
 		public function do_action($name = '', $params = '') {
-			do_action('customdesign_'.$name, $params);
+			do_action('magic_'.$name, $params);
 		}
 		
 		public function apply_filters($name = '', $params = '', $params2 = null, $params3 = null) {
-			return apply_filters('customdesign_'.$name, $params, $params2, $params3);
+			return apply_filters('magic_'.$name, $params, $params2, $params3);
 		}
 		
 		public function get_product($products, $pid) {
-			
+
 			if (
 				$pid !== null &&
 				!empty($pid) &&
 				strpos($pid, 'variable:') !== false
 			) {
 				
-				global $customdesign, $wpdb;
+				global $magic, $wpdb;
 				
 				$pid = (Int)str_replace('variable:', '', $pid);
 				
-				$data = get_post_meta($pid, '_variation_customdesign', true);
+				$data = get_post_meta($pid, '_variation_magic', true);
 				
 				if ($data && !empty($data)) {
 					
@@ -952,13 +962,13 @@ if(!class_exists('customdesign_connector')){
 					
 					$product = wc_get_product($pid);
 					
-					$stages = $customdesign->lib->dejson($data['stages']);
+					$stages = $magic->lib->dejson($data['stages']);
 					foreach ($stages as $stageID => $stageData) {
 						if(isset($stageData->template) && isset($stageData->template->id)){
 							$tempalteStages = $wpdb->get_results(
 								sprintf(
 									"SELECT * FROM `%s` WHERE `ID`=%d",
-									$customdesign->db->prefix.'templates',
+									$magic->db->prefix.'templates',
 									(Int)$stageData->template->id
 								), ARRAY_A
 							);
@@ -968,26 +978,29 @@ if(!class_exists('customdesign_connector')){
 						}
 					}
 					$newStage = base64_encode(urlencode(json_encode($stages)));
-					
+
 					$woo_product = wc_get_product( $pid );
+
 					$woo_product_parent = wc_get_product( $woo_product->get_parent_id() );
 
 					$ext_attributes = array();
 					$ext_attribute_name = array();
 					$ext_list_variation = array();
-
+					$ext_attributes_value = $woo_product->get_attributes();
+					
 					if( !empty($woo_product_parent->get_variation_attributes()) ){
 						$ext_attributes = $woo_product_parent->get_variation_attributes();
 						$all_attribute = $woo_product_parent->get_attributes();
-
+						
 						// foreach all product variation child
 						foreach ($woo_product_parent->get_children() as $key => $product_child) {
 							$single_variation = new WC_Product_Variation($product_child);
 							$variation_data  = $single_variation->get_variation_attributes();
-
-							// foreach all attribute in variation
-							foreach ($variation_data as $keyAttribute => $detailAttribute) {
-								$ext_list_variation[$product_child][substr($keyAttribute, 10, strlen($keyAttribute))] = $detailAttribute;
+							if($single_variation->get_meta('_variation_magic')){
+								// foreach all attribute in variation
+								foreach ($variation_data as $keyAttribute => $detailAttribute) {
+									$ext_list_variation[$product_child][substr($keyAttribute, 10, strlen($keyAttribute))] = $detailAttribute;
+								}
 							}
 						}
 
@@ -1009,13 +1022,13 @@ if(!class_exists('customdesign_connector')){
 
 						}
 					}
-
 					
 					// name for variation product with 3 variation
 					$product_name = $product->get_name();
 
 					if(isset($_POST['product_base']) && strpos($_POST['product_base'], 'variable') !== false){
 						$product_id = intval(preg_replace('/[^0-9]+/mi', '', $_POST['product_base']));
+		
 						$product_temp = wc_get_product( $product_id );
 						$productAttribute = $product_temp->get_variation_attributes();
 
@@ -1031,6 +1044,14 @@ if(!class_exists('customdesign_connector')){
 							}
 							$product_name .= $newname;
 						}
+					}
+
+					foreach ( $_POST as $key => $value ) {
+						if ( 'attribute_' !== substr( $key, 0, 10 ) ) {
+							continue;
+						}
+						$ext_attributes_value[ sanitize_title( wp_unslash( str_replace( 'attribute_', '', $key) ) ) ] = wp_unslash( $value );
+						
 					}
 
 					$products[0] = array( 
@@ -1051,18 +1072,18 @@ if(!class_exists('customdesign_connector')){
 						'ext_attributes' => $ext_attributes,
 						'ext_attribute_name' => $ext_attribute_name,
 						'ext_list_variation' => $ext_list_variation,
-						'ext_attributes_value' => $woo_product->get_attributes(),
+						'ext_attributes_value' => $ext_attributes_value,
 						'ext_attributes_callback' => "
-							let selects = wrp.find('div.customdesign-cart-field.ext-attribute select'); 
+							let selects = wrp.find('div.magic-cart-field.ext-attribute select');
 							selects.on('change', function(e) {
 							// let selects = wrp.find('button#select_variable'); 
-							// let optionsData = wrp.find('div.customdesign-cart-field.ext-attribute select');
+							// let optionsData = wrp.find('div.magic-cart-field.ext-attribute select');
 							// selects.on('click', function(e) {
-								let product_base_check = customdesign.fn.url_var('product_base', '');
+								let product_base_check = magic.fn.url_var('product_base', '');
 								if(product_base_check.indexOf('variable:') != -1){
 									let last_attribute = true;
 
-									$('div.customdesign-cart-field.ext-attribute select').each(function() {
+									$('div.magic-cart-field.ext-attribute select').each(function() {
 										if($(this).val() == '' || $(this).val() == null){
 											last_attribute = false;
 										}
@@ -1073,16 +1094,17 @@ if(!class_exists('customdesign_connector')){
 										return false;
 									}
 								}
-
+								
 								let sel = this,
 									val = this.value,
+									matching_variations = [];
 									post_data = {
-										nonce: 'CUSTOMDESIGN-SECURITY:'+customdesign.data.nonce,
+										nonce: 'MAGIC-SECURITY:'+magic.data.nonce,
 										ajax: 'frontend',
 										action: 'load_product',
 										subaction: 'woo_product_variation',
-										product_id: customdesign.data.product.replace('variable:', ''),
-										product_cms: customdesign.fn.url_var('product_cms')
+										product_id: magic.data.product.replace('variable:', ''),
+										product_cms: magic.fn.url_var('product_cms')
 									};
 								
 								post_data['attribute_'+this.name] = val;
@@ -1101,60 +1123,80 @@ if(!class_exists('customdesign_connector')){
 
 								let thisValue = $(this).val();
 								let thisName = $(this).attr('name');
-								
-								customdesign.f('Loading variation..');
-								
-								$.ajax({
-									url: customdesign.data.ajax,
-									method: 'POST',
-									data: post_data,
-									dataType: 'JSON',
-									success: function(res) {
-										
-										if (res.success === false) {
-											customdesign.fn.notice(res.message, 'error', 5000);
-										} else {
-											customdesign.render.product(res.data);
 
-											if(product_base_check.indexOf('variable:') != -1 && sessionStorage.getItem('CUSTOMDESIGN-ATTRIBUTE-VARIATION') != null && sessionStorage.getItem('CUSTOMDESIGN-ATTRIBUTE-VARIATION') != '' && sessionStorage.getItem('CUSTOMDESIGN-ATTRIBUTE-VARIATION') != 'undefined'){
-
-												let list_selected = {};
-												$('div.customdesign-cart-field.ext-attribute select').each(function() {
-													if($(this).val() != '' || $(this).val() != null){
-														list_selected[$(this).attr('name')] = $(this).val();
-													}
+								// foreach list variation
+								$.each(magic.ops.product_data.ext_list_variation, function(p_id, select_data){
+									var match = true;
+									for ( var attr_name in select_data ) {
+										if ( select_data.hasOwnProperty( attr_name ) ) {
+											var val1 = select_data[ attr_name ];
+											var val2 = post_data[ 'attribute_'+attr_name ];
+											if ( val1 !== undefined && val2 !== undefined && val1.length !== 0 && val2.length !== 0 && val1 !== val2 ) {
+												match = false;
+											}
+										}
+									}
+									if(match) matching_variations.push( select_data );
+								});
+								var variation = matching_variations.shift();
+								
+								if(variation){
+									magic.f('Loading variation..');
+									
+									$.ajax({
+										url: magic.data.ajax,
+										method: 'POST',
+										data: post_data,
+										dataType: 'JSON',
+										success: function(res) {
+											
+											if (res.success === false) {
+												magic.fn.notice(res.message, 'error', 5000);
+											} else {
+												magic.render.product(res.data);
+												
+												Object.keys(res.data.ext_attributes_value).map(function(key) {
+													magic.fn.set_url('attribute_'+key, res.data.ext_attributes_value[key]);
 												});
 
-												let attribute_variation_data = JSON.parse(sessionStorage.getItem('CUSTOMDESIGN-ATTRIBUTE-VARIATION'));
-
-												// foreach list variation
-												$.each(attribute_variation_data, function(attribute_name, attribute_arr){
-													
-													$('select[name=\"'+attribute_name+'\"] option').remove();
-													$('select[name=\"'+attribute_name+'\"]').html('<option value=\"\">Choose an option</option>');
-
-													$.each(attribute_arr, function(index, detail){
-														let existAttribute = $('select[name=\"'+attribute_name+'\"] option[value=\"'+detail+'\"]').length;
-														let selected = '';
-														if(detail == list_selected[attribute_name]){
-															selected = 'selected';
-														}
-														if(existAttribute == 0){
-															$('select[name=\"'+attribute_name+'\"]').append('<option '+selected+' value=\"'+detail+'\">'+detail+'</option>');
+												if(product_base_check.indexOf('variable:') != -1 && sessionStorage.getItem('MAGIC-ATTRIBUTE-VARIATION') != null && sessionStorage.getItem('MAGIC-ATTRIBUTE-VARIATION') != '' && sessionStorage.getItem('MAGIC-ATTRIBUTE-VARIATION') != 'undefined'){
+													let list_selected = {};
+													$('div.magic-cart-field.ext-attribute select').each(function() {
+														if($(this).val() != '' || $(this).val() != null){
+															list_selected[$(this).attr('name')] = $(this).val();
 														}
 													});
 
+													let attribute_variation_data = JSON.parse(sessionStorage.getItem('MAGIC-ATTRIBUTE-VARIATION'));
 
-												});
-											}
+													// foreach list variation
+													$.each(attribute_variation_data, function(attribute_name, attribute_arr){
+														
+														$('select[name=\"'+attribute_name+'\"] option').remove();
+														$('select[name=\"'+attribute_name+'\"]').html('<option value=\"\">Choose an option</option>');
 
-										};
-										
-										customdesign.f(false);
-										
-									}
-								});
-					
+														$.each(attribute_arr, function(index, detail){
+															let existAttribute = $('select[name=\"'+attribute_name+'\"] option[value=\"'+detail+'\"]').length;
+															let selected = '';
+															if(detail == list_selected[attribute_name]){
+																selected = 'selected';
+															}
+															if(existAttribute == 0){
+																$('select[name=\"'+attribute_name+'\"]').append('<option '+selected+' value=\"'+detail+'\">'+detail+'</option>');
+															}
+														});
+
+													});
+												}
+
+											};
+											
+											magic.f(false);
+											
+										}
+									});									
+								}
+
 							}).each(function() {
 								this.setAttribute('data-value', this.value);
 							});
@@ -1178,22 +1220,22 @@ if(!class_exists('customdesign_connector')){
 				strpos($pid, 'variable:') !== false
 			) {
 				
-				global $customdesign;
+				global $magic;
 				
 				$pid = (Int)str_replace('variable:', '', $pid);
 				
-				$data = get_post_meta($pid, '_variation_customdesign', true);
+				$data = get_post_meta($pid, '_variation_magic', true);
 				
 				if ($data && !empty($data)) {
 					
 					$data = json_decode(urldecode($data), true);
 					$product = wc_get_product($pid);
 					
-					$stages = $customdesign->lib->dejson($data['stages']);
+					$stages = $magic->lib->dejson($data['stages']);
 					
 					foreach ($stages as $name => $stage) {
 						if (isset($stage->template) && isset($stage->template->id)) {
-							$template = $customdesign->lib->get_template($stage->template->id);
+							$template = $magic->lib->get_template($stage->template->id);
 							$stages->{$name}->template->price = isset($template['price']) ? $template['price'] : 0;
 							$stages->{$name}->template->upload = $template['upload'];
 						}
@@ -1206,7 +1248,7 @@ if(!class_exists('customdesign_connector')){
 						'price' => $product->price, 
 						'description' => $product->description, 
 						'stages' => $stages,
-						'printings' => $customdesign->lib->get_printings($data['printing']),
+						'printings' => $magic->lib->get_printings($data['printing']),
 						'variations' => '',
 						'product' => isset($_POST['product_cms']) ? $_POST['product_cms'] : 0,
 						'attributes' => array(
@@ -1230,7 +1272,7 @@ if(!class_exists('customdesign_connector')){
 			if (!isset($_GET['step']))
 				return;
 			
-			global $customdesign;
+			global $magic;
 				
 			$step = $_GET['step'];
 			
@@ -1241,18 +1283,18 @@ if(!class_exists('customdesign_connector')){
 				
 				$data->logo = @json_decode(urldecode($data->logo));
 				
-				update_option('customdesign_editor_page', $data->editor_page);
+				update_option('magic_editor_page', $data->editor_page);
 				
-				if ($data->color != $customdesign->cfg->settings['primary_color']) {
-					$customdesign->lib->render_css(array(
+				if ($data->color != $magic->cfg->settings['primary_color']) {
+					$magic->lib->render_css(array(
 						'primary_color' => $data->color,
-						'custom_css' => $customdesign->cfg->settings['custom_css']
+						'custom_css' => $magic->cfg->settings['custom_css']
 					));
 				}
 				
 				if (is_object($data->logo)) {
 					
-					$path = $customdesign->cfg->upload_path.'settings'.DS;
+					$path = $magic->cfg->upload_path.'settings'.DS;
 					$name = $data->logo->name;
 					$img = explode(',', $data->logo->data);
 					$img = base64_decode($img[1]);
@@ -1266,44 +1308,44 @@ if(!class_exists('customdesign_connector')){
 					@file_put_contents($path.$name, $img);
 					
 					$old_logo = str_replace(
-						array($customdesign->cfg->upload_url, 'settings/'),
-						array($customdesign->cfg->upload_path, 'settings'.DS), 
-						$customdesign->cfg->settings['logo']
+						array($magic->cfg->upload_url, 'settings/'),
+						array($magic->cfg->upload_path, 'settings'.DS), 
+						$magic->cfg->settings['logo']
 					);
 					
 					@unlink($old_logo);
-					$customdesign->set_option('logo', $customdesign->cfg->upload_url.'settings/'.$name);
+					$magic->set_option('logo', $magic->cfg->upload_url.'settings/'.$name);
 					
 				}
 				
-				$customdesign->set_option('currency', $data->currency);
-				$customdesign->set_option('conditions', $data->terms);
-				$customdesign->set_option('primary_color', $data->color);
-				$customdesign->set_option('editor_page', $data->editor_page);
-				$customdesign->set_option('last_update', time());
+				$magic->set_option('currency', $data->currency);
+				$magic->set_option('conditions', $data->terms);
+				$magic->set_option('primary_color', $data->color);
+				$magic->set_option('editor_page', $data->editor_page);
+				$magic->set_option('last_update', time());
 				
-				update_option('customdesign_setup', 'done');
+				update_option('magic_setup', 'done');
 				
 				echo 1;
 				
 			} else if ($step == '2') {
 				
 				$path = WP_CONTENT_DIR.DS;
-				$upath = $customdesign->cfg->upload_path.'user_data'.DS;
+				$upath = $magic->cfg->upload_path.'user_data'.DS;
 				
 				$errors = array();
 				
 				if (is_dir($upath.'pack')) 
-					$customdesign->lib->remove_dir($upath.'pack');
+					$magic->lib->remove_dir($upath.'pack');
 				
 				if ($_GET['theme'] == '1' || $_GET['kc'] == '1') {
 					
 					if (
 						!is_dir($path.'plugins'.DS.'kingcomposer') || 
-						!is_dir($path.'themes'.DS.'customdesign')
+						!is_dir($path.'themes'.DS.'magic')
 					) {
 						$download = $this->download(
-							(is_ssl() ? 'https' : 'http').'://download.mehdimirabi.com/woocommerce/pack.zip',
+							(is_ssl() ? 'https' : 'http').'://magicrugs.com/woocommerce/pack.zip',
 							$upath,
 							'pack'
 						);
@@ -1320,22 +1362,22 @@ if(!class_exists('customdesign_connector')){
 					
 					if (is_dir($upath.'pack')) {
 						
-						if ($_GET['theme'] == '1' && !is_dir($path.'themes'.DS.'customdesign'))
-							rename($upath.'pack'.DS.'customdesign', $path.'themes'.DS.'customdesign');
+						if ($_GET['theme'] == '1' && !is_dir($path.'themes'.DS.'magic'))
+							rename($upath.'pack'.DS.'magic', $path.'themes'.DS.'magic');
 						
 						if ($_GET['kc'] == '1' && !is_dir($path.'plugins'.DS.'kingcomposer'))
 							rename($upath.'pack'.DS.'kingcomposer', $path.'plugins'.DS.'kingcomposer');
 						
-						$customdesign->lib->remove_dir($upath.'pack');
+						$magic->lib->remove_dir($upath.'pack');
 						
 					}
 					
-					if (is_dir($path.'themes'.DS.'customdesign')) {
-						update_option('template', 'customdesign');
-						update_option('stylesheet', 'customdesign');
-						update_option('current_theme', 'Customdesign');
+					if (is_dir($path.'themes'.DS.'magic')) {
+						update_option('template', 'magic');
+						update_option('stylesheet', 'magic');
+						update_option('current_theme', 'Magic');
 					} else {
-						$errors[] = 'Error: Could not download and active Customdesign theme, please try again';
+						$errors[] = 'Error: Could not download and active MagicRugs theme, please try again';
 					}
 					
 					if (is_dir($path.'plugins'.DS.'kingcomposer')) {
@@ -1368,7 +1410,7 @@ if(!class_exists('customdesign_connector')){
 		
 		private function download($url = '', $path = '', $name = '') {
 			
-			global $customdesign;
+			global $magic;
 			
 			if (empty($url) || empty($path) || empty($name)) {
 				return 'Error: Missing params for downloading package';
@@ -1389,7 +1431,7 @@ if(!class_exists('customdesign_connector')){
 			
 			@fclose($fh);*/
 			
-			$data = $customdesign->lib->remote_connect($url);
+			$data = $magic->lib->remote_connect($url);
 			@file_put_contents($file, $data);
 			
 			/*
@@ -1415,7 +1457,7 @@ if(!class_exists('customdesign_connector')){
 			if (is_dir($path.$name))
 				return true;
 				
-			global $customdesign;
+			global $magic;
 			
 			$file = $path.DS.$name.'.zip';
 			
@@ -1436,7 +1478,7 @@ if(!class_exists('customdesign_connector')){
 					$this->zip->close();
 					
 					if (is_dir($path.'__MACOSX'))
-						$customdesign->lib->remove_dir($path.'__MACOSX');
+						$magic->lib->remove_dir($path.'__MACOSX');
 					
 				} else {
 					$error = 'Error: Could not open file: '.$file;
@@ -1456,17 +1498,17 @@ if(!class_exists('customdesign_connector')){
 				$order_id = (int)$_GET['reorder'];
 				$uid = get_post_meta($order_id, '_customer_user', true);
 				
-				global $customdesign;
+				global $magic;
 				
 				if ($uid != get_current_user_id()) {
 				
-					$this->js_init_error($customdesign->lang('Error: Could not reorder because it is not owned by you'));
+					$this->js_init_error($magic->lang('Error: Could not reorder because it is not owned by you'));
 						
 				} else {
 				
-					$orders = $customdesign->db->rawQuery(sprintf(
+					$orders = $magic->db->rawQuery(sprintf(
 						"SELECT * FROM `%s` WHERE `order_id` = '%d'",
-			            $customdesign->lib->sql_esc($customdesign->db->prefix."order_products"),
+			            $magic->lib->sql_esc($magic->db->prefix."order_products"),
 						$order_id
 			        ));
 			        
@@ -1478,21 +1520,21 @@ if(!class_exists('customdesign_connector')){
 			        
 			    ?>
 			    	
-				    customdesign.f('<?php echo $customdesign->lang('Loading order data'); ?>');
-				    customdesign.actions.add('db-ready', function() {
+				    magic.f('<?php echo $magic->lang('Loading order data'); ?>');
+				    magic.actions.add('db-ready', function() {
 					    
-					    customdesign.post({
+					    magic.post({
 							action: 'list_products'
 						}, function(res) {
 							
-							customdesign.ops.products = res;
-							localStorage.setItem('CUSTOMDESIGN-CART-DATA', '');
+							magic.ops.products = res;
+							localStorage.setItem('MAGIC-CART-DATA', '');
 							
-							var cart_data =  JSON.parse(localStorage.getItem('CUSTOMDESIGN-CART-DATA') || '{}'),
+							var cart_data =  JSON.parse(localStorage.getItem('MAGIC-CART-DATA') || '{}'),
 								first_cart_id = '',
 								addcart = function(i) {
 									
-									$.get('<?php echo $customdesign->cfg->upload_url; ?>designs/'+orders[i].design+'.lumi', function(res) {
+									$.get('<?php echo $magic->cfg->upload_url; ?>designs/'+orders[i].design+'.lumi', function(res) {
 										
 										res = JSON.parse(res);
 										
@@ -1504,7 +1546,7 @@ if(!class_exists('customdesign_connector')){
 										orders[i].data = JSON.parse(decodeURIComponent(atob(orders[i].data)));
 										
 										data = {
-										    product_data : customdesign.ops.products.products.filter(function(p) {
+										    product_data : magic.ops.products.products.filter(function(p) {
 										    	return p.id == orders[i].product_base
 										    })[0],
 										    price_total : <?php echo (float)$morder->get_total(); ?>,
@@ -1518,18 +1560,18 @@ if(!class_exists('customdesign_connector')){
 										    states_data : {}
 										};
 										
-										data.product_data.stages = customdesign.fn.dejson(data.product_data.stages);
+										data.product_data.stages = magic.fn.dejson(data.product_data.stages);
 										
-										cart_data[res.id] = customdesign.fn.enjson(data);
-										localStorage.setItem('CUSTOMDESIGN-CART-DATA', JSON.stringify(cart_data));
-										customdesign.indexed.save([res], 'cart');
+										cart_data[res.id] = magic.fn.enjson(data);
+										localStorage.setItem('MAGIC-CART-DATA', JSON.stringify(cart_data));
+										magic.indexed.save([res], 'cart');
 										
 										if (orders[i+1] !== undefined) {
 											addcart(i+1);
 										} else {
-											customdesign.fn.notice('<?php echo $customdesign->lang('Your order has been successfully replicated'); ?>', 'success', 5000);
-											customdesign.fn.set_url('reorder', null);
-											customdesign.cart.edit_item(first_cart_id);
+											magic.fn.notice('<?php echo $magic->lang('Your order has been successfully replicated'); ?>', 'success', 5000);
+											magic.fn.set_url('reorder', null);
+											magic.cart.edit_item(first_cart_id);
 										}
 										
 									});
@@ -1540,13 +1582,13 @@ if(!class_exists('customdesign_connector')){
 						});
 					});
 				    
-				    customdesign.data.access_core = '';
+				    magic.data.access_core = '';
 				    
 			    <?php   
 			        
 			        } else { // no order found
 					
-					$this->js_init_error($customdesign->lang('Error: Could not found the order'));
+					$this->js_init_error($magic->lang('Error: Could not found the order'));
 						
 			        }
 			        
@@ -1555,38 +1597,38 @@ if(!class_exists('customdesign_connector')){
 		}
 		
 		public function js_init_error($msg) {
-			global $customdesign;
+			global $magic;
 		?>	
-			$('#customdesign-main').html('<div id="customdesign-no-product" style="display: block;">\
+			$('#magic-main').html('<div id="magic-no-product" style="display: block;">\
 					<p>\
 						<?php echo $msg; ?><br>\
-						<?php echo $customdesign->lang('Please select a product to start designing'); ?></p>\
-					<button class="customdesign-btn" id="customdesign-select-product">\
-						<i class="customdesignx-android-apps"></i> <?php echo $customdesign->lang('Select another product'); ?>\
+						<?php echo $magic->lang('Please select a product to start designing'); ?></p>\
+					<button class="magic-btn" id="magic-select-product">\
+						<i class="magicx-android-apps"></i> <?php echo $magic->lang('Select another product'); ?>\
 					</button>\
 				</div>');
-			$('#customdesign-select-product').on('click', function(e) {
-				window.location.href = '<?php echo $customdesign->cfg->tool_url; ?>refresh=1';
+			$('#magic-select-product').on('click', function(e) {
+				window.location.href = '<?php echo $magic->cfg->tool_url; ?>refresh=1';
 				e.preventDefault();
 			});
-			customdesign.f(false);
+			magic.f(false);
 			return false;
 		<?php	
 		}
 		
 		public function update() {
 			
-			global $customdesign;
+			global $magic;
 			
-			$customdesign_path = dirname(__FILE__);
-			$update_path = $customdesign->cfg->upload_path.'tmpl'.DS.'customdesign';
-			$backup_path = $customdesign->cfg->upload_path.'update_backup';
+			$magic_path = dirname(__FILE__);
+			$update_path = $magic->cfg->upload_path.'tmpl'.DS.'magic';
+			$backup_path = $magic->cfg->upload_path.'update_backup';
 			
-			$customdesign->lib->delete_dir($backup_path);
+			$magic->lib->delete_dir($backup_path);
 								
 			return (
-				@rename($customdesign_path, $backup_path) && 
-				@rename($update_path, $customdesign_path)
+				@rename($magic_path, $backup_path) && 
+				@rename($update_path, $magic_path)
 			);
 			
 		}

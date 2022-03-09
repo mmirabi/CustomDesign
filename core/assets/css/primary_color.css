@@ -1,0 +1,96 @@
+div#MagicDesign div#magic-navigations,
+div#magic-top-tools>ul.magic-top-nav li button:not(.white), 
+#MagicDesign button.magic-btn:not(.white),
+div#magic-workspace .magic-save-color i:hover,
+div#MagicDesign div#magic-navigations ul[data-block] li[data-view="list"] ul[data-view="sub"] li:not([data-view="sp"]):hover,
+div#MagicDesign div#magic-navigations ul[data-block="right"]>li[data-tool="languages"] i,
+ul#magic-saved-designs li[data-editing]:after,
+.magic-switch .magic-toggle-button:checked~.magic-toggle-label,
+.magic-toggle input:checked ~ .magic-toggle-label,
+.magic_form_group input[type="submit"],
+.magic_form_group .img-preview label,
+.magic_sidebar ul.magic_menu > li > a:before,
+.magic_submit:hover,
+.magic_header .add_new:hover,
+.btn-toggle-sidebar:hover,
+.magic_backtotop:hover,
+#magic-select-language header .close-pop:hover:before, 
+#magic-select-language header .close-pop:hover:after,
+body .magic-btn-primary,
+.magic_radios .magic-radio input:checked ~ label .check:before,
+#magic-popup .magic-popup-content ul.magic-stagle-list-base li:hover img,
+.magic_form_group .magic_form_content button[data-func="create-color"],
+.magic_radios .radio input:checked ~ label .check:before,
+.magic_content button[data-btn="primary"],
+#magic-left #magic-uploads header button:hover,
+#magic-left #magic-uploads header button.active,
+#magic-left #magic-x-thumbn-preview .magic-categories-wrp ul li.active p,
+#magic-left #magic-x-thumbn-preview .magic-categories-wrp ul li:after,
+div#MagicDesign div#magic-navigations ul[data-block][data-resp="file"].active,
+#magic-lightbox #magic-change-products-wrp ul[data-view="categories"] li.active,
+#magic-lightbox #magic-change-products-wrp ul[data-view="products"] li[data-current="true"]:after,
+#magic-list-colors #magic-list-colors-body .col .create-color-grp button[data-func="apply-now"],
+.bgcolorafter:after,
+.bgcolor{
+	background-color: %color% !important;
+}
+
+input[type=range]::-webkit-slider-thumb{
+	background-color: %color% !important;
+}
+div#MagicDesign div#magic-left>div.magic-left-nav-wrp>ul.magic-left-nav li:hover,
+#magic-cliparts .magic-cliparts-search i,
+#magic-left .magic-xitems-search i,
+#magic-left #magic-cliparts-preview>header>span,
+div#magic-top-tools ul[data-mode-text] .text-format.selected,
+div#magic-top-tools>ul.magic-top-nav>li:hover [data-tip="true"] > i,
+div#magic-top-tools>ul.magic-top-nav>li.active [data-tip="true"] > i,
+div#MagicDesign div#magic-navigations ul[data-block="right"]>li[data-tool="languages"] li:hover>i,
+.magic_sidebar ul li a:hover, 
+.magic_sidebar ul li a.active, 
+.magic_sidebar ul li a:hover i, 
+.magic_sidebar ul li a.active i,
+.magic_content .magic_table a,
+.magic_breadcrumb li span,
+#magic-popup ul li:hover,
+#MagicDesign a,
+.magic-color,
+div#magic-product nav>price,
+#magic-left #magic-x-thumbn-preview>header>span,
+#magic-cliparts .magic-cliparts-search i, #magic-templates .magic-templates-search i, #magic-left .magic-xitems-search i,
+.magic_dashbroad a{
+	color: %color% !important;
+}
+.magic_content a,
+#magic-lightbox #magic-change-products-wrp ul[data-view="products"] li span[data-view="price"]{
+	color: %color%;
+}
+div#MagicDesign div#magic-navigations #magic-share-nav li[data-view="header"] span[data-active="true"],
+#magic-left #magic-uploads header button.active:after {
+	border-top-color: %color% !important;
+}
+.magic_header .add_new:hover,
+.magic_backtotop:hover,
+.magic_radios .magic-radio input:checked ~ label .check,
+.magic_radios .radio input:checked ~ label .check,
+.magic-cart-options .magic-prints .magic_form_group .magic_form_content input:checked + label,
+#magic-list-colors #magic-list-colors-body .col li i.fa:after {
+	border-color: %color% !important;
+}
+#magic-shapes svg:hover,
+.magic_checkbox input:checked ~ label .check svg path{
+	fill: %color% !important;
+}
+div#magic-top-tools>ul.magic-top-nav li[data-tool] ul[data-view="sub"] li#magic-text-effect span[data-sef="images"] img:hover, 
+div#magic-top-tools>ul.magic-top-nav li[data-tool] ul[data-view="sub"] li#magic-text-effect span[data-sef="images"] img[data-selected="true"]{
+	outline-color: %color% !important;
+}
+
+.magic-cart-options .magic-prints .magic_form_group .magic_form_content input:checked + label{
+	box-shadow:  0 0 0 2px %color%;	
+}
+@media only screen and (max-width: 736px){
+	html div#MagicDesign div#magic-left>div.magic-left-nav-wrp>ul.magic-left-nav li.active{
+		background: %color% !important;
+	}
+}

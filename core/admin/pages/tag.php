@@ -1,13 +1,13 @@
 <?php
-	global $customdesign;
+	global $magic;
 
 	$section = 'tag';
 	$type = isset($_GET['type']) ? $_GET['type'] : '';
-	$fields = $customdesign_admin->process_data(array(
+	$fields = $magic_admin->process_data(array(
 		array(
 			'type' => 'input',
 			'name' => 'name',
-			'label' => $customdesign->lang('Name'),
+			'label' => $magic->lang('Name'),
 			'required' => true
 		),
 		array(
@@ -20,30 +20,30 @@
 
 ?>
 
-<div class="customdesign_wrapper" id="customdesign-<?php echo $section; ?>-page">
-	<div class="customdesign_content">
+<div class="magic_wrapper" id="magic-<?php echo $section; ?>-page">
+	<div class="magic_content">
 		<?php
-			$customdesign->views->detail_header(array(
-				'add' => $customdesign->lang('Add New Tag'),
-				'edit' => $customdesign->lang('Edit Tag'),
+			$magic->views->detail_header(array(
+				'add' => $magic->lang('Add New Tag'),
+				'edit' => $magic->lang('Edit Tag'),
 				'page' => $section,
 				'type' => $type
 			));
 		?>
-		<form action="<?php echo $customdesign->cfg->admin_url; ?>customdesign-page=<?php
+		<form action="<?php echo $magic->cfg->admin_url; ?>magic-page=<?php
 			echo $section.(isset($_GET['callback']) ? '&callback='.$_GET['callback'] : '');
-		?>" id="customdesign-clipart-form" method="post" class="customdesign_form" enctype="multipart/form-data">
+		?>" id="magic-clipart-form" method="post" class="magic_form" enctype="multipart/form-data">
 
-			<?php $customdesign->views->tabs_render($fields); ?>
+			<?php $magic->views->tabs_render($fields); ?>
 
-			<div class="customdesign_form_group customdesign_form_submit">
-				<input type="submit" class="customdesign-button customdesign-button-primary" value="<?php echo $customdesign->lang('Save Tag'); ?>"/>
+			<div class="magic_form_group magic_form_submit">
+				<input type="submit" class="magic-button magic-button-primary" value="<?php echo $magic->lang('Save Tag'); ?>"/>
 				<input type="hidden" name="do" value="action" />
-				<a class="customdesign_cancel" href="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=<?php echo $section; ?>s&type=<?php echo $type; ?>">
-					<?php echo $customdesign->lang('Cancel'); ?>
+				<a class="magic_cancel" href="<?php echo $magic->cfg->admin_url;?>magic-page=<?php echo $section; ?>s&type=<?php echo $type; ?>">
+					<?php echo $magic->lang('Cancel'); ?>
 				</a>
 				<input type="hidden" name="do" value="action">
-				<input type="hidden" name="customdesign-section" value="<?php echo $section; ?>">
+				<input type="hidden" name="magic-section" value="<?php echo $section; ?>">
 			</div>
 		</form>
 	</div>

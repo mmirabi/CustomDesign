@@ -1,15 +1,15 @@
 <?php
 /**
 *
-*   (p) package: Custom Design
-*   (c) author: Mehdi Mirabi
-*   (i) website: https://www.magicrugs.com
+*	(p) package: MagicRugs
+*	(c) author:	Mehdi Mirabi
+*	(i) website: https://www.magicrugs.com
 *
 */
 
-require_once( CUSTOMDESIGN_CORE_PATH . DS. 'tmpl.php' );
+require_once( MAGIC_CORE_PATH . DS. 'tmpl.php' );
 
-class customdesign_cfg extends customdesign_tmpl_register{
+class magic_cfg extends magic_tmpl_register{
 
 	public $root_path;
 	public $upload_path;
@@ -102,7 +102,7 @@ class customdesign_cfg extends customdesign_tmpl_register{
 		'calc_formula' => '1',
 		'custom_css' => '',
 		'custom_js' => '',
-		'prefix_file' => 'customdesign',
+		'prefix_file' => 'magic',
 		'text_direction' => '',
 		'auto_snap' => 0,
 		'template_append' => 0,
@@ -184,7 +184,7 @@ class customdesign_cfg extends customdesign_tmpl_register{
 		"ht" => "Haitian Creole",
 		"ha" => "Hausa",
 		"haw" => "Hawaiian",
-		"hk"    => "Hongkong",
+		"hk"	=> "Hongkong",
 		"iw" => "Hebrew",
 		"hi" => "Hindi",
 		"hmn" => "Hmong",
@@ -264,37 +264,37 @@ class customdesign_cfg extends customdesign_tmpl_register{
 	
 	public function __construct($conn) {
 		
-		global $customdesign;
+		global $magic;
 		
 		if (
 			(function_exists('session_status') && session_status() == PHP_SESSION_NONE) ||
 			(function_exists('session_id') && session_id() == '')
 		) {
-			@session_start();
+			@session_start(['read_and_close' => true,]);
 		}
 
 		if(!defined('DS'))
 			define('DS', DIRECTORY_SEPARATOR );
-		if(!defined('CUSTOMDESIGN_FILE'))
-			define('CUSTOMDESIGN_FILE', __FILE__);
-		if(!defined('CUSTOMDESIGN_PATH'))
-			define('CUSTOMDESIGN_PATH', str_replace(DS.'includes','',dirname(__FILE__)));
-		define('CUSTOMDESIGN_SLUG', basename(dirname(__FILE__)));
+		if(!defined('MAGIC_FILE'))
+			define('MAGIC_FILE', __FILE__);
+		if(!defined('MAGIC_PATH'))
+			define('MAGIC_PATH', str_replace(DS.'includes','',dirname(__FILE__)));
+		define('MAGIC_SLUG', basename(dirname(__FILE__)));
 		
 		
 		$this->set($conn->config);
 		$this->settings['logo'] = $this->assets_url.'assets/images/logo.png';
 		
-		require_once(CUSTOMDESIGN_PATH.DS.'includes'.DS.'secure.php');
-		require_once(CUSTOMDESIGN_PATH.DS.'includes'.DS.'database.php');
+		require_once(MAGIC_PATH.DS.'includes'.DS.'secure.php');
+		require_once(MAGIC_PATH.DS.'includes'.DS.'database.php');
 
 	}
 	
 	public function set_stages($num = 4) {
 		
-		global $customdesign;
+		global $magic;
 		
-		$actives = $customdesign->get_option( 'active_addons');
+		$actives = $magic->get_option( 'active_addons');
 		
 		if ($actives !== null && !empty($actives))
 			$actives = (Array)@json_decode($actives);
@@ -346,12 +346,12 @@ class customdesign_cfg extends customdesign_tmpl_register{
         }
     }
 
-    public function set_lang($customdesign) {
+    public function set_lang($magic) {
 
-    	if($customdesign->connector->platform == 'php'){
+    	if($magic->connector->platform == 'php'){
     		if (
-				defined('CUSTOMDESIGN_ADMIN') && 
-				CUSTOMDESIGN_ADMIN === true
+				defined('MAGIC_ADMIN') && 
+				MAGIC_ADMIN === true
 			) {
 
 				if (
@@ -363,9 +363,9 @@ class customdesign_cfg extends customdesign_tmpl_register{
 					$this->active_language = 'en';
 
 			}else{
-				$this->active_language = $customdesign->connector->get_session('customdesign-active-lang');
+				$this->active_language = $magic->connector->get_session('magic-active-lang');
 
-				$this->active_language_frontend = $customdesign->connector->get_session('customdesign-active-lang');
+				$this->active_language_frontend = $magic->connector->get_session('magic-active-lang');
 				
 				if (
 					!isset($this->active_language) ||
@@ -381,7 +381,7 @@ class customdesign_cfg extends customdesign_tmpl_register{
 					else
 						$this->active_language = 'en';
 						
-						$customdesign->connector->set_session('customdesign-active-lang', $this->active_language);
+						$magic->connector->set_session('magic-active-lang', $this->active_language);
 
 				}
 			} 
@@ -392,8 +392,8 @@ class customdesign_cfg extends customdesign_tmpl_register{
 				// && $this->active_language != 'en'
 			) {
 
-				$get_query = "SELECT `original_text`, `text` FROM `{$customdesign->db->prefix}languages` WHERE `author`='{$customdesign->vendor_id}' AND `lang`='".$this->active_language."'";
-				$get_langs = $customdesign->db->rawQuery($get_query);
+				$get_query = "SELECT `original_text`, `text` FROM `{$magic->db->prefix}languages` WHERE `author`='{$magic->vendor_id}' AND `lang`='".$this->active_language."'";
+				$get_langs = $magic->db->rawQuery($get_query);
 
 				if (count($get_langs) > 0) {
 					foreach ($get_langs as $lang) {
@@ -401,12 +401,12 @@ class customdesign_cfg extends customdesign_tmpl_register{
 					}
 				}
 				
-				$this->lang_storage = $customdesign->apply_filters('language', $this->lang_storage);
+				$this->lang_storage = $magic->apply_filters('language', $this->lang_storage);
 				
 			}
     	}
 
-    	if($customdesign->connector->platform == 'woocommerce'){
+    	if($magic->connector->platform == 'woocommerce'){
     		// backend
 	    	if(is_admin()){
 	    		if ( isset($this->settings['admin_lang']) && !empty($this->settings['admin_lang']) ){
@@ -423,10 +423,10 @@ class customdesign_cfg extends customdesign_tmpl_register{
 
 				if(isset($this->active_language_backend) && !empty($this->active_language_backend) && $this->active_language_backend != 'en'){
 
-					$customdesign->connector->set_session('customdesign-active-lang-backend', $this->active_language_backend);
+					$magic->connector->set_session('magic-active-lang-backend', $this->active_language_backend);
 
-					$get_query = "SELECT `original_text`, `text` FROM `{$customdesign->db->prefix}languages` WHERE `author`='{$customdesign->vendor_id}' AND `lang`='".$this->active_language_backend."'";
-					$get_langs = $customdesign->db->rawQuery($get_query);
+					$get_query = "SELECT `original_text`, `text` FROM `{$magic->db->prefix}languages` WHERE `author`='{$magic->vendor_id}' AND `lang`='".$this->active_language_backend."'";
+					$get_langs = $magic->db->rawQuery($get_query);
 
 					if (count($get_langs) > 0) {
 						foreach ($get_langs as $lang) {
@@ -434,14 +434,14 @@ class customdesign_cfg extends customdesign_tmpl_register{
 						}
 					}
 					
-					$this->lang_storage_backend = $customdesign->apply_filters('language', $this->lang_storage_backend);
+					$this->lang_storage_backend = $magic->apply_filters('language', $this->lang_storage_backend);
 				}
 
 				if(isset($this->active_language_frontend) && !empty($this->active_language_frontend) && $this->active_language_frontend != 'en'){
-					$customdesign->connector->set_session('customdesign-active-lang-frontend', $this->active_language_frontend);
+					$magic->connector->set_session('magic-active-lang-frontend', $this->active_language_frontend);
 
-					$get_query = "SELECT `original_text`, `text` FROM `{$customdesign->db->prefix}languages` WHERE `author`='{$customdesign->vendor_id}' AND `lang`='".$this->active_language_frontend."'";
-					$get_langs = $customdesign->db->rawQuery($get_query);
+					$get_query = "SELECT `original_text`, `text` FROM `{$magic->db->prefix}languages` WHERE `author`='{$magic->vendor_id}' AND `lang`='".$this->active_language_frontend."'";
+					$get_langs = $magic->db->rawQuery($get_query);
 
 					if (count($get_langs) > 0) {
 						foreach ($get_langs as $lang) {
@@ -449,7 +449,7 @@ class customdesign_cfg extends customdesign_tmpl_register{
 						}
 					}
 					
-					$this->lang_storage_frontend = $customdesign->apply_filters('language', $this->lang_storage_frontend);
+					$this->lang_storage_frontend = $magic->apply_filters('language', $this->lang_storage_frontend);
 				}
 	    	}
 
@@ -457,7 +457,7 @@ class customdesign_cfg extends customdesign_tmpl_register{
 	    	if(!is_admin()){
 
 	    		// get frontend language session
-	    		$this->active_language_frontend = $customdesign->connector->get_session('customdesign-active-lang-frontend');
+	    		$this->active_language_frontend = $magic->connector->get_session('magic-active-lang-frontend');
 				
 				// if frontend language session not set or not allow user change, get from setting
 				if ( !isset($this->active_language_frontend) || empty($this->active_language_frontend) || !$this->settings['allow_select_lang']) {
@@ -468,11 +468,11 @@ class customdesign_cfg extends customdesign_tmpl_register{
 					if(isset($this->settings['editor_lang']) || !empty($this->settings['editor_lang'])){
 						$this->active_language_frontend = $this->settings['editor_lang'];
 					}
-					$customdesign->connector->set_session('customdesign-active-lang-frontend', $this->active_language_frontend);
+					$magic->connector->set_session('magic-active-lang-frontend', $this->active_language_frontend);
 				}
 
-				$get_query = "SELECT `original_text`, `text` FROM `{$customdesign->db->prefix}languages` WHERE `author`='{$customdesign->vendor_id}' AND `lang`='".$this->active_language_frontend."'";
-				$get_langs = $customdesign->db->rawQuery($get_query);
+				$get_query = "SELECT `original_text`, `text` FROM `{$magic->db->prefix}languages` WHERE `author`='{$magic->vendor_id}' AND `lang`='".$this->active_language_frontend."'";
+				$get_langs = $magic->db->rawQuery($get_query);
 
 				if (count($get_langs) > 0) {
 					foreach ($get_langs as $lang) {
@@ -480,29 +480,29 @@ class customdesign_cfg extends customdesign_tmpl_register{
 					}
 				}
 				
-				$this->lang_storage_frontend = $customdesign->apply_filters('language', $this->lang_storage_frontend);
+				$this->lang_storage_frontend = $magic->apply_filters('language', $this->lang_storage_frontend);
 	    	}
     	}
 
     }
 
-    public function set_settings($customdesign) {
+    public function set_settings($magic) {
 	    
-	    global $customdesign;
+	    global $magic;
 	    
-	    $this->settings = $customdesign->apply_filters('init_settings', $this->settings);
+	    $this->settings = $magic->apply_filters('init_settings', $this->settings);
 
 	    foreach ($this->settings as $key => $val) {
-		    $this->settings[$key] = $customdesign->get_option($key, $val);
+		    $this->settings[$key] = $magic->get_option($key, $val);
 	    }
     }
 
 	public function ex_settings($set = array()) {
 		
-		global $customdesign;
+		global $magic;
 		
 		foreach ($set as $key => $val) {
-			$this->settings[$key] = $customdesign->get_option($key, $val);
+			$this->settings[$key] = $magic->get_option($key, $val);
 		}	
 	}
 
@@ -523,22 +523,22 @@ class customdesign_cfg extends customdesign_tmpl_register{
 			array_push($this->access_core, $name);
 	}
 	
-	public function apply_filters($customdesign) {
+	public function apply_filters($magic) {
 		
-		$this->settings = $customdesign->apply_filters('settings', $this->settings);
-		$this->editor_menus = $customdesign->apply_filters('editor_menus', $this->editor_menus);
-		$this->product_attributes = $customdesign->apply_filters('product_attributes', $this->product_attributes);
-		$this->size_default = $customdesign->apply_filters('size_default', $this->size_default);
-		$this->langs = $customdesign->apply_filters('langs_name', $this->langs);
+		$this->settings = $magic->apply_filters('settings', $this->settings);
+		$this->editor_menus = $magic->apply_filters('editor_menus', $this->editor_menus);
+		$this->product_attributes = $magic->apply_filters('product_attributes', $this->product_attributes);
+		$this->size_default = $magic->apply_filters('size_default', $this->size_default);
+		$this->langs = $magic->apply_filters('langs_name', $this->langs);
 		
 	}
 	
     public function init() {
 
-	    global $customdesign;
+	    global $magic;
 
-		$this->set_settings($customdesign);
-		$this->set_lang($customdesign);
+		$this->set_settings($magic);
+		$this->set_lang($magic);
 		
 		$this->editor_menus = $this->reg_editor_menus();
 		
@@ -547,15 +547,15 @@ class customdesign_cfg extends customdesign_tmpl_register{
 		$color = explode(':', isset($this->settings['primary_color']) ? $this->settings['primary_color'] : '#4db6ac');
 		$this->color = str_replace('#', '', $color[0]);
 		
-	    if (is_string($customdesign->cfg->settings['activate_langs'])) {
-		    $customdesign->cfg->settings['activate_langs'] = explode(',', $customdesign->cfg->settings['activate_langs']);
+	    if (is_string($magic->cfg->settings['activate_langs'])) {
+		    $magic->cfg->settings['activate_langs'] = explode(',', $magic->cfg->settings['activate_langs']);
 	    }
 		
-		if (!empty($customdesign->cfg->settings['logo']) && strpos($customdesign->cfg->settings['logo'], 'http') === false)
-			$customdesign->cfg->settings['logo'] = $customdesign->cfg->upload_url.$customdesign->cfg->settings['logo'];
+		if (!empty($magic->cfg->settings['logo']) && strpos($magic->cfg->settings['logo'], 'http') === false)
+			$magic->cfg->settings['logo'] = $magic->cfg->upload_url.$magic->cfg->settings['logo'];
 		
-		$customdesign->cfg->scheme = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? 'https' : 'http';
-		$customdesign->cfg->api_url = 'https://rugcustom.com/';
+		$magic->cfg->scheme = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? 'https' : 'http';
+		$magic->cfg->api_url = 'https://rugcustom.com/';
 		
 		$this->base_default = array(
 			"bag_back.png", 
@@ -621,255 +621,255 @@ class customdesign_cfg extends customdesign_tmpl_register{
 		);
 		
 	    $this->js_lang = array(
-		    'sure'=> $customdesign->lang('Are you sure?'),
-			'save'=> $customdesign->lang('Save'),
-			'edit'=> $customdesign->lang('Edit'),
-			'remove'=> $customdesign->lang('Remove'),
-			'delete'=> $customdesign->lang('Delete'),
-			'cancel'=> $customdesign->lang('Cancel'),
-			'reset'=> $customdesign->lang('Reset'),
-			'stage'=> $customdesign->lang('Stage'),
-			'front'=> $customdesign->lang('Front'),
-			'back'=> $customdesign->lang('Back'),
-			'left'=> $customdesign->lang('Left'),
-			'right'=> $customdesign->lang('Right'),
-			'loading'=> $customdesign->lang('Loading'),
-			'importing'=> $customdesign->lang('Importing'),
-			'apply'=> $customdesign->lang('Apply Now'),
-			'render'=> $customdesign->lang('Rendering design'),
-			'wait'=> $customdesign->lang('Please wait..'),
-			'clone'=> $customdesign->lang('Clone'),
-			'double'=> $customdesign->lang('Double'),
-			'processing'=> $customdesign->lang('Processing..'),
-			'error_403'=> $customdesign->lang('Your session is expired, Please reload your browser'),
-			'01'=> $customdesign->lang('Center center'),
-			'02'=> $customdesign->lang('Horizontal center'),
-			'03'=> $customdesign->lang('Vertical center'),
-			'04'=> $customdesign->lang('Square'),
-			'05'=> $customdesign->lang('Are you sure that you want to make selected objects to one object?'),
-			'06'=> $customdesign->lang('No layer'),
-			'07'=> $customdesign->lang('Add new layer to use it as a mask'),
-			'08'=> $customdesign->lang('Error, the active object should be covered by the mask layer'),
-			'09'=> $customdesign->lang('Your QRCode text'),
-			'10'=> $customdesign->lang('Create QR Code'),
-			'11'=> $customdesign->lang('Enter your text or a link'),
-			'12'=> $customdesign->lang('Select color for QR Code'),
-			'13'=> $customdesign->lang('Choose color'),
-			'14'=> $customdesign->lang('Visibility'),
-			'15'=> $customdesign->lang('Lock layer'),
-			'16'=> $customdesign->lang('Delete layer'),
-			'17'=> $customdesign->lang('Error when select stage, missing configuration'),
-			'18'=> $customdesign->lang('Invalid type of current active object'),
-			'19'=> $customdesign->lang('Invalid type of current active object'),
-			'20'=> $customdesign->lang('Error: missing configuration.'),
-			'21'=> $customdesign->lang('Your design has been saved successful.'),
-			'22'=> $customdesign->lang('The design has been removed'),
-			'23'=> $customdesign->lang('Error : Your session is invalid. Please reload the page to continue.'),
-			'24'=> $customdesign->lang('We just updated your expired session. Please redo your action'),
-			'25'=> $customdesign->lang('Data structure error'),
-			'26'=> $customdesign->lang('The design has been loaded successfully'),
-			'27'=> $customdesign->lang('You have not created any designs yet. <br>After designing, press Ctrl+S to save your designs in here.'),
-			'28'=> $customdesign->lang('New design has been created'),
-			'29'=> $customdesign->lang('The design has been successfully cleaned!'),
-			'30'=> $customdesign->lang('Enter the new design title'),
-			'31'=> $customdesign->lang('The export data under JSON has been storaged in your clipboard.'),
-			'32'=> $customdesign->lang('Only accept the file with type JSON that exported by our system.'),
-			'33'=> $customdesign->lang('Error loading image '),
-			'34'=> $customdesign->lang('Double-click on the text to type'),
-			'35'=> $customdesign->lang('Invalid size, please enter Width x Height'),
-			'36'=> $customdesign->lang('Error, File too large. Please try to set smaller size'),
-			'37'=> $customdesign->lang('Your design is not saved. Are you sure you want to leave this page?'),
-			'38'=> $customdesign->lang('Your design is not saved. Are you sure you want to load new design?'),
-			'39'=> $customdesign->lang('The link has been copied to your clipboard'),
-			'40'=> $customdesign->lang('Please save your design first to create link'),
-			'41'=> $customdesign->lang('You have not granted permission to view or edit this design'),
-			'42'=> $customdesign->lang('No items found'),
-			'43'=> $customdesign->lang('Back to categories'),
-			'44'=> $customdesign->lang('Please wait..'),
-			'45'=> $customdesign->lang('Prev'),
-			'46'=> $customdesign->lang('Next'),
-			'47'=> $customdesign->lang('Delete this image'),
-			'48'=> $customdesign->lang('Edit this design'),
-			'49'=> $customdesign->lang('Make a copy'),
-			'50'=> $customdesign->lang('Download design'),
-			'51'=> $customdesign->lang('Delete design'),
-			'52'=> $customdesign->lang('Click to edit design title'),
-			'53'=> $customdesign->lang('Warning: Images too large may slow down the tool'),
-			'54'=> $customdesign->lang('Design Title'),
-			'55'=> $customdesign->lang('Error while loading font'),
-			'56'=> $customdesign->lang('Categories'),
-			'57'=> $customdesign->lang('All categories'),
-			'58'=> $customdesign->lang('Design options'),
-			'59'=> $customdesign->lang('Keep current design'),
-			'60'=> $customdesign->lang('Select design from templates'),
-			'61'=> $customdesign->lang('Design from blank'),
-			'62'=> $customdesign->lang('Start design now!'),
-			'63'=> $customdesign->lang('Search product'),
-			'64'=> $customdesign->lang('Printing'),
-			'65'=> $customdesign->lang('Side'),
-			'66'=> $customdesign->lang('Quantity'),
-			'67'=> $customdesign->lang('Prices table'),
-			'68'=> $customdesign->lang('Details'),
-			'69'=> $customdesign->lang('More'),
-			'70'=> $customdesign->lang('Successfull, view the full cart and checkout in the menu "My Cart"'),
-			'71'=> $customdesign->lang('Your cart is empty'),
-			'72'=> $customdesign->lang('Editing'),
-			'73'=> $customdesign->lang('Your cart details'),
-			'74'=> $customdesign->lang('Total'),
-			'75'=> $customdesign->lang('Checkout'),
-			'76'=> $customdesign->lang('Products'),
-			'77'=> $customdesign->lang('Options'),
-			'78'=> $customdesign->lang('Actions'),
-			'79'=> $customdesign->lang('Updated'),
-			'80'=> $customdesign->lang('Choose product'),
-			'81'=> $customdesign->lang('Colors'),
-			'82'=> $customdesign->lang('Unsave'),
-			'83'=> $customdesign->lang('File not found'),
-			'84'=> $customdesign->lang('Your uploaded image'),
-			'85'=> $customdesign->lang('Active'),
-			'86'=> $customdesign->lang('Deactive'),
-			'87'=> $customdesign->lang('Select product'),
-			'88'=> $customdesign->lang('Loading fonts'),
-			'89'=> $customdesign->lang('No category'),
-			'90'=> $customdesign->lang('Categories'),
-			'91'=> $customdesign->lang('Design templates'),
-			'92'=> $customdesign->lang('Search design templates'),
-			'93'=> $customdesign->lang('Select design'),
-			'94'=> $customdesign->lang('Load more'),
-			'95'=> $customdesign->lang('Remove template'),
-			'96'=> $customdesign->lang('Error! Your design is empty, please add the objects'),
-			'97'=> $customdesign->lang('Can not updated'),
-			'98'=> $customdesign->lang('Are you sure that you want to remove this stage?'),
-			'99'=> $customdesign->lang('Please select one of print method.'),
-			'100'=> $customdesign->lang('Free'),
-			'101'=> $customdesign->lang('Are you sure that you want to clear design?'),
-			'102'=> $customdesign->lang('This field is required.'),
-			'103'=> $customdesign->lang('Enter at least the minimum 1 quantity.'),
-			'104'=> $customdesign->lang('Price'),
-			'105'=> $customdesign->lang('Tags:'),
-			'106'=> $customdesign->lang('Overwrite this design'),
-			'107'=> $customdesign->lang('New Design'),
-			'108'=> $customdesign->lang('Printing'),
-			'109'=> $customdesign->lang('Your design has been saved successfully!'),
-			'110'=> $customdesign->lang('Draft was saved'),
-			'111'=> $customdesign->lang('Load draft'),
-			'112'=> $customdesign->lang('Load the draft designs which was saved before'),
-			'113'=> $customdesign->lang('Successful! Your next changes will be updated to draft automatically'),
-			'114'=> $customdesign->lang('Reset to default design'),
-			'115'=> $customdesign->lang('You are editting an item from your shopping cart'),
-			'116'=> $customdesign->lang('Your cart item was changed'),
-			'117'=> $customdesign->lang('Cancel cart editting'),
-			'118'=> $customdesign->lang('Your cart item has been updated successful'),
-			'119'=> $customdesign->lang('A cart item is being edited. Do you want to change product for starting new design?'),
-			'120'=> $customdesign->lang('Error: Cart item not found'),
-			'121'=> $customdesign->lang('Are you sure to delete this item?'),
-			'122'=> $customdesign->lang('You are viewing the design of the order'),
-			'123'=> $customdesign->lang('Error, could not load the design file of this order'),
-			'124'=> $customdesign->lang('Yes, Start New'),
-			'125'=> $customdesign->lang('No, Update Current'),
-			'126'=> $customdesign->lang('Attribute name exists, please enter new name.'),
-			'127'=> $customdesign->lang('Warning: Please fix issues on attributes marked as red before submit.'),
-			'128'=> $customdesign->lang('Owhh, Please slow down. You seem to be sharing too much, waiting a few more minutes to continue'),
-			'129'=> $customdesign->lang('Oops, no item found'),
-			'130'=> $customdesign->lang('Copy link'),
-			'131'=> $customdesign->lang('Open link'),
-			'132'=> $customdesign->lang('Delete link'),
-			'133'=> $customdesign->lang('Are you sure that you want to delete this link?'),
-			'134'=> $customdesign->lang('There is no more item'),
-			'135'=> $customdesign->lang('The link has been copied successfully'),
-			'136'=> $customdesign->lang('The share link has been loaded successfully'),
-			'137'=> $customdesign->lang('Less'),
-			'138'=> $customdesign->lang('Advanced SVG Editor'),
-			'139'=> $customdesign->lang('Colors Manage'),
-			'140'=> $customdesign->lang('Add to list'),
-			'141'=> $customdesign->lang('Select all'),
-			'142'=> $customdesign->lang('Unselect all'),
-			'143'=> $customdesign->lang('List of your colors'),
-			'144'=> $customdesign->lang('No item found, please add new color to your list'),
-			'145'=> $customdesign->lang('Add new color'),
-			'146'=> $customdesign->lang('Delete selection'),
-			'147'=> $customdesign->lang('The size of images you upload is invalid, your upload size is'),
-			'148'=> $customdesign->lang('Your file upload is not allowed, please upload image files only'),
-			'149'=> $customdesign->lang('Your total quantity is less than the minimum quantity'),
-			'150'=> $customdesign->lang('Your total quantity is larger than maximum quantity'),
-			'151'=> $customdesign->lang('Enter the new label'),
-			'152'=> $customdesign->lang('Enter number of color'),
-			'153'=> $customdesign->lang('Add more column'),
-			'154'=> $customdesign->lang('Reduce  column'),
-			'155'=> $customdesign->lang('Enter the label'),
-			'156'=> $customdesign->lang('Average'),
-			'157'=> $customdesign->lang('item'),
-			'158'=> $customdesign->lang('Click or drag to add shape'),
-			'159'=> $customdesign->lang('Upload completed, please wait for a moment'),
-			'160'=> $customdesign->lang('Failure to add: The minimum dimensions requirement'),
-			'161'=> $customdesign->lang('Redirecting..'),
-			'162'=> $customdesign->lang('Error: You can not delete the last item'),
-			'163'=> $customdesign->lang('Error: Exceeded maximum allowed number of Stages'),
-			'164'=> $customdesign->lang('Error: You must select a color before upload image'),
-			'165'=> $customdesign->lang('Could not find your upload image'),
-			'166'=> $customdesign->lang('Error, could not load the design'),
-			'167'=> $customdesign->lang('Enter the size of editzone width x height in px'),
-			'168'=> $customdesign->lang('Constrain aspect ratio'),
-			'169'=> $customdesign->lang('No items found! Please upload new image or select the samples.'),
-			'170'=> $customdesign->lang('Delete this image will affect the products that are using it. Are you sure that you want to delete?'),
-			'171'=> $customdesign->lang('Click to edit image name'),
-			'172'=> $customdesign->lang('Your cart has been updated'),
-			'173'=> $customdesign->lang('View cart details'),
-			'174'=> $customdesign->lang('Start new product'),
-			'175'=> $customdesign->lang('Checkout Now'),
-			'176'=> $customdesign->lang('Dismiss and continue design'),
-			'177'=> $customdesign->lang('I understand and agree with the Terms & Conditions'),
-			'178'=> $customdesign->lang('Choose an option'),
-			'179'=> $customdesign->lang('Please select required product options before continue.'),
-			'180'=> $customdesign->lang('Price calculation formula'),
-			'181'=> $customdesign->lang('per 1 quantity'),
-			'182'=> $customdesign->lang('Base price'),
-			'183'=> $customdesign->lang('External'),
-			'184'=> $customdesign->lang('You have successfully exited the edit mode!'),
-			'185'=> $customdesign->lang('Clear designs'),
-			'186'=> $customdesign->lang('You are editing your custom design'),
-			'187'=> $customdesign->lang('Cancel editing'),
-			'188'=> $customdesign->lang('Your design were saved at'),
-			'189'=> $customdesign->lang('You can save or update your curent design for later use'),
-			'190'=> $customdesign->lang('Save to MyDesigns'),
-			'191'=> $customdesign->lang('Number stages'),
-			'192'=> $customdesign->lang('You are viewing the designs of order'),
-			'193'=> $customdesign->lang('Price, quantity and printing are affected by the variation'),
-			'194'=> $customdesign->lang('Failure to add: Your image has low quality, the minimum PPI requirement'),
-			'195'=> $customdesign->lang('Failure to add: The maximum PPI requirement'),
-			'196'=> $customdesign->lang('Please render all pages before downloading'),
-			'197'=> $customdesign->lang('Waring: Your image resolution is too low, it will affect print quality'),
-			'198'=> $customdesign->lang('Addition price from multi quantity'),
-			'199'=> $customdesign->lang('Attributes'),
-			'200'=> $customdesign->lang('Filter by'),
-			'201'=> $customdesign->lang('Apply for'),
-			'202'=> $customdesign->lang('New value'),
-			'203'=> $customdesign->lang('Bulk edit variations'),
-			'204'=> $customdesign->lang('It has been successfully applied to %s variations'),
-			'205'=> $customdesign->lang('Min Qty'),
-			'206'=> $customdesign->lang('Max Qty'),
-			'207'=> $customdesign->lang('Description'),
-			'208'=> $customdesign->lang('Error, no configuration for the product you choose'),
-			'209'=> $customdesign->lang('Error, no configuration for this product'),
-			'210'=> $customdesign->lang('Error! Please design all stages before adding to cart'),
-			'211'=> $customdesign->lang('Save your design for later use'),
-			'212'=> $customdesign->lang('USE THIS'),
-			'213'=> $customdesign->lang('OVERWRITE THIS'),
-			'214'=> $customdesign->lang('Failure to add: The maximum number of characters for a text is'),
-			'215'=> $customdesign->lang('Failure to add: The minimum number of characters for a text is'),
-			'216'=> $customdesign->lang('Failure to add: The maximum dimensions requirement'),
-			'217'=> $customdesign->lang('Failure to add: The minimum width requirement'),
-			'218'=> $customdesign->lang('Failure to add: The maximum width requirement'),
+		    'sure'=> $magic->lang('Are you sure?'),
+			'save'=> $magic->lang('Save'),
+			'edit'=> $magic->lang('Edit'),
+			'remove'=> $magic->lang('Remove'),
+			'delete'=> $magic->lang('Delete'),
+			'cancel'=> $magic->lang('Cancel'),
+			'reset'=> $magic->lang('Reset'),
+			'stage'=> $magic->lang('Stage'),
+			'front'=> $magic->lang('Front'),
+			'back'=> $magic->lang('Back'),
+			'left'=> $magic->lang('Left'),
+			'right'=> $magic->lang('Right'),
+			'loading'=> $magic->lang('Loading'),
+			'importing'=> $magic->lang('Importing'),
+			'apply'=> $magic->lang('Apply Now'),
+			'render'=> $magic->lang('Rendering design'),
+			'wait'=> $magic->lang('Please wait..'),
+			'clone'=> $magic->lang('Clone'),
+			'double'=> $magic->lang('Double'),
+			'processing'=> $magic->lang('Processing..'),
+			'error_403'=> $magic->lang('Your session is expired, Please reload your browser'),
+			'01'=> $magic->lang('Center center'),
+			'02'=> $magic->lang('Horizontal center'),
+			'03'=> $magic->lang('Vertical center'),
+			'04'=> $magic->lang('Square'),
+			'05'=> $magic->lang('Are you sure that you want to make selected objects to one object?'),
+			'06'=> $magic->lang('No layer'),
+			'07'=> $magic->lang('Add new layer to use it as a mask'),
+			'08'=> $magic->lang('Error, the active object should be covered by the mask layer'),
+			'09'=> $magic->lang('Your QRCode text'),
+			'10'=> $magic->lang('Create QR Code'),
+			'11'=> $magic->lang('Enter your text or a link'),
+			'12'=> $magic->lang('Select color for QR Code'),
+			'13'=> $magic->lang('Choose color'),
+			'14'=> $magic->lang('Visibility'),
+			'15'=> $magic->lang('Lock layer'),
+			'16'=> $magic->lang('Delete layer'),
+			'17'=> $magic->lang('Error when select stage, missing configuration'),
+			'18'=> $magic->lang('Invalid type of current active object'),
+			'19'=> $magic->lang('Invalid type of current active object'),
+			'20'=> $magic->lang('Error: missing configuration.'),
+			'21'=> $magic->lang('Your design has been saved successful.'),
+			'22'=> $magic->lang('The design has been removed'),
+			'23'=> $magic->lang('Error : Your session is invalid. Please reload the page to continue.'),
+			'24'=> $magic->lang('We just updated your expired session. Please redo your action'),
+			'25'=> $magic->lang('Data structure error'),
+			'26'=> $magic->lang('The design has been loaded successfully'),
+			'27'=> $magic->lang('You have not created any designs yet. <br>After designing, press Ctrl+S to save your designs in here.'),
+			'28'=> $magic->lang('New design has been created'),
+			'29'=> $magic->lang('The design has been successfully cleaned!'),
+			'30'=> $magic->lang('Enter the new design title'),
+			'31'=> $magic->lang('The export data under JSON has been storaged in your clipboard.'),
+			'32'=> $magic->lang('Only accept the file with type JSON that exported by our system.'),
+			'33'=> $magic->lang('Error loading image '),
+			'34'=> $magic->lang('Double-click on the text to type'),
+			'35'=> $magic->lang('Invalid size, please enter Width x Height'),
+			'36'=> $magic->lang('Error, File too large. Please try to set smaller size'),
+			'37'=> $magic->lang('Your design is not saved. Are you sure you want to leave this page?'),
+			'38'=> $magic->lang('Your design is not saved. Are you sure you want to load new design?'),
+			'39'=> $magic->lang('The link has been copied to your clipboard'),
+			'40'=> $magic->lang('Please save your design first to create link'),
+			'41'=> $magic->lang('You have not granted permission to view or edit this design'),
+			'42'=> $magic->lang('No items found'),
+			'43'=> $magic->lang('Back to categories'),
+			'44'=> $magic->lang('Please wait..'),
+			'45'=> $magic->lang('Prev'),
+			'46'=> $magic->lang('Next'),
+			'47'=> $magic->lang('Delete this image'),
+			'48'=> $magic->lang('Edit this design'),
+			'49'=> $magic->lang('Make a copy'),
+			'50'=> $magic->lang('Download design'),
+			'51'=> $magic->lang('Delete design'),
+			'52'=> $magic->lang('Click to edit design title'),
+			'53'=> $magic->lang('Warning: Images too large may slow down the tool'),
+			'54'=> $magic->lang('Design Title'),
+			'55'=> $magic->lang('Error while loading font'),
+			'56'=> $magic->lang('Categories'),
+			'57'=> $magic->lang('All categories'),
+			'58'=> $magic->lang('Design options'),
+			'59'=> $magic->lang('Keep current design'),
+			'60'=> $magic->lang('Select design from templates'),
+			'61'=> $magic->lang('Design from blank'),
+			'62'=> $magic->lang('Start design now!'),
+			'63'=> $magic->lang('Search product'),
+			'64'=> $magic->lang('Printing'),
+			'65'=> $magic->lang('Side'),
+			'66'=> $magic->lang('Quantity'),
+			'67'=> $magic->lang('Prices table'),
+			'68'=> $magic->lang('Details'),
+			'69'=> $magic->lang('More'),
+			'70'=> $magic->lang('Successfull, view the full cart and checkout in the menu "My Cart"'),
+			'71'=> $magic->lang('Your cart is empty'),
+			'72'=> $magic->lang('Editing'),
+			'73'=> $magic->lang('Your cart details'),
+			'74'=> $magic->lang('Total'),
+			'75'=> $magic->lang('Checkout'),
+			'76'=> $magic->lang('Products'),
+			'77'=> $magic->lang('Options'),
+			'78'=> $magic->lang('Actions'),
+			'79'=> $magic->lang('Updated'),
+			'80'=> $magic->lang('Choose product'),
+			'81'=> $magic->lang('Colors'),
+			'82'=> $magic->lang('Unsave'),
+			'83'=> $magic->lang('File not found'),
+			'84'=> $magic->lang('Your uploaded image'),
+			'85'=> $magic->lang('Active'),
+			'86'=> $magic->lang('Deactive'),
+			'87'=> $magic->lang('Select product'),
+			'88'=> $magic->lang('Loading fonts'),
+			'89'=> $magic->lang('No category'),
+			'90'=> $magic->lang('Categories'),
+			'91'=> $magic->lang('Design templates'),
+			'92'=> $magic->lang('Search design templates'),
+			'93'=> $magic->lang('Select design'),
+			'94'=> $magic->lang('Load more'),
+			'95'=> $magic->lang('Remove template'),
+			'96'=> $magic->lang('Error! Your design is empty, please add the objects'),
+			'97'=> $magic->lang('Can not updated'),
+			'98'=> $magic->lang('Are you sure that you want to remove this stage?'),
+			'99'=> $magic->lang('Please select one of print method.'),
+			'100'=> $magic->lang('Free'),
+			'101'=> $magic->lang('Are you sure that you want to clear design?'),
+			'102'=> $magic->lang('This field is required.'),
+			'103'=> $magic->lang('Enter at least the minimum 1 quantity.'),
+			'104'=> $magic->lang('Price'),
+			'105'=> $magic->lang('Tags:'),
+			'106'=> $magic->lang('Overwrite this design'),
+			'107'=> $magic->lang('New Design'),
+			'108'=> $magic->lang('Printing'),
+			'109'=> $magic->lang('Your design has been saved successfully!'),
+			'110'=> $magic->lang('Draft was saved'),
+			'111'=> $magic->lang('Load draft'),
+			'112'=> $magic->lang('Load the draft designs which was saved before'),
+			'113'=> $magic->lang('Successful! Your next changes will be updated to draft automatically'),
+			'114'=> $magic->lang('Reset to default design'),
+			'115'=> $magic->lang('You are editting an item from your shopping cart'),
+			'116'=> $magic->lang('Your cart item was changed'),
+			'117'=> $magic->lang('Cancel cart editting'),
+			'118'=> $magic->lang('Your cart item has been updated successful'),
+			'119'=> $magic->lang('A cart item is being edited. Do you want to change product for starting new design?'),
+			'120'=> $magic->lang('Error: Cart item not found'),
+			'121'=> $magic->lang('Are you sure to delete this item?'),
+			'122'=> $magic->lang('You are viewing the design of the order'),
+			'123'=> $magic->lang('Error, could not load the design file of this order'),
+			'124'=> $magic->lang('Yes, Start New'),
+			'125'=> $magic->lang('No, Update Current'),
+			'126'=> $magic->lang('Attribute name exists, please enter new name.'),
+			'127'=> $magic->lang('Warning: Please fix issues on attributes marked as red before submit.'),
+			'128'=> $magic->lang('Owhh, Please slow down. You seem to be sharing too much, waiting a few more minutes to continue'),
+			'129'=> $magic->lang('Oops, no item found'),
+			'130'=> $magic->lang('Copy link'),
+			'131'=> $magic->lang('Open link'),
+			'132'=> $magic->lang('Delete link'),
+			'133'=> $magic->lang('Are you sure that you want to delete this link?'),
+			'134'=> $magic->lang('There is no more item'),
+			'135'=> $magic->lang('The link has been copied successfully'),
+			'136'=> $magic->lang('The share link has been loaded successfully'),
+			'137'=> $magic->lang('Less'),
+			'138'=> $magic->lang('Advanced SVG Editor'),
+			'139'=> $magic->lang('Colors Manage'),
+			'140'=> $magic->lang('Add to list'),
+			'141'=> $magic->lang('Select all'),
+			'142'=> $magic->lang('Unselect all'),
+			'143'=> $magic->lang('List of your colors'),
+			'144'=> $magic->lang('No item found, please add new color to your list'),
+			'145'=> $magic->lang('Add new color'),
+			'146'=> $magic->lang('Delete selection'),
+			'147'=> $magic->lang('The size of images you upload is invalid, your upload size is'),
+			'148'=> $magic->lang('Your file upload is not allowed, please upload image files only'),
+			'149'=> $magic->lang('Your total quantity is less than the minimum quantity'),
+			'150'=> $magic->lang('Your total quantity is larger than maximum quantity'),
+			'151'=> $magic->lang('Enter the new label'),
+			'152'=> $magic->lang('Enter number of color'),
+			'153'=> $magic->lang('Add more column'),
+			'154'=> $magic->lang('Reduce  column'),
+			'155'=> $magic->lang('Enter the label'),
+			'156'=> $magic->lang('Average'),
+			'157'=> $magic->lang('item'),
+			'158'=> $magic->lang('Click or drag to add shape'),
+			'159'=> $magic->lang('Upload completed, please wait for a moment'),
+			'160'=> $magic->lang('Failure to add: The minimum dimensions requirement'),
+			'161'=> $magic->lang('Redirecting..'),
+			'162'=> $magic->lang('Error: You can not delete the last item'),
+			'163'=> $magic->lang('Error: Exceeded maximum allowed number of Stages'),
+			'164'=> $magic->lang('Error: You must select a color before upload image'),
+			'165'=> $magic->lang('Could not find your upload image'),
+			'166'=> $magic->lang('Error, could not load the design'),
+			'167'=> $magic->lang('Enter the size of editzone width x height in px'),
+			'168'=> $magic->lang('Constrain aspect ratio'),
+			'169'=> $magic->lang('No items found! Please upload new image or select the samples.'),
+			'170'=> $magic->lang('Delete this image will affect the products that are using it. Are you sure that you want to delete?'),
+			'171'=> $magic->lang('Click to edit image name'),
+			'172'=> $magic->lang('Your cart has been updated'),
+			'173'=> $magic->lang('View cart details'),
+			'174'=> $magic->lang('Start new product'),
+			'175'=> $magic->lang('Checkout Now'),
+			'176'=> $magic->lang('Dismiss and continue design'),
+			'177'=> $magic->lang('I understand and agree with the Terms & Conditions'),
+			'178'=> $magic->lang('Choose an option'),
+			'179'=> $magic->lang('Please select required product options before continue.'),
+			'180'=> $magic->lang('Price calculation formula'),
+			'181'=> $magic->lang('per 1 quantity'),
+			'182'=> $magic->lang('Base price'),
+			'183'=> $magic->lang('External'),
+			'184'=> $magic->lang('You have successfully exited the edit mode!'),
+			'185'=> $magic->lang('Clear designs'),
+			'186'=> $magic->lang('You are editing your custom design'),
+			'187'=> $magic->lang('Cancel editing'),
+			'188'=> $magic->lang('Your design were saved at'),
+			'189'=> $magic->lang('You can save or update your curent design for later use'),
+			'190'=> $magic->lang('Save to MyDesigns'),
+			'191'=> $magic->lang('Number stages'),
+			'192'=> $magic->lang('You are viewing the designs of order'),
+			'193'=> $magic->lang('Price, quantity and printing are affected by the variation'),
+			'194'=> $magic->lang('Failure to add: Your image has low quality, the minimum PPI requirement'),
+			'195'=> $magic->lang('Failure to add: The maximum PPI requirement'),
+			'196'=> $magic->lang('Please render all pages before downloading'),
+			'197'=> $magic->lang('Waring: Your image resolution is too low, it will affect print quality'),
+			'198'=> $magic->lang('Addition price from multi quantity'),
+			'199'=> $magic->lang('Attributes'),
+			'200'=> $magic->lang('Filter by'),
+			'201'=> $magic->lang('Apply for'),
+			'202'=> $magic->lang('New value'),
+			'203'=> $magic->lang('Bulk edit variations'),
+			'204'=> $magic->lang('It has been successfully applied to %s variations'),
+			'205'=> $magic->lang('Min Qty'),
+			'206'=> $magic->lang('Max Qty'),
+			'207'=> $magic->lang('Description'),
+			'208'=> $magic->lang('Error, no configuration for the product you choose'),
+			'209'=> $magic->lang('Error, no configuration for this product'),
+			'210'=> $magic->lang('Error! Please design all stages before adding to cart'),
+			'211'=> $magic->lang('Save your design for later use'),
+			'212'=> $magic->lang('USE THIS'),
+			'213'=> $magic->lang('OVERWRITE THIS'),
+			'214'=> $magic->lang('Failure to add: The maximum number of characters for a text is'),
+			'215'=> $magic->lang('Failure to add: The minimum number of characters for a text is'),
+			'216'=> $magic->lang('Failure to add: The maximum dimensions requirement'),
+			'217'=> $magic->lang('Failure to add: The minimum width requirement'),
+			'218'=> $magic->lang('Failure to add: The maximum width requirement'),
 	    );
 
-	    $this->default_fonts = $customdesign->cfg->settings['google_fonts'];
+	    $this->default_fonts = $magic->cfg->settings['google_fonts'];
 		
-		if ($customdesign->cfg->settings['components'] === null) {
-			$customdesign->cfg->settings['components'] = array('product', 'templates', 'cliparts', 'text', 'uploads', 'layers');
-			$customdesign->set_option('components', $customdesign->cfg->settings['components']);
+		if ($magic->cfg->settings['components'] === null) {
+			$magic->cfg->settings['components'] = array('product', 'templates', 'cliparts', 'text', 'uploads', 'layers');
+			$magic->set_option('components', $magic->cfg->settings['components']);
 		}
 		
-		$customdesign->do_action('config_init');
+		$magic->do_action('config_init');
 		
     }
 

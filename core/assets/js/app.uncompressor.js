@@ -1,43 +1,43 @@
  /*
  *
- * Customdesign Designer Tool ver1.7
+ * Magic Designer Tool ver1.7
  *
- * https://www.rugcustom.com
- * Copyright 2018-2019 : Customdesign product designer tool
- * All rights reserved by Customdesign Inc
+ * https://www.Magicrugs.com
+ * Copyright 2018-2019 : Magic product designer tool
+ * All rights reserved by Magic Inc
  *
- * This source code is licensed under non-distrbutable rights of Customdesign
- * https://www.rugcustom.com/terms-conditions/
+ * This source code is licensed under non-distrbutable rights of Magic
+ * https://www.Magicrugs.com/terms-conditions/
  *
  */
 
- jQuery(document).ready(function($) {
+jQuery(document).ready(function($) {
 	
 	// Use strict for the private workspace
 
-	window.customdesign = {
+	window.magic = {
 
 		e : {
-			tools : $('#customdesign-top-tools'),
-			layers : $('#customdesign-layers'),
-			main : $('#CustomdesignDesign')
+			tools : $('#magic-top-tools'),
+			layers : $('#magic-layers'),
+			main : $('#MagicDesign')
 		},
 		
 		i : function(s){
-			return customdesign.data.js_lang[s.toString()];
+			return magic.data.js_lang[s.toString()];
 		},
 		
 		f : function(msg) {
 			
 			if (msg === undefined || msg === '' || msg === false) {
-				clearTimeout(customdesign.ops.ftimer);
-				document.getElementById('CustomdesignDesign').setAttribute('data-processing', '');
-				document.getElementById('CustomdesignDesign').setAttribute('data-msg', '');
+				clearTimeout(magic.ops.ftimer);
+				document.getElementById('MagicDesign').setAttribute('data-processing', '');
+				document.getElementById('MagicDesign').setAttribute('data-msg', '');
 			} else {
-				clearTimeout(customdesign.ops.ftimer);
-				customdesign.ops.ftimer = setTimeout(function(msg) {
-					document.getElementById('CustomdesignDesign').setAttribute('data-processing', 'true');
-					document.getElementById('CustomdesignDesign').setAttribute('data-msg', msg);
+				clearTimeout(magic.ops.ftimer);
+				magic.ops.ftimer = setTimeout(function(msg) {
+					document.getElementById('MagicDesign').setAttribute('data-processing', 'true');
+					document.getElementById('MagicDesign').setAttribute('data-msg', msg);
 				}, 300, msg);
 			}
 			
@@ -173,33 +173,33 @@
 		},
 
 		itemInStage: function(action){
-			let product_base = customdesign.fn.url_var('product_base', '');
-			let product_cms = customdesign.fn.url_var('product_cms', '');
-			let stageName = customdesign.stage().name;
+			let product_base = magic.fn.url_var('product_base', '');
+			let product_cms = magic.fn.url_var('product_cms', '');
+			let stageName = magic.stage().name;
 
 			let session_name = product_base+'_'+product_cms+'_'+stageName+'_canvasBase';
-			let countObj = customdesign.stage().canvas.getObjects().length-1;
+			let countObj = magic.stage().canvas.getObjects().length-1;
 
-			// console.log(JSON.stringify(customdesign.cart.price));
+			// console.log(JSON.stringify(magic.cart.price));
 
-			var getPriceStage = parseFloat($('div#customdesign-stage-nav li[data-stage="'+stageName+'"]').attr('data-additional_price'));
+			var getPriceStage = parseFloat($('div#magic-stage-nav li[data-stage="'+stageName+'"]').attr('data-additional_price'));
 			if(isNaN(getPriceStage) || getPriceStage == undefined || getPriceStage == 'undefined' || getPriceStage.toString().trim() == ''){
 				getPriceStage = 0;
 			}
 			
 			if(action == 'add'){
 				if(sessionStorage.getItem(session_name) === null){
-					sessionStorage.setItem(session_name, customdesign.stage().canvas.getObjects().length-1);
+					sessionStorage.setItem(session_name, magic.stage().canvas.getObjects().length-1);
 				}
 				if(getPriceStage != 0 && getPriceStage > 0 && sessionStorage.getItem(session_name) == countObj ){
-					customdesign.cart.price.base = customdesign.cart.price.base+getPriceStage;
+					magic.cart.price.base = magic.cart.price.base+getPriceStage;
 				}
 			}
 
 			if(action == 'del' && sessionStorage.getItem(session_name) !== null && sessionStorage.getItem(session_name) == countObj-1){
 				sessionStorage.removeItem(session_name);
 				if(getPriceStage != 0 && getPriceStage > 0){
-					customdesign.cart.price.base = customdesign.cart.price.base-getPriceStage;
+					magic.cart.price.base = magic.cart.price.base-getPriceStage;
 				}
 			}
 		},
@@ -269,7 +269,7 @@
 						left = -(width + scaleOffset) / 2,
 						top = -(height + scaleOffset) / 2,
 						methodName = this.transparentCorners ? 'stroke' : 'fill',
-						active = customdesign.stage().canvas.getActiveObject();
+						active = magic.stage().canvas.getActiveObject();
 
 					ctx.save();
 						
@@ -279,17 +279,17 @@
 							ctx.fillStyle = '#f75555';
 							ctx.fillRect(left, top,this.cornerSize,this.cornerSize);
 							ctx.drawImage(
-								customdesign.objects.icons['del'], 
+								magic.objects.icons['del'], 
 								left+this.cornerSize*0.1, 
 								top+this.cornerSize*0.1, 
 								this.cornerSize*0.8, this.cornerSize*0.8
 							);
 						} else {
 						
-					        var canvas = customdesign.stage().canvas,
+					        var canvas = magic.stage().canvas,
 					        	isobj = canvas.getActiveObject(),
 					       		isgroup = canvas.getActiveGroup(),
-					        	invert = customdesign.get.color('invert');
+					        	invert = magic.get.color('invert');
 							
 					        
 							ctx.fillStyle = invert == '#333' ? '#777' : '#ccc';
@@ -350,7 +350,7 @@
 							
 							Object.keys(pos).map(function(p){
 								ctx.drawImage(
-									customdesign.objects.icons[(invert == '#333' || p == 'del' ? '' : 'w')+p], 
+									magic.objects.icons[(invert == '#333' || p == 'del' ? '' : 'w')+p], 
 									pos[p][0], 
 									pos[p][1], 
 									c, c
@@ -378,7 +378,7 @@
 						height = wh.y + strokeWidth;
 
 					ctx.save();
-					ctx.strokeStyle = customdesign.get.color('invert') == '#333' ? 'rgba(30, 30, 30, 0.35)' : 'rgba(230, 230, 230, 0.6)';
+					ctx.strokeStyle = magic.get.color('invert') == '#333' ? 'rgba(30, 30, 30, 0.35)' : 'rgba(230, 230, 230, 0.6)';
 
 					this._setLineDash(ctx, [1, 1], null);
 
@@ -503,12 +503,12 @@
 						action = this._getActionFromCorner(target, corner, e),
 						origin = this._getOriginFromCorner(target, corner);
 
-					if (customdesign.fn.ctrl_btns({e: e, target: target}) === true)
+					if (magic.fn.ctrl_btns({e: e, target: target}) === true)
 						return;
 
 					if (action == 'drag') {
-						customdesign.ops.downon = target;
-						customdesign.ops.moved = false;
+						magic.ops.downon = target;
+						magic.ops.moved = false;
 					}
 
 					this._currentTransform = {
@@ -561,14 +561,14 @@
 			events : {
 
 				'selection:cleared' : function(opts) {
-					customdesign.e.layers.find('li.active').removeClass('active');
-					customdesign.actions.do('selection:cleared', opts);
-					customdesign.stack.save();
+					magic.e.layers.find('li.active').removeClass('active');
+					magic.actions.do('selection:cleared', opts);
+					magic.stack.save();
 				},
 				
 				'object:selected' : function(opts) {
 					
-					customdesign.stage().selected_object = opts.target;
+					magic.stage().selected_object = opts.target;
 					opts.target.setControlVisible('tr', false);
 						
 					if (opts.target.get('lockPosition') === true) {
@@ -601,16 +601,16 @@
 						});
 					};
 					
-					customdesign.actions.do('object:selected', opts);
+					magic.actions.do('object:selected', opts);
 					
 				},
 
 				'object:added' : function(opts) {
-					customdesign.actions.do('object:added', opts);
+					magic.actions.do('object:added', opts);
 				},
 				
 				'object:modified' : function(opts) {
-					customdesign.actions.do('object:modified', opts);
+					magic.actions.do('object:modified', opts);
 				},
 
 				'object:rotating': function(opts){
@@ -620,21 +620,21 @@
 							opts.target.angle = a;
 					});
 
-					customdesign.get.el('rotate').val(opts.target.angle).attr({'data-value': Math.round(opts.target.angle)+'º'});
+					magic.get.el('rotate').val(opts.target.angle).attr({'data-value': Math.round(opts.target.angle)+'º'});
 				},
 				
 				'mouse:down': function(opts) {
 					
-					var stage = customdesign.stage(),
+					var stage = magic.stage(),
 						objs = stage.canvas.getObjects();
 					
-					customdesign.ops.limit_snap = stage.limit_zone;
+					magic.ops.limit_snap = stage.limit_zone;
 					
 					if (stage.canvas.isDrawingMode && opts.e.shiftKey === false)
 						return;
 					
-					customdesign.fn.navigation('clear');
-					customdesign.ops.mousedown = true;
+					magic.fn.navigation('clear');
+					magic.ops.mousedown = true;
 
 					if (opts.e && opts.e.shiftKey)
 						stage.canvas.set('selection', false);
@@ -668,41 +668,41 @@
 					
 					if (opts.target !== null) {
 						
-						customdesign.ops.corner = opts.target.__corner;
+						magic.ops.corner = opts.target.__corner;
 						
 						if (opts.target.group_pos) {
 							
-							customdesign.ops.original_pos = {};
+							magic.ops.original_pos = {};
 							objs.map(function(o) {
 								if (o.group_pos == opts.target.group_pos)
-									customdesign.ops.original_pos[o.id] = [o.left, o.top]
+									magic.ops.original_pos[o.id] = [o.left, o.top]
 							});
 							
-							if (Object.keys(customdesign.ops.original_pos).length === 1) {
-								customdesign.ops.original_pos = null;
+							if (Object.keys(magic.ops.original_pos).length === 1) {
+								magic.ops.original_pos = null;
 								opts.target.set({group_pos: null});
 							}
 						}
 						
 						if (opts.target.imagebox !== undefined) {
-							customdesign.ops.limit_snap = objs.filter(function(o){return o.id == opts.target.imagebox;});
-							if (customdesign.ops.limit_snap.length > 0)
-								customdesign.ops.limit_snap = customdesign.ops.limit_snap[0];
-							else customdesign.ops.limit_snap = stage.limit_zone;
+							magic.ops.limit_snap = objs.filter(function(o){return o.id == opts.target.imagebox;});
+							if (magic.ops.limit_snap.length > 0)
+								magic.ops.limit_snap = magic.ops.limit_snap[0];
+							else magic.ops.limit_snap = stage.limit_zone;
 						}
 						
 					} else { 
-						customdesign.ops.corner = '';
-						customdesign.ops.original_pos = null;
+						magic.ops.corner = '';
+						magic.ops.original_pos = null;
 					}
 					
-					customdesign.ops.auto_snap = customdesign.get.el('auto-alignment').prop('checked');
+					magic.ops.auto_snap = magic.get.el('auto-alignment').prop('checked');
 					
 				},
 
 				'path:created' : function(path){
 
-			        var stage = customdesign.stage();
+			        var stage = magic.stage();
 					stage.limit_zone.visible = true;
 
 					if (stage.bleed) {
@@ -710,9 +710,9 @@
 						stage.crop_marks.set('visible', true);
 					};
 					
-					customdesign.get.el('top-tools').attr({'data-view': 'drawing'});
+					magic.get.el('top-tools').attr({'data-view': 'drawing'});
 
-					customdesign.stack.save();
+					magic.stack.save();
 
 				},
 
@@ -721,7 +721,7 @@
 					if (opts.e === undefined)
 						return;
 						
-			        var stage = customdesign.stage(),
+			        var stage = magic.stage(),
 			        	actv = stage.canvas.getActiveObject(),
 			        	onbox = null;
 
@@ -745,21 +745,21 @@
 						if (actv) {
 							if (actv.type == 'image')
 								return actv.set('imagebox', onbox.id);
-						} else if (customdesign.ops.moved !== true)
-							return customdesign.fn.imagebox_select_file(onbox);
+						} else if (magic.ops.moved !== true)
+							return magic.fn.imagebox_select_file(onbox);
 					};
 					
 			        stage.lineX.css({display: 'none'});
 					stage.lineY.css({display: 'none'});
 
-					customdesign.ops.mousedown = false;
+					magic.ops.mousedown = false;
 					stage.canvas.set('selection', true);
 
-			        /*customdesign.fn.reversePortView();*/
+			        /*magic.fn.reversePortView();*/
 
-					if (customdesign.ops.moved !== false) {
+					if (magic.ops.moved !== false) {
 
-						if (customdesign.ops.downon !== null) {
+						if (magic.ops.downon !== null) {
 
 							stage.lineX.hide();
 							stage.lineY.hide();
@@ -772,10 +772,10 @@
 						gactive = stage.canvas.getActiveGroup(),
 						type = (active ? active.type : (gactive ? 'group' : 'standard'));
 						
-					customdesign.e.tools.attr({'data-view': type});
+					magic.e.tools.attr({'data-view': type});
 					
 					if (!gactive) {
-						setTimeout(customdesign.stack.save, 250);
+						setTimeout(magic.stack.save, 250);
 					} else {
 						var fh = true, fg = '';
 						gactive._objects.map(function(o) {
@@ -787,22 +787,22 @@
 								fg = o.get('group_pos');
 							}
 						});
-						$('#customdesign-top-tools ul[data-mode="group"]').attr({'data-grouped': fh ? 'true' : 'false'});
+						$('#magic-top-tools ul[data-mode="group"]').attr({'data-grouped': fh ? 'true' : 'false'});
 					};
 					
-					customdesign.ops.downon = null;
-					customdesign.ops.moved = false;
-					customdesign.ops.corner = '';
-					customdesign.ops.original_pos = null;
+					magic.ops.downon = null;
+					magic.ops.moved = false;
+					magic.ops.corner = '';
+					magic.ops.original_pos = null;
 					
 				},
 
 				'mouse:move': function(opts) {
 					
-					var stage = customdesign.stage(),
+					var stage = magic.stage(),
 						zoom = stage.canvas.getZoom(),
 						view = stage.canvas.viewportTransform,
-						limit = customdesign.ops.limit_snap,
+						limit = magic.ops.limit_snap,
 						gri = false;
 					
 					if (opts.target === null) {
@@ -859,9 +859,9 @@
 					
 					if (
 						opts && opts.e && opts.e.shiftKey &&
-						(customdesign.ops.mousedown === true || stage.canvas.isDrawingMode) &&
+						(magic.ops.mousedown === true || stage.canvas.isDrawingMode) &&
 						zoom > 1 &&
-						customdesign.ops.corner != 'br'
+						magic.ops.corner != 'br'
 					) {
 						// Move viewing mode
 				        var units = 10;
@@ -871,19 +871,19 @@
 				        return;
 				    }
 
-					if (customdesign.ops.downon === null)
+					if (magic.ops.downon === null)
 						return;
 
-					if (customdesign.ops.moved !== true)
-						customdesign.ops.moved = true;
+					if (magic.ops.moved !== true)
+						magic.ops.moved = true;
 
-					if (customdesign.ops.auto_snap === true) {
+					if (magic.ops.auto_snap === true) {
 
 						var el = {
-								top: customdesign.ops.downon.top-(customdesign.ops.downon.height*customdesign.ops.downon.scaleY*0.5),
-								left: customdesign.ops.downon.left-(customdesign.ops.downon.width*customdesign.ops.downon.scaleX*0.5),
-								height: customdesign.ops.downon.height*customdesign.ops.downon.scaleY,
-								width: customdesign.ops.downon.width*customdesign.ops.downon.scaleX,
+								top: magic.ops.downon.top-(magic.ops.downon.height*magic.ops.downon.scaleY*0.5),
+								left: magic.ops.downon.left-(magic.ops.downon.width*magic.ops.downon.scaleX*0.5),
+								height: magic.ops.downon.height*magic.ops.downon.scaleY,
+								width: magic.ops.downon.width*magic.ops.downon.scaleX,
 							},
 							lmx = limit.originX == 'left' ? (limit.width/2) : 0,
 							lmy = limit.originY == 'top' ? (limit.height/2) : 0,
@@ -894,7 +894,7 @@
 							xp = '',
 							yp = '';
 	
-						if (Math.abs(customdesign.ops.downon.left-yct) <= 3) {
+						if (Math.abs(magic.ops.downon.left-yct) <= 3) {
 							yv = 'block';
 							yl = yct;
 							yp = 'center';
@@ -908,7 +908,7 @@
 							yp = 'right';
 						}else yv = 'none';
 	
-						if (Math.abs(customdesign.ops.downon.top-xct) <= 3) {
+						if (Math.abs(magic.ops.downon.top-xct) <= 3) {
 							xv = 'block';
 							xt = xct;
 							xp = 'center';
@@ -924,7 +924,7 @@
 	
 						if (yv === 'none' || xv === 'none') {
 							stage.canvas.getObjects().map(function(obj){
-								if (obj.visible !== false && obj.evented !== false && obj !== customdesign.ops.downon){
+								if (obj.visible !== false && obj.evented !== false && obj !== magic.ops.downon){
 	
 									ob = {
 										top: obj.top-(obj.height*obj.scaleY*0.5),
@@ -1008,16 +1008,16 @@
 	
 							switch (yp) {
 								case 'center' :
-									customdesign.ops.downon.set('left', limit.left+lmx);
+									magic.ops.downon.set('left', limit.left+lmx);
 								break;
 								case 'left' :
-									customdesign.ops.downon.set('left', yl+(el.width/2));
+									magic.ops.downon.set('left', yl+(el.width/2));
 								break;
 								case 'right' :
-									customdesign.ops.downon.set('left', yl-(el.width/2));
+									magic.ops.downon.set('left', yl-(el.width/2));
 								break;
 								case 'ycenter' :
-									customdesign.ops.downon.set('left', yl);
+									magic.ops.downon.set('left', yl);
 								break;
 							}
 							gri = true;
@@ -1027,16 +1027,16 @@
 	
 							switch (xp) {
 								case 'center' :
-									customdesign.ops.downon.set('top', limit.top+lmy);
+									magic.ops.downon.set('top', limit.top+lmy);
 								break;
 								case 'top' :
-									customdesign.ops.downon.set('top', xt+(el.height/2));
+									magic.ops.downon.set('top', xt+(el.height/2));
 								break;
 								case 'bottom' :
-									customdesign.ops.downon.set('top', xt-(el.height/2));
+									magic.ops.downon.set('top', xt-(el.height/2));
 								break;
 								case 'xcenter' :
-									customdesign.ops.downon.set('top', xt);
+									magic.ops.downon.set('top', xt);
 								break;
 							}
 							gri = true;
@@ -1046,26 +1046,26 @@
 					
 					if (
 						limit === stage.limit_zone &&
-						customdesign.ops.downon.group_pos &&
-						customdesign.ops.original_pos &&
-						customdesign.ops.original_pos[customdesign.ops.downon.id] &&
+						magic.ops.downon.group_pos &&
+						magic.ops.original_pos &&
+						magic.ops.original_pos[magic.ops.downon.id] &&
 						(
 							
-							customdesign.ops.downon.left != customdesign.ops.original_pos[customdesign.ops.downon.id][0] ||
-							customdesign.ops.downon.top != customdesign.ops.original_pos[customdesign.ops.downon.id][1]
+							magic.ops.downon.left != magic.ops.original_pos[magic.ops.downon.id][0] ||
+							magic.ops.downon.top != magic.ops.original_pos[magic.ops.downon.id][1]
 						)
 					) {
 						
-						var oldpos = customdesign.ops.original_pos[customdesign.ops.downon.id];
+						var oldpos = magic.ops.original_pos[magic.ops.downon.id];
 					
 						stage.canvas.getObjects().map(function(o) {
 							if (
-								o.group_pos == customdesign.ops.downon.group_pos && 
-								o.id != customdesign.ops.downon.id
+								o.group_pos == magic.ops.downon.group_pos && 
+								o.id != magic.ops.downon.id
 							) {
 								o.set({
-									left: customdesign.ops.original_pos[o.id][0] + (customdesign.ops.downon.left-oldpos[0]),
-									top: customdesign.ops.original_pos[o.id][1] + (customdesign.ops.downon.top-oldpos[1]),
+									left: magic.ops.original_pos[o.id][0] + (magic.ops.downon.left-oldpos[0]),
+									top: magic.ops.original_pos[o.id][1] + (magic.ops.downon.top-oldpos[1]),
 								});
 							}
 						});	
@@ -1078,7 +1078,7 @@
 				},
 				
 				'after:render': function(e){
-					customdesign.actions.do('after:render');
+					magic.actions.do('after:render');
 				}
 
 			},
@@ -1086,10 +1086,10 @@
 			do : {
 
 				deactiveAll : function() {
-					customdesign.stage().canvas.deactivateAll();
-					customdesign.stage().canvas.renderAll();
-					customdesign.e.tools.attr({'data-view': 'standard'});
-					$('#customdesign-layers li.active').removeClass('active');
+					magic.stage().canvas.deactivateAll();
+					magic.stage().canvas.renderAll();
+					magic.e.tools.attr({'data-view': 'standard'});
+					$('#magic-layers li.active').removeClass('active');
 				}
 
 			},
@@ -1141,7 +1141,7 @@
 				if (!obj || !obj.canvas)
 					return;
 				
-				var stage = customdesign.stage();
+				var stage = magic.stage();
 				
 				if (stage.canvas.getActiveGroup())
 					obj = stage.canvas.getActiveGroup();
@@ -1213,23 +1213,23 @@
 				if (ops.fontFamily && ops.fontFamily.indexOf('"') === -1)
 					ops.fontFamily = '"'+ops.fontFamily+'"';
 				
-				if (customdesign.data.text_direction == '1') {	
-					ops.originX = customdesign.data.rtl == '1' ? 'right' : 'left';
+				if (magic.data.text_direction == '1') {	
+					ops.originX = magic.data.rtl == '1' ? 'right' : 'left';
 					ops.originY = 'top';
 				};
 				
-				var fill_default = customdesign.get.color('invert');
+				var fill_default = magic.get.color('invert');
 			
-				if (customdesign.data.colors !== undefined && customdesign.data.colors !== '') {
-					fill_default = customdesign.data.colors.split(',')[0];
+				if (magic.data.colors !== undefined && magic.data.colors !== '') {
+					fill_default = magic.data.colors.split(',')[0];
 					if (fill_default.indexOf(':') > -1)
 						fill_default = fill_default.split(':')[1];
 					fill_default = fill_default.split('@')[0];
 				};
 				
-				ops.editable = (customdesign.data.rtl != '1');
+				ops.editable = (magic.data.rtl != '1');
 				
-				var limit = customdesign.stage().limit_zone,
+				var limit = magic.stage().limit_zone,
 				    _ops = $.extend({
 				        left: limit.left + (limit.width/2),
 				        top: limit.top + (limit.height/2),
@@ -1243,7 +1243,7 @@
 			    object.set({
 					clipTo: function(ctx) {
 						try{
-							return customdesign.objects.clipto(ctx, object);
+							return magic.objects.clipto(ctx, object);
 						}catch(ex){}
 			        }
 				});
@@ -1254,14 +1254,14 @@
 
 			qrcode : function(text, color, callback) {
 
-				var canvas = customdesign.tools.qrcode({
+				var canvas = magic.tools.qrcode({
 					text: text,
 					foreground: color,
 				});
 
 				fabric.Image.fromURL(canvas.toDataURL(), function(image) {
 
-					var stage = customdesign.stage();
+					var stage = magic.stage();
 
 					image.set({
 						left: stage.limit_zone.left + (stage.limit_zone.width/2),
@@ -1269,16 +1269,16 @@
 						width: stage.limit_zone.width*0.7,
 						height: image.height * ((stage.limit_zone.width*0.7)/image.width),
 						fill: color,
-						backgroundColor: customdesign.fn.invert(color),
+						backgroundColor: magic.fn.invert(color),
 						name: text,
 						text: text,
 						type: 'qrcode',
 						clipTo: function(ctx) {
-				            return customdesign.objects.clipto(ctx, image);
+				            return magic.objects.clipto(ctx, image);
 				        }
 					});
 
-					customdesign.design.layers.create({type: 'image', image: image});
+					magic.design.layers.create({type: 'image', image: image});
 
 					callback(image);
 
@@ -1286,14 +1286,14 @@
 
 			},
 
-			customdesign : {
+			magic : {
 
 				'i-text' : function(ops, callback) {
 					
-					return callback(customdesign.objects.text(ops));
+					return callback(magic.objects.text(ops));
 					
 					
-					ops.src = 'data:image/svg+xml;base64,'+btoa(customdesign.fn.buildText(ops));
+					ops.src = 'data:image/svg+xml;base64,'+btoa(magic.fn.buildText(ops));
 					
 					return this.svg(ops, callback);
 					
@@ -1316,17 +1316,17 @@
 					
 					ops.editable = false;
 						
-					callback(customdesign.objects.text(ops));
+					callback(magic.objects.text(ops));
 					
 				},
 
 				'curvedText' : function(ops, callback) {
 
-					var limit = customdesign.stage().limit_zone;
-					var fill_default = customdesign.get.color('invert');
+					var limit = magic.stage().limit_zone;
+					var fill_default = magic.get.color('invert');
 				
-					if (customdesign.data.colors !== undefined && customdesign.data.colors !== '') {
-						fill_default = customdesign.data.colors.split(',')[0];
+					if (magic.data.colors !== undefined && magic.data.colors !== '') {
+						fill_default = magic.data.colors.split(',')[0];
 						if (fill_default.indexOf(':') > -1)
 							fill_default = fill_default.split(':')[1];
 						fill_default = fill_default.split('@')[0];
@@ -1349,7 +1349,7 @@
 				    object.set({
 						clipTo: function(ctx) {
 				            try{
-								return customdesign.objects.clipto(ctx, object);
+								return magic.objects.clipto(ctx, object);
 							}catch(ex){}
 				        }
 					});
@@ -1363,7 +1363,7 @@
 					if (ops.src.indexOf('.svg') == ops.src.length-4)
 						return this.svg(ops, callback);
 					
-					var stage = customdesign.stage(),
+					var stage = magic.stage(),
 						active = stage.canvas.getActiveObject(),
 			        	replace_active = ops.replace,
 			        	do_replace = (
@@ -1371,21 +1371,21 @@
 							active !== null && 
 							active !== undefined && 
 							typeof active.setElement == 'function' &&
-							localStorage.getItem('CUSTOMDESIGN-REPLACE-IMAGE') == 'true'
+							localStorage.getItem('MAGIC-REPLACE-IMAGE') == 'true'
 						);
 					
 					if (
 						do_replace &&
 						ops.src.indexOf('.svg') !== ops.src.length-4 &&
 						ops.src.indexOf('data:image/svg+xml;base64') === -1
-					) return customdesign.fn.replace_image(ops.src, active);
+					) return magic.fn.replace_image(ops.src, active);
 					
-					$('#CustomdesignDesign').attr({'data-processing': 'true', 'data-msg': 'Processing..'});
+					$('#MagicDesign').attr({'data-processing': 'true', 'data-msg': 'Processing..'});
 					
 					let img = new Image();
 					
 					img.onerror = function() {
-						customdesign.fn.notice(customdesign.i(33)+ops.src, 'error', 5000);
+						magic.fn.notice(magic.i(33)+ops.src, 'error', 5000);
 					    callback(null);
 					};
 					
@@ -1395,7 +1395,7 @@
 						
 						if (ops.user_upload === true) {
 							
-						   	src_data = customdesign.fn.check_upload_dimensions(this);
+						   	src_data = magic.fn.check_upload_dimensions(this);
 							
 							if (src_data === null)
 								return callback(null);
@@ -1418,7 +1418,7 @@
 							cv.getContext('2d').drawImage(img, 0, 0);
 							ops.src = cv.toDataURL('image/'+(ops.src.indexOf('.png') === ops.src.length-4 ? 'png' : 'jpeg'));
 							img.onload = function() {
-								customdesign.stage().canvas.renderAll();
+								magic.stage().canvas.renderAll();
 							};
 							img.src = ops.src;
 							delete cv;
@@ -1426,7 +1426,7 @@
 						};
 					
 				        var image = new fabric.Image(this),
-				        	stage = customdesign.stage(),
+				        	stage = magic.stage(),
 				        	objs =  stage.canvas.getObjects(),
 				        	ibx = null;
 						
@@ -1507,7 +1507,7 @@
 								this.naturalHeight > stage.limit_zone.height
 							)
 						) {
-							setTimeout(customdesign.fn.large_image_helper, 1, {
+							setTimeout(magic.fn.large_image_helper, 1, {
 								w: img.naturalWidth,
 								h: img.naturalHeight,
 								ew: stage.limit_zone.width,
@@ -1537,7 +1537,7 @@
 						};
 
 						image.set('clipTo', function(ctx) {
-				            return customdesign.objects.clipto(ctx, image);
+				            return magic.objects.clipto(ctx, image);
 				        });
 						
 						if (do_replace) {
@@ -1559,10 +1559,10 @@
 							active.setElement(image._element);
 							active.set(olds);
 							
-							customdesign.ops.importing = false;
-							customdesign.stack.save();
+							magic.ops.importing = false;
+							magic.stack.save();
 							
-							customdesign.ops.set_active = active;
+							magic.ops.set_active = active;
 							
 							callback(null);
 					        
@@ -1578,7 +1578,7 @@
 
 				'text-fx' : function(ops, callback) {
 					
-					var newobj = customdesign.objects.text(ops);
+					var newobj = magic.objects.text(ops);
 
 					ops.width = newobj.width;
 					ops.height = newobj.height;
@@ -1633,10 +1633,10 @@
 				        ops['cacheTextImageLarge'] = cacheTextImageLarge;
 				        ops.height = ops.height*2.5;
 						ops['clipTo'] = function(ctx) {
-				            return customdesign.objects.clipto(ctx, image);
+				            return magic.objects.clipto(ctx, image);
 				        };
 
-						var cdata = customdesign.fn.bridgeText(image._element, ops['bridge']);
+						var cdata = magic.fn.bridgeText(image._element, ops['bridge']);
 						
 						delete ops.stroke;
 						delete ops.strokeWidth;
@@ -1645,7 +1645,7 @@
 
 						if ((ops.filters && ops.filters.length > 0)) {
 
-							var stage = customdesign.stage();
+							var stage = magic.stage();
 
 							ops.filters.map(function(fil, ind){
 								if (fil.color){
@@ -1717,7 +1717,7 @@
 							
 						};
 						
-						return customdesign.objects.customdesign.image(ops, callback);
+						return magic.objects.magic.image(ops, callback);
 						
 						/*
 						*	Apply a solution to fix SVG for FireFox
@@ -1731,7 +1731,7 @@
 							delete ops.height;
 							
 					        var shape = fabric.util.groupSVGElements(objects, options),
-					        	editzone = customdesign.stage().edit_zone;
+					        	editzone = magic.stage().edit_zone;
 							
 					        if (ops.height === undefined) {
 								ops.width = shape.width;
@@ -1745,7 +1745,7 @@
 							shape.set(ops);
 							
 				       		shape.set('clipTo', function(ctx) {
-					            return customdesign.objects.clipto(ctx, shape);
+					            return magic.objects.clipto(ctx, shape);
 					        });
 					        
 					        callback(shape);
@@ -1761,11 +1761,11 @@
 							dataType: 'text',
 							statusCode: {
 								403: function(){
-									customdesign.fn.notice(customdesign.i(33)+'(403) '+ops.src, 'error', 3500);
+									magic.fn.notice(magic.i(33)+'(403) '+ops.src, 'error', 3500);
 									callback(null);
 								},
 								404: function() {
-									customdesign.fn.notice(customdesign.i(33)+'(404) '+ops.src, 'error', 3500);
+									magic.fn.notice(magic.i(33)+'(404) '+ops.src, 'error', 3500);
 									callback(null);
 								}
 							},
@@ -1785,14 +1785,14 @@
 				
 				'path' : function(ops, callback) {
 
-					var limit = customdesign.stage().limit_zone,
+					var limit = magic.stage().limit_zone,
 						path = new fabric.Path(ops.path, $.extend({
 					        left: limit.left + (limit.width/2),
 					        top: limit.top + (limit.height/2),
 					    }, ops));
 
 					path.set('clipTo', function(ctx) {
-				        return customdesign.objects.clipto(ctx, path);
+				        return magic.objects.clipto(ctx, path);
 				    });
 
 				    path.set('fill', null);
@@ -1811,7 +1811,7 @@
 						return this.image(ops, callback);
 						
 					var img = new Image(),
-						st = customdesign.stage();
+						st = magic.stage();
 						
 					ops = $.extend({
 						width: st.limit_zone.width,
@@ -1820,7 +1820,7 @@
 						top: st.limit_zone.top,
 						border: 10,
 						background: '#eee',
-						button: customdesign.data.assets+'assets/images/imagebox-btn.png',
+						button: magic.data.assets+'assets/images/imagebox-btn.png',
 						imagebox: ''
 					}, ops, true);
 					
@@ -1863,7 +1863,7 @@
 						delete canvas;
 						delete ctx;
 						
-						return customdesign.objects.customdesign.image(ops, callback);
+						return magic.objects.magic.image(ops, callback);
 						
 					};
 					
@@ -1890,8 +1890,8 @@
 					};
 					
 					Object.keys(maps).map(function(i) {
-						customdesign.objects.icons[i] = new Image();
-						customdesign.objects.icons[i].src = 'data:image/svg+xml;base64,'+maps[i];
+						magic.objects.icons[i] = new Image();
+						magic.objects.icons[i].src = 'data:image/svg+xml;base64,'+maps[i];
 					});
 				}
 			}
@@ -1904,7 +1904,7 @@
 
 				var onInput = function(e){
 
-					var c = customdesign.stage().canvas,
+					var c = magic.stage().canvas,
 						a = c.getActiveObject(),
 						callback = this.getAttribute('data-callback'),
 						action = this.getAttribute('data-action'),
@@ -1913,8 +1913,8 @@
 
 					if (callback) {
 
-						if (customdesign.design.nav.callback[callback])
-							customdesign.design.nav.callback[callback](this, e, ratio);
+						if (magic.design.nav.callback[callback])
+							magic.design.nav.callback[callback](this, e, ratio);
 
 					}else if (action && a && !e.isTrigger){
 						a.set(action, val*ratio);
@@ -1947,136 +1947,136 @@
 	
 					};
 
-				customdesign.trigger({
+				magic.trigger({
 
-					el: $('#CustomdesignDesign'),
+					el: $('#MagicDesign'),
 
 					events: {
 
-						'input[type="range"][data-view="customdesign"]:input': showInput,
+						'input[type="range"][data-view="magic"]:input': showInput,
 						'input[type="range"][data-action]:input, input[type="range"][data-callback]:input': onInput,
 						'input[type="range"][data-callback="textFX"]:change': 'textFX',
-						'#customdesign-stroke-fix-colors li': 'strokeColor',
+						'#magic-stroke-fix-colors li': 'strokeColor',
 
-						'div#customdesign-left>div.customdesign-left-nav-wrp>ul.customdesign-left-nav li[data-tab]': 'leftNav',
-						'#customdesign-general-status': 'general_status',
-						'div#customdesign-left #customdesign-side-close': 'close_side',
-						'svg#customdesign-nav-file': 'resp_file',
-						'#customdesign-stage-nav': 'stages',
-						'#customdesign-cliparts': 'cliparts',
-						'#customdesign-uploads header button': 'upload_nav',
-						'#customdesign-left .customdesign-x-thumbn:mouseover,#customdesign-left .customdesign-x-thumbn:mouseout': 'x_thumbn_preview',
-						'#customdesign-left button[data-func="show-categories"]': 'x_thumbn_categories',
-						'#customdesign-cliparts-list:scroll': 'cliparts_more',
-						'#customdesign-templates-list:scroll': 'templates_more',
-						'#customdesign-uploads div[data-tab="internal"]:scroll': 'images_more',
-						'#customdesign-shapes:scroll': 'shapes_more',
+						'div#magic-left>div.magic-left-nav-wrp>ul.magic-left-nav li[data-tab]': 'leftNav',
+						'#magic-general-status': 'general_status',
+						'div#magic-left #magic-side-close': 'close_side',
+						'svg#magic-nav-file': 'resp_file',
+						'#magic-stage-nav': 'stages',
+						'#magic-cliparts': 'cliparts',
+						'#magic-uploads header button': 'upload_nav',
+						'#magic-left .magic-x-thumbn:mouseover,#magic-left .magic-x-thumbn:mouseout': 'x_thumbn_preview',
+						'#magic-left button[data-func="show-categories"]': 'x_thumbn_categories',
+						'#magic-cliparts-list:scroll': 'cliparts_more',
+						'#magic-templates-list:scroll': 'templates_more',
+						'#magic-uploads div[data-tab="internal"]:scroll': 'images_more',
+						'#magic-shapes:scroll': 'shapes_more',
 						
-						'.customdesign-tab-body-wrp .customdesign-xitems-list:scroll': customdesign.xitems.scroll_more,
+						'.magic-tab-body-wrp .magic-xitems-list:scroll': magic.xitems.scroll_more,
 
-						'#customdesign-saved-designs:scroll': 'designs_more',
+						'#magic-saved-designs:scroll': 'designs_more',
 
-						'#customdesign-templates-search-inp:click,#customdesign-templates-search-inp:keydown,#customdesign-templates-search-categories:change': 'templates_search',
-						'#customdesign-cliparts-search-inp:click,#customdesign-cliparts-search-inp:keydown,#customdesign-cliparts-search-categories:change': 'cliparts_search',
-						'.customdesign-xitems-search>input:click,.customdesign-xitems-search>input:keydown,.customdesign-xitems-search>input:change': customdesign.xitems.search,
+						'#magic-templates-search-inp:click,#magic-templates-search-inp:keydown,#magic-templates-search-categories:change': 'templates_search',
+						'#magic-cliparts-search-inp:click,#magic-cliparts-search-inp:keydown,#magic-cliparts-search-categories:change': 'cliparts_search',
+						'.magic-xitems-search>input:click,.magic-xitems-search>input:keydown,.magic-xitems-search>input:change': magic.xitems.search,
 
-						'div#customdesign-top-tools>ul.customdesign-top-nav>li[data-tool], div#customdesign-navigations ul li[data-tool]': 'topTools',
+						'div#magic-top-tools>ul.magic-top-nav>li[data-tool], div#magic-navigations ul li[data-tool]': 'topTools',
 
-						'input#customdesign-zoom[type="range"]:input, #customdesign-zoom-wrp i[data-zoom], #customdesign-zoom-wrp:mousewheel': 'doZoom',
+						'input#magic-zoom[type="range"]:input, #magic-zoom-wrp i[data-zoom], #magic-zoom-wrp:mousewheel': 'doZoom',
 						'ul[data-mode="text"] .text-format': 'textFormat',
 
-						'.customdesign-edit-text:input': 'editText',
-						'#customdesign-text-mask-guide': function(){
-							customdesign.tools.lightbox({
-								content: '<img src="'+customdesign.data.assets+'/assets/images/text-mask-guide.jpg" />',
+						'.magic-edit-text:input': 'editText',
+						'#magic-text-mask-guide': function(){
+							magic.tools.lightbox({
+								content: '<img src="'+magic.data.assets+'/assets/images/text-mask-guide.jpg" />',
 								onload: function(tmpl){
-									tmpl.children('div').addClass('parent-scroll-mobile').find('#customdesign-lightbox-content').addClass('scroll-mobile');
+									tmpl.children('div').addClass('parent-scroll-mobile').find('#magic-lightbox-content').addClass('scroll-mobile');
 									return tmpl;
 								}
 							});
 						},
 
-						'#customdesign-flip-x:change, #customdesign-flip-y:change': 'flip',
-						'#customdesign-lock-position:change': 'lock_position',
-						'#customdesign-reset-transform': 'resetTransform',
+						'#magic-flip-x:change, #magic-flip-y:change': 'flip',
+						'#magic-lock-position:change': 'lock_position',
+						'#magic-reset-transform': 'resetTransform',
 
-						'input#customdesign-curved:change': 'enableCurved',
-						'input#customdesign-fill:input,input#customdesign-fill:change': 'fillColor',
-						'span.customdesign-save-color': 'saveColor',
-						'input#customdesign-stroke:input, input#customdesign-stroke:change': 'fillStroke',
+						'input#magic-curved:change': 'enableCurved',
+						'input#magic-fill:input,input#magic-fill:change': 'fillColor',
+						'span.magic-save-color': 'saveColor',
+						'input#magic-stroke:input, input#magic-stroke:change': 'fillStroke',
 						
-						'input#customdesign-svg-fill:input,input#customdesign-svg-fill:change': 'svgFillColor',
-						'#customdesign-svg-colors [data-func]': 'svgFuncs',
+						'input#magic-svg-fill:input,input#magic-svg-fill:change': 'svgFillColor',
+						'#magic-svg-colors [data-func]': 'svgFuncs',
 						
 						'li[data-tool="arrange"] button[data-arrange]' : 'doArrange',
-						'.customdesign-more-fonts': 'load_fonts',
-						'#customdesign-fonts' : 'select_font',
+						'.magic-more-fonts': 'load_fonts',
+						'#magic-fonts' : 'select_font',
 
-						'#customdesign-upload-form input[type="file"]:change': function(){
-							customdesign.fn.process_files(this.files);
+						'#magic-upload-form input[type="file"]:change': function(){
+							magic.fn.process_files(this.files);
 						},
 
-						'#customdesign-design-undo': customdesign.stack.back,
-						'#customdesign-design-redo': customdesign.stack.forward,
-						'#customdesign-save-btn': customdesign.tools.save,
+						'#magic-design-undo': magic.stack.back,
+						'#magic-design-redo': magic.stack.forward,
+						'#magic-save-btn': magic.tools.save,
 
-						'#customdesign-discard-drawing': 'exit_drawing',
-						'#customdesign-text-effect img[data-effect]': 'text_effect',
-						'#customdesign-text-fx-trident:change': 'textFX',
+						'#magic-discard-drawing': 'exit_drawing',
+						'#magic-text-effect img[data-effect]': 'text_effect',
+						'#magic-text-fx-trident:change': 'textFX',
 						'input[data-image-fx][type="range"]:change': 'imageFX',
 
-						'#customdesign-drawing-color:change': function(e){
-							customdesign.design.nav.callback.drawing(e);
+						'#magic-drawing-color:change': function(e){
+							magic.design.nav.callback.drawing(e);
 						},
-						'#customdesign-auto-alignment:change, #customdesign-template-append:change, #customdesign-replace-image:change': 'options',
+						'#magic-auto-alignment:change, #magic-template-append:change, #magic-replace-image:change': 'options',
 
-						'button[data-func="update-text-fx"]': customdesign.fn.update_text_fx,
-						'#customdesign-bug button.submit': 'bug_submit',
+						'button[data-func="update-text-fx"]': magic.fn.update_text_fx,
+						'#magic-bug button.submit': 'bug_submit',
 						
-						'#customdesign-image-fx-mode:change': 'selectImageFX',
-						'#customdesign-image-fx-fx>li[data-fx]': 'imageColorFX',
+						'#magic-image-fx-mode:change': 'selectImageFX',
+						'#magic-image-fx-fx>li[data-fx]': 'imageColorFX',
 
-						'#customdesign-saved-designs': 'saved_designs',
-						'#customdesign-designs-search input:input': 'saved_designs_search',
-						'#customdesign-languages li': 'change_lang',
-						'button#customdesign-change-product, button#customdesign-select-product': 'change_product',
+						'#magic-saved-designs': 'saved_designs',
+						'#magic-designs-search input:input': 'saved_designs_search',
+						'#magic-languages li': 'change_lang',
+						'button#magic-change-product, button#magic-select-product': 'change_product',
 
-						'#customdesign-file-nav li[data-func]': 'fileNav',
-						'#customdesign-print-nav .doPrint:change, #customdesign-print-nav button[data-func]': 'doPrint',
-						'.customdesign-tabs-nav': 'nav',
-						'#customdesign-shares-wrp': 'doShare',
+						'#magic-file-nav li[data-func]': 'fileNav',
+						'#magic-print-nav .doPrint:change, #magic-print-nav button[data-func]': 'doPrint',
+						'.magic-tabs-nav': 'nav',
+						'#magic-shares-wrp': 'doShare',
 						
-						'#customdesign-cart-items': 'my_cart',
-						'a[data-view="cart-details"]': customdesign.render.cart_details,
+						'#magic-cart-items': 'my_cart',
+						'a[data-view="cart-details"]': magic.render.cart_details,
 
 					},
 
 					leftNav: function(e) {
 
 						var tab = this.getAttribute('data-tab'),
-							stage = customdesign.stage();
+							stage = magic.stage();
 						
 						if (stage === undefined || stage.canvas === undefined)	
 							return;
 							
-						/*customdesign.tools.discard();*/
+						/*magic.tools.discard();*/
 
 						if (tab == 'drawing') {
 							stage.canvas.isDrawingMode = true;
 							stage.limit_zone.visible = true;
-							var fill_default = customdesign.get.color('invert');
+							var fill_default = magic.get.color('invert');
 				
-							if (customdesign.data.colors !== undefined && customdesign.data.colors !== '') {
-								fill_default = customdesign.data.colors.split(',')[0];
+							if (magic.data.colors !== undefined && magic.data.colors !== '') {
+								fill_default = magic.data.colors.split(',')[0];
 								if (fill_default.indexOf(':') > -1)
 									fill_default = fill_default.split(':')[1];
 								fill_default = fill_default.split('@')[0];
 							};
 							stage.canvas.freeDrawingBrush.color = fill_default;
-							customdesign.get.el('top-tools').attr({'data-view': 'drawing'});
+							magic.get.el('top-tools').attr({'data-view': 'drawing'});
 						} else if (tab == 'uploads') {
-							if (customdesign.get.el('external-images').hasClass('active')) {
-								$('#customdesign-external-images iframe').each(function(){
+							if (magic.get.el('external-images').hasClass('active')) {
+								$('#magic-external-images iframe').each(function(){
 									this.contentWindow.postMessage({
 										action : 'refresh'
 									}, "*");
@@ -2085,28 +2085,28 @@
 						} else if (stage && stage.canvas) {
 							stage.canvas.isDrawingMode = false;
 							stage.limit_zone.visible = false;
-							customdesign.get.el('top-tools').attr({'data-view': 'standard'});
+							magic.get.el('top-tools').attr({'data-view': 'standard'});
 							stage.canvas.renderAll();
 						};
 
 						if (this.getAttribute('data-load')) {
-							if (typeof customdesign.design.nav.load[this.getAttribute('data-load')] == 'function')
-								customdesign.design.nav.load[this.getAttribute('data-load')](e);
+							if (typeof magic.design.nav.load[this.getAttribute('data-load')] == 'function')
+								magic.design.nav.load[this.getAttribute('data-load')](e);
 							this.removeAttribute('data-load');
 						};
 
-						$('#customdesign-left .customdesign-tab-body-wrp.active,#customdesign-left ul.customdesign-left-nav li[data-tab].active').removeClass('active');
-						$('#customdesign-left [data-view="preactive"]').removeAttr('data-view');
+						$('#magic-left .magic-tab-body-wrp.active,#magic-left ul.magic-left-nav li[data-tab].active').removeClass('active');
+						$('#magic-left [data-view="preactive"]').removeAttr('data-view');
 						$(this).addClass('active').prev('li[data-tab]').attr({'data-view': 'preactive'});
 
-						$('#customdesign-'+this.getAttribute('data-tab')).addClass('active');
-						$('#customdesign-side-close').addClass('active');
+						$('#magic-'+this.getAttribute('data-tab')).addClass('active');
+						$('#magic-side-close').addClass('active');
 						
 						if (
 							this.getAttribute('data-callback') &&
-							typeof customdesign.design.nav.callback[this.getAttribute('data-callback')] == 'function'
+							typeof magic.design.nav.callback[this.getAttribute('data-callback')] == 'function'
 						)
-							customdesign.design.nav.callback[this.getAttribute('data-callback')](e);
+							magic.design.nav.callback[this.getAttribute('data-callback')](e);
 
 					},
 					
@@ -2130,50 +2130,50 @@
 							
 							case 'cancel-cart': 
 								
-								customdesign.fn.set_url('cart', null);
+								magic.fn.set_url('cart', null);
 								
-								customdesign.get.el('general-status').html(
+								magic.get.el('general-status').html(
 									'<span>\
 										<text>\
-											<i class="customdesignx-android-alert"></i> '+
-											customdesign.i(184)+
+											<i class="magicx-android-alert"></i> '+
+											magic.i(184)+
 										'</text>\
 										<a href="#clear-designs" data-btn="cancel" data-func="clear-designs">\
-											'+customdesign.i(185)+'\
+											'+magic.i(185)+'\
 										</a>\
 									</span>'
 								);
 								
-								customdesign.render.cart_change();
+								magic.render.cart_change();
 
 							break;
 							
 							case 'cancel-design': 
 								
-								customdesign.get.el('general-status').html(
+								magic.get.el('general-status').html(
 									'<span>\
 										<text>\
-											<i class="customdesignx-android-alert"></i> '+
-											customdesign.i(184)+
+											<i class="magicx-android-alert"></i> '+
+											magic.i(184)+
 										'</text>\
 										<a href="#clear-designs" data-btn="cancel" data-func="clear-designs">\
-											'+customdesign.i(185)+'\
+											'+magic.i(185)+'\
 										</a>\
 									</span>'
 								);
 								
-								customdesign.render.cart_change();
+								magic.render.cart_change();
 
 							break;
 							
 							case 'save-design':
-								customdesign.design.my_designs.pre_save();
+								magic.design.my_designs.pre_save();
 							break;
 							
 							case 'clear-designs':
-								customdesign.tools.clearAll();
-								customdesign.render.cart_change();
-								customdesign.get.el('general-status').html('');
+								magic.tools.clearAll();
+								magic.render.cart_change();
+								magic.get.el('general-status').html('');
 							break;
 						}
 						
@@ -2181,7 +2181,7 @@
 					
 					close_side: function(e) {
 						$(this).removeClass('active');
-						$('#customdesign-left ul.customdesign-left-nav li.active, .customdesign-tab-body-wrp.active').removeClass('active');
+						$('#magic-left ul.magic-left-nav li.active, .magic-tab-body-wrp.active').removeClass('active');
 					},
 					
 					resp_file: function() {
@@ -2204,12 +2204,12 @@
 							wrp = $(this),
 							prev = $(this).hasClass('preview-designs');
 						
-						customdesign.do_action('stage_nav_click', e);
+						magic.do_action('stage_nav_click', e);
 						
-						if (e.target.id == 'customdesign-stage-nav' && prev) {
+						if (e.target.id == 'magic-stage-nav' && prev) {
 							wrp.removeClass('preview-designs').removeClass('stages-expand');
 							wrp.find('li[data-stage].active').removeClass('active');
-							wrp.find('li[data-stage="'+customdesign.current_stage+'"]').addClass('active');
+							wrp.find('li[data-stage="'+magic.current_stage+'"]').addClass('active');
 							return;
 						};
 						
@@ -2218,7 +2218,7 @@
 							var nav = e.target.getAttribute('data-nav') || 
 									  e.target.parentNode.getAttribute('data-nav') || 
 									  e.target.parentNode.parentNode.getAttribute('data-nav'),
-								actv = customdesign.get.el('stage-nav').find('li.active');
+								actv = magic.get.el('stage-nav').find('li.active');
 							
 							if (nav && nav != 'func') {
 								if (nav == 'prev' && actv.prev('li[data-stage]'))
@@ -2235,21 +2235,21 @@
 						
 						if (
 							!stage || 
-							(stage == customdesign.current_stage && !prev) || 
-							!customdesign.data.stages[stage]
+							(stage == magic.current_stage && !prev) || 
+							!magic.data.stages[stage]
 						)return;
 						
 						if (wrp.hasClass('preview-designs')) {
-							customdesign.fn.stage_nav(stage);
+							magic.fn.stage_nav(stage);
 							return;	
 						};
 						
 						wrp.removeClass('stages-expand preview-designs');
 						
-						customdesign.active_stage(stage, function() {
-							customdesign.design.layers.build();
-							customdesign.get.el('zoom').val(customdesign.stage().canvas.getZoom()*100).trigger('input');
-							customdesign.e.tools.attr({'data-view': 'standard'});
+						magic.active_stage(stage, function() {
+							magic.design.layers.build();
+							magic.get.el('zoom').val(magic.stage().canvas.getZoom()*100).trigger('input');
+							magic.e.tools.attr({'data-view': 'standard'});
 						});
 
 					},
@@ -2268,34 +2268,34 @@
 
 							case 'category' :
 
-								var tm = customdesign.get.el('cliparts-list');
+								var tm = magic.get.el('cliparts-list');
 
-								customdesign.get.el('cliparts').find('.customdesign-cliparts-category.selected').removeClass('selected');
+								magic.get.el('cliparts').find('.magic-cliparts-category.selected').removeClass('selected');
 								el.addClass('selected');
-								customdesign.get.el('cliparts').addClass('selected');
+								magic.get.el('cliparts').addClass('selected');
 
-								customdesign.get.el('cliparts-list')
+								magic.get.el('cliparts-list')
 									.data({'category': el.data('category')})
 									.html('<header>\
-												<span data-act="back" title="'+customdesign.i(43)+'">\
-													<i class="customdesignx-android-arrow-back"></i>\
+												<span data-act="back" title="'+magic.i(43)+'">\
+													<i class="magicx-android-arrow-back"></i>\
 												</span>\
-												<span class="customdesign-category-title">'+customdesign.i(44)+'</span>\
-											</header><i class="customdesign-spinner white x3 mt2"></i>');
+												<span class="magic-category-title">'+magic.i(44)+'</span>\
+											</header><i class="magic-spinner white x3 mt2"></i>');
 
-								customdesign.post({
+								magic.post({
 									action: 'cliparts',
 									category: el.data('category'),
-									q: customdesign.ops.cliparts_q,
+									q: magic.ops.cliparts_q,
 									index: 0
 								});
-								customdesign.ops.cliparts_index = 0;
+								magic.ops.cliparts_index = 0;
 							break;
 
 							case 'back' :
-								customdesign.get.el('cliparts').find('.customdesign-cliparts-category.selected').removeClass('selected');
-								customdesign.get.el('cliparts').removeClass('selected');
-								customdesign.get.el('cliparts-list').data({'category': ''});
+								magic.get.el('cliparts').find('.magic-cliparts-category.selected').removeClass('selected');
+								magic.get.el('cliparts').removeClass('selected');
+								magic.get.el('cliparts-list').data({'category': ''});
 							break;
 						}
 
@@ -2303,11 +2303,11 @@
 					
 					do_search: function(type) {
 						
-						customdesign.ops[type+'_index'] = 0;
-						customdesign.ops[type+'_loading'] = false;
+						magic.ops[type+'_index'] = 0;
+						magic.ops[type+'_loading'] = false;
 
-						customdesign.get.el(type+'-list').find('ul').html('');
-						customdesign.get.el(type+'-list').trigger('scroll');
+						magic.get.el(type+'-list').find('ul').html('');
+						magic.get.el(type+'-list').trigger('scroll');
 					
 					},
 					
@@ -2315,8 +2315,8 @@
 						
 						if (e.type == 'click') {
 							setTimeout(function(el){
-								if (customdesign.ops.templates_q != el.value && el.value === '') {
-									customdesign.ops.templates_q = el.value;
+								if (magic.ops.templates_q != el.value && el.value === '') {
+									magic.ops.templates_q = el.value;
 									e.data.do_search('templates');
 								}
 							}, 100, this);
@@ -2326,7 +2326,7 @@
 							return;
 
 						if (this.tagName == 'INPUT')
-							customdesign.ops.templates_q = this.value;
+							magic.ops.templates_q = this.value;
 
 						e.data.do_search('templates');
 
@@ -2336,8 +2336,8 @@
 						
 						if (e.type == 'click') {
 							setTimeout(function(el){
-								if (customdesign.ops.cliparts_q != el.value && el.value === '') {
-									customdesign.ops.cliparts_q = el.value;
+								if (magic.ops.cliparts_q != el.value && el.value === '') {
+									magic.ops.cliparts_q = el.value;
 									e.data.do_search('cliparts');
 								}
 							}, 100, this);
@@ -2347,7 +2347,7 @@
 							return;
 
 						if (this.tagName == 'INPUT')
-							customdesign.ops.cliparts_q = this.value;
+							magic.ops.cliparts_q = this.value;
 						
 						e.data.do_search('cliparts');
 
@@ -2355,13 +2355,13 @@
 					
 					upload_nav : function(e) {
 						
-						var wrp = $(this).closest('#customdesign-uploads'),
+						var wrp = $(this).closest('#magic-uploads'),
 							nav = this.getAttribute('data-nav'),
 							tab = wrp.find('div[data-tab="'+nav+'"]');
 						
 						if (nav == 'external') {
 							if (tab.find('iframe').length === 0)
-								tab.html('<iframe src="https://services.customdesign.com/images/"></iframe>');
+								tab.html('<iframe src="https://services.Magicrugs.com/images/"></iframe>');
 							else if($(this).hasClass('active')) {
 								tab.scrollTop(0);
 								tab.find('iframe').get(0).contentWindow.postMessage({
@@ -2388,17 +2388,17 @@
 						) {
 							if (
 								e.type == 'mouseover' &&
-								customdesign.ops.drag_start === null
+								magic.ops.drag_start === null
 							) {
 
-								if (customdesign.ops.xtc_timer !== undefined)
-									clearTimeout(customdesign.ops.xtc_timer);
+								if (magic.ops.xtc_timer !== undefined)
+									clearTimeout(magic.ops.xtc_timer);
 								try {
 									
 									var ops = e.target.parentNode.getAttribute('data-ops');
 									
-									if (customdesign.xitems.ops[ops] !== undefined)
-										ops = $.extend([], customdesign.xitems.ops[ops], true);
+									if (magic.xitems.ops[ops] !== undefined)
+										ops = $.extend([], magic.xitems.ops[ops], true);
 									else ops = JSON.parse(ops);
 									
 									ops = ops[0];
@@ -2411,46 +2411,46 @@
 
 								var price = (
 										(ops.type == 'image' || ops.type == 'template') ? 
-										(ops.price > 0) ? customdesign.fn.price(ops.price) : 
-										customdesign.i(100) : ''
+										(ops.price > 0) ? magic.fn.price(ops.price) : 
+										magic.i(100) : ''
 									),
 									tags = (
-										ops.type == 'upload' ? customdesign.i(84): ops.cates != 'null' && ops.cates != '' ? ops.cates : (
+										ops.type == 'upload' ? magic.i(84): ops.cates != 'null' && ops.cates != '' ? ops.cates : (
 											ops.tags != '' && ops.tags != 'null' ? ops.tags : ''
 										)
 									),
 									do_view = function() {
 										
 										if (ops.component !== undefined)
-											ops.url = customdesign.xitems.resources[ops.component].url[ops.id];
+											ops.url = magic.xitems.resources[ops.component].url[ops.id];
 											
-										customdesign.get.el('x-thumbn-preview').show().find('>div').html('<img src="'+ops.url+'" />');
-										customdesign.get.el('x-thumbn-preview').find('>header').html(
+										magic.get.el('x-thumbn-preview').show().find('>div').html('<img src="'+ops.url+'" />');
+										magic.get.el('x-thumbn-preview').find('>header').html(
 											(ops.name ? ops.name : ops.url.split('/').pop().substr(0, 50))
 											+'<span>'+price+'</span>'
 										);
 										
 										if (tags !== '')
-											customdesign.get.el('x-thumbn-preview').find('>footer').show().html(customdesign.i(105) +' '+tags);
+											magic.get.el('x-thumbn-preview').find('>footer').show().html(magic.i(105) +' '+tags);
 										else
-											customdesign.get.el('x-thumbn-preview').find('>footer').hide().html('');
+											magic.get.el('x-thumbn-preview').find('>footer').hide().html('');
 											
 									},
 									template_view = function() {
 										
-										var s = customdesign.stage(), 
-											c = customdesign.get.color();
+										var s = magic.stage(), 
+											c = magic.get.color();
 										
-										customdesign.get.el('x-thumbn-preview').show().find('>div').html(
-											'<div class="customdesign-template-preview">\
+										magic.get.el('x-thumbn-preview').show().find('>div').html(
+											'<div class="magic-template-preview">\
 												<img style="background:'+c+'" src="'+s.product._element.src+'" />\
-												<div class="customdesign-tp-limit"></div>\
+												<div class="magic-tp-limit"></div>\
 											</div>'
 										);
 										
-										customdesign.get.el('x-thumbn-preview').find('img').on('load', function(){
+										magic.get.el('x-thumbn-preview').find('img').on('load', function(){
 											
-											var el = $(this).parent().find('.customdesign-tp-limit'),
+											var el = $(this).parent().find('.magic-tp-limit'),
 												ratio = s.product_width ? this.offsetWidth/s.product_width : 1,
 												w = Math.round(s.edit_zone.width*ratio),
 												h = Math.round(s.edit_zone.height*ratio),
@@ -2462,19 +2462,19 @@
 												marginTop: t+'px',
 												height: (h%2 != 0 ? h+1 : h)+'px',
 												width: (w%2 != 0 ? w+1 : w)+'px',
-												borderColor: customdesign.fn.invert(c)
+												borderColor: magic.fn.invert(c)
 											}).html('<img src="'+ops.screenshot+'" />');
 											
 										});
 										
-										customdesign.get.el('x-thumbn-preview').find('>header').html(
+										magic.get.el('x-thumbn-preview').find('>header').html(
 											(ops.name ? ops.name : ops.url.split('/').pop().substr(0, 50))
 											+'<span>'+price+'</span>'
 										);
 										if (tags !== '')
-											customdesign.get.el('x-thumbn-preview').find('>footer').show().html(customdesign.i(105) +' '+tags);
+											magic.get.el('x-thumbn-preview').find('>footer').show().html(magic.i(105) +' '+tags);
 										else
-											customdesign.get.el('x-thumbn-preview').find('>footer').hide().html('');
+											magic.get.el('x-thumbn-preview').find('>footer').hide().html('');
 									};
 								
 								if (ops.type == 'template') {
@@ -2482,18 +2482,18 @@
 								}
 									
 								if (ops.url === undefined) {
-									ops.url = customdesign.cliparts.storage[ops.id] || customdesign.cliparts.uploads[ops.id];
+									ops.url = magic.cliparts.storage[ops.id] || magic.cliparts.uploads[ops.id];
 								}
 								
 								if (ops.url !== undefined && ops.url.indexOf('dumb-') === 0) {
-									customdesign.indexed.get(ops.url.split('dumb-')[1], 'dumb', function(res){
+									magic.indexed.get(ops.url.split('dumb-')[1], 'dumb', function(res){
 										if (res !== null && res !== undefined) {
-											customdesign.cliparts.uploads[ops.id] = res[0];
+											magic.cliparts.uploads[ops.id] = res[0];
 											ops.url = res[0];
 											do_view();
 											delete res;
 										} else {
-											customdesign.fn.notice(customdesign.i(165));
+											magic.fn.notice(magic.i(165));
 										}
 									});
 									ops.url = '';
@@ -2503,8 +2503,8 @@
 
 							}else{
 
-								customdesign.ops.xtc_timer = setTimeout(function(){
-									customdesign.get.el('x-thumbn-preview').hide();
+								magic.ops.xtc_timer = setTimeout(function(){
+									magic.get.el('x-thumbn-preview').hide();
 								}, 350);
 
 							}
@@ -2514,37 +2514,37 @@
 					
 					x_thumbn_categories : function(e) {
 						
-						var wrp = customdesign.get.el('x-thumbn-preview'),
+						var wrp = magic.get.el('x-thumbn-preview'),
 							type = this.getAttribute('data-type');
 						
-						if (customdesign.ops.xtc_timer !== undefined)
-							clearTimeout(customdesign.ops.xtc_timer);
+						if (magic.ops.xtc_timer !== undefined)
+							clearTimeout(magic.ops.xtc_timer);
 						
-						if (wrp.css('display') == 'block' && wrp.find('div.customdesign-categories-wrp').length !== 0)
+						if (wrp.css('display') == 'block' && wrp.find('div.magic-categories-wrp').length !== 0)
 							return wrp.hide();
 						
 						wrp.show().find('>div').html('');
-						wrp.find('>header').html('<strong>'+customdesign.i(56)+'<i class="customdesignx-android-close close"></i></strong>');
+						wrp.find('>header').html('<strong>'+magic.i(56)+'<i class="magicx-android-close close"></i></strong>');
 						wrp.find('>footer').html('').hide();
 						
-						customdesign.render.categories(type);
+						magic.render.categories(type);
 							
 					},
 					
 					templates_more: function(e) {
 
-						if (customdesign.ops.templates_loading === true)
+						if (magic.ops.templates_loading === true)
 							return;
 
 						if (this.scrollTop + this.offsetHeight >= this.scrollHeight/* - 100*/) {
-							customdesign.post({
+							magic.post({
 								action: 'templates',
-								category: customdesign.ops.templates_category,
-								q: customdesign.ops.templates_q,
-								index: customdesign.ops.templates_index
+								category: magic.ops.templates_category,
+								q: magic.ops.templates_q,
+								index: magic.ops.templates_index
 							});
-							customdesign.get.el('templates-list').append('<i class="customdesign-spinner white x3 mt1 mb1"></i>');
-							customdesign.ops.templates_loading = true;
+							magic.get.el('templates-list').append('<i class="magic-spinner white x3 mt1 mb1"></i>');
+							magic.ops.templates_loading = true;
 						}
 
 
@@ -2552,18 +2552,18 @@
 					
 					cliparts_more: function(e) {
 
-						if (customdesign.ops.cliparts_loading === true)
+						if (magic.ops.cliparts_loading === true)
 							return;
 
 						if (this.scrollTop + this.offsetHeight >= this.scrollHeight/* - 100*/) {
-							customdesign.post({
+							magic.post({
 								action: 'cliparts',
-								category: customdesign.ops.cliparts_category,
-								q: customdesign.ops.cliparts_q,
-								index: customdesign.ops.cliparts_index
+								category: magic.ops.cliparts_category,
+								q: magic.ops.cliparts_q,
+								index: magic.ops.cliparts_index
 							});
-							customdesign.get.el('cliparts-list').append('<i class="customdesign-spinner white x3 mt1 mb1"></i>');
-							customdesign.ops.cliparts_loading = true;
+							magic.get.el('cliparts-list').append('<i class="magic-spinner white x3 mt1 mb1"></i>');
+							magic.ops.cliparts_loading = true;
 						}
 
 
@@ -2571,25 +2571,25 @@
 
 					images_more : function(e) {
 
-						if (customdesign.ops.images_loading === true)
+						if (magic.ops.images_loading === true)
 							return;
 
 						if (this.scrollTop + this.offsetHeight >= this.scrollHeight - 100) {
 							
-							customdesign.ops.images_loading = true;
-							customdesign.indexed.list(function(data){
-								customdesign.cliparts.import(data.id, {
+							magic.ops.images_loading = true;
+							magic.indexed.list(function(data){
+								magic.cliparts.import(data.id, {
 									url: 'dumb-'+data.id,
 									thumbn: data.thumbn,
 									name: data.name,
 									save: false
 								});
-								customdesign.ops.uploads_cursor = data.id;
+								magic.ops.uploads_cursor = data.id;
 								delete data;
 							}, 'uploads', function(st){
-								customdesign.ops.images_loading = false;
+								magic.ops.images_loading = false;
 								if (st == 'done') {
-									$('#customdesign-uploads').off('scroll');
+									$('#magic-uploads').off('scroll');
 								}
 							});
 						}
@@ -2597,35 +2597,35 @@
 
 					shapes_more: function(e) {
 
-						if (customdesign.ops.shapes_loading === true)
+						if (magic.ops.shapes_loading === true)
 							return;
 
 						if (this.scrollTop + this.offsetHeight >= this.scrollHeight - 100) {
-							customdesign.post({
+							magic.post({
 								action: 'shapes',
-								index: customdesign.ops.shapes_index
+								index: magic.ops.shapes_index
 							});
-							customdesign.get.el('shapes').append('<i class="customdesign-spinner white x3 mt3 mb1"></i>');
-							customdesign.ops.shapes_loading = true;
+							magic.get.el('shapes').append('<i class="magic-spinner white x3 mt3 mb1"></i>');
+							magic.ops.shapes_loading = true;
 						}
 					},
 
 					designs_more : function(e) {
 						
-						if (customdesign.ops.designs_loading === true)
+						if (magic.ops.designs_loading === true)
 							return;
 							
 						if (this.scrollTop + this.offsetHeight >= this.scrollHeight - 100) {
-							customdesign.ops.designs_loading = true;
-							customdesign.ops.designs_cursor = $('#customdesign-saved-designs>li[data-id]:not([data-id="new"])').last().data('id');
-							customdesign.indexed.list(function(data){
-								customdesign.render.my_designs(data);
-								customdesign.ops.designs_cursor = data.id;
+							magic.ops.designs_loading = true;
+							magic.ops.designs_cursor = $('#magic-saved-designs>li[data-id]:not([data-id="new"])').last().data('id');
+							magic.indexed.list(function(data){
+								magic.render.my_designs(data);
+								magic.ops.designs_cursor = data.id;
 								delete data;
 							}, 'designs', function(st){
-								customdesign.ops.designs_loading = false;
+								magic.ops.designs_loading = false;
 								if (st == 'done') {
-									$('#customdesign-my-designs').off('scroll');
+									$('#magic-my-designs').off('scroll');
 								}
 							});
 						}
@@ -2644,12 +2644,12 @@
 
 							$(document).on('mousemove', function(e){
 
-								if (!el.dragging || customdesign.e.tools.hasClass('minisize'))
+								if (!el.dragging || magic.e.tools.hasClass('minisize'))
 									return;
 
-								var scroll = customdesign.get.scroll();
+								var scroll = magic.get.scroll();
 
-								customdesign.e.tools.css({
+								magic.e.tools.css({
 									top: (e.clientY - el.rect.clientY + el.rect.top)+'px',
 									left: (e.clientX - el.rect.clientX + el.rect.left)+'px',
 								});
@@ -2663,15 +2663,15 @@
 
 						}
 
-						var rect = document.querySelector('#customdesign-workspace').getBoundingClientRect(),
+						var rect = document.querySelector('#magic-workspace').getBoundingClientRect(),
 							scroll = {
-									top: (customdesign.body.scrollTop?customdesign.body.scrollTop:customdesign.html.scrollTop),
-									left: (customdesign.body.scrollLeft?customdesign.body.scrollLeft:customdesign.html.scrollLeft)
+									top: (magic.body.scrollTop?magic.body.scrollTop:magic.html.scrollTop),
+									left: (magic.body.scrollLeft?magic.body.scrollLeft:magic.html.scrollLeft)
 								};
 
 						el.rect = {
-							left: customdesign.e.tools.offset().left-rect.left-scroll.left,
-							top: customdesign.e.tools.offset().top-rect.top-scroll.top,
+							left: magic.e.tools.offset().left-rect.left-scroll.left,
+							top: magic.e.tools.offset().top-rect.top-scroll.top,
 							clientX: e.clientX,
 							clientY: e.clientY
 						};
@@ -2684,13 +2684,13 @@
 							cb = this.getAttribute('data-callback');
 						
 						if (this.getAttribute('data-load')) {
-							if (typeof customdesign.design.nav.load[this.getAttribute('data-load')] == 'function')
-								customdesign.design.nav.load[this.getAttribute('data-load')](e);
+							if (typeof magic.design.nav.load[this.getAttribute('data-load')] == 'function')
+								magic.design.nav.load[this.getAttribute('data-load')](e);
 							this.removeAttribute('data-load');
 						}
 						
-						if (act == 'callback' && cb && typeof customdesign.design.nav.callback[cb] == 'function') {
-							return customdesign.design.nav.callback[cb](this, e);
+						if (act == 'callback' && cb && typeof magic.design.nav.callback[cb] == 'function') {
+							return magic.design.nav.callback[cb](this, e);
 						};
 						
 						if (
@@ -2705,10 +2705,10 @@
 							return;
 						}
 
-						customdesign.fn.navigation(this, e);
+						magic.fn.navigation(this, e);
 						
-						if (cb && typeof customdesign.design.nav.callback[cb] == 'function')
-							customdesign.design.nav.callback[cb](this, e);
+						if (cb && typeof magic.design.nav.callback[cb] == 'function')
+							magic.design.nav.callback[cb](this, e);
 
 					},
 					
@@ -2717,7 +2717,7 @@
 						var pos = e.target.getAttribute('data-position') || 
 								  e.target.parentNode.getAttribute('data-position') ||
 								  e.target.parentNode.parentNode.getAttribute('data-position'),
-							stage = customdesign.stage(),
+							stage = magic.stage(),
 							limit = stage.limit_zone,
 							active = stage.canvas.getActiveObject() || stage.canvas.getActiveGroup();
 						
@@ -2814,13 +2814,13 @@
 
 						e.preventDefault();
 						
-						var s = customdesign.stage();
+						var s = magic.stage();
 						
 						if (!s)
 							return;
 						
 						var c = s.canvas,
-							val = parseInt(customdesign.get.el('zoom').val());
+							val = parseInt(magic.get.el('zoom').val());
 						
 						if (e.originalEvent !== undefined && e.originalEvent.deltaY !== undefined) {
 							val -= e.originalEvent.deltaY;
@@ -2829,7 +2829,7 @@
 							if (val > 250)
 								val = 250;
 							e.preventDefault();
-							return customdesign.get.el('zoom').val(val).trigger('input');
+							return magic.get.el('zoom').val(val).trigger('input');
 						}
 						
 						if (this.tagName == 'I') {
@@ -2840,7 +2840,7 @@
 								val = 50;
 							if (val > 250)
 								val = 250;
-							customdesign.get.el('zoom').val(val).trigger('input');
+							magic.get.el('zoom').val(val).trigger('input');
 							return false;
 						}
 						
@@ -2853,7 +2853,7 @@
 						this.parentNode.setAttribute('data-value', val+'%');
 						
 						
-						var wrp = customdesign.get.el('stage-'+customdesign.current_stage);
+						var wrp = magic.get.el('stage-'+magic.current_stage);
 
 						if (!wrp.data('w'))
 							wrp.data({'w': wrp.width(), 'h': wrp.height()});
@@ -2873,7 +2873,7 @@
 						);
 						
 						if (val >= 1) {
-							customdesign.fn.reversePortView(false);
+							magic.fn.reversePortView(false);
 						}
 						
 					},
@@ -2884,10 +2884,10 @@
 
 						var onstopmove = function(e){
 							document.removeEventListener('mouseup', onstopmove, false);
-							wrp.removeEventListener('mousemove', customdesign.fn.onZoomThumnMove, false);
+							wrp.removeEventListener('mousemove', magic.fn.onZoomThumnMove, false);
 						};
-						customdesign.ops.preventClick = true;
-						wrp.addEventListener('mousemove', customdesign.fn.onZoomThumnMove, false);
+						magic.ops.preventClick = true;
+						wrp.addEventListener('mousemove', magic.fn.onZoomThumnMove, false);
 						document.addEventListener('mouseup', onstopmove, false);
 
 
@@ -2895,7 +2895,7 @@
 
 					wheelZoom : function(e) {
 
-						var zoom = parseFloat(customdesign.get.el('zoom').val());
+						var zoom = parseFloat(magic.get.el('zoom').val());
 
 						zoom +=  e.originalEvent.wheelDelta*0.15;
 
@@ -2904,7 +2904,7 @@
 						else if (zoom > 250)
 							zoom = 250;
 
-						customdesign.get.el('zoom').val(zoom).trigger('input');
+						magic.get.el('zoom').val(zoom).trigger('input');
 
 						e.preventDefault();
 
@@ -2912,7 +2912,7 @@
 
 					fillColor : function(e){
 
-						var c = customdesign.stage().canvas,
+						var c = magic.stage().canvas,
 							a = c.getActiveObject();
 
 						/*if (a.type == 'text-fx' && e.isTrigger !== undefined)
@@ -2922,12 +2922,12 @@
 
 							if (a.type == 'image' || a.type == 'qrcode' || a.type == 'text-fx') {
 
-								customdesign.get.el('fill').closest('li[data-tool="fill"]').css({'border-bottom': '3px solid '+this.value});
+								magic.get.el('fill').closest('li[data-tool="fill"]').css({'border-bottom': '3px solid '+this.value});
 							    a.set('fill', this.value);
 
 							    if (a._element && a._element.src.indexOf('data:image/svg+xml;base64') > -1){
 
-									var svg = customdesign.fn.fill_svg(a._element.src, this.value);
+									var svg = magic.fn.fill_svg(a._element.src, this.value);
 
 									a._element.src = svg;
 									a._element.onload = function(){
@@ -2957,7 +2957,7 @@
 									    }
 
 									    if (a.type == 'qrcode')
-									  		a.backgroundColor = customdesign.fn.invert(this.value);
+									  		a.backgroundColor = magic.fn.invert(this.value);
 
 								    }else{
 									    var fils = [];
@@ -2979,9 +2979,9 @@
 
 							if (a.type != 'text-fx')
 								c.renderAll();
-							else customdesign.fn.update_text_fx();
+							else magic.fn.update_text_fx();
 
-							customdesign.design.layers.build();
+							magic.design.layers.build();
 
 						}
 
@@ -2989,7 +2989,7 @@
 
 					fillStroke : function(e){
 
-						var c = customdesign.stage().canvas,
+						var c = magic.stage().canvas,
 							a = c.getActiveObject();
 
 						if (a && a.strokeWidth >0/*!e.isTrigger*/) {
@@ -3001,7 +3001,7 @@
 					
 					svgFillColor : function(e) {
 						
-						var canvas = customdesign.stage().canvas,
+						var canvas = magic.stage().canvas,
 							active = canvas.getActiveObject(),
 							c = this.value,
 							o = this.getAttribute('data-active-color');
@@ -3010,14 +3010,14 @@
 							return;
 						
 						if (active.j_object === undefined) {
-							$('#customdesign-color-picker-header i').click();
+							$('#magic-color-picker-header i').click();
 							return;
 						};
 							
-						customdesign.tools.svg.replace(active.j_object, c, o);
+						magic.tools.svg.replace(active.j_object, c, o);
 						var src = 'data:image/svg+xml;base64,'+btoa(active.j_object.html());
 						
-						customdesign.get.el('svg-colors').find('span[data-color="'+o+'"] input').css({'background-color': c});
+						magic.get.el('svg-colors').find('span[data-color="'+o+'"] input').css({'background-color': c});
 						
 						active.set('fill', '');
 						active.set('src', src);
@@ -3032,16 +3032,16 @@
 					
 					saveColor : function(e){
 
-						var color = customdesign.get.el(this.getAttribute('data-target')).val().toString().toLowerCase();
+						var color = magic.get.el(this.getAttribute('data-target')).val().toString().toLowerCase();
 						var colors = '#F4511E|#546E7A|#00ACC1|#3949AB|#5E35B1|#e53935|#FDD835|#7CB342|#6D4C41|#8E24AA';
 
 						if (color.indexOf('rgb') === 0)
-							color = customdesign.tools.svg.rgb2hex(color);
+							color = magic.tools.svg.rgb2hex(color);
 							
 						color = color.toUpperCase();
 
-						if (localStorage.getItem('customdesign_color_presets'))
-							colors = localStorage.getItem('customdesign_color_presets');
+						if (localStorage.getItem('magic_color_presets'))
+							colors = localStorage.getItem('magic_color_presets');
 
 						colors = colors.split('|');
 
@@ -3052,9 +3052,9 @@
 						while(colors.length > 10)
 							colors.pop();
 
-						localStorage.setItem('customdesign_color_presets', colors.join('|'));
+						localStorage.setItem('magic_color_presets', colors.join('|'));
 
-						customdesign.render.colorPresets();
+						magic.render.colorPresets();
 
 					},
 
@@ -3063,7 +3063,7 @@
 						if (e.isTrigger)
 							return;
 
-						var canvas = customdesign.stage().canvas,
+						var canvas = magic.stage().canvas,
 							active = canvas.getActiveObject(),
 							props, text, newobj = null;
 
@@ -3072,11 +3072,11 @@
 
 						if (this.checked && active.type == 'i-text') {
 
-							props = active.toObject(customdesign.ops.export_list);
+							props = active.toObject(magic.ops.export_list);
 							delete props['type'];
 
 							props['clipTo'] = function(ctx) {
-				            	return customdesign.objects.clipto(ctx, newobj);
+				            	return magic.objects.clipto(ctx, newobj);
 							};
 
 							[
@@ -3094,28 +3094,28 @@
 
 						}else if (!this.checked && active.type == 'curvedText'){
 
-							props = active.toObject(customdesign.ops.export_list);
+							props = active.toObject(magic.ops.export_list);
 							props['text'] = active.getText().trim();
 							delete props['type'];
 
 							props['clipTo'] = function(ctx) {
-					            return customdesign.objects.clipto(ctx, newobj);
+					            return magic.objects.clipto(ctx, newobj);
 					        };
 
-							newobj = customdesign.objects.text(props);
+							newobj = magic.objects.text(props);
 
 						}
 
 						if (newobj !== null) {
 							var index = canvas.getObjects().indexOf(active);
 							canvas.remove(active);
-							customdesign.stage().stack.data.pop();
+							magic.stage().stack.data.pop();
 							canvas.add(newobj);
 							newobj.moveTo(index);
 							canvas.setActiveObject(newobj).renderAll();
-							customdesign.design.layers.build();
+							magic.design.layers.build();
 						}else{
-							alert(customdesign.i(18));
+							alert(magic.i(18));
 						}
 
 					},
@@ -3125,16 +3125,16 @@
 						if (e.isTrigger)
 							return;
 
-						var canvas = customdesign.stage().canvas,
+						var canvas = magic.stage().canvas,
 							active = canvas.getActiveObject(),
 							effect = this.getAttribute('data-effect'),
-							props = active.toObject(customdesign.ops.export_list), text, newobj = null,
+							props = active.toObject(magic.ops.export_list), text, newobj = null,
 							_this = this;
 
 						if (!active)
 							return;
 
-						customdesign.f('Processing..');
+						magic.f('Processing..');
 
 
 						$(this.parentNode).find('[data-selected]').attr({'data-selected': ''});
@@ -3145,7 +3145,7 @@
 							delete props['type'];
 
 							props['clipTo'] = function(ctx) {
-				            	return customdesign.objects.clipto(ctx, newobj);
+				            	return magic.objects.clipto(ctx, newobj);
 							};
 
 							[
@@ -3161,7 +3161,7 @@
 
 							newobj = new fabric.CurvedText(active.text.trim(), props);
 
-							customdesign.fn.switch_type (newobj);
+							magic.fn.switch_type (newobj);
 							newobj.set('radius', 50);
 							canvas.renderAll();
 
@@ -3171,11 +3171,11 @@
 							delete props['type'];
 
 							props['clipTo'] = function(ctx) {
-					            return customdesign.objects.clipto(ctx, newobj);
+					            return magic.objects.clipto(ctx, newobj);
 					        };
 
 							if (effect == 'normal')
-								return customdesign.fn.switch_type(customdesign.objects.text(props));
+								return magic.fn.switch_type(magic.objects.text(props));
 
 							if (props['bridge'] === undefined) {
 								props['bridge'] ={
@@ -3190,8 +3190,8 @@
 							props.bridge.oblique = (effect == 'oblique');
 
 							if (effect == 'oblique')
-								customdesign.get.el('text-fx-trident').closest('li[data-func="text-fx"]').hide();
-							else customdesign.get.el('text-fx-trident').closest('li[data-func="text-fx"]').css({'display': ''});
+								magic.get.el('text-fx-trident').closest('li[data-func="text-fx"]').hide();
+							else magic.get.el('text-fx-trident').closest('li[data-func="text-fx"]').css({'display': ''});
 
 							if (active.type == 'text-fx') {
 
@@ -3199,20 +3199,20 @@
 									bridge: props.bridge
 								});
 								
-								var dataSrc = customdesign.fn.bridgeText(active.cacheTextImageLarge, active.bridge);
+								var dataSrc = magic.fn.bridgeText(active.cacheTextImageLarge, active.bridge);
 								
 								active._element.onload = function(){
 									canvas.renderAll();
-									customdesign.f(false);
-									customdesign.get.el('text-effect').find('img[data-effect]').attr({'data-selected': null});
-									customdesign.get.el('text-effect').find('img[data-effect="'+effect+'"]').attr({'data-selected': 'true'});
+									magic.f(false);
+									magic.get.el('text-effect').find('img[data-effect]').attr({'data-selected': null});
+									magic.get.el('text-effect').find('img[data-effect="'+effect+'"]').attr({'data-selected': 'true'});
 								};
 	
 								active._element.src = dataSrc;
 								active._originalElement.src = dataSrc;
 						
 							}else{
-								customdesign.objects.customdesign['text-fx'](props, customdesign.fn.switch_type);
+								magic.objects.magic['text-fx'](props, magic.fn.switch_type);
 							}
 
 						}
@@ -3222,12 +3222,12 @@
 
 					editText : function(e){
 
-						var c = customdesign.stage().canvas,
+						var c = magic.stage().canvas,
 							a = c.getActiveObject(),
 							t = this,
 							done = function(){
 								c.renderAll();
-								customdesign.get.el('workspace').find('.customdesign-edit-text').val(t.value);
+								magic.get.el('workspace').find('.magic-edit-text').val(t.value);
 							};
 
 						if (a) {
@@ -3243,7 +3243,7 @@
 										a.setText(this.value);
 									break;
 									case 'qrcode':
-										var qrcode = customdesign.tools.qrcode({
+										var qrcode = magic.tools.qrcode({
 											text: this.value,
 											foreground: a.fill
 										});
@@ -3276,7 +3276,7 @@
 
 					textFormat : function(e){
 
-						var c = customdesign.stage().canvas, 
+						var c = magic.stage().canvas, 
 							a = c.getActiveObject(),
 							fm = this.getAttribute('data-format'),
 							_this = this;
@@ -3288,7 +3288,7 @@
 								$(_this.parentNode).find('[data-align].selected').removeClass('selected');
 								$(_this).addClass('selected');
 								a.set('textAlign', _this.getAttribute('data-align'));
-								customdesign.get.el('text-align').attr({'class': 'customdesignx-align-'+(_this.getAttribute('data-align') ? _this.getAttribute('data-align') : 'center')});
+								magic.get.el('text-align').attr({'class': 'magicx-align-'+(_this.getAttribute('data-align') ? _this.getAttribute('data-align') : 'center')});
 
 							}else if (fm) {
 								
@@ -3318,7 +3318,7 @@
 									fabric.util.clearFabricFontCache(a.fontFamily);
 									c.renderAll();
 								});
-							}else customdesign.fn.update_text_fx();
+							}else magic.fn.update_text_fx();
 
 						}
 					},
@@ -3328,7 +3328,7 @@
 						if (e !== undefined && e.isTrigger !== undefined)
 							return;
 
-						var s = customdesign.get.stage();
+						var s = magic.get.stage();
 						if (!s.active)
 							return;
 
@@ -3352,8 +3352,8 @@
 						var dataSrc;
 
 						if (ev == 'change')
-							dataSrc = customdesign.fn.bridgeText(s.active.cacheTextImageLarge, s.active.bridge);
-						else dataSrc = customdesign.fn.bridgeText(s.active.cacheTextImage, s.active.bridge);
+							dataSrc = magic.fn.bridgeText(s.active.cacheTextImageLarge, s.active.bridge);
+						else dataSrc = magic.fn.bridgeText(s.active.cacheTextImage, s.active.bridge);
 
 						s.active._element.onload = function(){
 							s.active.set('fill', s.active.fill);
@@ -3367,16 +3367,16 @@
 					
 					strokeColor : function(e) {
 						
-						var act = customdesign.stage().canvas.getActiveObject(),
+						var act = magic.stage().canvas.getActiveObject(),
 							color = this.getAttribute('data-color'),
-							stk = customdesign.get.el('stroke').get(0),
-							strwidth = customdesign.get.el('stroke-width').val();
+							stk = magic.get.el('stroke').get(0),
+							strwidth = magic.get.el('stroke-width').val();
 							
 						if (stk.color && typeof stk.color.fromString == 'function')
 							stk.color.fromString(color);
 							
 						act.set('stroke', this.getAttribute('data-color'));
-						customdesign.stage().canvas.renderAll();
+						magic.stage().canvas.renderAll();
 						//act.set('stroke-width', strwidth/10);
 						
 					},
@@ -3384,13 +3384,13 @@
 					imageFX: function(e) {
 
 						this.setAttribute('data-value', this.value);
-						customdesign.fn.update_image_fx(this.getAttribute('data-image-fx'), this.value);
+						magic.fn.update_image_fx(this.getAttribute('data-image-fx'), this.value);
 
 					},
 
 					doArrange : function(e) {
 
-						var canvas = customdesign.stage().canvas,
+						var canvas = magic.stage().canvas,
 							active = canvas.getActiveObject();
 
 						if (!active)
@@ -3407,7 +3407,7 @@
 					     	   	active.moveTo(index+1);
 					     	   	canvas.renderAll();
 
-								return customdesign.design.layers.build();
+								return magic.design.layers.build();
 
 							}
 							else
@@ -3424,7 +3424,7 @@
 					     	   	active.moveTo(index-1);
 						 	   	canvas.renderAll();
 
-								return customdesign.design.layers.build();
+								return magic.design.layers.build();
 
 							}
 							else
@@ -3435,18 +3435,18 @@
 
 					load_fonts : function() {
 
-						customdesign.tools.lightbox({
+						magic.tools.lightbox({
 							width: 1020,
-							content: '<iframe src="https://services.customdesign.com/fonts/"></iframe>\
-									  <span data-view="loading"><i class="customdesign-spinner x3"></i></span>'
+							content: '<iframe src="https://services.Magicrugs.com/fonts/"></iframe>\
+									  <span data-view="loading"><i class="magic-spinner x3"></i></span>'
 						});
 						
-						$('#customdesign-lightbox iframe').on('load', function() {
+						$('#magic-lightbox iframe').on('load', function() {
 							this.contentWindow.postMessage({
 								action: 'fonts',
-								fonts: localStorage.getItem('CUSTOMDESIGN_FONTS')
+								fonts: localStorage.getItem('MAGIC_FONTS')
 							}, "*");
-							$('#customdesign-lightbox span[data-view="loading"]').remove();
+							$('#magic-lightbox span[data-view="loading"]').remove();
 						});
 
 					},
@@ -3457,13 +3457,13 @@
 
 						if (family) {
 
-							customdesign.get.el('fonts').find('font.selected').removeClass('selected');
+							magic.get.el('fonts').find('font.selected').removeClass('selected');
 							
 							$(e.target).addClass('selected').
 								closest('li[data-tool="font"]').
 								find('button.dropdown').html('<font style="font-family:\''+family+'\'">'+family+'</font>');
 
-							var canvas = customdesign.stage().canvas,
+							var canvas = magic.stage().canvas,
 								active = canvas.getActiveObject();
 
 							if (active.fontFamily == family)
@@ -3473,26 +3473,26 @@
 
 							if (e.target.getAttribute('data-source')) {
 								active.set('font', e.target.getAttribute('data-source'));
-								customdesign.fn.font_blob(active);
+								magic.fn.font_blob(active);
 							}else{
-								fonts = JSON.parse(localStorage.getItem('CUSTOMDESIGN_FONTS'));
+								fonts = JSON.parse(localStorage.getItem('MAGIC_FONTS'));
 								if (fonts[encodeURIComponent(family)])
 									active.set({font: fonts[encodeURIComponent(family)]});
 							}
 							
 							if (active.type != 'text-fx')
 								canvas.renderAll();
-							else customdesign.fn.update_text_fx();
+							else magic.fn.update_text_fx();
 						}
 
 					},
 
 					flip : function(e) {
 
-						var canvas = customdesign.stage().canvas,
+						var canvas = magic.stage().canvas,
 							active = canvas.getActiveObject();
 
-						if (this.id == 'customdesign-flip-x')
+						if (this.id == 'magic-flip-x')
 							active.set('flipX', this.checked);
 						else active.set('flipY', this.checked);
 
@@ -3502,7 +3502,7 @@
 					
 					lock_position : function(e) {
 						
-						var canvas = customdesign.stage().canvas,
+						var canvas = magic.stage().canvas,
 							active = canvas.getActiveObject();
 
 						active.set({
@@ -3511,7 +3511,7 @@
 							'lockMovementY': this.checked
 						});
 						
-						customdesign.get.el('position-wrp').attr({'data-lock': this.checked === true ? 'true' : 'false'});
+						magic.get.el('position-wrp').attr({'data-lock': this.checked === true ? 'true' : 'false'});
 						
 						canvas.renderAll();
 							
@@ -3519,7 +3519,7 @@
 					
 					resetTransform: function() {
 
-						var canvas = customdesign.stage().canvas,
+						var canvas = magic.stage().canvas,
 							active = canvas.getActiveObject();
 
 						active.set({
@@ -3532,44 +3532,44 @@
 						});
 
 						canvas.renderAll();
-						customdesign.tools.set(active);
+						magic.tools.set(active);
 
 					},
 
 					selectImageFX: function(e) {
 
-						customdesign.fn.update_image_fx(this.getAttribute('data-fx'), this.value);
+						magic.fn.update_image_fx(this.getAttribute('data-fx'), this.value);
 
 					},
 
 					imageColorFX: function(e) {
 
-						var s = customdesign.get.stage();
+						var s = magic.get.stage();
 
 						if (this.getAttribute('data-fx') == 'bnw') {
-							return $('#customdesign-image-fx-saturation').val(0).trigger('change');
+							return $('#magic-image-fx-saturation').val(0).trigger('change');
 						}else if (s.active.fx && s.active.fx.saturation == 0) {
 							s.active.fx.saturation = 100;
-							$('#customdesign-image-fx-saturation').val(100).trigger('input');
+							$('#magic-image-fx-saturation').val(100).trigger('input');
 						}else if (this.getAttribute('data-fx') === '') {
 							s.active.fx.saturation = 100;
 							s.active.fx.brightness = 0;
 							s.active.fx.contrast = 0;
-							customdesign.get.el('image-fx-brightness').val(0).attr({'data-value': 0});
-							customdesign.get.el('image-fx-contrast').val(0).attr({'data-value': 0});
-							customdesign.get.el('image-fx-saturation').val(100).attr({'data-value': 100});
+							magic.get.el('image-fx-brightness').val(0).attr({'data-value': 0});
+							magic.get.el('image-fx-contrast').val(0).attr({'data-value': 0});
+							magic.get.el('image-fx-saturation').val(100).attr({'data-value': 100});
 						}
 
 						$(this.parentNode).find('[data-selected="true"]').removeAttr('data-selected');
 						$(this).attr({'data-selected': 'true'});
 						
-						customdesign.fn.update_image_fx('fx', this.getAttribute('data-fx'));
+						magic.fn.update_image_fx('fx', this.getAttribute('data-fx'));
 
 					},
 					
 					bug_submit: function(e) {
 						
-						var wrp = customdesign.get.el('bug'),
+						var wrp = magic.get.el('bug'),
 							content = wrp.find('textarea[data-id="report-content"]').val();
 						
 						if (content.length < 30)
@@ -3578,7 +3578,7 @@
 						content = btoa(encodeURIComponent(content.substr(0, 1500)));
 						
 						wrp.attr({'data-view': 'sending'});
-						customdesign.post({
+						magic.post({
 							action: 'send_bug',
 							content: content
 						}, function(res) {
@@ -3589,7 +3589,7 @@
 							};
 							if (res.success != 1) {
 								wrp.removeAttr('data-view');
-								customdesign.fn.notice(res.message, 'error', 3500);
+								magic.fn.notice(res.message, 'error', 3500);
 								return;
 							};
 							wrp.attr({'data-view': 'success'});
@@ -3603,11 +3603,11 @@
 					
 					options: function() {
 						if (typeof this.getAttribute == 'function')
-							localStorage.setItem('CUSTOMDESIGN-'+this.getAttribute('data-name'), this.checked);
+							localStorage.setItem('MAGIC-'+this.getAttribute('data-name'), this.checked);
 					},
 
 					exit_drawing : function(){
-						customdesign.get.el('left .customdesign-left-nav li[data-tab="layers"]').trigger('click');
+						magic.get.el('left .magic-left-nav li[data-tab="layers"]').trigger('click');
 					},
 
 					saved_designs : function(e) {
@@ -3627,12 +3627,12 @@
 						if (!act)
 							return;
 						
-						customdesign.ops.preventClick = true;
+						magic.ops.preventClick = true;
 							
 						if (!id && act != 'new')
 							return;
 						
-						let is_save = ($('#customdesign-saved-designs').attr('is') == 'save');
+						let is_save = ($('#magic-saved-designs').attr('is') == 'save');
 						
 						switch (act) {
 
@@ -3642,36 +3642,36 @@
 									
 									let is_empty_design = true;
 									
-									Object.keys(customdesign.cart.printing.states_data).map(function(s) {
-									    Object.keys(customdesign.cart.printing.states_data[s]).map(function(d) {
+									Object.keys(magic.cart.printing.states_data).map(function(s) {
+									    Object.keys(magic.cart.printing.states_data[s]).map(function(d) {
 									        if (
-									        	typeof customdesign.cart.printing.states_data[s][d] == 'number' && 
-									        	customdesign.cart.printing.states_data[s][d] !== 0
+									        	typeof magic.cart.printing.states_data[s][d] == 'number' && 
+									        	magic.cart.printing.states_data[s][d] !== 0
 									        )
 									            is_empty_design = false;
 									    });
 									});
 									
 									if (is_empty_design)
-										return customdesign.fn.notice(customdesign.i(96), 'error', 3500);
+										return magic.fn.notice(magic.i(96), 'error', 3500);
 									
 									if (is_save)
-										customdesign.fn.export('designs', id, el.attr('data-created'), el.attr('data-name'));
-									else customdesign.fn.export('designs');
+										magic.fn.export('designs', id, el.attr('data-created'), el.attr('data-name'));
+									else magic.fn.export('designs');
 									
-									$('#customdesign-navigations').attr({'data-navigation': ''});
+									$('#magic-navigations').attr({'data-navigation': ''});
 									$('li[data-tool]').removeClass('active');
-									return customdesign.fn.notice(customdesign.i(109), 'success', 3500);;
+									return magic.fn.notice(magic.i(109), 'success', 3500);;
 									
 								};
 								
-								customdesign.indexed.get(id, 'dumb', function(res){
+								magic.indexed.get(id, 'dumb', function(res){
 									if (res !== null) {
-										customdesign.fn.set_url('cart', null);
-										customdesign.ops.my_designs[id].stages = res.stages;
-										customdesign.fn.edit_design(customdesign.ops.my_designs[id]);
+										magic.fn.set_url('cart', null);
+										magic.ops.my_designs[id].stages = res.stages;
+										magic.fn.edit_design(magic.ops.my_designs[id]);
 									} else {
-										customdesign.fn.notice(customdesign.i(166), 'error', 3500);
+										magic.fn.notice(magic.i(166), 'error', 3500);
 									}
 								});
 
@@ -3684,13 +3684,13 @@
 										name = $(this).text();
 										$(e.target).closest('li[data-name]').attr({'data-name': name});
 										setTimeout(function(){
-											customdesign.indexed.get(id, 'designs', function(res){
+											magic.indexed.get(id, 'designs', function(res){
 												if (res !== null) {
 													res.name = name;
-													customdesign.indexed.get(id, 'dumb', function(res_dumb){
+													magic.indexed.get(id, 'dumb', function(res_dumb){
 														if (res_dumb !== null) {
 															res_dumb.name = name;
-															customdesign.indexed.save([res, res_dumb], 'designs');
+															magic.indexed.save([res, res_dumb], 'designs');
 															delete res;
 															delete res_dumb;
 														}
@@ -3710,10 +3710,10 @@
 
 							case 'delete' :
 								
-								if (!confirm(customdesign.i('sure')))
+								if (!confirm(magic.i('sure')))
 									return;
 
-								customdesign.indexed.delete(id, 'designs');
+								magic.indexed.delete(id, 'designs');
 
 								$(e.target).closest('li[data-id]').find('img').each(function(){
 									if (this.src.indexOf('blob:') === 0)
@@ -3731,7 +3731,7 @@
 						
 						var val = this.value.trim().toLowerCase();
 						
-						customdesign.get.el('saved-designs').find('li').each(function(){
+						magic.get.el('saved-designs').find('li').each(function(){
 							if (val === '' || $(this).find('span[data-view="name"]').text().trim().toLowerCase().indexOf(val) > -1)
 								this.style.display = '';
 							else this.style.display = 'none';
@@ -3740,21 +3740,21 @@
 					
 					change_lang : function(e) {
 						
-						customdesign.post({
+						magic.post({
 							action: 'change_lang',
 							code: this.getAttribute('data-id')
 						});
-						customdesign.fn.set_url('lang',this.getAttribute('data-id'));
+						magic.fn.set_url('lang',this.getAttribute('data-id'));
 						$(this).closest('li[data-tool="languages"]').
 								removeClass('active').
-								html('<i class="customdesign-spinner white"></i>');
+								html('<i class="magic-spinner white"></i>');
 					},
 
 					change_product : function(e) {
 						
-						var btn_txt = customdesign.fn.url_var('product_base') ? customdesign.i(80) : customdesign.i(87);
+						var btn_txt = magic.fn.url_var('product_base') ? magic.i(80) : magic.i(87);
 						
-						customdesign.render.products_list(btn_txt);
+						magic.render.products_list(btn_txt);
 						
 					},
 
@@ -3764,52 +3764,52 @@
 
 						switch (func) {
 							
-							case 'new' : customdesign.design.my_designs['new'](); break;
+							case 'new' : magic.design.my_designs['new'](); break;
 
 							case 'import' :
 
-								var inp = customdesign.get.el('import-json').get(0);
+								var inp = magic.get.el('import-json').get(0);
 								
 								inp.type = '';
 								inp.type = 'file';
 								inp.click();
 
-								if (customdesign.get.el('import-json').data('addEvent') !== true) {
+								if (magic.get.el('import-json').data('addEvent') !== true) {
 
-									customdesign.get.el('import-json').data({'addEvent': true}).on('change', function(){
+									magic.get.el('import-json').data({'addEvent': true}).on('change', function(){
 										
-										customdesign.design.my_designs['import'](this.files[0]); 
+										magic.design.my_designs['import'](this.files[0]); 
 										
 									});
 								}
 								
 							break;
 							case 'clear' :
-								customdesign.tools.clearAll();
-								customdesign.fn.notice(customdesign.i(29), 'success');
+								magic.tools.clearAll();
+								magic.fn.notice(magic.i(29), 'success');
 							break;
 							case 'saveas' :
-								customdesign.fn.download_design({type: 'json'});
+								magic.fn.download_design({type: 'json'});
 							break;
 							case 'save' :
-								customdesign.fn.notice(customdesign.i(109), 'success');								
-								customdesign.fn.export('designs');
+								magic.fn.notice(magic.i(109), 'success');								
+								magic.fn.export('designs');
 								
 							break;
 							case 'download' :
 
-								customdesign.fn.download_design({type: this.getAttribute('data-type')});
+								magic.fn.download_design({type: this.getAttribute('data-type')});
 								
 							break;
 						}
 
-						customdesign.fn.navigation('clear');
+						magic.fn.navigation('clear');
 
 					},
 
 					doPrint : function(e) {
 						
-						var pcfg = localStorage.getItem('CUSTOMDESIGN_PRINT_CFG'),
+						var pcfg = localStorage.getItem('MAGIC_PRINT_CFG'),
 							format = this.getAttribute('data-format');
 						
 						if (!pcfg || pcfg === '')
@@ -3825,32 +3825,32 @@
 										'li[data-row="unit"]', 
 										'li[data-row="orien"]',
 										'button[data-func="print"]'],
-									stage = customdesign.stage(),
+									stage = magic.stage(),
 									size = (stage !== undefined && stage.size !== undefined ? stage.size : '');
 								
-								inps = $('#customdesign-print-nav').find(inps.join(','));
+								inps = $('#magic-print-nav').find(inps.join(','));
 								
 								pcfg.format = format;
 								
 								if (format == 'png') {
 									if (size !== '') {
 										inps.hide();
-										if ($('#customdesign-print-nav li[data-row="size"] select option[value="'+size+'"]').length > 0) {
-											$('#customdesign-print-nav').find('li[data-row="size"]').show();
+										if ($('#magic-print-nav li[data-row="size"] select option[value="'+size+'"]').length > 0) {
+											$('#magic-print-nav').find('li[data-row="size"]').show();
 										} else {
-											$('#customdesign-print-nav').find('li[data-row="csize"],li[data-row="unit"]').show();
+											$('#magic-print-nav').find('li[data-row="csize"],li[data-row="unit"]').show();
 										}
 									} else inps.show();
-									$('#customdesign-print-nav customdesign-btn[data-func="print"]').show();
+									$('#magic-print-nav magic-btn[data-func="print"]').show();
 								} else { 
 									inps.hide();
-									$('#customdesign-print-nav customdesign-btn[data-func="print"]').hide();
-									$('#customdesign-print-nav').find('li[data-row="size"]').hide();
+									$('#magic-print-nav magic-btn[data-func="print"]').hide();
+									$('#magic-print-nav').find('li[data-row="size"]').hide();
 								}
 									
 								if (format == 'pdf')
-									$('#customdesign-print-nav').find('li[data-row="full"], li[data-row="cropmarks"]').show();
-								else $('#customdesign-print-nav').find('li[data-row="full"], li[data-row="cropmarks"]').hide();
+									$('#magic-print-nav').find('li[data-row="full"], li[data-row="cropmarks"]').show();
+								else $('#magic-print-nav').find('li[data-row="full"], li[data-row="cropmarks"]').hide();
 								
 							break;
 							
@@ -3875,8 +3875,8 @@
 							
 							case 'unit':
 							
-								var val = $('#customdesign-print-nav select[name="select-size"]').val();
-								inp = $('#customdesign-print-nav input[name="size"]'),
+								var val = $('#magic-print-nav select[name="select-size"]').val();
+								inp = $('#magic-print-nav input[name="size"]'),
 								unit = this.getAttribute('data-unit');
 								
 								if (val === '' || val === null)
@@ -3907,7 +3907,7 @@
 							
 							case 'size':
 								
-								var unit = $('#customdesign-print-nav input[name="print-unit"]:checked').data('unit'),
+								var unit = $('#magic-print-nav input[name="print-unit"]:checked').data('unit'),
 								val = this.value;
 								
 								if (val === '')
@@ -3931,35 +3931,35 @@
 								
 								pcfg.csize = val;
 								
-								customdesign.get.el('print-nav').find('input[name="size"]').val(val);
+								magic.get.el('print-nav').find('input[name="size"]').val(val);
 							
 							break;
 						};
 						
 						if (this.tagName == 'BUTTON') {
 							
-							var format = $('#customdesign-print-nav input[name="print-format"]:checked').attr('data-format'),
-								include_base = $('#customdesign-print-base').prop('checked'),
-								full = $('#customdesign-print-full').prop('checked'),
-								overflow = $('#customdesign-print-overflow').prop('checked'),
-								stage = customdesign.stage(),
+							var format = $('#magic-print-nav input[name="print-format"]:checked').attr('data-format'),
+								include_base = $('#magic-print-base').prop('checked'),
+								full = $('#magic-print-full').prop('checked'),
+								overflow = $('#magic-print-overflow').prop('checked'),
+								stage = magic.stage(),
 								func = this.getAttribute('data-func');
 							
 							if (format == 'svg' || format == 'pdf')
-								return customdesign.fn.download_design({type: format, include_base: include_base, full: full});
+								return magic.fn.download_design({type: format, include_base: include_base, full: full});
 							
-							document.getElementById('CustomdesignDesign').setAttribute('data-processing', 'true');
-							document.getElementById('CustomdesignDesign').setAttribute('data-msg', customdesign.i('render'));
+							document.getElementById('MagicDesign').setAttribute('data-processing', 'true');
+							document.getElementById('MagicDesign').setAttribute('data-msg', magic.i('render'));
 							
-							customdesign.get.el('zoom').val('100').trigger('input');
+							magic.get.el('zoom').val('100').trigger('input');
 							
-							var psize = customdesign.get.size();
+							var psize = magic.get.size();
 							
-							customdesign.fn.uncache_large_images(function() {
+							magic.fn.uncache_large_images(function() {
 								
-								customdesign.f(false);
+								magic.f(false);
 										
-								customdesign.fn.download_design({
+								magic.fn.download_design({
 									type: 'png',
 									orien: psize.o,
 									height: psize.h,
@@ -3971,27 +3971,27 @@
 										*	 Revert cache of large images
 										*/
 										
-										customdesign.fn.uncache_large_images(null, true);
+										magic.fn.uncache_large_images(null, true);
 										
 										if ( func == 'download' ) {
 											
-											name = customdesign.data.prefix_file+'_print_'+customdesign.current_stage+'.png';
+											name = magic.data.prefix_file+'_print_'+magic.current_stage+'.png';
 											
-											if (customdesign.fn.url_var('order_print', '') !== '') {
-												name = 'order-'+customdesign.fn.url_var('order_print')
-														+'__product-'+customdesign.fn.url_var('product_cms')
-														+'__base-'+customdesign.fn.url_var('product_base')+'__stage-'
-														+(Object.keys(customdesign.data.stages).indexOf(customdesign.current_stage)+1)+'.png';
+											if (magic.fn.url_var('order_print', '') !== '') {
+												name = 'order-'+magic.fn.url_var('order_print')
+														+'__product-'+magic.fn.url_var('product_cms')
+														+'__base-'+magic.fn.url_var('product_base')+'__stage-'
+														+(Object.keys(magic.data.stages).indexOf(magic.current_stage)+1)+'.png';
 											};
 											
-											customdesign.fn.download(data, name);
-											customdesign.f(false);
+											magic.fn.download(data, name);
+											magic.f(false);
 											return;
 											
 										};
 			
 										if (data.length < 10)
-											return alert(customdesign.i(36));
+											return alert(magic.i(36));
 			
 										var print_window = window.open();
 										print_window.document.write(
@@ -4005,7 +4005,7 @@
 
 						};
 						
-						localStorage.setItem('CUSTOMDESIGN_PRINT_CFG', JSON.stringify(pcfg));
+						localStorage.setItem('MAGIC_PRINT_CFG', JSON.stringify(pcfg));
 						
 					},
 					
@@ -4015,9 +4015,9 @@
 							
 							var el = $(e.target),
 								nav = el.data('nav'),
-								wrp = el.closest('.customdesign-tabs-nav').find('li[data-view="'+nav+'"]');
+								wrp = el.closest('.magic-tabs-nav').find('li[data-view="'+nav+'"]');
 							
-							el.closest('.customdesign-tabs-nav').attr({'data-nav': nav}).find('[data-active="true"]').removeAttr('data-active');
+							el.closest('.magic-tabs-nav').attr({'data-nav': nav}).find('[data-active="true"]').removeAttr('data-active');
 							el.attr({'data-active': 'true'});
 							wrp.attr({'data-active': 'true'});
 							
@@ -4032,7 +4032,7 @@
 						if (!func)
 							return;
 							
-						var share_history = localStorage.getItem('CUSTOMDESIGN_SHARE_HISTORY'),
+						var share_history = localStorage.getItem('MAGIC_SHARE_HISTORY'),
 							el = $(e.target);
 								
 						if (!share_history) {
@@ -4050,13 +4050,13 @@
 						
 						var load_history = function(index) {
 										
-							var wrp = customdesign.get.el('shares-wrp').find('li[data-view="history"]');
+							var wrp = magic.get.el('shares-wrp').find('li[data-view="history"]');
 							wrp.attr({'data-process': 'true'});
 							
-							customdesign.post({
+							magic.post({
 								action: 'get_shares',
 								index: index,
-								stream: customdesign.fn.url_var('stream', '')
+								stream: magic.fn.url_var('stream', '')
 							}, function(res){
 								
 								wrp.removeAttr('data-process');
@@ -4068,7 +4068,7 @@
 									var html = '', share_url = '';
 									res.result.map(function(s){
 										
-										share_url = customdesign.data.tool_url;
+										share_url = magic.data.tool_url;
 										
 										if (share_url.indexOf('?') > -1)
 											share_url += '&';
@@ -4082,21 +4082,21 @@
 										
 										html += '<span data-item>\
 											<a href="'+share_url+'" target="_blank">\
-												<img src="'+customdesign.data.upload_url+'shares/'+customdesign.fn.date('Y/t', s.created)+'/'+s.share_id+'.jpg'+'" height="150" />\
+												<img src="'+magic.data.upload_url+'shares/'+magic.fn.date('Y/t', s.created)+'/'+s.share_id+'.jpg'+'" height="150" />\
 											</a>\
 											<name>'+s.name+'</name>\
 											<span data-view="func">\
-												<i class="customdesign-icon-menu"></i>\
+												<i class="magic-icon-menu"></i>\
 												<span data-view="fsub" data-id="'+s.share_id+'" data-aid="'+s.aid+'" data-link="'+ encodeURIComponent(share_url)+'" data-created="'+s.created+'">\
-													<date data-func="date">'+customdesign.fn.date('h:m D d M, Y', s.created)+'</date>\
+													<date data-func="date">'+magic.fn.date('h:m D d M, Y', s.created)+'</date>\
 													<button data-func="copy-link">\
-														<i class="customdesign-icon-doc"></i> '+customdesign.i(130)+'\
+														<i class="magic-icon-doc"></i> '+magic.i(130)+'\
 													</button>\
 													<button data-func="open">\
-														<i class="customdesign-icon-link"></i> '+customdesign.i(131)+'\
+														<i class="magic-icon-link"></i> '+magic.i(131)+'\
 													</button>\
 													<button data-func="delete">\
-														<i class="customdesign-icon-trash"></i> '+customdesign.i(132)+'\
+														<i class="magic-icon-trash"></i> '+magic.i(132)+'\
 													</button>\
 												</span>\
 											</span>\
@@ -4106,7 +4106,7 @@
 									wrp.html(html);
 									
 								} else {
-									wrp.html('<p class="notice mt2 mb2">'+customdesign.i(129)+'</p>');
+									wrp.html('<p class="notice mt2 mb2">'+magic.i(129)+'</p>');
 								};
 								
 								if (res.per_page < res.total) {
@@ -4114,7 +4114,7 @@
 									var nav = '<ul data-view="pagenation">';
 									
 									if (res.index > res.per_page) {
-										nav += '<li data-func="pagination" data-p="0"><i data-func="pagination" data-p="0" class="customdesignx-ios-arrow-back"></i><i data-func="pagination" data-p="0" class="customdesignx-ios-arrow-back"></i></li>';
+										nav += '<li data-func="pagination" data-p="0"><i data-func="pagination" data-p="0" class="magicx-ios-arrow-back"></i><i data-func="pagination" data-p="0" class="magicx-ios-arrow-back"></i></li>';
 									};
 									
 									for (var i=1; i<=Math.ceil(res.total/res.per_page); i++) {
@@ -4122,14 +4122,14 @@
 									};
 									
 									if (res.index < res.total) {
-										nav += '<li data-func="pagination" data-p="'+((Math.ceil(res.total/res.per_page)-1)*res.per_page)+'"><i data-func="pagination" data-p="'+((Math.ceil(res.total/res.per_page)-1)*res.per_page)+'" class="customdesignx-ios-arrow-forward"></i><i data-func="pagination" data-p="'+((Math.ceil(res.total/res.per_page)-1)*res.per_page)+'" class="customdesignx-ios-arrow-forward"></i></li>';
+										nav += '<li data-func="pagination" data-p="'+((Math.ceil(res.total/res.per_page)-1)*res.per_page)+'"><i data-func="pagination" data-p="'+((Math.ceil(res.total/res.per_page)-1)*res.per_page)+'" class="magicx-ios-arrow-forward"></i><i data-func="pagination" data-p="'+((Math.ceil(res.total/res.per_page)-1)*res.per_page)+'" class="magicx-ios-arrow-forward"></i></li>';
 									};
 									nav += '</ul>';
 									
 									wrp.append(nav);
 									
 								} else if (res.index > res.per_page && res.result.length > 0){
-									wrp.append('<p class="center">'+customdesign.i(134)+'</p>');
+									wrp.append('<p class="center">'+magic.i(134)+'</p>');
 								}
 								
 							});
@@ -4149,8 +4149,8 @@
 							break;
 							
 							case 'copy-link' : 
-								customdesign.fn.copy(decodeURIComponent(el.closest('[data-view="fsub"]').data('link')));
-								customdesign.fn.notice(customdesign.i(135), 'success');
+								magic.fn.copy(decodeURIComponent(el.closest('[data-view="fsub"]').data('link')));
+								magic.fn.notice(magic.i(135), 'success');
 							break;
 							
 							case 'open' : 
@@ -4158,13 +4158,13 @@
 							break;
 							
 							case 'delete' : 
-								customdesign.fn.confirm({
-									title: customdesign.i(133),
+								magic.fn.confirm({
+									title: magic.i(133),
 									primary: {
 										text: 'Delete',
 										callback: function(e) {
 											el.closest('span[data-item]').css({opacity: 0.25});
-											customdesign.post({
+											magic.post({
 												action: 'delete_link_share',
 												aid: el.closest('[data-view="fsub"]').data('aid'),
 												id: el.closest('[data-view="fsub"]').data('id')
@@ -4172,7 +4172,7 @@
 												res = JSON.parse(res);
 												if (res.success == 0) {
 													el.closest('span[data-item]').css({opacity: 1});
-													customdesign.fn.notice(res.message, 'error');
+													magic.fn.notice(res.message, 'error');
 												} else el.closest('span[data-item]').remove();
 											});
 									
@@ -4197,8 +4197,8 @@
 								
 								if (restrict === true) {
 									
-									customdesign.fn.confirm({
-										title: customdesign.i(128),
+									magic.fn.confirm({
+										title: magic.i(128),
 										primary: {},
 										second: {
 											text: 'Ok'
@@ -4209,20 +4209,20 @@
 									return;
 								};
 								
-								if ($('#customdesign-share-link-title').val() === '') {
-									$('#customdesign-share-link-title').shake();
+								if ($('#magic-share-link-title').val() === '') {
+									$('#magic-share-link-title').shake();
 									e.preventDefault();
 									return;
 								};
 								
 								var has_design = 0;
 								
-								Object.keys(customdesign.data.stages).map(function(s) {
+								Object.keys(magic.data.stages).map(function(s) {
 									if (
-										typeof customdesign.data.stages[s] !== 'undefined' && 
-										typeof customdesign.data.stages[s].canvas !== 'undefined'
+										typeof magic.data.stages[s] !== 'undefined' && 
+										typeof magic.data.stages[s].canvas !== 'undefined'
 									){
-										var canvas = customdesign.data.stages[s].canvas,
+										var canvas = magic.data.stages[s].canvas,
 											objs = canvas.getObjects();
 										
 										if (objs.filter(function(o) {return o.evented === true;}).length > 0) {
@@ -4235,24 +4235,24 @@
 								if (
 									has_design === 0
 								) {
-									customdesign.fn.notice(customdesign.i(96), 'error');
+									magic.fn.notice(magic.i(96), 'error');
 									delete cart_data;
 									delete cart_design;
 									return false;
 								};
 								
 								if (
-									customdesign.data.required_full_design == '1' &&
-									has_design < Object.keys(customdesign.data.stages).length
+									magic.data.required_full_design == '1' &&
+									has_design < Object.keys(magic.data.stages).length
 								) {
-									customdesign.fn.notice(customdesign.i(210), 'error');
+									magic.fn.notice(magic.i(210), 'error');
 									delete cart_data;
 									delete cart_design;
 									return false;
 								};
 								
-								var wrp = $(e.target).closest('#customdesign-shares-wrp'),
-									data = customdesign.fn.export('share'),
+								var wrp = $(e.target).closest('#magic-shares-wrp'),
+									data = magic.fn.export('share'),
 									screenshot = data.stages[Object.keys(data.stages)[0]].screenshot;
 								
 								Object.keys(data.stages).map(function(s){
@@ -4266,11 +4266,11 @@
 								
 								formData.append('action', 'upload_share_design'); 
 								formData.append('ajax', 'frontend'); 
-								formData.append('nonce', 'CUSTOMDESIGN-SECURITY:'+customdesign.data.nonce); 
-								formData.append('aid', customdesign.fn.get_cookie('customdesign-AID')); 
-								formData.append('label', $('#customdesign-share-link-title').val()); 
-								formData.append('product_cms', customdesign.fn.url_var('product_cms', '')); 
-								formData.append('product', customdesign.fn.url_var('product_base', '')); 
+								formData.append('nonce', 'MAGIC-SECURITY:'+magic.data.nonce); 
+								formData.append('aid', magic.fn.get_cookie('magic-AID')); 
+								formData.append('label', $('#magic-share-link-title').val()); 
+								formData.append('product_cms', magic.fn.url_var('product_cms', '')); 
+								formData.append('product', magic.fn.url_var('product_base', '')); 
 								
 								blob = JSON.stringify(data);
 								formData.append('data', new Blob([blob]));
@@ -4279,17 +4279,17 @@
 								upload_size += blob.length+screenshot.length;
 								
 					            
-					            if (customdesign.data.max_upload_size > 0 && upload_size/1024000 > customdesign.data.max_upload_size) {
-						            customdesign.fn.notice('Error: your design is too large ('+(upload_size/1024000).toFixed(2)+'MB out of max '+customdesign.data.max_upload_size +'MB)<br>Please contact the administrator to change the server configuration', 'error', 5000);
-						            return customdesign.f(false);
+					            if (magic.data.max_upload_size > 0 && upload_size/1024000 > magic.data.max_upload_size) {
+						            magic.fn.notice('Error: your design is too large ('+(upload_size/1024000).toFixed(2)+'MB out of max '+magic.data.max_upload_size +'MB)<br>Please contact the administrator to change the server configuration', 'error', 5000);
+						            return magic.f(false);
 					            }
 					            
-					            customdesign.f('0% complete');
+					            magic.f('0% complete');
 									
 								 $.ajax({
 								    data	:	 formData,
 								    type	:	 "POST",
-								    url		:	 customdesign.data.ajax,
+								    url		:	 magic.data.ajax,
 								    contentType: false,
 								    processData: false,
 								    xhr		:	 function() {
@@ -4299,8 +4299,8 @@
 										    if (evt.lengthComputable) {
 										        var percentComplete = evt.loaded / evt.total;
 										        if (percentComplete < 1)
-										       		$('div#CustomdesignDesign').attr({'data-msg': parseInt(percentComplete*100)+'% upload complete'});
-										        else $('div#CustomdesignDesign').attr({'data-msg': customdesign.i(159)});
+										       		$('div#MagicDesign').attr({'data-msg': parseInt(percentComplete*100)+'% upload complete'});
+										        else $('div#MagicDesign').attr({'data-msg': magic.i(159)});
 										    }
 										    
 									    }, false);
@@ -4308,11 +4308,11 @@
 									},
 								    success: function (res, status) {
 									    
-									    customdesign.f(false);
+									    magic.f(false);
 									     
 									    res = JSON.parse(res);
 									
-										wrp.removeAttr('data-process').find('.customdesign-notice').remove();
+										wrp.removeAttr('data-process').find('.magic-notice').remove();
 										
 										if (res.success === 0) {
 											wrp.find('li[data-view="link"]').prepend(
@@ -4322,7 +4322,7 @@
 											
 											wrp.attr({'data-phase': '2'});
 											
-											var share_url = customdesign.data.tool_url;
+											var share_url = magic.data.tool_url;
 											
 											if (share_url.indexOf('?') > -1)
 												share_url += '&';
@@ -4341,11 +4341,11 @@
 												var nw = this.getAttribute('data-network'),
 													link = '';
 												if (nw == 'facebook') {
-													link = 'https://www.facebook.com/dialog/share?href='+encodeURIComponent(share_url)+'&display=popup&app_id='+customdesign.apply_filters('fbappid', '1430309103691863');
+													link = 'https://www.facebook.com/dialog/share?href='+encodeURIComponent(share_url)+'&display=popup&app_id='+magic.apply_filters('fbappid', '1430309103691863');
 												} else if (nw == 'twitter') {
-													link = 'https://twitter.com/intent/tweet?url='+encodeURIComponent(share_url)+'&text='+encodeURIComponent(res.name)+'&via=Customdesign&related=Customdesign,CustomdesignCom,CustomdesignProductDesigner'
+													link = 'https://twitter.com/intent/tweet?url='+encodeURIComponent(share_url)+'&text='+encodeURIComponent(res.name)+'&via=Magic&related=Magic,MagicCom,MagicProductDesigner'
 												} else if (nw == 'pinterest') {
-													link = 'https://www.pinterest.com/pin/create/button/?url='+encodeURIComponent(share_url)+'&description='+encodeURIComponent(res.name)+'&is_video=false&media='+encodeURIComponent(customdesign.data.upload_url+'shares/'+res.path+'/'+res.id+'.jpg')
+													link = 'https://www.pinterest.com/pin/create/button/?url='+encodeURIComponent(share_url)+'&description='+encodeURIComponent(res.name)+'&is_video=false&media='+encodeURIComponent(magic.data.upload_url+'shares/'+res.path+'/'+res.id+'.jpg')
 												}
 												
 												if (link !== '')
@@ -4356,7 +4356,7 @@
 											
 											share_history.push(res.created);
 											
-											localStorage.setItem('CUSTOMDESIGN_SHARE_HISTORY', JSON.stringify(share_history));
+											localStorage.setItem('MAGIC_SHARE_HISTORY', JSON.stringify(share_history));
 											
 										}
 										
@@ -4371,14 +4371,14 @@
 							break;
 							
 							case 'do-again' : 
-								customdesign.get.el('shares-wrp').removeAttr('data-phase');
+								magic.get.el('shares-wrp').removeAttr('data-phase');
 							break;
 							
 							case 'copy' : 
 								
 								var el = e.target;
 								
-								customdesign.fn.copy(el.innerHTML.trim());
+								magic.fn.copy(el.innerHTML.trim());
 								
 								el.setAttribute("data-copied", "true");
 								setTimeout(function(){
@@ -4392,7 +4392,7 @@
 					my_cart : function(e) {
 
 						var func = e.target.getAttribute('data-func'),
-							current = customdesign.fn.url_var('cart', ''),
+							current = magic.fn.url_var('cart', ''),
 							id = e.target.getAttribute('data-id');
 
 						if (!func || func === '')
@@ -4400,20 +4400,20 @@
 
 						switch (func) {
 							case 'remove':
-								if (confirm(customdesign.i('sure'))) {
+								if (confirm(magic.i('sure'))) {
 									if (current == id)
-										customdesign.fn.set_url('cart', null);
-									var items = JSON.parse(localStorage.getItem('CUSTOMDESIGN-CART-DATA'));
+										magic.fn.set_url('cart', null);
+									var items = JSON.parse(localStorage.getItem('MAGIC-CART-DATA'));
 									delete items[id];
-									localStorage.setItem('CUSTOMDESIGN-CART-DATA', JSON.stringify(items));
-									setTimeout(customdesign.render.cart_change, 150);
+									localStorage.setItem('MAGIC-CART-DATA', JSON.stringify(items));
+									setTimeout(magic.render.cart_change, 150);
 								}
 							break;
 							case 'edit':
-								customdesign.cart.edit_item(id, e);
+								magic.cart.edit_item(id, e);
 							break;
 							case 'checkout':
-								customdesign.cart.do_checkout();
+								magic.cart.do_checkout();
 							break;
 						}
 
@@ -4423,29 +4423,29 @@
 
 				});
 				
-				$('#customdesign-left #customdesign-text *[draggable="true"]').each(function(){
-					customdesign.design.event_add_text(this);
+				$('#magic-left #magic-text *[draggable="true"]').each(function(){
+					magic.design.event_add_text(this);
 				});
 				
-				var aa = localStorage.getItem('CUSTOMDESIGN-AUTO-ALIGNMENT'),
-					ta = localStorage.getItem('CUSTOMDESIGN-TEMPLATE-APPEND'),
-					ri = localStorage.getItem('CUSTOMDESIGN-REPLACE-IMAGE'),
-					a_a = $('#customdesign-auto-alignment'),
-					t_a = $('#customdesign-template-append'),
-					r_i = $('#customdesign-replace-image');
+				var aa = localStorage.getItem('MAGIC-AUTO-ALIGNMENT'),
+					ta = localStorage.getItem('MAGIC-TEMPLATE-APPEND'),
+					ri = localStorage.getItem('MAGIC-REPLACE-IMAGE'),
+					a_a = $('#magic-auto-alignment'),
+					t_a = $('#magic-template-append'),
+					r_i = $('#magic-replace-image');
 				
 				if (aa === null)
-					localStorage.setItem('CUSTOMDESIGN-AUTO-ALIGNMENT', a_a.prop('checked'));
+					localStorage.setItem('MAGIC-AUTO-ALIGNMENT', a_a.prop('checked'));
 				else 
 					a_a.prop({checked: aa == 'true' ? true : false});
 				
 				if (ta === null)
-					localStorage.setItem('CUSTOMDESIGN-TEMPLATE-APPEND', t_a.prop('checked'));
+					localStorage.setItem('MAGIC-TEMPLATE-APPEND', t_a.prop('checked'));
 				else 
 					t_a.prop({checked: ta == 'true' ? true : false});
 				
 				if (ri === null)
-					localStorage.setItem('CUSTOMDESIGN-REPLACE-IMAGE', r_i.prop('checked'));
+					localStorage.setItem('MAGIC-REPLACE-IMAGE', r_i.prop('checked'));
 				else 
 					r_i.prop({checked: ri == 'true' ? true : false});
 
@@ -4454,42 +4454,42 @@
 					if (e.isTrigger !== undefined)
 						return;
 						
-					var except = customdesign.apply_filters('click_except', '');
+					var except = magic.apply_filters('click_except', '');
 					
 					if (
 						!$(e.target).is(except) &&
-						$(e.target).closest('#customdesign-stage-nav').length === 0 && 
-						customdesign.get.el('stage-nav').hasClass('stages-expand')
-					)customdesign.get.el('stage-nav').removeClass('stages-expand').removeClass('preview-designs');
+						$(e.target).closest('#magic-stage-nav').length === 0 && 
+						magic.get.el('stage-nav').hasClass('stages-expand')
+					)magic.get.el('stage-nav').removeClass('stages-expand').removeClass('preview-designs');
 					
 					var el = $(e.target);
 					
-					if (e.target.tagName != 'INPUT' && el.closest('div.customdesign_color_picker').length === 0)
-						$('#customdesign-color-picker-header i').click();
+					if (e.target.tagName != 'INPUT' && el.closest('div.magic_color_picker').length === 0)
+						$('#magic-color-picker-header i').click();
 						
-					if (el.hasClass('close') || el.closest('div#customdesign-x-thumbn-preview,[data-prevent-click="true"]').length === 0) {
-						customdesign.get.el('x-thumbn-preview').hide();
+					if (el.hasClass('close') || el.closest('div#magic-x-thumbn-preview,[data-prevent-click="true"]').length === 0) {
+						magic.get.el('x-thumbn-preview').hide();
 					}else if (
-						!customdesign.ops.preventClick &&
+						!magic.ops.preventClick &&
 						!el.hasClass('upper-canvas') &&
 						!el.hasClass('close') &&
-						customdesign.ops.preventClick !== true &&
+						magic.ops.preventClick !== true &&
 						el.closest(
-							'div.customdesign-stage.canvas-wrapper,'+
+							'div.magic-stage.canvas-wrapper,'+
 							'[data-view="sub"],'+
-							'div.customdesign_color_picker,'+
-							'div.customdesign-lightbox,'+
-							'ul.customdesign-top-nav,'+
+							'div.magic_color_picker,'+
+							'div.magic-lightbox,'+
+							'ul.magic-top-nav,'+
 							'[data-prevent-click="true"],'+
-							'#customdesign-navigations'
+							'#magic-navigations'
 						).length === 0
 					){
-						if (customdesign.e.main.find('li[data-tool].active').length > 0)
-							customdesign.fn.navigation('clear');
-						else customdesign.tools.discard();
+						if (magic.e.main.find('li[data-tool].active').length > 0)
+							magic.fn.navigation('clear');
+						else magic.tools.discard();
 					};
 					
-					delete customdesign.ops.preventClick;
+					delete magic.ops.preventClick;
 					
 					$('iframe').each(function(){
 						this.contentWindow.postMessage({
@@ -4504,80 +4504,80 @@
 						return true;
 
 					if ([37, 38, 39, 40].indexOf(e.keyCode) > -1)
-						return customdesign.actions.do('key-move', e);
+						return magic.actions.do('key-move', e);
 
 					if (e.keyCode === 13)
-						return customdesign.actions.do('key-enter', e);
+						return magic.actions.do('key-enter', e);
 
 					if (e.metaKey === true || e.ctrlKey === true) {
 						
 						if (e.keyCode === 90) {
 							if (e.shiftKey === false)
-								return customdesign.actions.do('ctrl-z');
-							else return customdesign.actions.do('ctrl-shift-z');
+								return magic.actions.do('ctrl-z');
+							else return magic.actions.do('ctrl-shift-z');
 						}else if (e.keyCode === 83) {
 							if (e.shiftKey === true)
-								return customdesign.actions.do('ctrl-shift-s', e);
-							else return customdesign.actions.do('ctrl-s', e);
+								return magic.actions.do('ctrl-shift-s', e);
+							else return magic.actions.do('ctrl-s', e);
 						}else if (e.keyCode === 80)
-							return customdesign.actions.do('ctrl-p', e);
+							return magic.actions.do('ctrl-p', e);
 						else if (e.keyCode === 79)
-							return customdesign.actions.do('ctrl-o', e);
+							return magic.actions.do('ctrl-o', e);
 						else if (e.keyCode === 69)
-							return customdesign.actions.do('ctrl-e', e);
+							return magic.actions.do('ctrl-e', e);
 
 					};
 
 					if (e.keyCode === 27)
-						return customdesign.actions.do('key-esc');
+						return magic.actions.do('key-esc');
 
 					switch (e.keyCode) {
-						case 8: return customdesign.actions.do('key-delete', e); break;
-						case 46: return customdesign.actions.do('key-delete', e); break;
-						case 13: return customdesign.actions.do('key-enter', e); break;
-						case 27: return customdesign.actions.do('key-esc', e); break;
+						case 8: return magic.actions.do('key-delete', e); break;
+						case 46: return magic.actions.do('key-delete', e); break;
+						case 13: return magic.actions.do('key-enter', e); break;
+						case 27: return magic.actions.do('key-esc', e); break;
 						case 37:
 						case 38:
 						case 39:
-						case 40: return customdesign.actions.do('key-move', e); break;
+						case 40: return magic.actions.do('key-move', e); break;
 
 					};
 
 					if (e.metaKey === true || e.ctrlKey === true) {
 						
 						switch (e.keyCode) {
-							case 48: return customdesign.actions.do('ctrl-0', e); break;
-							case 65: return customdesign.actions.do('ctrl-a', e); break;
-							case 68: return customdesign.actions.do('ctrl-d', e); break;
-							case 69: return customdesign.actions.do('ctrl-e', e); break;
-							case 79: return customdesign.actions.do('ctrl-o', e); break;
-							case 80: return customdesign.actions.do('ctrl-p', e); break;
+							case 48: return magic.actions.do('ctrl-0', e); break;
+							case 65: return magic.actions.do('ctrl-a', e); break;
+							case 68: return magic.actions.do('ctrl-d', e); break;
+							case 69: return magic.actions.do('ctrl-e', e); break;
+							case 79: return magic.actions.do('ctrl-o', e); break;
+							case 80: return magic.actions.do('ctrl-p', e); break;
 							case 83:
 								if (e.shiftKey === true)
-									return customdesign.actions.do('ctrl-shift-s', e);
-								else return customdesign.actions.do('ctrl-s', e);
+									return magic.actions.do('ctrl-shift-s', e);
+								else return magic.actions.do('ctrl-s', e);
 							break;
 							case 90:
 								if (e.shiftKey === false)
-									return customdesign.actions.do('ctrl-z');
-								else return customdesign.actions.do('ctrl-shift-z');
+									return magic.actions.do('ctrl-z');
+								else return magic.actions.do('ctrl-shift-z');
 							break;
-							case 61: return customdesign.actions.do('ctrl+', e); break;
-							case 173: return customdesign.actions.do('ctrl-', e); break;
-							case 107: return customdesign.actions.do('ctrl+', e); break;
-							case 109: return customdesign.actions.do('ctrl-', e); break;
-							case 187: return customdesign.actions.do('ctrl+', e); break;
-							case 189: return customdesign.actions.do('ctrl-', e); break;
+							case 61: return magic.actions.do('ctrl+', e); break;
+							case 173: return magic.actions.do('ctrl-', e); break;
+							case 107: return magic.actions.do('ctrl+', e); break;
+							case 109: return magic.actions.do('ctrl-', e); break;
+							case 187: return magic.actions.do('ctrl+', e); break;
+							case 189: return magic.actions.do('ctrl-', e); break;
 						}
 
 					}
 
 				})
 				.on('mouseup', function(e){
-					customdesign.actions.do('globalMouseUp', e);
+					magic.actions.do('globalMouseUp', e);
 				});
 
-				$('#customdesign-upload-form').on('drag dragstart dragend dragover dragenter dragleave drop', function(e) {
+				$('#magic-upload-form').on('drag dragstart dragend dragover dragenter dragleave drop', function(e) {
 					e.preventDefault();
 					e.stopPropagation();
 				})
@@ -4588,37 +4588,37 @@
 					$(this).removeClass('is-dragover');
 				})
 				.on('drop', function(e) {
-					customdesign.fn.process_files(e.originalEvent.dataTransfer.files);
+					magic.fn.process_files(e.originalEvent.dataTransfer.files);
 				})
 				.on('click', function(){
 					$(this).find('input[type="file"]').get(0).click();
 				});
 				
-				var pcfg = localStorage.getItem('CUSTOMDESIGN_PRINT_CFG');
+				var pcfg = localStorage.getItem('MAGIC_PRINT_CFG');
 				
 				if (pcfg && pcfg !== '') {
 					pcfg = JSON.parse(pcfg);
 					if (pcfg.format !== undefined)
-						$('#customdesign-print-nav input[data-format="'+pcfg.format+'"]').prop({checked: true}).change();
+						$('#magic-print-nav input[data-format="'+pcfg.format+'"]').prop({checked: true}).change();
 					if (pcfg.unit !== undefined)
-						$('#customdesign-print-nav input[data-unit="'+pcfg.unit+'"]').prop({checked: true}).change();
+						$('#magic-print-nav input[data-unit="'+pcfg.unit+'"]').prop({checked: true}).change();
 					if (pcfg.size !== undefined)
-						$('#customdesign-print-nav select[name="select-size"]').val(pcfg.size).change();
+						$('#magic-print-nav select[name="select-size"]').val(pcfg.size).change();
 					if (pcfg.csize !== undefined)
-						$('#customdesign-print-nav input[name="size"]').val(pcfg.csize).change();
+						$('#magic-print-nav input[name="size"]').val(pcfg.csize).change();
 					if (pcfg.orien !== undefined)
-						$('#customdesign-print-nav select[name="orientation"]').val(pcfg.orien).change();
+						$('#magic-print-nav select[name="orientation"]').val(pcfg.orien).change();
 					if (pcfg.base !== undefined)
-						$('#customdesign-print-nav input[data-dp="base"]').prop({checked: pcfg.base});
+						$('#magic-print-nav input[data-dp="base"]').prop({checked: pcfg.base});
 					if (pcfg.overflow === undefined || pcfg.overflow == true)
-						$('#customdesign-print-nav input[data-dp="overflow"]').prop({checked: true});
+						$('#magic-print-nav input[data-dp="overflow"]').prop({checked: true});
 					if (pcfg.cropmarks !== undefined)
-						$('#customdesign-print-nav input[data-dp="cropmarks"]').prop({checked: pcfg.cropmarks});
+						$('#magic-print-nav input[data-dp="cropmarks"]').prop({checked: pcfg.cropmarks});
 					if (pcfg.all_pages !== undefined)
-						$('#customdesign-print-nav input[data-dp="all_pages"]').prop({checked: pcfg.all_pages});
+						$('#magic-print-nav input[data-dp="all_pages"]').prop({checked: pcfg.all_pages});
 				};
 				
-				customdesign.cliparts.add_events();
+				magic.cliparts.add_events();
 				
 			},
 
@@ -4626,11 +4626,11 @@
 
 				[['dragstart', function(e){
 
-					customdesign.ops.drag_start = this;
+					magic.ops.drag_start = this;
 
 					var offs = $(this).offset();
 
-					customdesign.ops.drag_start.distance = {
+					magic.ops.drag_start.distance = {
 						x : (e.pageX - offs.left) - (this.offsetWidth/2),
 						y : (e.pageY - offs.top) - (this.offsetHeight/2),
 						w : this.offsetWidth,
@@ -4640,24 +4640,24 @@
 				}],
 				['dragend', function(e){
 
-					customdesign.ops.drag_start = null;
+					magic.ops.drag_start = null;
 
 				}],
 				['click', function(e){
 
-					customdesign.itemInStage('add');
+					magic.itemInStage('add');
 					
 					var ops = JSON.parse(this.getAttribute('data-ops'));
 					
 					if (window.is_first_text === undefined) {
 						window.is_first_text = true;
-						$('#customdesign-text-tools li[data-tool="spacing"]').trigger('click');
+						$('#magic-text-tools li[data-tool="spacing"]').trigger('click');
 					}
 					
 					if (this.getAttribute('data-act')) {
-						customdesign.fn.preset_import(ops, {}, function() {
+						magic.fn.preset_import(ops, {}, function() {
 							if (ops[0].type == 'text-fx')
-								customdesign.fn.update_text_fx();
+								magic.fn.update_text_fx();
 						});
 					}
 
@@ -4677,33 +4677,33 @@
 
 						case 'text':
 
-							var text = customdesign.objects.text(opt.ops);
+							var text = magic.objects.text(opt.ops);
 
-							customdesign.stage().canvas.add(text).setActiveObject(text).renderAll();
-							customdesign.tools.set(text);
-							customdesign.design.layers.build();
+							magic.stage().canvas.add(text).setActiveObject(text).renderAll();
+							magic.tools.set(text);
+							magic.design.layers.build();
 
 						break;
 
 						case 'image':
 
-							customdesign.stage().canvas.add(opt.image).setActiveObject(opt.image).renderAll();
+							magic.stage().canvas.add(opt.image).setActiveObject(opt.image).renderAll();
 
-							customdesign.tools.set(opt.image);
+							magic.tools.set(opt.image);
 
-							customdesign.design.layers.build();
+							magic.design.layers.build();
 
 						break;
 
 					}
 
-					customdesign.stack.save();
+					magic.stack.save();
 
 				},
 
 				arrange : function() {
 
-					var canvas = customdesign.stage().canvas,
+					var canvas = magic.stage().canvas,
 						active = canvas.getActiveObject();
 
 					if (!active)
@@ -4711,7 +4711,7 @@
 
 					var objects = canvas.getObjects(),
 						index = objects.indexOf(active),
-						btn = $('#customdesign-top-tools li[data-tool="arrange"] button[data-arrange]');
+						btn = $('#magic-top-tools li[data-tool="arrange"] button[data-arrange]');
 
 					if (
 						objects[index-1] !== undefined &&
@@ -4733,7 +4733,7 @@
 
 				sort : function(el){
 
-					var L = customdesign.design.layers, events = {
+					var L = magic.design.layers, events = {
 
 				        dragstart : function( e ){
 					    	L.eldrag = this;
@@ -4769,8 +4769,8 @@
 					        L.eldrag.removeAttribute('data-holder');
 					        L.eldrag.parentNode.removeAttribute('data-holder');
 
-					        var items = customdesign.e.layers.find('li[data-id]'),
-					        	total = customdesign.stage().canvas.getObjects().length-1;
+					        var items = magic.e.layers.find('li[data-id]'),
+					        	total = magic.stage().canvas.getObjects().length-1;
 
 					        items.each(function(i){
 								$(this).data('canvas').moveTo(total-i);
@@ -4803,7 +4803,7 @@
 					var args = {
 						name: '',
 						thumbn: thumbn,
-						color: o.fill ? customdesign.fn.invert(o.fill) : '#eee',
+						color: o.fill ? magic.fn.invert(o.fill) : '#eee',
 						bgcolor: o.fill ? o.fill : '#333',
 						class: o.active ? 'active' : '',
 						visible: (o.visible !== undefined && o.visible === false) ? 'data-active="true" ' : '',
@@ -4823,22 +4823,22 @@
 
 				build : function() {
 
-					if (!customdesign.get.el('left').find('li[data-tab="layers"]').hasClass('active'))
+					if (!magic.get.el('left').find('li[data-tab="layers"]').hasClass('active'))
 						return this.arrange();
 
 					var tmpl = "<li draggable=\"true\" class=\"%class%\" data-id=\"%id%\">\
 							%thumbn%\
 							<span class=\"layer-name\" contenteditable=\"true\" title=\"%name%\">%name%</span> \
 							<span class=\"layer-func\">\
-								<i class=\"customdesign-icon-eye\" %visible%title=\""+customdesign.i('14')+"\" data-act=\"visible\"></i>\
-								<i class=\"customdesign-icon-lock-open\" %selectable%title=\""+customdesign.i('15')+"\" data-act=\"selectable\"></i>\
-								<i class=\"customdesign-icon-close\" title=\""+customdesign.i('16')+"\" data-act=\"delete\"></i>\
+								<i class=\"magic-icon-eye\" %visible%title=\""+magic.i('14')+"\" data-act=\"visible\"></i>\
+								<i class=\"magic-icon-lock-open\" %selectable%title=\""+magic.i('15')+"\" data-act=\"selectable\"></i>\
+								<i class=\"magic-icon-close\" title=\""+magic.i('16')+"\" data-act=\"delete\"></i>\
 							</span>\
 						</li>",
-						layers = customdesign.get.el('layers>ul').html(''), 
+						layers = magic.get.el('layers>ul').html(''), 
 						index = 0, 
 						is_empty = true,
-						stage = customdesign.stage();
+						stage = magic.stage();
 					
 					if (stage === undefined)
 						return; 
@@ -4850,7 +4850,7 @@
 
 						is_empty = false;
 
-						var args = customdesign.design.layers.item(o), tmp = tmpl;
+						var args = magic.design.layers.item(o), tmp = tmpl;
 
 						Object.keys(args).map(function(n){
 							tmp = tmp.replace(new RegExp('%'+n+'%', 'g'), args[n]);
@@ -4861,11 +4861,11 @@
 						layers.prepend(layer.data({canvas: o}).on('click', function(e){
 
 							e.preventDefault();
-							customdesign.ops.preventClick = true;
+							magic.ops.preventClick = true;
 
 							var act = e.target.getAttribute('data-act'),
-								evt = customdesign.design.layers.event,
-								stage = customdesign.stage(),
+								evt = magic.design.layers.event,
+								stage = magic.stage(),
 								target = $(this).data('canvas');
 
 							if (act && evt[act])
@@ -4887,21 +4887,21 @@
 
 							if (e.keyCode === 13) {
 								e.preventDefault();
-								customdesign.design.layers.build();
+								magic.design.layers.build();
 								return false;
 							}
 
 						});
 
-						customdesign.design.layers.sort(layer.get(0));
+						magic.design.layers.sort(layer.get(0));
 
 					});
 
 					if (is_empty)
-						customdesign.get.el('layers>ul')
-								  .html('<h3 class="mt2" style="border:none;text-align:center">'+customdesign.i('06')+'</h3>');
+						magic.get.el('layers>ul')
+								  .html('<h3 class="mt2" style="border:none;text-align:center">'+magic.i('06')+'</h3>');
 					else
-						customdesign.design.layers.arrange();
+						magic.design.layers.arrange();
 
 				},
 
@@ -4910,28 +4910,28 @@
 					visible: function(el, tar) {
 						tar.setAttribute('data-active', (tar.getAttribute('data-active') != 'true'));
 						$(el).data('canvas').set('visible', (tar.getAttribute('data-active') != 'true'));
-						customdesign.objects.do.deactiveAll();
+						magic.objects.do.deactiveAll();
 					},
 
 					selectable: function(el, tar) {
 						tar.setAttribute('data-active', (tar.getAttribute('data-active') != 'true'));
 						$(el).data('canvas').set('selectable', (tar.getAttribute('data-active') != 'true'));
-						customdesign.objects.do.deactiveAll();
+						magic.objects.do.deactiveAll();
 					},
 
 					delete: function(el, tar) {
 
-						canvas = customdesign.stage().canvas;
+						canvas = magic.stage().canvas;
 						canvas.discardActiveGroup();
 						canvas.discardActiveObject();
 
-						customdesign.stack.save();
+						magic.stack.save();
 
 						canvas.remove($(el).data('canvas'));
 
-						customdesign.stack.save();
+						magic.stack.save();
 
-						customdesign.design.layers.build();
+						magic.design.layers.build();
 
 					}
 				}
@@ -4949,9 +4949,9 @@
 							file.name.substr(file.name.length-5) != '.json' &&
 							file.name.substr(file.name.length-5) != '.lumi'
 						)
-					)return alert(customdesign.i(32));
+					)return alert(magic.i(32));
 
-					if (customdesign.cliparts.uploads[file.lastModified] === undefined) {
+					if (magic.cliparts.uploads[file.lastModified] === undefined) {
 
 						var reader = new FileReader();
 						reader.addEventListener("load", function () { 
@@ -4959,13 +4959,13 @@
 							try{
 								var data = JSON.parse(decodeURIComponent(this.result));
 							}catch(ex){
-								return customdesign.fn.notice(ex.message, 'error', 3500);
+								return magic.fn.notice(ex.message, 'error', 3500);
 							}
 
 							if (data.stages === undefined)
-								return customdesign.fn.notice(customdesign.i(32), 'error', 3500);
+								return magic.fn.notice(magic.i(32), 'error', 3500);
 							
-							customdesign.tools.imports(data);
+							magic.tools.imports(data);
 
 					    	delete reader;
 
@@ -4978,14 +4978,14 @@
 				
 				pre_save : () => {
 					
-					$('#customdesign-navigations').attr({"data-navigation" : "active"});
-					$('ul#customdesign-saved-designs').attr({'is' : "save"});
+					$('#magic-navigations').attr({"data-navigation" : "active"});
+					$('ul#magic-saved-designs').attr({'is' : "save"});
 					$('li[data-tool="designs"][data-callback="designs"]').
 						addClass('active').
 						find('ul[data-view="sub"] header').
-						after('<h3>'+customdesign.i('211')+'</h3>');
+						after('<h3>'+magic.i('211')+'</h3>');
 					
-					customdesign.render.refresh_my_designs(true);
+					magic.render.refresh_my_designs(true);
 					
 				}
 				
@@ -4996,7 +4996,7 @@
 				callback : {
 
 					layers: function() {
-						customdesign.design.layers.build();
+						magic.design.layers.build();
 					},
 
 					textFX: function(el, e, ratio){
@@ -5005,14 +5005,14 @@
 					
 					replace : function(el, e) {
 						
-						var active = customdesign.stage().canvas.getActiveObject();
+						var active = magic.stage().canvas.getActiveObject();
 						
 						if (!active)
 							return;
 							
-						customdesign.fn.select_image(function(opt) {
+						magic.fn.select_image(function(opt) {
 							
-							customdesign.fn.replace_image(opt.url, active);
+							magic.fn.replace_image(opt.url, active);
 							
 						}, false /*do not save to uploaded list*/);
 						
@@ -5022,29 +5022,29 @@
 										
 					crop: function(el, e){
 
-						var s = customdesign.get.stage(),
+						var s = magic.get.stage(),
 							src = s.active.full_src ? s.active.full_src : (
 									s.active.fxOrigin ? s.active.fxOrigin.src :
 									(s.active._element ? s.active._element.src : s.active._cacheCanvas.toDataURL())
 								);
 								
-						customdesign.fn.crop({
+						magic.fn.crop({
 							src: src,
 							width: Math.round(s.active.width),
 							save: function(crop) {
 								
-								var s = customdesign.stage(),
+								var s = magic.stage(),
 									active = s.canvas.getActiveObject(),
-									el = crop.find('.customdesign_crop_selArea');
+									el = crop.find('.magic_crop_selArea');
 	
 								if (active) {
 	
 									var _e = el.get(0), 
 										_c = crop.get(0),
-										img = crop.find('img.customdesign_crop_img').get(0),
+										img = crop.find('img.magic_crop_img').get(0),
 										cv = document.createElement('canvas'),
 										ctx = cv.getContext('2d'),
-										type = customdesign.fn.get_type(img.src),
+										type = magic.fn.get_type(img.src),
 										
 										w = img.naturalWidth*(_e.offsetWidth/_c.offsetWidth),
 										h = img.naturalHeight*(_e.offsetHeight/_c.offsetHeight),
@@ -5072,7 +5072,7 @@
 										w > s.limit_zone.width ||	
 										h > s.limit_zone.height
 									) {
-										setTimeout(customdesign.fn.large_image_helper, 1, {
+										setTimeout(magic.fn.large_image_helper, 1, {
 											w: w,
 											h: h,
 											ew: s.limit_zone.width,
@@ -5107,7 +5107,7 @@
 						
 						var $this = $(el);
 
-						var s = customdesign.get.stage(),
+						var s = magic.get.stage(),
 							objs = s.canvas.getObjects(),
 							wrp = $this.find('li[data-view="list"]');
 
@@ -5118,13 +5118,13 @@
 						
 						objs.map(function(o) {
 							if (o.evented !== false && o.active !== true){
-								var args = customdesign.design.layers.item(o);
+								var args = magic.design.layers.item(o);
 								wrp.append('<span data-id="'+o.id+'">'+args.thumbn.replace('%color%', '').replace('%bgcolor%', '')+' '+args.name+'</span>');
 							}
 						});
 
 						if (wrp.html() === '') {
-							wrp.html('<p><center>'+customdesign.i('07')+'</center></p>');
+							wrp.html('<p><center>'+magic.i('07')+'</center></p>');
 						} else {
 
 							wrp.find('>span').on('click', function(){
@@ -5138,11 +5138,11 @@
 									tar.top - (tar.height/2) > s.active.top + (s.active.height/2) ||
 									tar.top + (tar.height/2) < s.active.top - (s.active.height/2)
 								){
-									return alert(customdesign.i('08'));
+									return alert(magic.i('08'));
 								};
 
-								customdesign.stack.save();
-								customdesign.ops.importing = true;
+								magic.stack.save();
+								magic.ops.importing = true;
 								tar.setCoords();
 								
 								var next_step = function() {
@@ -5159,7 +5159,7 @@
 									group.push(tar);
 									
 									let new_group = new fabric.Group(group, {}),
-										psize = customdesign.get.size();
+										psize = magic.get.size();
 									
 									let mask = {
 											left: (brect.left-arect.left)/arect.width,
@@ -5167,7 +5167,7 @@
 											width: brect.width/arect.width,
 											height: brect.height/arect.height,
 											dataURL: new_group.toDataURL({
-												multiplier: (psize.h/customdesign.stage().limit_zone.height)/
+												multiplier: (psize.h/magic.stage().limit_zone.height)/
 															(window.devicePixelRatio > 2 ? window.devicePixelRatio*2 : window.devicePixelRatio)
 											})
 										};
@@ -5175,9 +5175,9 @@
 									$(this).remove();
 									s.canvas.remove(tar);
 	
-									customdesign.fn.update_image_fx('mask', mask, function(){
-										customdesign.ops.importing = false;
-										customdesign.stack.save();
+									magic.fn.update_image_fx('mask', mask, function(){
+										magic.ops.importing = false;
+										magic.stack.save();
 									});
 								};
 								
@@ -5193,64 +5193,64 @@
 
 					qrcode: function(){
 						
-						var fill_default = customdesign.get.color('invert');
+						var fill_default = magic.get.color('invert');
 			
-						if (customdesign.data.colors !== undefined && customdesign.data.colors !== '') {
-							fill_default = customdesign.data.colors.split(',')[0];
+						if (magic.data.colors !== undefined && magic.data.colors !== '') {
+							fill_default = magic.data.colors.split(',')[0];
 							if (fill_default.indexOf(':') > -1)
 								fill_default = fill_default.split(':')[1];
 							fill_default = fill_default.split('@')[0];
 						};
 						
-						customdesign.objects.qrcode(customdesign.i('09'), fill_default, function(obj){
-							customdesign.get.el('top-tools').
+						magic.objects.qrcode(magic.i('09'), fill_default, function(obj){
+							magic.get.el('top-tools').
 								find('li[data-tool="qrcode-text"]').
 								addClass('active').
 								find('textarea').focus();
 						});
 						return;
 
-						customdesign.tools.lightbox({
+						magic.tools.lightbox({
 							width: 500,
-							content: '<div id="customdesign-create-qrcode" class="customdesign-lightbox-form">\
-										<h3 class="title">'+customdesign.i('10')+'</h3>\
+							content: '<div id="magic-create-qrcode" class="magic-lightbox-form">\
+										<h3 class="title">'+magic.i('10')+'</h3>\
 										<p>\
-											<label>'+customdesign.i('11')+':</label>\
-											<input name="text" type="text" placeholder="'+customdesign.i('11')+'" /></p>\
+											<label>'+magic.i('11')+':</label>\
+											<input name="text" type="text" placeholder="'+magic.i('11')+'" /></p>\
 										<p>\
-											<label>'+customdesign.i('12')+':</label>\
-											<input name="color" type="search" placeholder="'+customdesign.i('13')+'" value="'+fill_default+'" />\
+											<label>'+magic.i('12')+':</label>\
+											<input name="color" type="search" placeholder="'+magic.i('13')+'" value="'+fill_default+'" />\
 										</p>\
-										<p class="right"><button class="primary">'+customdesign.i('10')+'</button></p>\
+										<p class="right"><button class="primary">'+magic.i('10')+'</button></p>\
 									</div>'
 						});
 
-						new jscolor.color(customdesign.fn.q('#customdesign-create-qrcode input[name="color"]'), {});
-						$('#customdesign-create-qrcode button').on('click', function(e){
+						new jscolor.color(magic.fn.q('#magic-create-qrcode input[name="color"]'), {});
+						$('#magic-create-qrcode button').on('click', function(e){
 
-							var text = customdesign.fn.q('#customdesign-create-qrcode input[name="text"]').value,
-								color = customdesign.fn.q('#customdesign-create-qrcode input[name="color"]').value;
+							var text = magic.fn.q('#magic-create-qrcode input[name="text"]').value,
+								color = magic.fn.q('#magic-create-qrcode input[name="color"]').value;
 
 							if (text === '')
-								return $('#customdesign-create-qrcode input[name="text"]').shake();
+								return $('#magic-create-qrcode input[name="text"]').shake();
 							if (color === '')
-								return $('#customdesign-create-qrcode input[name="color"]').shake();
+								return $('#magic-create-qrcode input[name="color"]').shake();
 
-							customdesign.objects.qrcode(text, color);
-							customdesign.get.el('left .customdesign-left-nav li[data-tab="layers"]').trigger('click');
+							magic.objects.qrcode(text, color);
+							magic.get.el('left .magic-left-nav li[data-tab="layers"]').trigger('click');
 
 						});
-						customdesign.fn.q('#customdesign-create-qrcode input[name="text"]').focus();
+						magic.fn.q('#magic-create-qrcode input[name="text"]').focus();
 
 					},
 
 					drawing: function(el, e) {
 
-						var canvas = customdesign.stage().canvas;
-						var fill_default = customdesign.get.color('invert');
+						var canvas = magic.stage().canvas;
+						var fill_default = magic.get.color('invert');
 			
-						if (customdesign.data.colors !== undefined && customdesign.data.colors !== '') {
-							fill_default = customdesign.data.colors.split(',')[0];
+						if (magic.data.colors !== undefined && magic.data.colors !== '') {
+							fill_default = magic.data.colors.split(',')[0];
 							if (fill_default.indexOf(':') > -1)
 								fill_default = fill_default.split(':')[1];
 							fill_default = fill_default.split('@')[0];
@@ -5259,19 +5259,19 @@
 						if (!canvas.isDrawingMode)
 							return;
 
-						canvas.freeDrawingBrush.width = parseFloat(customdesign.get.el('drawing-width').val());
-						canvas.freeDrawingBrush.color = customdesign.get.el('drawing-color').val() ?
-														customdesign.get.el('drawing-color').val() :
+						canvas.freeDrawingBrush.width = parseFloat(magic.get.el('drawing-width').val());
+						canvas.freeDrawingBrush.color = magic.get.el('drawing-color').val() ?
+														magic.get.el('drawing-color').val() :
 														fill_default;
 					},
 
 					imageFXReset: function() {
 
-						var s = customdesign.get.stage();
+						var s = magic.get.stage();
 						if (!s.active || !s.active.fxOrigin)
-							return customdesign.tools.discard();
+							return magic.tools.discard();
 
-						customdesign.stack.save();
+						magic.stack.save();
 
 						delete s.active.fx;
 
@@ -5279,28 +5279,28 @@
 						s.active._originalElement.src = s.active.fxOrigin.src;
 
 						s.canvas.renderAll();
-						customdesign.tools.discard();
+						magic.tools.discard();
 
 
 					},
 
 					designs: function(){
 						
-						$('ul#customdesign-saved-designs').removeAttr('is');
+						$('ul#magic-saved-designs').removeAttr('is');
 						$('li[data-tool="designs"][data-callback="designs"]>ul[data-view="sub"]>h3').remove();
 						
-						return customdesign.render.refresh_my_designs();
+						return magic.render.refresh_my_designs();
 						
-						if (!$('#customdesign-saved-designs').attr('data-load')) {
-							customdesign.render.refresh_my_designs();
-							$('#customdesign-saved-designs').attr({'data-load': 'true'});
+						if (!$('#magic-saved-designs').attr('data-load')) {
+							magic.render.refresh_my_designs();
+							$('#magic-saved-designs').attr({'data-load': 'true'});
 						}
 
 					},
 					
 					proceed: function(el, e) {
 						
-						var printings = customdesign.get.el('cart-wrp').find('input[name="printing"].customdesign-cart-param'),
+						var printings = magic.get.el('cart-wrp').find('input[name="printing"].magic-cart-param'),
 							prtsel = printings.filter(function() {
 								return $(this).prop('checked');
 							});
@@ -5314,7 +5314,7 @@
 						
 						if (e.target.tagName == 'INPUT' && e.target.getAttribute('data-color')) {
 							
-							var se = customdesign.get.el('svg-fill').get(0),
+							var se = magic.get.el('svg-fill').get(0),
 								cl = e.target.getAttribute('data-color');
 								
 							se.setAttribute('data-active-color', e.target.getAttribute('data-color'));
@@ -5322,25 +5322,25 @@
 								se.color.fromString(cl);*/
 							se.value = cl;
 							se.style.background = cl;
-							se.style.color = customdesign.tools.svg.invertColor(cl);
+							se.style.color = magic.tools.svg.invertColor(cl);
 							
-							customdesign.get.el('svg-colors').addClass('active');
+							magic.get.el('svg-colors').addClass('active');
 							
 							return;
 							
 						}else if (e.target.getAttribute('data-func') == 'editor'){
-							customdesign.tools.svg.edit();
+							magic.tools.svg.edit();
 						};
 						
-						customdesign.get.el('svg-colors').removeClass('active');
+						magic.get.el('svg-colors').removeClass('active');
 						
 					},
 					
 					group : function(el, e) {
 						
-						var stage = customdesign.stage(),
+						var stage = magic.stage(),
 							group = stage.canvas.getActiveGroup(),
-							tel = $('#customdesign-top-tools ul[data-mode="group"]'),
+							tel = $('#magic-top-tools ul[data-mode="group"]'),
 							gr = tel.attr('data-grouped'),
 							id = new Date().getTime().toString(36);
 						
@@ -5350,7 +5350,7 @@
 									o.set({group_pos: id});
 								else o.set({group_pos: null});
 							});
-							$('#customdesign-top-tools ul[data-mode="group"]').attr({'data-grouped': gr == 'false' ? 'true' : 'false'});
+							$('#magic-top-tools ul[data-mode="group"]').attr({'data-grouped': gr == 'false' ? 'true' : 'false'});
 						};
 						
 						e.preventDefault();
@@ -5358,7 +5358,7 @@
 					},
 					
 					ungroup: function(el, e) {
-						customdesign.stage().canvas.getActiveObject().set({'group_pos': null});
+						magic.stage().canvas.getActiveObject().set({'group_pos': null});
 						el.style.display = 'none';
 					}
 					
@@ -5368,7 +5368,7 @@
 
 					cliparts: function() {
 
-						customdesign.post({
+						magic.post({
 							action: 'cliparts',
 							category: ''
 						});
@@ -5377,7 +5377,7 @@
 					
 					templates: function() {
 
-						customdesign.post({
+						magic.post({
 							action: 'templates',
 							category: ''
 						});
@@ -5386,13 +5386,13 @@
 
 					images: function(){
 
-						$('#customdesign-uploads div[data-tab="internal"]').trigger('scroll');
+						$('#magic-uploads div[data-tab="internal"]').trigger('scroll');
 
 					},
 
 					shapes: function(){
 
-						$('#customdesign-shapes').trigger('scroll');
+						$('#magic-shapes').trigger('scroll');
 
 					}
 
@@ -5415,7 +5415,7 @@
 					ops: ops
 				};
 				
-				customdesign.post({
+				magic.post({
 					action: 'addon',
 					component: comp,
 					category: '',
@@ -5425,30 +5425,30 @@
 					if (typeof ops.load == 'function')
 						res = ops.load(res);
 						
-					customdesign.xitems.response(res, comp);
+					magic.xitems.response(res, comp);
 						
 				});
 			},
 			
 			response: function (res, comp) {
 				
-				if (typeof customdesign.xitems.resources[comp].ops.response == 'function')
-					res = customdesign.xitems.resources[comp].ops.response(res);
+				if (typeof magic.xitems.resources[comp].ops.response == 'function')
+					res = magic.xitems.resources[comp].ops.response(res);
 				
-				var html = '', wrp = $('#customdesign-'+comp+'-list');
+				var html = '', wrp = $('#magic-'+comp+'-list');
 						
 				if (res.items && res.items.length > 0) {
 					
 					res.items.map(function(item) {
 						
-						customdesign.xitems.resources[comp].url[item.id] = customdesign.data.upload_url+item.upload;
+						magic.xitems.resources[comp].url[item.id] = magic.data.upload_url+item.upload;
 					
 						html += '<li style="background-image: url(\''+(
 								item.thumbnail_url !== undefined ? 
 								item.thumbnail_url : 
 								item.screenshot
 							)+'\')" \data-ops=\'[{'+
-									'"type": "'+customdesign.xitems.resources[comp].ops.preview+'",'+
+									'"type": "'+magic.xitems.resources[comp].ops.preview+'",'+
 									'"component": "'+comp+'",'+
 									'"name": "'+item.name+'",'+
 									'"id": "'+item.id+'",'+
@@ -5462,11 +5462,11 @@
 										item.thumbnail_url : 
 										item.screenshot
 									)+'"'+
-								'}]\' class="customdesign-xitem">'+
+								'}]\' class="magic-xitem">'+
 									'<i data-tag="'+item.id+'">'+(
 										item.price > 0 ? 
-										customdesign.fn.price(item.price) : 
-										customdesign.i(100)
+										magic.fn.price(item.price) : 
+										magic.i(100)
 									)+'</i>'+
 									'<i data-info="'+item.id+'"></i>'+
 								'</li>';
@@ -5474,32 +5474,32 @@
 					
 					var total = res.total ? res.total : 0;
 					
-					customdesign.ops[comp+'_q'] = res.q;
-					customdesign.ops[comp+'_category'] = res.category;
-					customdesign.ops[comp+'_index'] = parseInt(res.index)+res.items.length;
+					magic.ops[comp+'_q'] = res.q;
+					magic.ops[comp+'_category'] = res.category;
+					magic.ops[comp+'_index'] = parseInt(res.index)+res.items.length;
 					
-					if (customdesign.ops[comp+'_index']<total)
-						customdesign.ops[comp+'_loading'] = false;
+					if (magic.ops[comp+'_index']<total)
+						magic.ops[comp+'_loading'] = false;
 	
-				}else html += '<span class="noitems">'+customdesign.i(42)+'</span>';
+				}else html += '<span class="noitems">'+magic.i(42)+'</span>';
 	
-				wrp.find('i.customdesign-spinner').remove();
-				wrp.find('ul.customdesign-list-items').append(html);
+				wrp.find('i.magic-spinner').remove();
+				wrp.find('ul.magic-list-items').append(html);
 				
-				customdesign.render.categories(comp, res);
+				magic.render.categories(comp, res);
 				
-				wrp.find('ul.customdesign-list-items li.customdesign-xitem:not([data-event="true"])').off('click').on('click', function(e) {
+				wrp.find('ul.magic-list-items li.magic-xitem:not([data-event="true"])').off('click').on('click', function(e) {
 						
 					e.preventDefault();
 					
 					var o = JSON.parse(this.getAttribute('data-ops'))[0];
 					
-					o.url = customdesign.xitems.resources[comp].url[o.id];
+					o.url = magic.xitems.resources[comp].url[o.id];
 					
 					if (
-						customdesign.xitems.resources[comp].ops !== undefined && 
-						typeof customdesign.xitems.resources[comp].ops.click == 'function'
-					)customdesign.xitems.resources[comp].ops.click(o, this);
+						magic.xitems.resources[comp].ops !== undefined && 
+						typeof magic.xitems.resources[comp].ops.click == 'function'
+					)magic.xitems.resources[comp].ops.click(o, this);
 					
 				});
 				
@@ -5509,23 +5509,23 @@
 				
 				var comp = this.getAttribute('data-component');
 				
-				if (!comp || customdesign.ops[comp+'_loading'] === true)
+				if (!comp || magic.ops[comp+'_loading'] === true)
 					return;
 
 				if (this.scrollTop + this.offsetHeight >= this.scrollHeight/* - 100*/) {
 					
-					customdesign.post({
+					magic.post({
 						action: 'addon',
 						component: comp,
-						category: customdesign.ops[comp+'_category'],
-						q: customdesign.ops[comp+'_q'],
-						index: customdesign.ops[comp+'_index']
+						category: magic.ops[comp+'_category'],
+						q: magic.ops[comp+'_q'],
+						index: magic.ops[comp+'_index']
 					}, function(res) {
-						customdesign.xitems.response(res, comp);
+						magic.xitems.response(res, comp);
 					});
 					
-					$(this).append('<i class="customdesign-spinner white x3 mt1 mb1"></i>');
-					customdesign.ops[comp+'_loading'] = true;
+					$(this).append('<i class="magic-spinner white x3 mt1 mb1"></i>');
+					magic.ops[comp+'_loading'] = true;
 					
 				}
 
@@ -5538,9 +5538,9 @@
 				
 				if (e.type == 'click') {
 					setTimeout(function(el){
-						if (customdesign.ops[comp+'_q'] != el.value && el.value === '') {
-							customdesign.ops[comp+'_q'] = el.value;
-							customdesign.xitems.do_search(comp);
+						if (magic.ops[comp+'_q'] != el.value && el.value === '') {
+							magic.ops[comp+'_q'] = el.value;
+							magic.xitems.do_search(comp);
 						}
 					}, 100, this);
 				}
@@ -5549,19 +5549,19 @@
 					return;
 
 				if (this.tagName == 'INPUT')
-					customdesign.ops[comp+'_q'] = this.value;
+					magic.ops[comp+'_q'] = this.value;
 				
-				customdesign.xitems.do_search(comp);
+				magic.xitems.do_search(comp);
 
 			},
 			
 			do_search: function(type) {
 				
-				customdesign.ops[type+'_index'] = 0;
-				customdesign.ops[type+'_loading'] = false;
+				magic.ops[type+'_index'] = 0;
+				magic.ops[type+'_loading'] = false;
 
-				customdesign.get.el(type+'-list').find('ul').html('');
-				customdesign.get.el(type+'-list').trigger('scroll');
+				magic.get.el(type+'-list').find('ul').html('');
+				magic.get.el(type+'-list').trigger('scroll');
 				
 			}
 			
@@ -5575,24 +5575,24 @@
 
 				var events = [['click', function(e){
 
-					customdesign.itemInStage('add');
+					magic.itemInStage('add');
 					
 					var t = this, 
 						ops = JSON.parse(this.getAttribute('data-ops'));
 						
-					if (customdesign.templates.storage[ops[0].id]) {
-						customdesign.templates.load({
-							upload: customdesign.templates.storage[ops[0].id],
+					if (magic.templates.storage[ops[0].id]) {
+						magic.templates.load({
+							upload: magic.templates.storage[ops[0].id],
 							id: ops[0].id,
 							price: ops[0].price
 						});
-						if (customdesign.stage().template !== undefined)
-							customdesign.stage().template.loaded = true;
+						if (magic.stage().template !== undefined)
+							magic.stage().template.loaded = true;
 					}
 	
 				}]];
 	
-				customdesign.get.el('left').find('ul.customdesign-list-items li.customdesign-template:not([data-event="true"])').each(function(){
+				magic.get.el('left').find('ul.magic-list-items li.magic-template:not([data-event="true"])').each(function(){
 	
 					if (this.getAttribute('data-event'))
 						return;
@@ -5609,9 +5609,9 @@
 			load : function(tmp, callback) {
 				
 				if (tmp.upload === undefined) {
-					if (customdesign.ops.first_completed !== true) {
-						customdesign.actions.do('first-completed');
-						customdesign.ops.first_completed = true;
+					if (magic.ops.first_completed !== true) {
+						magic.actions.do('first-completed');
+						magic.ops.first_completed = true;
 					};
 					return;
 				};
@@ -5621,42 +5621,42 @@
 				if (ext == 'lumi') {
 					
 					if (tmp.upload.toString().trim().indexOf('http') !== 0)
-						tmp.upload = customdesign.data.upload_url+tmp.upload;
+						tmp.upload = magic.data.upload_url+tmp.upload;
 						
-					customdesign.f(customdesign.i('loading')+'..');
+					magic.f(magic.i('loading')+'..');
 					
 					$.ajax({
 						url: tmp.upload,
 						method: 'GET',
 						statusCode: {
-							403: customdesign.response.statusCode[403],
+							403: magic.response.statusCode[403],
 							404: function(){
-								customdesign.fn.notice(customdesign.i(83), 'error', 3500);
-								customdesign.f(false);
+								magic.fn.notice(magic.i(83), 'error', 3500);
+								magic.f(false);
 							},
 							200: function(res) {
-								customdesign.templates.response(res, tmp, callback);
+								magic.templates.response(res, tmp, callback);
 							}
 						}
 					});
 					
 				} else {
 					
-					customdesign.f(customdesign.i('loading')+'..');
+					magic.f(magic.i('loading')+'..');
 					
 					var templ = new Image();
 					
 					templ.onerror = function () {
-						customdesign.f(false);
-						customdesign.fn.notice('Error on loading template file', 'error');
+						magic.f(false);
+						magic.fn.notice('Error on loading template file', 'error');
 					};
 					
 					templ.onload = function() {
-						var res = customdesign.fn.build_lumi(this);
-						customdesign.templates.response(res, tmp, callback);
+						var res = magic.fn.build_lumi(this);
+						magic.templates.response(res, tmp, callback);
 					};
 					
-					templ.src = tmp.upload.startsWith('https://') || tmp.upload.startsWith('http://') ? tmp.upload :   customdesign.data.upload_url+tmp.upload;
+					templ.src = tmp.upload.startsWith('https://') || tmp.upload.startsWith('http://') ? tmp.upload :   magic.data.upload_url+tmp.upload;
 						
 				}
 					
@@ -5670,20 +5670,20 @@
 				}catch(ex) {
 					console.warn(ex);
 					console.log(ex);
-					customdesign.f(false);
+					magic.f(false);
 					return;
 				};
 				
 				if (typeof res !== 'object' || res.stages === undefined || res.stages.length === 0)
 					return false;
 				
-				if (res.stages.customdesign === undefined)
-					res.stages.customdesign = res.stages[Object.keys(res.stages)[0]];
+				if (res.stages.magic === undefined)
+					res.stages.magic = res.stages[Object.keys(res.stages)[0]];
 				
-				if (typeof res.stages.customdesign.data == 'string')
-					res.stages.customdesign.data = JSON.parse(res.stages.customdesign.data);
+				if (typeof res.stages.magic.data == 'string')
+					res.stages.magic.data = JSON.parse(res.stages.magic.data);
 				
-				var objects = res.stages.customdesign.data.objects;
+				var objects = res.stages.magic.data.objects;
 					
 				if (objects !== undefined) {	
 					for (var item in objects){
@@ -5697,18 +5697,18 @@
 					}
 				};
 				
-				customdesign.cart.template[customdesign.current_stage] = [];
-				customdesign.cart.price.template[customdesign.current_stage] = 0;
+				magic.cart.template[magic.current_stage] = [];
+				magic.cart.price.template[magic.current_stage] = 0;
 				
 				res.clear = tmp.clear;
 				
-				customdesign.actions.do('template', tmp, res);
+				magic.actions.do('template', tmp, res);
 				
-				if (res.stages.customdesign !== undefined && res.stages.customdesign.padding === undefined) {
-					res.stages.customdesign.padding = customdesign.fn.calc_padding(res.stages.customdesign);
+				if (res.stages.magic !== undefined && res.stages.magic.padding === undefined) {
+					res.stages.magic.padding = magic.fn.calc_padding(res.stages.magic);
 				};
 				
-				customdesign.tools.imports(res, function(stage) {
+				magic.tools.imports(res, function(stage) {
 					
 					if (
 						stage.template !== undefined && 
@@ -5717,25 +5717,25 @@
 						stage.template.loaded !== true
 					) {
 						
-						var stage = customdesign.stage(),
+						var stage = magic.stage(),
 							scale = stage.template.offset.width/stage.edit_zone.width,
 							scl = stage.limit_zone.width/stage.edit_zone.width,
 							left = stage.template.offset.left*scl,
 							top = stage.template.offset.top*scl;
 						
-						if (res.stages.customdesign !== undefined && res.stages.customdesign.padding !== undefined) {
-							left += res.stages.customdesign.padding[0]*stage.template.offset.width*scl;
-							top += res.stages.customdesign.padding[1]*stage.template.offset.height*scl;
+						if (res.stages.magic !== undefined && res.stages.magic.padding !== undefined) {
+							left += res.stages.magic.padding[0]*stage.template.offset.width*scl;
+							top += res.stages.magic.padding[1]*stage.template.offset.height*scl;
 						}
 						
-						customdesign.fn.scale_designs(scale, {left: left, top: top});
+						magic.fn.scale_designs(scale, {left: left, top: top});
 						stage.template.loaded = true;
 						
 					};
 					
-					if (customdesign.ops.first_completed !== true) {
-						customdesign.actions.do('first-completed');
-						customdesign.ops.first_completed = true;
+					if (magic.ops.first_completed !== true) {
+						magic.actions.do('first-completed');
+						magic.ops.first_completed = true;
 					};
 					
 					if (typeof callback === 'function')
@@ -5757,13 +5757,13 @@
 				if (!el.getAttribute('data-ops'))
 					return;
 				
-				customdesign.ops.preventClick = true;
+				magic.ops.preventClick = true;
 
-				customdesign.f(customdesign.i('loading')+'..');
+				magic.f(magic.i('loading')+'..');
 
 				var ops = $.extend(JSON.parse(el.getAttribute('data-ops')), (ops ? ops : {}), true),
-					sto = ops.type == 'image' ? customdesign.cliparts.storage[ops.id] : (customdesign.cliparts.uploads[ops.id] || {}),
-					stage = customdesign.stage();
+					sto = ops.type == 'image' ? magic.cliparts.storage[ops.id] : (magic.cliparts.uploads[ops.id] || {}),
+					stage = magic.stage();
 
 				if (ops.type == 'shape')
 					sto.url = 'data:image/svg+xml;base64,'+btoa(el.innerHTML.trim());
@@ -5790,10 +5790,10 @@
 					)
 				}, ops);
 				
-				var fill_default = customdesign.get.color('invert');
+				var fill_default = magic.get.color('invert');
 				
-				if (customdesign.data.colors !== undefined && customdesign.data.colors !== '') {
-					fill_default = customdesign.data.colors.split(',')[0];
+				if (magic.data.colors !== undefined && magic.data.colors !== '') {
+					fill_default = magic.data.colors.split(',')[0];
 					if (fill_default.indexOf(':') > -1)
 						fill_default = fill_default.split(':')[1];
 					fill_default = fill_default.split('@')[0];
@@ -5803,8 +5803,8 @@
 					
 					ops.fill = fill_default;
 					
-					customdesign.design.layers.create({type: 'text', ops: ops});
-					customdesign.f(false);
+					magic.design.layers.create({type: 'text', ops: ops});
+					magic.f(false);
 					return;
 				}else if (ops.type == 'text-fx') {
 					ops.fill = fill_default;
@@ -5812,24 +5812,24 @@
 				
 				fabric.Image.fromURL(sto.url, function(image) {
 
-					customdesign.f(false);
+					magic.f(false);
 
 					if (ops.height === undefined)
 						ops.height = image.height * (sto.width/image.width),
 
 					ops.clipTo = function(ctx) {
-			            return customdesign.objects.clipto(ctx, image);
+			            return magic.objects.clipto(ctx, image);
 			        };
 
 					image.set(ops);
 
-					customdesign.design.layers.create({
+					magic.design.layers.create({
 						type: 'image',
 						src: sto.url,
 						image: image
 					});
 
-					customdesign.get.el('x-thumbn-preview').hide();
+					magic.get.el('x-thumbn-preview').hide();
 
 					stage.canvas.setActiveObject(image);
 
@@ -5841,68 +5841,68 @@
 
 				var events = [['dragstart', function(e){
 
-					customdesign.ops.drag_start = this;
+					magic.ops.drag_start = this;
 
 					var offs = $(this).offset();
 
-					customdesign.ops.drag_start.distance = {
+					magic.ops.drag_start.distance = {
 						x : (e.pageX - offs.left) - (this.offsetWidth/2),
 						y : (e.pageY - offs.top) - (this.offsetHeight/2),
 						w : this.offsetWidth,
 						h : this.offsetHeight
 					};
 
-					customdesign.get.el('x-thumbn-preview').hide();
+					magic.get.el('x-thumbn-preview').hide();
 
 				}],
 				['dragend', function(e){
 
-					customdesign.ops.drag_start = null;
+					magic.ops.drag_start = null;
 
 				}],
 				['click', function(e){
 
-					customdesign.itemInStage('add');
+					magic.itemInStage('add');
 
 					var del = e.target.getAttribute('data-delete');
 					if (del) {
-						if (confirm(customdesign.i('sure'))) {
+						if (confirm(magic.i('sure'))) {
 							$(this).remove();
 							URL.revokeObjectURL($(e.target).parent().find('img').attr('src'));
-							delete customdesign.cliparts.uploads[del];
-							return customdesign.indexed.delete(del, 'uploads');
+							delete magic.cliparts.uploads[del];
+							return magic.indexed.delete(del, 'uploads');
 						}
 					}
 
 					var t = this, 
 						ops = this.getAttribute('data-ops');
 					
-					if (customdesign.xitems.ops[ops] !== undefined)
-						ops = $.extend(true, [], customdesign.xitems.ops[ops]);
+					if (magic.xitems.ops[ops] !== undefined)
+						ops = $.extend(true, [], magic.xitems.ops[ops]);
 					else ops = JSON.parse(ops);
 					
 					if (ops[0].type == 'shape')
 						ops[0].url = 'data:image/svg+xml;base64,'+btoa(t.innerHTML.trim());
 					else if (ops[0].url === undefined)
-						ops[0].url = customdesign.cliparts.storage[ops[0].id] || customdesign.cliparts.uploads[ops[0].id];
+						ops[0].url = magic.cliparts.storage[ops[0].id] || magic.cliparts.uploads[ops[0].id];
 					
 					if (ops[0].url && ops[0].url.indexOf('dumb-') === 0) {
-						customdesign.indexed.get(ops[0].url.split('dumb-')[1], 'dumb', function(res){
+						magic.indexed.get(ops[0].url.split('dumb-')[1], 'dumb', function(res){
 							if (res !== null & res !== undefined) {
-								customdesign.cliparts.uploads[ops[0].id] = res[0];
+								magic.cliparts.uploads[ops[0].id] = res[0];
 								ops[0].url = res[0];
 								ops[0].user_upload = true;
-								customdesign.fn.preset_import(ops, {});
+								magic.fn.preset_import(ops, {});
 								delete res;
-							} else customdesign.fn.notice(customdesign.i(165));
+							} else magic.fn.notice(magic.i(165));
 						});
 					} else {
-						customdesign.fn.preset_import(ops, {});
+						magic.fn.preset_import(ops, {});
 					}
 					
 				}]];
 
-				customdesign.get.el('left').find('ul.customdesign-list-items li.customdesign-clipart:not([draggable="true"])').each(function(){
+				magic.get.el('left').find('ul.magic-list-items li.magic-clipart:not([draggable="true"])').each(function(){
 
 					if (this.getAttribute('draggable'))
 						return;
@@ -5942,14 +5942,14 @@
 				
 		    	var do_import = function() {
 					
-					customdesign.cliparts.uploads[id] = ops.url;
+					magic.cliparts.uploads[id] = ops.url;
 
 				    if (ops.thumbn && typeof ops.thumbn == 'string' && ops.thumbn.indexOf('data:image') === 0)
-				    	ops.thumbn = customdesign.fn.url2blob(ops.thumbn);
+				    	ops.thumbn = magic.fn.url2blob(ops.thumbn);
 
 			    	if (ops.save !== false) {
 			    		try{
-				    		customdesign.indexed.save([{
+				    		magic.indexed.save([{
 					    		thumbn: ops.thumbn,
 					    		name: ops.name,
 					    		id: id
@@ -5958,27 +5958,27 @@
 			    	}
 
 			    	var html = '<li style="background-image: url(\''+URL.createObjectURL(ops.thumbn ? ops.thumbn : ops.url)+'\')" \
-			    				data-ops=\'[{"type": "upload", "name": "'+ops.name+'", "id": "'+id+'"}]\' class="customdesign-clipart">\
+			    				data-ops=\'[{"type": "upload", "name": "'+ops.name+'", "id": "'+id+'"}]\' class="magic-clipart">\
 								<i data-info="'+id+'"></i>\
-								<i class="customdesign-icon-close" data-delete="'+id+'" title="'+customdesign.i(47)+'"></i>\
+								<i class="magic-icon-close" data-delete="'+id+'" title="'+magic.i(47)+'"></i>\
 							</li>';
 
 			    	if (dir == 'prepend')
-			    		customdesign.get.el('upload-list').find('ul.customdesign-list-items').prepend(html);
-			    	else customdesign.get.el('upload-list').find('ul.customdesign-list-items').append(html);
+			    		magic.get.el('upload-list').find('ul.magic-list-items').prepend(html);
+			    	else magic.get.el('upload-list').find('ul.magic-list-items').append(html);
 
-			    	customdesign.cliparts.add_events();
+			    	magic.cliparts.add_events();
 
 		    	};
 
 	    		if (ops.thumbn === undefined) {
 
-		    		customdesign.fn.createThumbn({
+		    		magic.fn.createThumbn({
 			    		source: ops.url,
 			    		width: 300,
 			    		height: 240,
 			    		callback: function(canvas) {
-				    		ops.thumbn = customdesign.fn.url2blob(canvas.toDataURL('image/jpeg', 0.3));
+				    		ops.thumbn = magic.fn.url2blob(canvas.toDataURL('image/jpeg', 0.3));
 				    		do_import();
 			    		}
 		    		});
@@ -6014,7 +6014,7 @@
 
 			do : function(name, opts, p) {
 				
-				customdesign.actions.stack.map(function(stack) {
+				magic.actions.stack.map(function(stack) {
 					if (stack[name] !== undefined) {
 						var res;
 						stack[name].map(function(evt){
@@ -6024,7 +6024,7 @@
 								}catch(ex){
 									console.warn(ex.message+' - do action '+name);
 									console.log(ex);
-									customdesign.fn.notice(ex.message+' - do action '+name, 'error');
+									magic.fn.notice(ex.message+' - do action '+name, 'error');
 								}
 							}
 						});
@@ -6041,19 +6041,19 @@
 			set : function(obj) {
 
 				if (!obj)
-					obj = customdesign.stage().canvas.getActiveObject();
+					obj = magic.stage().canvas.getActiveObject();
 
 				if (!obj)
 					return;
 					
-				var el = customdesign.get.el;
+				var el = magic.get.el;
 
 				el('transparent').val(obj.opacity !== undefined && obj.opacity !== null ? parseFloat(obj.opacity)*100 : 100).trigger('input');
 				el('rotate').val(obj.angle !== undefined ? obj.angle : 0).trigger('input');
 
 				el('curved-radius').val(obj.radius !== undefined ? obj.radius : 50).trigger('input');
 				el('curved-spacing').val(obj.spacing !== undefined ? obj.spacing : 50).trigger('input');
-				el('workspace').find('.customdesign-edit-text').val(obj.text ? obj.text.trim() : '');
+				el('workspace').find('.magic-edit-text').val(obj.text ? obj.text.trim() : '');
 				
 				el('font-size').val(obj.fontSize ? obj.fontSize : 14).trigger('input');
 				el('letter-spacing').val(obj.charSpacing !== undefined ? obj.charSpacing : 0).trigger('input');
@@ -6080,10 +6080,10 @@
 					)
 				) {
 					
-					var fill_default = customdesign.get.color('invert');
+					var fill_default = magic.get.color('invert');
 				
-					if (customdesign.data.colors !== undefined && customdesign.data.colors !== '') {
-						fill_default = customdesign.data.colors.split(',')[0];
+					if (magic.data.colors !== undefined && magic.data.colors !== '') {
+						fill_default = magic.data.colors.split(',')[0];
 						if (fill_default.indexOf(':') > -1)
 							fill_default = fill_default.split(':')[1];
 						fill_default = fill_default.split('@')[0];
@@ -6104,8 +6104,8 @@
 				if (el('stroke').get(0).color && typeof el('stroke').get(0).color.fromString == 'function')
 					el('stroke').val(stroke).css({background: ''}).get(0).color.fromString(stroke);
 				el('text-tools .text-format').removeClass('selected');
-				el('text-tools .text-format.customdesignx-align-'+obj.textAlign).addClass('selected');
-				el('text-align').attr({'class': 'customdesignx-align-'+(obj.textAlign ? obj.textAlign : 'center')});
+				el('text-tools .text-format.magicx-align-'+obj.textAlign).addClass('selected');
+				el('text-align').attr({'class': 'magicx-align-'+(obj.textAlign ? obj.textAlign : 'center')});
 
 				el('curved').get(0).checked = (obj.type === 'curvedText');
 				el('flip-x').get(0).checked = obj.flipX;
@@ -6163,16 +6163,16 @@
 					el('image-fx-fx').find('li[data-fx="'+(obj.fx && obj.fx.fx ? obj.fx.fx : '')+'"]').attr({'data-selected': 'true'});
 				}else if (obj.type == 'svg' && obj.src !== undefined && obj.src.indexOf('data:image/svg+xml;base64,') === 0) { 
 					
-					customdesign.fn.set_svg_colors(obj);
+					magic.fn.set_svg_colors(obj);
 					
 				};
 
-				customdesign.design.layers.arrange();
+				magic.design.layers.arrange();
 
 				if (obj.type == 'image' && obj._element && obj._element.src.indexOf('data:image/svg+xml;base64,') > -1)
 					obj.set('type', 'svg');
 
-				customdesign.e.tools.attr({'data-view': obj.type});
+				magic.e.tools.attr({'data-view': obj.type});
 				
 				el('top-tools').find('li[data-tool="un-group"]').css({display: obj.group_pos ? 'inline-block' : 'none'});
 				
@@ -6198,7 +6198,7 @@
 				if (!stage || !stage.canvas)
 					return null;
 
-				var data = stage.canvas.toJSON(customdesign.ops.export_list);
+				var data = stage.canvas.toJSON(magic.ops.export_list);
 				
 				data.objects.map(function(obj, ind){
 
@@ -6212,7 +6212,7 @@
 					});
 
 					if (obj.fontFamily !== undefined && obj.font === undefined) {
-						fonts = JSON.parse(localStorage.getItem('CUSTOMDESIGN_FONTS'));
+						fonts = JSON.parse(localStorage.getItem('MAGIC_FONTS'));
 						if (fonts[encodeURIComponent(obj.fontFamily)])
 							obj.font = fonts[encodeURIComponent(obj.fontFamily)];
 					};
@@ -6222,7 +6222,7 @@
 					 	typeof obj.font == 'string' && 
 					 	obj.font.indexOf('.woff') > -1 && 
 					 	obj.font.indexOf('http') === -1
-					 )obj.font = customdesign.data.upload_url+obj.font;
+					 )obj.font = magic.data.upload_url+obj.font;
 					
 					if (obj.fontFamily && obj.fontFamily.indexOf('"') > -1)
 						obj.fontFamily = obj.fontFamily.replace(/\"/g, '');
@@ -6243,7 +6243,7 @@
 				});
 				
 				data.devicePixelRatio = window.devicePixelRatio;
-				data.product_color = customdesign.get.color();
+				data.product_color = magic.get.color();
 				data.limit_zone = {};
 				data.edit_zone = stage.edit_zone;
 				data.product_width = stage.product.width;
@@ -6254,7 +6254,7 @@
 					data.limit_zone[f] = stage.limit_zone ? stage.limit_zone[f] : 0;
 				});
 				
-				data = customdesign.apply_filters('export', data, stage);
+				data = magic.apply_filters('export', data, stage);
 				
 				return data;
 
@@ -6359,7 +6359,7 @@
 					typeNumber	: -1,
 					correctLevel	: QRErrorCorrectLevel.H,
 		            background      : "rgba(255,255,255,0)",
-		            foreground      : customdesign.get.color('invert')
+		            foreground      : magic.get.color('invert')
 				}, options);
 
 
@@ -6395,7 +6395,7 @@
 
 				this.discard();
 
-				var canvas = customdesign.stage().canvas,
+				var canvas = magic.stage().canvas,
 					objs = canvas.getObjects();
 
 				while (objs.filter(function(obj){return obj.evented}).length > 0){
@@ -6405,7 +6405,7 @@
 					});
 				}
 				
-				customdesign.stack.save();
+				magic.stack.save();
 				
 			},
 
@@ -6413,9 +6413,9 @@
 
 				var canvas, objs;
 
-				Object.keys(customdesign.data.stages).map(function(s){
+				Object.keys(magic.data.stages).map(function(s){
 
-					canvas = customdesign.data.stages[s].canvas;
+					canvas = magic.data.stages[s].canvas;
 
 					if (canvas === undefined)
 						return;
@@ -6431,24 +6431,24 @@
 
 				});
 				
-				customdesign.stack.save();
+				magic.stack.save();
 				
 			},
 
 			import : function (data, callback) {
 				
 				if (!data || !data.objects) {
-					customdesign.ops.importing = false;
+					magic.ops.importing = false;
 					return callback();
 				};
 				
 				if (typeof callback != 'function')
 					callback = function() {};
 				
-				data = customdesign.apply_filters('import', data);
+				data = magic.apply_filters('import', data);
 				data.objects = data.objects.filter(function(val){return val});
 				
-				var stage = customdesign.stage(),
+				var stage = magic.stage(),
 					canvas = stage.canvas,
 					do_import = function(i) {
 						
@@ -6456,7 +6456,7 @@
 							/*Scann and load all fonts before importing*/
 							var gfonts = [], custom = [], families = [], cfo, uco;
 							/* Life hack, display font for the first time*/
-							if ($('#customdesign-fonts-preload').length === 0)
+							if ($('#magic-fonts-preload').length === 0)
 								$('body').append('<div id="fonts-preload" style="position: fixed;opacity: 0;"></div>');
 							
 							data.objects.map(function(o) {								
@@ -6484,7 +6484,7 @@
 											
 											uco = o.font;
 											if (o.font.indexOf('.woff') > -1 && o.font.indexOf('http') === -1)
-												uco = customdesign.data.upload_url+o.font;
+												uco = magic.data.upload_url+o.font;
 											
 											$('head').append('<style type="text/css">@font-face {font-family:"'+cfo+'";src: url("'+uco+'") format("woff");}</style>');
 											
@@ -6511,7 +6511,7 @@
 									},
 								    active: function () {
 									    
-										customdesign.f(customdesign.i('importing'));
+										magic.f(magic.i('importing'));
 									    
 									    var loo = 0,
 											loop_check = function() {
@@ -6546,8 +6546,8 @@
 						
 						if (data.objects[i] !== undefined) {
 							
-							customdesign.f(customdesign.i('importing'));
-							customdesign.ops.importing = true;
+							magic.f(magic.i('importing'));
+							magic.ops.importing = true;
 
 							if (data.objects[i] !== null) {
 
@@ -6566,7 +6566,7 @@
 									top: stage.limit_zone.top + (stage.limit_zone.height/2)
 								}, data.objects[i]);
 								
-								if (customdesign.objects.customdesign[data.objects[i].type]) {
+								if (magic.objects.magic[data.objects[i].type]) {
 
 									data.objects[i].top += yCenter;
 									data.objects[i].left += xCenter;
@@ -6575,11 +6575,11 @@
  										data.objects[i].src.indexOf('http') !== 0 &&
  										data.objects[i].src.indexOf('blob:') !== 0 &&
  										data.objects[i].src.indexOf('data:image/') !== 0
- 									) data.objects[i].src = customdesign.data.upload_url+data.objects[i].src;
+ 									) data.objects[i].src = magic.data.upload_url+data.objects[i].src;
  								
  									var do_add = function() {
 	 									
-	 									customdesign.objects.customdesign[data.objects[i].type](
+	 									magic.objects.magic[data.objects[i].type](
 											data.objects[i],
 											function (obj) {
 
@@ -6599,7 +6599,7 @@
 
 													setTimeout (function() {
 
-												        customdesign.fn.image_fx(obj.fxOrigin, obj.fx, function(cdata, colors){
+												        magic.fn.image_fx(obj.fxOrigin, obj.fx, function(cdata, colors){
 
 															obj._element.src = cdata;
 															obj._originalElement.src = cdata;
@@ -6607,7 +6607,7 @@
 															obj.colors = colors;
 
 															obj._element.onload = function() {
-																customdesign.f(false);
+																magic.f(false);
 																do_import(i+1);
 															}
 
@@ -6630,35 +6630,35 @@
 						}else{
 
 							canvas.renderAll();
-							customdesign.design.layers.build();
+							magic.design.layers.build();
 
-							customdesign.ops.importing = false;
+							magic.ops.importing = false;
 
-							customdesign.f(false);
+							magic.f(false);
 							
 							if (typeof callback == 'function') {
 								if (typeof data['template'] !== 'undefined'){
-									customdesign.cart.template = data.template.stages;
-									customdesign.cart.price.template =  data.template.price;
+									magic.cart.template = data.template.stages;
+									magic.cart.price.template =  data.template.price;
 								};
 								
 								if (typeof data['extra'] !== 'undefined') 
-									customdesign.cart.price.extra =  data.extra;
+									magic.cart.price.extra =  data.extra;
 								
 								callback(err);
 							}
 							
-							if (customdesign.fn.url_var('print_download', '') !== '') {
+							if (magic.fn.url_var('print_download', '') !== '') {
 								
 								$('li[data-tool="print"]').trigger('click');
 								
-								$('#customdesign-print-full').prop({checked: true});
-								$('#customdesign-print-base').prop({checked: false});
-								$('#print-format-'+customdesign.fn.url_var('print_download')).prop({checked: true}).change();
+								$('#magic-print-full').prop({checked: true});
+								$('#magic-print-base').prop({checked: false});
+								$('#print-format-'+magic.fn.url_var('print_download')).prop({checked: true}).change();
 								
-								$('#customdesign-print-nav button[data-func="download"]').trigger('click');
+								$('#magic-print-nav button[data-func="download"]').trigger('click');
 								
-								customdesign.fn.set_url('print_download', null);
+								magic.fn.set_url('print_download', null);
 								
 							}
 							
@@ -6676,7 +6676,7 @@
 				xCenter = xCenter !== 0 ? (stage.limit_zone.left+(stage.limit_zone.width/2)) - xCenter : 0;
 				yCenter = yCenter !== 0 ? (stage.limit_zone.top+(stage.limit_zone.height/2)) - yCenter : 0;
 				
-				customdesign.f(customdesign.i(88));
+				magic.f(magic.i(88));
 				
 				setTimeout(do_import, 1, -1);
 				
@@ -6685,28 +6685,28 @@
 			imports : function(data, callback) {
 			
 				if (!data || !data.stages) {
-					return customdesign.fn.notice(customdesign.i(25), 'error');
+					return magic.fn.notice(magic.i(25), 'error');
 				};
 				
 				this.discard();
 				
-				if (Object.keys(data.stages).length === 1 && Object.keys(data.stages)[0] == 'customdesign') {
+				if (Object.keys(data.stages).length === 1 && Object.keys(data.stages)[0] == 'magic') {
 					/*
 					*	Install template file *.lumi	
 					*/
-					if (data.clear !== false && localStorage.getItem('CUSTOMDESIGN-TEMPLATE-APPEND') != 'true')
+					if (data.clear !== false && localStorage.getItem('MAGIC-TEMPLATE-APPEND') != 'true')
 						this.clear();
 					
-					var cur = customdesign.current_stage;
+					var cur = magic.current_stage;
 					
-					if (customdesign.data.stages[cur] && data.stages['customdesign'].data) {
+					if (magic.data.stages[cur] && data.stages['magic'].data) {
 						
-						if (typeof data.stages['customdesign'].data == 'string')
-							customdesign.data.stages[cur].data = JSON.parse(data.stages['customdesign'].data);
-						else customdesign.data.stages[cur].data = data.stages['customdesign'].data;
+						if (typeof data.stages['magic'].data == 'string')
+							magic.data.stages[cur].data = JSON.parse(data.stages['magic'].data);
+						else magic.data.stages[cur].data = data.stages['magic'].data;
 						
-						customdesign.data.stages[cur].screenshot = data.stages['customdesign'].screenshot;
-						customdesign.data.stages[cur].updated = data.stages['customdesign'].updated;
+						magic.data.stages[cur].screenshot = data.stages['magic'].screenshot;
+						magic.data.stages[cur].updated = data.stages['magic'].updated;
 				    }
 				    
 				} else {
@@ -6714,13 +6714,13 @@
 					this.clearAll();
 					
 					/*
-					Object.keys(customdesign.data.stages).map(function(s){
+					Object.keys(magic.data.stages).map(function(s){
 						
-						delete customdesign.data.stages[s].data;
-						delete customdesign.data.stages[s].screenshot;
-						delete customdesign.data.stages[s].updated;
+						delete magic.data.stages[s].data;
+						delete magic.data.stages[s].screenshot;
+						delete magic.data.stages[s].updated;
 	
-						customdesign.data.stages[s].stack = {
+						magic.data.stages[s].stack = {
 							data : [],
 						    state : true,
 						    index : 0
@@ -6735,8 +6735,8 @@
 						if (data.stages[s].data !== '' && typeof data.stages[s].data == 'string')
 							data.stages[s].data = JSON.parse(data.stages[s].data);
 						
-						if (s == customdesign.current_stage) {
-							_stages[s] = customdesign.data.stages[s];
+						if (s == magic.current_stage) {
+							_stages[s] = magic.data.stages[s];
 							_stages[s].data = data.stages[s].data;
 							_stages[s].screenshot = data.stages[s].screenshot;
 							_stages[s].updated = data.stages[s].updated;
@@ -6747,44 +6747,44 @@
 							    state : true,
 							    index : 0
 						    };
-						    if (customdesign.data.stages[s] !== undefined) {
-						    	_stages[s].src = customdesign.data.stages[s].src;
-						    	_stages[s].thumbnail = customdesign.data.stages[s].thumbnail;
-						    	_stages[s].source = customdesign.data.stages[s].source;
+						    if (magic.data.stages[s] !== undefined) {
+						    	_stages[s].src = magic.data.stages[s].src;
+						    	_stages[s].thumbnail = magic.data.stages[s].thumbnail;
+						    	_stages[s].source = magic.data.stages[s].source;
 						    }
 						}
 						
 						if (
-							customdesign.data.stages[s] !== undefined &&
+							magic.data.stages[s] !== undefined &&
 							_stages[s].product_width === undefined && 
-							customdesign.data.stages[s].product_width !== undefined
+							magic.data.stages[s].product_width !== undefined
 						)
-					    	_stages[s].product_width = customdesign.data.stages[s].product_width;
+					    	_stages[s].product_width = magic.data.stages[s].product_width;
 					    
 					    if (
-						    customdesign.data.stages[s] !== undefined &&
+						    magic.data.stages[s] !== undefined &&
 							_stages[s].product_height === undefined && 
-							customdesign.data.stages[s].product_height !== undefined
+							magic.data.stages[s].product_height !== undefined
 						)
-					    	_stages[s].product_height = customdesign.data.stages[s].product_height;
+					    	_stages[s].product_height = magic.data.stages[s].product_height;
 					    	
 					});
 					
 					if (data.system_version === undefined) {
-						Object.keys(customdesign.data.stages).map(function(s){
+						Object.keys(magic.data.stages).map(function(s){
 							if (_stages[s] === undefined) {
-								_stages[s] = customdesign.data.stages[s];
+								_stages[s] = magic.data.stages[s];
 							}
 						});
 					}
 					
-					customdesign.data.stages = _stages;
+					magic.data.stages = _stages;
 
-					customdesign.render.stage_nav();
+					magic.render.stage_nav();
 					
 				};
 				
-				var stage = customdesign.data.stages[customdesign.current_stage];
+				var stage = magic.data.stages[magic.current_stage];
 				
 				if (stage !== undefined && stage.data !== undefined) {
 					
@@ -6793,41 +6793,41 @@
 					if (stage.data.limit_zone !== undefined)
 						scale = stage.limit_zone.width/stage.data.limit_zone.width;		 
 					
-					if(localStorage.getItem('CUSTOMDESIGN-TEMPLATE-APPEND') == true || localStorage.getItem('CUSTOMDESIGN-TEMPLATE-APPEND') == 'true'){
+					if(localStorage.getItem('MAGIC-TEMPLATE-APPEND') == true || localStorage.getItem('MAGIC-TEMPLATE-APPEND') == 'true'){
 						scale = 0;
 					}
 
-					this.import(customdesign.data.stages[customdesign.current_stage].data, function(){
+					this.import(magic.data.stages[magic.current_stage].data, function(){
 						
 						if (scale !== 1)
-							customdesign.fn.scale_designs(scale);
+							magic.fn.scale_designs(scale);
 							
-						customdesign.stack.save();
-						customdesign.fn.update_state();
+						magic.stack.save();
+						magic.fn.update_state();
 						
 						if (typeof callback == 'function') {
-							callback(customdesign.data.stages[customdesign.current_stage]);
+							callback(magic.data.stages[magic.current_stage]);
 						};
 						
-						delete customdesign.data.color;
-						delete customdesign.data.stages[customdesign.current_stage].data;
+						delete magic.data.color;
+						delete magic.data.stages[magic.current_stage].data;
 						
 					});
 					
 				} else {
-					customdesign.active_stage(customdesign.render.stage_nav(), callback);
+					magic.active_stage(magic.render.stage_nav(), callback);
 				};
 				
-				customdesign.fn.navigation('clear');
+				magic.fn.navigation('clear');
 
 			},
 
 			discard : function() {
 
-				if (!customdesign.stage())
+				if (!magic.stage())
 					return;
 				
-				var canvas = customdesign.stage().canvas;
+				var canvas = magic.stage().canvas;
 
 				canvas.discardActiveObject();
 				canvas.discardActiveGroup();
@@ -6837,15 +6837,15 @@
 
 			save : function(e, id, created){
 				
-				if (customdesign.ops.importing === true)
+				if (magic.ops.importing === true)
 					return;
 
-				if (customdesign.get.el('main').find('.customdesign-stage').length === 0)
+				if (magic.get.el('main').find('.magic-stage').length === 0)
 					return;
 						
-				customdesign.fn.export(e == 'designs' ? 'designs' : true, id/*save to db*/, created);
+				magic.fn.export(e == 'designs' ? 'designs' : true, id/*save to db*/, created);
 
-				customdesign.actions.do('save');
+				magic.actions.do('save');
 
 				if (e && typeof e.preventDefault == 'function')
 					e.preventDefault();
@@ -6874,7 +6874,7 @@
 				if (typeof font == 'string') {
 					
 					if (font.trim().indexOf('http') === -1 && font.trim().indexOf('data:') !== 0)
-						font = customdesign.data.upload_url+font;
+						font = magic.data.upload_url+font;
 					else if (font.trim().indexOf('data:text/plain;') > -1)
 						font = font.trim().replace('data:text/plain;', 'data:font/truetype;charset=utf-8;');
 
@@ -6904,7 +6904,7 @@
 			lightbox : function(ops) {
 
 				if (ops == 'close')
-					return $('#customdesign-lightbox').remove();
+					return $('#magic-lightbox').remove();
 
 				var cfg = $.extend({
 						width: 1000,
@@ -6914,21 +6914,21 @@
 						onclose: function(){}
 					}, ops),
 					
-					tmpl = '<div id="customdesign-lightbox" class="customdesign-lightbox">\
-								<div id="customdesign-lightbox-body">\
-									<div id="customdesign-lightbox-content" style="min-width:'+cfg.width+'px">\
+					tmpl = '<div id="magic-lightbox" class="magic-lightbox">\
+								<div id="magic-lightbox-body">\
+									<div id="magic-lightbox-content" style="min-width:'+cfg.width+'px">\
 										'+cfg.content+'\
 									</div>\
 									'+cfg.footer+'\
 									<a class="kalb-close" href="#close" title="Close">\
-										<i class="customdesignx-android-close"></i>\
+										<i class="magicx-android-close"></i>\
 									</a>\
 								</div>\
 								<div class="kalb-overlay"></div>\
 							</div>';
 
 				if (cfg.footer !== '')
-					cfg.footer = '<div id="customdesign-lightbox-footer">'+cfg.footer+'</div>';
+					cfg.footer = '<div id="magic-lightbox-footer">'+cfg.footer+'</div>';
 
 				tmpl = tmpl.replace(/\%width\%/g, cfg.width).
 							replace(/\%content\%/g, cfg.content).
@@ -6936,13 +6936,13 @@
 				
 				tmpl = $(tmpl);
 				
-				$('.customdesign-lightbox').remove();
+				$('.magic-lightbox').remove();
 				$('body').append(tmpl);
 
 				cfg.onload(tmpl);
 				tmpl.find('a.kalb-close,div.kalb-overlay').on('click', function(e){
 					cfg.onclose(tmpl);
-					$('.customdesign-lightbox').remove();
+					$('.magic-lightbox').remove();
 					e.preventDefault();
 				});
 
@@ -6977,7 +6977,7 @@
 		
 					svg.find('[fill]').map(function () {
 						if (this.getAttribute('fill').indexOf('rgb') > -1)
-							this.setAttribute('fill', customdesign.tools.svg.rgb2hex(this.getAttribute('fill')));
+							this.setAttribute('fill', magic.tools.svg.rgb2hex(this.getAttribute('fill')));
 						this.setAttribute('data-fill-attr-color', this.getAttribute('fill'));
 						fills.push(this.getAttribute('fill'));
 					});
@@ -7046,8 +7046,8 @@
 				renderColors : function(el) {
 		
 					var _this = this,
-						colors = this.getColors($('#customdesign-svg-edit>svg')),
-						inps = $('#customdesign-svg-tool div[data-view="current-colors"]');
+						colors = this.getColors($('#magic-svg-edit>svg')),
+						inps = $('#magic-svg-tool div[data-view="current-colors"]');
 					
 					inps.html('');
 					
@@ -7059,7 +7059,7 @@
 						
 						var color = this.getAttribute('data-color'),
 							new_color = this.value,
-							svg = $('#customdesign-svg-edit svg');
+							svg = $('#magic-svg-edit svg');
 						
 						svg.find('[fill][data-fill-attr-color="'+color+'"]').attr({fill: new_color});
 						svg.find('[fill][data-stroke-attr-color="'+color+'"]').attr({stroke: new_color});
@@ -7085,8 +7085,8 @@
 							   e_l.style.stroke.replace(/\ /g, '').replace(/\"/g, ''),
 						stroke_width = e_l.getAttribute('stroke-width') ? e_l.getAttribute('stroke-width') : 
 							   e_l.style.strokeWidth.replace(/\ /g, '').replace(/\"/g, ''),
-						inps = $('#customdesign-svg-fills-custom'),
-						inpz = $('#customdesign-svg-strokes-custom'),
+						inps = $('#magic-svg-fills-custom'),
+						inpz = $('#magic-svg-strokes-custom'),
 						el = $(e_l);
 						
 					inps.html('');
@@ -7159,7 +7159,7 @@
 				replace : function(svg, new_color, color) {
 					
 					if (svg === undefined) {
-						$('#customdesign-color-picker-header i').click();
+						$('#magic-color-picker-header i').click();
 						return;	
 					};
 					
@@ -7176,23 +7176,23 @@
 				edit : function() {
 					
 					var _this = this,
-						canvas = customdesign.stage().canvas,
+						canvas = magic.stage().canvas,
 						active = canvas.getActiveObject(),
 						svg = atob(active.src.split('base64,')[1]);
 						
-					$('#CustomdesignDesign').append(
-						'<div id="customdesign-svg-workspace">\
-							<div id="customdesign-svg-edit">'+
+					$('#MagicDesign').append(
+						'<div id="magic-svg-workspace">\
+							<div id="magic-svg-edit">'+
 								svg.substr(svg.indexOf('<svg'))+'\
 							</div>\
 							<div data-view="zoom">\
-								<i class="customdesignx-android-search"></i> zoom <input type="range" min="100" max="300" value="100" />\
+								<i class="magicx-android-search"></i> zoom <input type="range" min="100" max="300" value="100" />\
 							</div>\
-							<div id="customdesign-svg-tool">\
+							<div id="magic-svg-tool">\
 								<ul data-view="nav">\
-									<li data-func="save" title="'+customdesign.i('save')+'"><i class="customdesignx-android-done"></i></li>\
-									<li data-func="reset" title="'+customdesign.i('reset')+'"><i class="customdesignx-android-refresh"></i></li>\
-									<li data-func="cancel" title="'+customdesign.i('cancel')+'"><i class="customdesignx-android-close"></i></li>\
+									<li data-func="save" title="'+magic.i('save')+'"><i class="magicx-android-done"></i></li>\
+									<li data-func="reset" title="'+magic.i('reset')+'"><i class="magicx-android-refresh"></i></li>\
+									<li data-func="cancel" title="'+magic.i('cancel')+'"><i class="magicx-android-close"></i></li>\
 								</ul>\
 								<h3>All colors</h3>\
 								<div data-view="current-colors"></div>\
@@ -7200,7 +7200,7 @@
 						</div>'
 					);
 					
-					var svg = $('#customdesign-svg-edit>svg');
+					var svg = $('#magic-svg-edit>svg');
 					
 					if (svg.attr('width')) {
 						svg.attr('data-width', svg.attr('width'));
@@ -7221,20 +7221,20 @@
 		
 						if (allw.indexOf(e.target.tagName.toLowerCase()) > -1) {
 							
-							if ($('#customdesign-svg-tool div[data-view="customize"]').length === 0) {
-								$('#customdesign-svg-tool>ul[data-view="nav"]').
+							if ($('#magic-svg-tool div[data-view="customize"]').length === 0) {
+								$('#magic-svg-tool>ul[data-view="nav"]').
 									after(
 										'<h3>Selection</h3>\
 										<div data-view="customize">\
 											<label>Fill:</label>\
-											<div class="lumst" id="customdesign-svg-fills">\
-												<div id="customdesign-svg-fills-custom"></div>\
+											<div class="lumst" id="magic-svg-fills">\
+												<div id="magic-svg-fills-custom"></div>\
 											</div>\
 										</div>\
 										<div data-view="customize">\
 											<label>Stroke:</label>\
-											<div class="lumst" id="customdesign-svg-strokes">\
-												<div id="customdesign-svg-strokes-custom"></div>\
+											<div class="lumst" id="magic-svg-strokes">\
+												<div id="magic-svg-strokes-custom"></div>\
 											</div>\
 										</div>'
 									);
@@ -7245,7 +7245,7 @@
 						}
 					});
 					
-					$('#customdesign-svg-workspace input[type="range"]').on('input', function(){
+					$('#magic-svg-workspace input[type="range"]').on('input', function(){
 						svg.css({
 							'width': (w*(this.value/100))+'px', 
 							'max-width': (w*(this.value/100))+'px', 
@@ -7254,7 +7254,7 @@
 						});
 					});
 					
-					$('#customdesign-svg-tool ul li').on('click', function(e) {
+					$('#magic-svg-tool ul li').on('click', function(e) {
 						switch (this.getAttribute('data-func')) {
 							case 'save' : 
 							
@@ -7263,13 +7263,13 @@
 								svg.removeAttr('data-width');
 								svg.removeAttr('data-height');
 								
-								var canvas = customdesign.stage().canvas,
+								var canvas = magic.stage().canvas,
 									active = canvas.getActiveObject(),
 									colors = _this.getColors(svg),
 									svg_html = svg.parent().html(),
 									src = 'data:image/svg+xml;base64,'+btoa(svg_html);
 								
-								$('#customdesign-svg-workspace').remove();
+								$('#magic-svg-workspace').remove();
 									
 								if (active === undefined || active === null)
 									return;
@@ -7283,16 +7283,16 @@
 								active._originalElement.src = src;
 								active._element.onload = function(){
 									canvas.renderAll();	
-									customdesign.fn.set_svg_colors(active);
+									magic.fn.set_svg_colors(active);
 								};
 								
 							break;
 							case 'reset' : 
-								$('#customdesign-svg-workspace').remove();
-								customdesign.tools.svg.edit();
+								$('#magic-svg-workspace').remove();
+								magic.tools.svg.edit();
 							break;
 							case 'cancel' : 
-								$('#customdesign-svg-workspace').remove();
+								$('#magic-svg-workspace').remove();
 							break;
 						}
 					});
@@ -7311,10 +7311,10 @@
 			
 		    save : function() {
 				
-				if (customdesign.ops.importing === true || customdesign.stack.working === true)
+				if (magic.ops.importing === true || magic.stack.working === true)
 					return;
 
-			    var stage = customdesign.stage(),
+			    var stage = magic.stage(),
 			    	stack = stage.stack,
 			    	canvas = stage.canvas,
 			    	hash = '',
@@ -7325,7 +7325,7 @@
 						
 						if (typeof obj.clipTo != 'function') {
 							obj.set('clipTo', function(ctx){
-								return customdesign.objects.clipto(ctx, obj);
+								return magic.objects.clipto(ctx, obj);
 							});
 							apply = true;
 						};
@@ -7354,17 +7354,17 @@
 				
 				if (apply) {
 					canvas.renderAll();
-					customdesign.design.layers.build();
+					magic.design.layers.build();
 				}
 				
 				if (stack.data.length > 50)
 					stack.data = stack.data.splice(stack.data.length-50);
 
-				var current = customdesign.tools.export(customdesign.stage());
+				var current = magic.tools.export(magic.stage());
 				
 				current['template'] = {
-					stages : customdesign.cart.template,
-					price : customdesign.cart.price.template
+					stages : magic.cart.template,
+					price : magic.cart.price.template
 				};
 				current = JSON.stringify(current);
 
@@ -7373,41 +7373,41 @@
 				stack.data.push({hash: hash, data: current});
 				stack.index = stack.data.length - 1;
 
-				customdesign.get.el('design-redo').addClass("disabled");
+				magic.get.el('design-redo').addClass("disabled");
 				
 				if (stack.data.length > 1)
-					customdesign.get.el('design-undo').removeClass("disabled");
+					magic.get.el('design-undo').removeClass("disabled");
 				
-                customdesign.actions.do('stack:save:complete');
+                magic.actions.do('stack:save:complete');
 				
 				if (stack.data.length > 1) {
-					customdesign.tools.save();
+					magic.tools.save();
 				}else{
-					customdesign.ops.before_unload = null;
+					magic.ops.before_unload = null;
 				}
 		    },
 
 		    back : function(e) {
 
-			    var stack = customdesign.stage().stack,
-			    	canvas = customdesign.stage().canvas;
+			    var stack = magic.stage().stack,
+			    	canvas = magic.stage().canvas;
 
 				if (stack.index > 0) {
 					stack.state = false;
 					var current = JSON.parse(stack.data[stack.index - 1].data);
-					customdesign.tools.clear();
-					customdesign.stack.working = true;
-					customdesign.tools.import(current, function (){
-						customdesign.fn.update_state();
-						customdesign.stack.working = false;
+					magic.tools.clear();
+					magic.stack.working = true;
+					magic.tools.import(current, function (){
+						magic.fn.update_state();
+						magic.stack.working = false;
 					});
 					
 					stack.index--;
-					customdesign.get.el('design-redo').removeClass("disabled");
+					magic.get.el('design-redo').removeClass("disabled");
 				}
 
 				if (stack.index === 0){
-					customdesign.get.el('design-undo').addClass("disabled");
+					magic.get.el('design-undo').addClass("disabled");
 				}
 
 				if (e)e.preventDefault();
@@ -7416,24 +7416,24 @@
 
 		    forward : function(e) {
 
-			    var stack = customdesign.stage().stack,
-			    	canvas = customdesign.stage().canvas;
+			    var stack = magic.stage().stack,
+			    	canvas = magic.stage().canvas;
 
 				if (stack.data[stack.index + 1]) {
 					stack.state = false;
 					var current = JSON.parse(stack.data[stack.index + 1].data);
-					customdesign.tools.clear();
-					customdesign.stack.working = true;
-					customdesign.tools.import(current, function (){
-						customdesign.fn.update_state();
-						customdesign.stack.working = false;
+					magic.tools.clear();
+					magic.stack.working = true;
+					magic.tools.import(current, function (){
+						magic.fn.update_state();
+						magic.stack.working = false;
 					});
 					stack.index++;
-					customdesign.get.el('design-undo').removeClass("disabled");
+					magic.get.el('design-undo').removeClass("disabled");
 				}
 
 				if (!stack.data[stack.index + 1]) {
-					customdesign.get.el('design-redo').addClass("disabled");
+					magic.get.el('design-redo').addClass("disabled");
 				}
 
 				if (e)e.preventDefault();
@@ -7448,49 +7448,49 @@
 
 			color : function(s){
 
-				var color = $('.customdesign-cart-field[data-type="product_color"]').find('li[data-color].choosed').attr('data-color');
+				var color = $('.magic-cart-field[data-type="product_color"]').find('li[data-color].choosed').attr('data-color');
 				
 				if (!color)
-					color = customdesign.data.color ? customdesign.data.color : '#dedede';
+					color = magic.data.color ? magic.data.color : '#dedede';
 				else color = decodeURIComponent(color);
 				
-				return (s != 'invert' ? color : customdesign.fn.invert(color));
+				return (s != 'invert' ? color : magic.fn.invert(color));
 
 			},
 			
 			color_name : function(s){
 
-				var elm = customdesign.get.el('product-color').find('li[data-color].choosed');
+				var elm = magic.get.el('product-color').find('li[data-color].choosed');
 				return ( !elm.get(0) )? '': elm.attr('title');
 				
 			},
 
 			scroll : function() {
 				return {
-					top: (customdesign.body.scrollTop?customdesign.body.scrollTop:customdesign.html.scrollTop),
-					left: (customdesign.body.scrollLeft?customdesign.body.scrollLeft:customdesign.html.scrollLeft)
+					top: (magic.body.scrollTop?magic.body.scrollTop:magic.html.scrollTop),
+					left: (magic.body.scrollLeft?magic.body.scrollLeft:magic.html.scrollLeft)
 				}
 			},
 
 			active : function() {
-				return customdesign.stage().canvas.getActiveObject() || customdesign.stage().canvas.getActiveGroup();
+				return magic.stage().canvas.getActiveObject() || magic.stage().canvas.getActiveGroup();
 			},
 
 			stage : function() {
 				return {
-					stage: customdesign.stage(),
-					canvas: customdesign.stage().canvas,
-					active: customdesign.stage().canvas.getActiveObject(),
-					limit: customdesign.stage().limit_zone
+					stage: magic.stage(),
+					canvas: magic.stage().canvas,
+					active: magic.stage().canvas.getActiveObject(),
+					limit: magic.stage().limit_zone
 				}
 			},
 			
 			size : function() {
 				
-				var stage = customdesign.stage(),
-					size = customdesign.get.el('print-nav').find('input[name="size"]').val().split('x'),
-					unit = $('#customdesign-print-nav input[name="print-unit"]:checked').data('unit'),
-					o = customdesign.get.el('print-nav').find('select[name="orientation"]').val(),
+				var stage = magic.stage(),
+					size = magic.get.el('print-nav').find('input[name="size"]').val().split('x'),
+					unit = $('#magic-print-nav input[name="print-unit"]:checked').data('unit'),
+					o = magic.get.el('print-nav').find('select[name="orientation"]').val(),
 					w = parseFloat(size[0].trim()),
 					h = parseFloat(size[1] ? size[1].trim() : 0);
 				
@@ -7505,15 +7505,15 @@
 					};
 					
 					if (size[0] === '' || size[1] === undefined || size[1] === '') {
-						customdesign.get.el('print-nav').find('input[name="size"]').focus();
-						return alert(customdesign.i(35));
+						magic.get.el('print-nav').find('input[name="size"]').focus();
+						return alert(magic.i(35));
 					};
 					
 				} else if (typeof stage.size == 'string') {
 					
-					Object.keys(customdesign.data.size_default).map(function(s) {
-						if (customdesign.data.size_default[s].cm == stage.size) {
-							size = customdesign.data.size_default[s].px.split('x');
+					Object.keys(magic.data.size_default).map(function(s) {
+						if (magic.data.size_default[s].cm == stage.size) {
+							size = magic.data.size_default[s].px.split('x');
 						}
 					});
 					
@@ -7544,13 +7544,13 @@
 			
 			el : function(s) {
 				
-				if (!customdesign.get.els[s]) {
-					if ($('#customdesign-'+s).length > 0)
-						customdesign.get.els[s] = $('#customdesign-'+s);
-					else return $('#customdesign-'+s);
+				if (!magic.get.els[s]) {
+					if ($('#magic-'+s).length > 0)
+						magic.get.els[s] = $('#magic-'+s);
+					else return $('#magic-'+s);
 				}
 
-				return customdesign.get.els[s];
+				return magic.get.els[s];
 
 			},
 
@@ -7614,15 +7614,15 @@
 			reversePortView : function(eff){
 				
 				 
-				var m = customdesign.get.el('stage-'+customdesign.current_stage).get(0);
+				var m = magic.get.el('stage-'+magic.current_stage).get(0);
 				
 				if (m === undefined)
 					return;
 					
-				var stage = customdesign.stage(),
+				var stage = magic.stage(),
 					canvas = stage.canvas,
 					view = canvas.viewportTransform,
-					ratio = customdesign.get.el('zoom').val()/100,
+					ratio = magic.get.el('zoom').val()/100,
 					wr = ((m.offsetWidth*ratio)/100),
 					hr = ((m.offsetHeight*ratio)/100),
 					p = {
@@ -7679,12 +7679,12 @@
 
 			onZoomThumnMove : function(e) {
 
-		        var ratio = customdesign.get.el('zoom').val()/100,
-					m = customdesign.get.el('main').get(0),
+		        var ratio = magic.get.el('zoom').val()/100,
+					m = magic.get.el('main').get(0),
 		        	delta = new fabric.Point(-e.movementX*((m.offsetWidth*ratio)/100), -e.movementY*((m.offsetHeight*ratio)/100));
 
-				customdesign.stage().canvas.relativePan(delta);
-				customdesign.fn.reversePortView(false);
+				magic.stage().canvas.relativePan(delta);
+				magic.fn.reversePortView(false);
 
 			},
 
@@ -7696,21 +7696,21 @@
 					case 'error': i = 'close'; break;
 				};
 
-				var el = customdesign.get.el('notices');
-				clearTimeout(customdesign.ops.notice_timer);
+				var el = magic.get.el('notices');
+				clearTimeout(magic.ops.notice_timer);
 
 				if (el.data('working')) {
 					el.stop()
-					.append('<span data-type="'+type+'"><i class="customdesignx-android-'+i+'"></i> '+content+'</span>')
+					.append('<span data-type="'+type+'"><i class="magicx-android-'+i+'"></i> '+content+'</span>')
 					.animate({opacity: 1, top: 55}, 250);
 				}else{
 					el.data({'working': true}).stop()
-					.html('<span data-type="'+type+'"><i class="customdesignx-android-'+i+'"></i> '+content+'</span>')
+					.html('<span data-type="'+type+'"><i class="magicx-android-'+i+'"></i> '+content+'</span>')
 					.css({opacity: 0, top: 0, display: 'block'})
 					.animate({opacity: 1, top: 55}, 250);
 				}
 
-				customdesign.ops.notice_timer = setTimeout(function(){
+				magic.ops.notice_timer = setTimeout(function(){
 					el.animate({top: 0, opacity: 0}, 250, function(){
 						this.style.display = 'none';
 						el.data({'working': false});
@@ -7730,7 +7730,7 @@
 						oblique: false
 					};
 				
-			    var s = customdesign.get.stage(),
+			    var s = magic.get.stage(),
 			    	w = image.width,
 			    	h = image.height*2.5,
 
@@ -7743,15 +7743,15 @@
 				if (ops.oblique === true)
 					trident = false;
 
-				if (customdesign.ops.brid === undefined) {
-					customdesign.ops.brid = document.createElement('canvas');
-					customdesign.ops.bctx = customdesign.ops.brid.getContext('2d');
+				if (magic.ops.brid === undefined) {
+					magic.ops.brid = document.createElement('canvas');
+					magic.ops.bctx = magic.ops.brid.getContext('2d');
 				}
 
-				customdesign.ops.brid.width = w;
-				customdesign.ops.brid.height = h;
+				magic.ops.brid.width = w;
+				magic.ops.brid.height = h;
 
-			    customdesign.ops.bctx.clearRect(0, 0, w, h);
+			    magic.ops.bctx.clearRect(0, 0, w, h);
 
 			    if (trident) {
 			    	y = bottom;
@@ -7779,33 +7779,33 @@
 			            y = bottom - curve * Math.sin(i * angle * Math.PI / 180);
 			        }
 
-			        customdesign.ops.bctx.drawImage(
+			        magic.ops.bctx.drawImage(
 			        	image,
 			        	i, 0, 1, h,
 			            i, h * 0.5 - top / h * y, 1, y
 			        );
 			    }
 
-				return customdesign.ops.brid.toDataURL();
+				return magic.ops.brid.toDataURL();
 
 			},
 
 			update_text_fx : function() {
 				
-				var s = customdesign.get.stage();
+				var s = magic.get.stage();
 
 				if (!s.active)
 					return;
 
-				customdesign.f('Processing..');
+				magic.f('Processing..');
 
-				var props = s.active.toObject(customdesign.ops.export_list);
+				var props = s.active.toObject(magic.ops.export_list);
 				delete props['type'];
-				var newobj = customdesign.objects.text(props);
+				var newobj = magic.objects.text(props);
 				props.width = newobj.width;
 				props.height = newobj.height;
 
-				customdesign.objects.customdesign['text-fx'](props, customdesign.fn.switch_type);
+				magic.objects.magic['text-fx'](props, magic.fn.switch_type);
 
 			},
 
@@ -7823,13 +7823,13 @@
 					
 					fx.mask.image = new Image();
 					fx.mask.image.onload = function(){
-						customdesign.fn.image_fx(img, fx, callback);
+						magic.fn.image_fx(img, fx, callback);
 					};
 
 					if (
 						fx.mask.dataURL.indexOf('http') !== 0 &&
 						fx.mask.dataURL.indexOf('data:image/') !== 0
-					)fx.mask.dataURL = customdesign.data.upload_url+fx.mask.dataURL;
+					)fx.mask.dataURL = magic.data.upload_url+fx.mask.dataURL;
 
 					return fx.mask.image.src = fx.mask.dataURL;
 				}
@@ -7847,13 +7847,13 @@
 				if (cfg.brightness !== 0)
 					cfg.brightness /= 2;
 
-				if (!customdesign.ops.imageFXcanvas) {
-					customdesign.ops.imageFXcanvas = document.createElement('canvas');
-					customdesign.ops.fxctx = customdesign.ops.imageFXcanvas.getContext("2d");
+				if (!magic.ops.imageFXcanvas) {
+					magic.ops.imageFXcanvas = document.createElement('canvas');
+					magic.ops.fxctx = magic.ops.imageFXcanvas.getContext("2d");
 				};
 
-				var cv = customdesign.ops.imageFXcanvas,
-					ctx = customdesign.ops.fxctx,
+				var cv = magic.ops.imageFXcanvas,
+					ctx = magic.ops.fxctx,
 					w = img.width,
 					h = img.height;
 
@@ -7879,8 +7879,8 @@
 				var imageData = ctx.getImageData(0, 0, w, h);
 				var data = imageData.data;
 
-				if (cfg.fx !== '' && customdesign_fx_map[cfg.fx])
-					cfg.fx = customdesign_fx_map[cfg.fx]();
+				if (cfg.fx !== '' && magic_fx_map[cfg.fx])
+					cfg.fx = magic_fx_map[cfg.fx]();
 
 				var R, G, B, CT, brightness;
 
@@ -7950,22 +7950,22 @@
 				};
 
 				ctx.putImageData( imageData, 0 , 0 );
-				return callback(cv.toDataURL(), customdesign.fn.count_colors(cv, true));
+				return callback(cv.toDataURL(), magic.fn.count_colors(cv, true));
 
 			},
 
 			update_image_fx : function(fx, val, callback) {
 
-				var s = customdesign.get.stage();
+				var s = magic.get.stage();
 				
 				if (!s.active)
 					return;
 
-				customdesign.f('Processing..');
+				magic.f('Processing..');
 				
-				clearTimeout(customdesign.ops.update_image_fx_timer);
+				clearTimeout(magic.ops.update_image_fx_timer);
 				
-				customdesign.ops.update_image_fx_timer = setTimeout(function(){
+				magic.ops.update_image_fx_timer = setTimeout(function(){
 					
 					var next_step = function() {
 						if (s.active.fx === undefined || s.active.fx === null)
@@ -7982,7 +7982,7 @@
 							s.active.fxOrigin.onload = next_step;
 						};
 						
-						customdesign.fn.image_fx(s.active.fxOrigin, s.active.fx, function(cdata, colors){
+						magic.fn.image_fx(s.active.fxOrigin, s.active.fx, function(cdata, colors){
 	
 							s.active._element.src = cdata;
 							s.active._originalElement.src = cdata;
@@ -7990,7 +7990,7 @@
 	
 							s.active._element.onload = function() {
 								s.canvas.renderAll();
-								customdesign.f(false);
+								magic.f(false);
 								if (typeof callback == 'function')
 									callback();
 							}
@@ -8028,24 +8028,24 @@
 					Object.keys(active.fx).length === 0
 				) return callback();
 					
-				customdesign.f('Processing FX..');
+				magic.f('Processing FX..');
 				
-				clearTimeout(customdesign.ops.update_image_fx_timer);
+				clearTimeout(magic.ops.update_image_fx_timer);
 				
-				customdesign.ops.update_image_fx_timer = setTimeout(function(){
+				magic.ops.update_image_fx_timer = setTimeout(function(){
 					
 					if (!active.fxOrigin || !active.fxOrigin.tagName)
 						active.fxOrigin = active._originalElement.cloneNode(true);
 					
-					customdesign.fn.image_fx(active.fxOrigin, active.fx, function(cdata, colors){
+					magic.fn.image_fx(active.fxOrigin, active.fx, function(cdata, colors){
 
 						active._element.src = cdata;
 						active._originalElement.src = cdata;
 						active.colors = colors;
 
 						active._element.onload = function() {
-							customdesign.stage().canvas.renderAll();
-							customdesign.f(false);
+							magic.stage().canvas.renderAll();
+							magic.f(false);
 							callback();
 						}
 
@@ -8078,28 +8078,28 @@
 				if (color === undefined || color === '')
 					color = '#dedede';
 				
-				var stage = customdesign.stage();
+				var stage = magic.stage();
 					
 				if (stage.limit_zone) {
 					
-					var invert = customdesign.fn.invert(color);
+					var invert = magic.fn.invert(color);
 					stage.limit_zone.set('stroke', invert);
 					
 					stage.productColor.set('fill', color);
 					stage.canvas.renderAll();
 					
-					Object.keys(customdesign.data.stages).map(function(s){
-						if (s != customdesign.current_stage && customdesign.data.stages[s].canvas !== undefined) {
-							customdesign.data.stages[s].productColor.set('fill', color);
-							customdesign.data.stages[s].canvas.renderAll();
+					Object.keys(magic.data.stages).map(function(s){
+						if (s != magic.current_stage && magic.data.stages[s].canvas !== undefined) {
+							magic.data.stages[s].productColor.set('fill', color);
+							magic.data.stages[s].canvas.renderAll();
 						}	
 					});
 					
-					customdesign.tools.save();
+					magic.tools.save();
 					
 				}
 				
-				customdesign.actions.do('product-color', color);
+				magic.actions.do('product-color', color);
 				
 			},
 					
@@ -8112,8 +8112,8 @@
 					obj.j_object = $('<div>'+svg_source+'</div>');
 				};
 				
-				var max = (customdesign.get.el('svg-colors').parent().width()-180)/33,
-					colors = customdesign.tools.svg.getColors(obj.j_object),
+				var max = (magic.get.el('svg-colors').parent().width()-180)/33,
+					colors = magic.tools.svg.getColors(obj.j_object),
 					total = colors.length;
 				
 				if (max < 6)
@@ -8123,45 +8123,45 @@
 				
 				if (total === 0) {
 					obj.j_object.find('svg>*').css({fill: '#000000'});
-					colors = customdesign.tools.svg.getColors(obj.j_object);
+					colors = magic.tools.svg.getColors(obj.j_object);
 				};
 				
 				obj.colors = colors.slice();
 				colors.splice(max);
 				
-				customdesign.get.el('svg-colors').find('>span').remove();
+				magic.get.el('svg-colors').find('>span').remove();
 				
 				colors.map(function(c){
-					customdesign.get.el('svg-colors').append(
+					magic.get.el('svg-colors').append(
 						'<span data-view="noicon" data-color="'+c+'"><input type="text" data-color="'+c+'" readonly value="" style="background:'+c+'" /></span>'
 					);
 				});
 				
 				if (total > colors.length) {
-					customdesign.get.el('svg-colors').append('<span data-view="more">+'+(total-colors.length)+'</span>');
+					magic.get.el('svg-colors').append('<span data-view="more">+'+(total-colors.length)+'</span>');
 				};
 				
-				customdesign.get.el('svg-colors').append('<span data-view="btn" data-tip="true"><i class="customdesignx-wand" data-func="editor"></i><span>'+customdesign.i(138)+'</span></span>');
+				magic.get.el('svg-colors').append('<span data-view="btn" data-tip="true"><i class="magicx-wand" data-func="editor"></i><span>'+magic.i(138)+'</span></span>');
 					
 			},
 			
 			switch_type : function(newobj) {
 
-				var s = customdesign.get.stage();
+				var s = magic.get.stage();
 
 				if (newobj !== null) {
-					customdesign.ops.importing = true;
+					magic.ops.importing = true;
 					var index = s.canvas.getObjects().indexOf(s.active);
 					s.canvas.remove(s.active);
 					s.canvas.add(newobj);
 					newobj.moveTo(index);
 					s.canvas.setActiveObject(newobj).renderAll();
-					customdesign.get.el('top-tools').attr({'data-view': newobj.type});
-					customdesign.design.layers.build();
-					customdesign.ops.importing = false;
-				}else alert(customdesign.i(19));
+					magic.get.el('top-tools').attr({'data-view': newobj.type});
+					magic.design.layers.build();
+					magic.ops.importing = false;
+				}else alert(magic.i(19));
 
-				customdesign.f(false);
+				magic.f(false);
 
 			},
 			
@@ -8169,7 +8169,7 @@
 				
 				var type = ops.type,
 					include_base = ops.include_base,
-					stage =  customdesign.stage(),
+					stage =  magic.stage(),
 					canvas = stage.canvas,
 					wcf = "menubar=0,status=0,titlebar=0,toolbar=0,location=0,directories=0",
 					ex = {
@@ -8180,31 +8180,31 @@
 					    top: stage.product.top-(stage.product.height/2),
 					    left: stage.product.left-(stage.product.width/2)
 					},
-					name = customdesign.data.prefix_file+'_'+customdesign.fn.slugify(
-						$('#customdesign-product header name t').text()
-					)+'_'+customdesign.current_stage;
+					name = magic.data.prefix_file+'_'+magic.fn.slugify(
+						$('#magic-product header name t').text()
+					)+'_'+magic.current_stage;
 				
-				if (customdesign.fn.url_var('order_print', '') !== '') {
-					name = 'order-'+customdesign.fn.url_var('order_print')+'__product-'+customdesign.fn.url_var('product_cms')+'__base-'+customdesign.fn.url_var('product_base')+'__stage-'+(Object.keys(customdesign.data.stages).indexOf(customdesign.current_stage)+1);
+				if (magic.fn.url_var('order_print', '') !== '') {
+					name = 'order-'+magic.fn.url_var('order_print')+'__product-'+magic.fn.url_var('product_cms')+'__base-'+magic.fn.url_var('product_base')+'__stage-'+(Object.keys(magic.data.stages).indexOf(magic.current_stage)+1);
 				}
 				
-				customdesign.get.el('zoom').val(100).trigger('input');
+				magic.get.el('zoom').val(100).trigger('input');
 
 				switch (type) {
 
 					case 'svg':
 						
-						var svg_obj = customdesign.fn.export_svg(include_base);
+						var svg_obj = magic.fn.export_svg(include_base);
 						
 						if (svg_obj !== null) {			
-							customdesign.fn.download(
+							magic.fn.download(
 								'data:image/svg+xml;base64,'+
 								btoa(svg_obj),
 								name+'.svg'
 							);
 							
 							delete svg_obj;
-						} else customdesign.fn.notice('Error on render SVG', 'error');
+						} else magic.fn.notice('Error on render SVG', 'error');
 						
 					break;
 					case 'png':
@@ -8232,7 +8232,7 @@
 								is_bg: include_base === true ? 'full' : false,
 								with_base: ops.with_base
 							},
-							data = customdesign.tools.toImage(dops),
+							data = magic.tools.toImage(dops),
 							_canvas = document.createElement('canvas'),
 							ctx = _canvas.getContext("2d"),
 							img = new Image();
@@ -8242,7 +8242,7 @@
 							
 						if (typeof ops.callback != 'function') {
 							ops.callback = function(data) {
-								customdesign.fn.download(data, name+'.png');
+								magic.fn.download(data, name+'.png');
 							}
 						};
 						
@@ -8268,7 +8268,7 @@
 								
 								ctx.drawImage(this, (w-_w)/2, 0, _w, _h);
 									
-								customdesign.f('false');
+								magic.f('false');
 								
 								ops.callback(_canvas.toDataURL());
 								
@@ -8283,7 +8283,7 @@
 							
 							multiplier = (w/stage.limit_zone.width) < 33 ? h/stage.limit_zone.width : 33;
 							
-							var data = customdesign.tools.toImage({
+							var data = magic.tools.toImage({
 								stage: stage,
 								width: stage.limit_zone.width,
 								left: stage.limit_zone.left,
@@ -8317,7 +8317,7 @@
 								ctx.rotate(-Math.PI / 2);
 								ctx.translate(-_canvas.width / 2, -_canvas.height / 2);
 								
-								customdesign.f('false');
+								magic.f('false');
 								ops.callback(_canvas.toDataURL());
 								
 								delete _canvas;
@@ -8333,7 +8333,7 @@
 					case 'jpg':
 
 						ex.format = 'jpeg';
-						customdesign.fn.download(
+						magic.fn.download(
 							canvas.toDataURL(ex), 
 							name+'.jpg'
 						);
@@ -8341,23 +8341,23 @@
 					break;
 					case 'pdf':
 						
-						customdesign.tools.discard();
+						magic.tools.discard();
 						
-						var stages = Object.keys(customdesign.data.stages),
+						var stages = Object.keys(magic.data.stages),
 							inactive = stages.filter(function(s) {
-								return customdesign.data.stages[s].canvas === undefined;
+								return magic.data.stages[s].canvas === undefined;
 							}),
 							data = [],
 							ratio = [],
 							fonts = [],
 							do_export = function() {
 									
-								var exp = customdesign.fn.export_svg(include_base, true),
-									stage = customdesign.stage();
+								var exp = magic.fn.export_svg(include_base, true),
+									stage = magic.stage();
 								
-								data.push([exp[0], customdesign.get.size()]);
+								data.push([exp[0], magic.get.size()]);
 								
-								if (!customdesign.get.el('print-base').prop('checked'))
+								if (!magic.get.el('print-base').prop('checked'))
 									ratio.push((stage.edit_zone.width/stage.edit_zone.height).toFixed(5));
 								else ratio.push((stage.product.width/stage.product.height).toFixed(5));
 								
@@ -8369,7 +8369,7 @@
 							},
 							do_activ = function(i) {
 								
-								customdesign.active_stage(stages[i], function() {
+								magic.active_stage(stages[i], function() {
 									
 									do_export();
 									
@@ -8383,12 +8383,12 @@
 							do_upload = function(data, fonts) {
 								
 								var pdf_render = window.open(
-									customdesign.data.ajax+'&action=pdf&nonce=CUSTOMDESIGN-SECURITY:'+
-									customdesign.data.nonce+(fonts.length > 0 ? '&fonts='+encodeURIComponent(fonts.join('|')) : '')+
-									(customdesign.get.el('print-cropmarks').prop('checked') ? '&cropmarks=1' : '')
+									magic.data.ajax+'&action=pdf&nonce=MAGIC-SECURITY:'+
+									magic.data.nonce+(fonts.length > 0 ? '&fonts='+encodeURIComponent(fonts.join('|')) : '')+
+									(magic.get.el('print-cropmarks').prop('checked') ? '&cropmarks=1' : '')
 								);
 								
-								customdesign.f(false);
+								magic.f(false);
 								
 								if (pdf_render === null) {
 									alert('Please allow popup on this site');
@@ -8402,45 +8402,45 @@
 								
 								
 								
-								customdesign.f('Start uploading..');
+								magic.f('Start uploading..');
 			
 								var boundary = "---------------------------7da24f2e50046";
 								var body = '--' + boundary + '\r\n'
 								         + 'Content-Disposition: form-data; name="file";'
 								         + 'filename="temp.txt"\r\n'
 								         + 'Content-type: plain/text\r\n\r\n'
-								         + data.join('<!-----Customdesign break page------>') + '\r\n'+ '--'+ boundary + '--';
+								         + data.join('<!-----Magic break page------>') + '\r\n'+ '--'+ boundary + '--';
 								         
 								$.ajax({
 								    contentType: "multipart/form-data; boundary="+boundary,
 								    data	:	 body,
 								    type	:	 "POST",
-								    url		:	 customdesign.data.ajax+
+								    url		:	 magic.data.ajax+
 								    	 '&action=render_pdf'+
 								    	 '&ajax=frontend'+
-								    	 '&name='+encodeURIComponent($('#customdesign-product header name t').text())+
-								    	 '&nonce=CUSTOMDESIGN-SECURITY:'+customdesign.data.nonce,
+								    	 '&name='+encodeURIComponent($('#magic-product header name t').text())+
+								    	 '&nonce=MAGIC-SECURITY:'+magic.data.nonce,
 								    xhr		:	 function() {
 									    var xhr = new window.XMLHttpRequest();
 									    xhr.upload.addEventListener("progress", function(evt){
 									      if (evt.lengthComputable) {
 									        var percentComplete = evt.loaded / evt.total;
 									        if (percentComplete < 1)
-									       		$('div#CustomdesignDesign').attr({'data-msg': parseInt(percentComplete*100)+'% upload complete'});
-									       	else $('div#CustomdesignDesign').attr({'data-msg': customdesign.i(159)});
+									       		$('div#MagicDesign').attr({'data-msg': parseInt(percentComplete*100)+'% upload complete'});
+									       	else $('div#MagicDesign').attr({'data-msg': magic.i(159)});
 									      }
 									    }, false);
 									    return xhr;
 									},
 								    success	:	 function (res, status) {
-									    customdesign.f(false);
+									    magic.f(false);
 									    if (res.indexOf('user_data') !== 0 || res.indexOf('.pdf') === -1) {
 										    alert(res);
 										    return;
 									    }
 									    var a = document.createElement('a');
 										a.download = name+'.pdf';
-										a.href = customdesign.data.upload_url+res;
+										a.href = magic.data.upload_url+res;
 										a.click();
 										delete a;
 									    
@@ -8454,13 +8454,13 @@
 						};
 						
 						if (inactive.length > 0) {
-							customdesign.active_stage(inactive[0], function(){
-								customdesign.fn.download_design(ops);
+							magic.active_stage(inactive[0], function(){
+								magic.fn.download_design(ops);
 							});
 							return;
 						};
 							
-						customdesign.f('Start rendering..');
+						magic.f('Start rendering..');
 						
 						do_activ(0);
 
@@ -8470,24 +8470,24 @@
 						
 						var data = {
 							stages : {},
-							type : customdesign.data.type,
+							type : magic.data.type,
 							updated: new Date().getTime()/1000,
-							name : customdesign.data.name
+							name : magic.data.name
 						}, sts = [];
 						
 						//ONLY EXPORT THE CURENT STAGE FOR TEMPLATE PURPOSE (.active)
 						
-						customdesign.get.el('stage-nav').find('li[data-stage].active').each(function(){
+						magic.get.el('stage-nav').find('li[data-stage].active').each(function(){
 
 							var s = this.getAttribute('data-stage'),
-								stage = customdesign.data.stages[s],
+								stage = magic.data.stages[s],
 								objs, padding;
 
 							if (stage.canvas) {
 								
-								data.stages['customdesign'] = {
-									data 		: customdesign.tools.export(stage),
-									screenshot	: customdesign.tools.toImage({stage: stage}),
+								data.stages['magic'] = {
+									data 		: magic.tools.export(stage),
+									screenshot	: magic.tools.toImage({stage: stage}),
 									edit_zone	: stage.edit_zone,
 									image		: stage.image,
 									overlay		: stage.overlay,
@@ -8516,12 +8516,12 @@
 									padding = [0, 0];
 								};
 								
-								data.stages['customdesign'].padding = padding;
+								data.stages['magic'].padding = padding;
 								sts.push(s);
 								
 							} else if ( stage.data ) {
 								
-								data.stages['customdesign'] = {
+								data.stages['magic'] = {
 									data 		: stage.data,
 									screenshot	: '',
 									edit_zone	: '',
@@ -8537,7 +8537,7 @@
 
 						});
 
-						customdesign.fn.download(
+						magic.fn.download(
 							'data:application/octet-stream;charset=utf-16le;base64,'+btoa(JSON.stringify(data).replace(/[\u{0080}-\u{FFFF}]/gu,(v) => {return encodeURIComponent(v);})),
 							name+'.lumi'
 						);
@@ -8549,12 +8549,12 @@
 			
 			download : function(data, name) {
 				
-				customdesign.fn.dataURL2Blob(data, function(blob) {
+				magic.fn.dataURL2Blob(data, function(blob) {
 				
 					var a = $('<a href="'+URL.createObjectURL(blob)+'" download="'+name.replace(/\"/g, '')+'"></a>');
 					
 					if (typeof a.get(0).download != 'string') {
-						customdesign.fn.notice(
+						magic.fn.notice(
 							'After saving the download file, change the file type to .'+
 							name.split('.')[1].toUpperCase()
 						, 'notice', 5000);
@@ -8573,7 +8573,7 @@
 			
 			export_svg : function (include_base, is_pdf) {
 				
-				var stage =  customdesign.stage(),
+				var stage =  magic.stage(),
 					canvas = stage.canvas,
 					fonts = [];
 				
@@ -8592,9 +8592,9 @@
 					fml = [],
 					svg = svg_obj.find('svg'),
 					lz = stage.limit_zone,
-					ov = $('#customdesign-print-overflow').prop('checked'),
+					ov = $('#magic-print-overflow').prop('checked'),
 					has_imagebox = (objs.filter(function(ie) {return ie.type == 'imagebox';}).length > 0),
-					radius = customdesign.stage().edit_zone.radius,
+					radius = magic.stage().edit_zone.radius,
 					toUni = function(txt) {
 						var result = "";
 					    for(var i = 0; i < txt.length; i++){
@@ -8724,7 +8724,7 @@
 				};
 				
 				svg_obj.find('desc').html(
-					'Created with Customdesign Product Designer Tool (https://www.customdesign.com)'
+					'Created with Magic Product Designer Tool (https://www.Magicrugs.com)'
 				);
 				
 				svg_obj.find('img').each(function() {
@@ -8749,12 +8749,12 @@
 						var id = this.getAttribute('id'),
 							canvas = document.createElement('canvas'), 
 							ctx = canvas.getContext('2d'),
-							obj = customdesign.stage().canvas.getObjects().filter(function(o){
+							obj = magic.stage().canvas.getObjects().filter(function(o){
 								return o.id == id;
 							});
 						
-						if (obj.length === 0 && src == customdesign.stage().product._element.src)
-							obj = [customdesign.stage().product];
+						if (obj.length === 0 && src == magic.stage().product._element.src)
+							obj = [magic.stage().product];
 							
 						if (obj.length === 0)
 							return;
@@ -8774,7 +8774,7 @@
 					}
 				});
 				
-				var stage = customdesign.stage();
+				var stage = magic.stage();
 				
 				stage.canvas.getObjects().
 				filter(function(o){
@@ -8911,7 +8911,7 @@
 						return;
 					
 					if (files[f].type.indexOf('image/') !== 0)
-						return customdesign.fn.notice(customdesign.i('148'), 'error', 5000);
+						return magic.fn.notice(magic.i('148'), 'error', 5000);
 						
 					file = files[f];
 
@@ -8920,7 +8920,7 @@
 					reader[f].file = file;
 					reader[f].addEventListener("load", function () {
 						
-						if (!customdesign.fn.check_upload_size(reader[this.f].file)) {
+						if (!magic.fn.check_upload_size(reader[this.f].file)) {
 							delete reader[this.f];
 							return;
 						};
@@ -8963,10 +8963,10 @@
 							img_opt.url = 'data:image/svg+xml;base64,'+btoa(wrp.html());
 							
 							if (saveas !== false)
-								new customdesign.cliparts.import(id, img_opt, 'prepend');
+								new magic.cliparts.import(id, img_opt, 'prepend');
 							
 						} else if (saveas !== false) {
-							new customdesign.cliparts.import(id, img_opt, 'prepend');
+							new magic.cliparts.import(id, img_opt, 'prepend');
 				    	};
 				    	
 				    	if (typeof callback == 'function')
@@ -8984,14 +8984,14 @@
 			
 			select_image: function(callback, saveas) {
 					
-				var ops = customdesign.ops; 
+				var ops = magic.ops; 
 				
 				if (ops.image_inp === undefined) {
 					ops.image_inp = document.createElement('input');
 					ops.image_inp.type = 'file';
 					ops.image_inp.accept = '.jpg,.png,.jpeg,.svg';
 					ops.image_inp.onchange = function(){
-						customdesign.fn.process_files(this.files, this.callback, this.saveas);
+						magic.fn.process_files(this.files, this.callback, this.saveas);
 					};
 				};
 				
@@ -9006,16 +9006,16 @@
 			
 			replace_image: function(url, image) {
 				
-				customdesign.f(false);
+				magic.f(false);
 				
-				customdesign.fn.crop({
+				magic.fn.crop({
 					src: url,
 					width: image.width,
 					dimension: image.width/image.height,
 					square: false,
 					load: function(img, crop) {
 						
-						var are = crop.find('div.customdesign_crop_selArea'),
+						var are = crop.find('div.magic_crop_selArea'),
 							pw = are.parent().width(),
 							ph = are.parent().height(),
 							w = pw*0.9,
@@ -9044,18 +9044,18 @@
 					},
 					save: function(crop) {
 						
-						var s = customdesign.stage(),
+						var s = magic.stage(),
 							active = s.canvas.getActiveObject(),
-							el = crop.find('.customdesign_crop_selArea');
+							el = crop.find('.magic_crop_selArea');
 							
 						if (active) {
 
 							var _e = el.get(0), 
 								_c = crop.get(0),
-								img = crop.find('img.customdesign_crop_img').get(0),
+								img = crop.find('img.magic_crop_img').get(0),
 								cv = document.createElement('canvas'),
 								ctx = cv.getContext('2d'),
-								type = customdesign.fn.get_type(img.src),
+								type = magic.fn.get_type(img.src),
 								
 								w = img.naturalWidth*(_e.offsetWidth/_c.offsetWidth),
 								h = img.naturalHeight*(_e.offsetHeight/_c.offsetHeight),
@@ -9083,7 +9083,7 @@
 								w > s.limit_zone.width ||	
 								h > s.limit_zone.height
 							) {
-								setTimeout(customdesign.fn.large_image_helper, 1, {
+								setTimeout(magic.fn.large_image_helper, 1, {
 									w: w,
 									h: h,
 									ew: s.limit_zone.width,
@@ -9094,8 +9094,8 @@
 									obj: active,
 									src: src, 
 									callback: function() {
-										customdesign.ops.importing = false;
-										customdesign.stack.save();
+										magic.ops.importing = false;
+										magic.stack.save();
 									}
 								});
 							} else {
@@ -9117,14 +9117,14 @@
 						return;
 						
 						
-						var s = customdesign.stage(),
+						var s = magic.stage(),
 							main_canvas = s.canvas,
 							active = image,
-							img = crop.find('img.customdesign_crop_img').get(0),
+							img = crop.find('img.magic_crop_img').get(0),
 							type = img.src.indexOf('data:image/jpeg') ? 'jpeg' : 'png',
 							canvas = document.createElement('canvas'),
 							ctx = canvas.getContext('2d'),
-							area = crop.find('div.customdesign_crop_selArea'),
+							area = crop.find('div.magic_crop_selArea'),
 							w = area.width(),
 							h = area.height(),
 							t = area.get(0).offsetTop,
@@ -9163,7 +9163,7 @@
 			imagebox_select_file: function(ib) {
 				
 				this.select_image(function(opt) {
-					customdesign.tools.import ({objects: [{
+					magic.tools.import ({objects: [{
 						type: 'image',
 						src: opt.url,
 						width: ib.width,
@@ -9178,7 +9178,7 @@
 			
 			imagebox_arrange: function() {
 				
-				var stage = customdesign.stage(),
+				var stage = magic.stage(),
 					canvas = stage.canvas,
 					objs = canvas.getObjects();
 					
@@ -9193,9 +9193,9 @@
 			
 			preset_import : function(data, pos, callback) {
 				
-				var stage = customdesign.stage();
+				var stage = magic.stage();
 
-				customdesign.f('Loading..');
+				magic.f('Loading..');
 
 				pos = $.extend({
 					width: stage.limit_zone.width*0.8,
@@ -9209,10 +9209,10 @@
 						d.type = 'image';
 					
 					if (d.id) {
-						if (customdesign.cliparts.uploads[d.id])
-							d.url = customdesign.cliparts.uploads[d.id];
-						else if (customdesign.cliparts.storage[d.id])
-							d.url = customdesign.cliparts.storage[d.id];
+						if (magic.cliparts.uploads[d.id])
+							d.url = magic.cliparts.uploads[d.id];
+						else if (magic.cliparts.storage[d.id])
+							d.url = magic.cliparts.storage[d.id];
 					}
 
 					if (d.text && !d.name)
@@ -9241,10 +9241,10 @@
 							d.url.split('/').pop() :
 							(d.type == 'svg' ? 'New SVG' : 'New Image');
 					
-					var fill_default = customdesign.get.color('invert');
+					var fill_default = magic.get.color('invert');
 				
-					if (customdesign.data.colors !== undefined && customdesign.data.colors !== '') {
-						fill_default = customdesign.data.colors.split(',')[0];
+					if (magic.data.colors !== undefined && magic.data.colors !== '') {
+						fill_default = magic.data.colors.split(',')[0];
 						if (fill_default.indexOf(':') > -1)
 							fill_default = fill_default.split(':')[1];
 						fill_default = fill_default.split('@')[0];
@@ -9259,14 +9259,14 @@
 
 				});
 				
-				customdesign.tools.import ({objects: data}, function(){
-					customdesign.get.el('x-thumbn-preview').hide();
+				magic.tools.import ({objects: data}, function(){
+					magic.get.el('x-thumbn-preview').hide();
 					setTimeout(function(){
-						if (customdesign.ops.set_active) {
-							stage.canvas.setActiveObject(customdesign.ops.set_active);
-							delete customdesign.ops.set_active;
+						if (magic.ops.set_active) {
+							stage.canvas.setActiveObject(magic.ops.set_active);
+							delete magic.ops.set_active;
 						} else stage.canvas.setActiveObject(stage.canvas._objects[stage.canvas._objects.length-1]);
-						customdesign.tools.save();
+						magic.tools.save();
 						if (typeof callback == 'function')
 							callback();
 					}, 10);
@@ -9308,7 +9308,7 @@
 
 				var target = opts.target,
 					objs = target._objects,
-					canvas = customdesign.stage().canvas,
+					canvas = magic.stage().canvas,
 					active = canvas.getActiveObject(),
 					group = canvas.getActiveGroup(),
 					corner = target._findTargetCorner(canvas.getPointer(opts.e, true));
@@ -9318,8 +9318,8 @@
 
 				if (corner == 'tl') {
 					
-					customdesign.tools.discard();
-					customdesign.stack.save();
+					magic.tools.discard();
+					magic.stack.save();
 					
 					if (objs && objs.length > 0)
 						objs.map(function(obj){
@@ -9327,14 +9327,14 @@
 						});
 					else canvas.remove(target);
 
-					customdesign.stack.save();
-					customdesign.design.layers.build();
-					customdesign.actions.do('object:remove');
+					magic.stack.save();
+					magic.design.layers.build();
+					magic.actions.do('object:remove');
 					return true;
 
 				}else if (corner == 'bl') {
 					
-					customdesign.fn.do_double();
+					magic.fn.do_double();
 					return true;
 
 				}
@@ -9343,8 +9343,8 @@
 
 			navigation : function(el, e) {
 				
-				if (customdesign.ops.preventClick === true)
-					return delete customdesign.ops.preventClick;
+				if (magic.ops.preventClick === true)
+					return delete magic.ops.preventClick;
 				
 				if (el === 'clear' || $(el).hasClass('active')){
 						
@@ -9356,16 +9356,16 @@
 					)return;
 				
 					$('[data-navigation="active"]').attr({'data-navigation': ''});
-					customdesign.e.main.find('li[data-tool].active').removeClass('active');
+					magic.e.main.find('li[data-tool].active').removeClass('active');
 					
 				}else{
 					
 					$('[data-navigation="active"]').attr({'data-navigation': ''});
 					
-					if (el.getAttribute('data-tool') === 'languages' && !customdesign.data.switch_lang) 
+					if (el.getAttribute('data-tool') === 'languages' && !magic.data.switch_lang) 
 						return;
 					
-					customdesign.e.main.find('li[data-tool].active').removeClass('active');
+					magic.e.main.find('li[data-tool].active').removeClass('active');
 					
 					$(el).addClass('active');
 					$(el).closest('[data-navigation]').attr({'data-navigation': 'active'});
@@ -9415,7 +9415,7 @@
 				
 				document.fonts.load(op.size+'px "'+op.family+'"', op.text).then(function(){
 
-				    var canvas = customdesign.ops.getTextWidthCanvas || (customdesign.ops.getTextWidthCanvas = document.createElement("canvas"));
+				    var canvas = magic.ops.getTextWidthCanvas || (magic.ops.getTextWidthCanvas = document.createElement("canvas"));
 				    var context = canvas.getContext("2d");
 				    context.font = op.size+'px '+op.family;
 				    var metrics = context.measureText(op.text);
@@ -9428,9 +9428,9 @@
 			
 			buildText : function(ops) {
 				
-				if (customdesign.ops.texttmpl === undefined) {
-					customdesign.ops.texttmpl = $('<div style="display: inline-block;visibility:hidden;white-space: nowrap;position:fixed;top: -10000px;left: -1000px;"></div>');
-					$('body').append(customdesign.ops.texttmpl);
+				if (magic.ops.texttmpl === undefined) {
+					magic.ops.texttmpl = $('<div style="display: inline-block;visibility:hidden;white-space: nowrap;position:fixed;top: -10000px;left: -1000px;"></div>');
+					$('body').append(magic.ops.texttmpl);
 				};
 				
 				if (ops.curved === undefined || ops.curved === 0)
@@ -9439,7 +9439,7 @@
 				if (ops.curved > 1)
 					ops.text = ops.text.trim().replace(/\n/g, ' ');
 				
-				customdesign.ops.texttmpl.html(ops.text.trim().replace(/\n/g, '<br>')).
+				magic.ops.texttmpl.html(ops.text.trim().replace(/\n/g, '<br>')).
 					css({
 						'line-height': ops.lineHeight+'px', 
 						'letter-spacing': (ops.charSpacing)+'px', 
@@ -9447,7 +9447,7 @@
 						'font-family': ops.fontFamily
 					});
 				
-				var h = customdesign.ops.texttmpl[0].getBoundingClientRect(),
+				var h = magic.ops.texttmpl[0].getBoundingClientRect(),
 		            w = h.width-ops.charSpacing,
 		            h = h.height,
 		            m1 = 0, m2 = 0, a4 = 0, a5 = 0, a6 = 0, a7 = 0,
@@ -9507,7 +9507,7 @@
 				
 				var svg = $('<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g>'+svg_text+(e == 1 ? '' : '</g><path id="tp-'+tp+'" d="M '+m1+' '+m2+' A '+r+' '+r+' 0 '+ a4 + ' ' + a5 + ' ' + a6 + " " + a7+'" fill="transparent"></path>')+'</svg>');
 				
-				customdesign.ops.texttmpl.html('').append(svg);
+				magic.ops.texttmpl.html('').append(svg);
 				
 				var text = svg.find('g').get(0).getBoundingClientRect();
 				
@@ -9530,7 +9530,7 @@
 					viewBox: (e == 1 ? 0 : m1-f-(text.width/2))+' -'+(ops.fontSize*0.9)+' '+(text.width+spc)+' '+(text.height)
 				});
 				
-				return customdesign.ops.texttmpl.html();
+				return magic.ops.texttmpl.html();
 				
 			},
 			
@@ -9560,9 +9560,9 @@
 				var img = new Image();
 		    		img.onload = function(){
 
-			    		var cv = customdesign.ops.creatThumbnCanvas ?
-			    				 customdesign.ops.creatThumbnCanvas :
-			    				 customdesign.ops.creatThumbnCanvas = document.createElement('canvas');
+			    		var cv = magic.ops.creatThumbnCanvas ?
+			    				 magic.ops.creatThumbnCanvas :
+			    				 magic.ops.creatThumbnCanvas = document.createElement('canvas');
 
 			    		cv.width = ops.width;
 			    		cv.height = ops.height;
@@ -9587,29 +9587,29 @@
 			
 			check_upload_size : function(file) {
 				
-				var show_notice = customdesign.apply_filters('upload_notice', true);
+				var show_notice = magic.apply_filters('upload_notice', true);
 						
 				if (
-					!isNaN(customdesign.data.min_upload) && 
-					customdesign.data.min_upload > 0 &&
-					file.size/1024 < customdesign.data.min_upload
+					!isNaN(magic.data.min_upload) && 
+					magic.data.min_upload > 0 &&
+					file.size/1024 < magic.data.min_upload
 				) {
 					if (show_notice) 
-						customdesign.fn.notice(customdesign.i('147')+' '+(file.size/1024).toFixed(2)+'KB (Minimum '+customdesign.data.min_upload+'KB)', 'error', 8000);
+						magic.fn.notice(magic.i('147')+' '+(file.size/1024).toFixed(2)+'KB (Minimum '+magic.data.min_upload+'KB)', 'error', 8000);
 					
-					customdesign.do_action('upload_minimum_limit');
+					magic.do_action('upload_minimum_limit');
 					return false;
 				};
 				
 				if (
-					!isNaN(customdesign.data.max_upload) && 
-					customdesign.data.max_upload > 0 &&
-					file.size/1024 > customdesign.data.max_upload
+					!isNaN(magic.data.max_upload) && 
+					magic.data.max_upload > 0 &&
+					file.size/1024 > magic.data.max_upload
 				) {
 					if (show_notice) 
-						customdesign.fn.notice(customdesign.i('147')+' '+(file.size/1024).toFixed(2)+'KB (Maximum '+customdesign.data.max_upload+'KB)', 'error', 8000);
+						magic.fn.notice(magic.i('147')+' '+(file.size/1024).toFixed(2)+'KB (Maximum '+magic.data.max_upload+'KB)', 'error', 8000);
 					
-					customdesign.do_action('upload_maximum_limit');
+					magic.do_action('upload_maximum_limit');
 					return false;
 				};	
 				
@@ -9629,48 +9629,48 @@
 					return src;
 					
 				if (
-			    	customdesign.data.min_dimensions !== '' && 
-			    	typeof customdesign.data.min_dimensions == 'object'
+			    	magic.data.min_dimensions !== '' && 
+			    	typeof magic.data.min_dimensions == 'object'
 			    ) {
 				    if (
-				    	parseFloat(customdesign.data.min_dimensions[0]) > img.width ||
-				    	parseFloat(customdesign.data.min_dimensions[1]) > img.height
+				    	parseFloat(magic.data.min_dimensions[0]) > img.width ||
+				    	parseFloat(magic.data.min_dimensions[1]) > img.height
 				    ) {
-					    customdesign.fn.notice(customdesign.i(160)+' '+customdesign.data.min_dimensions.join('x'), 'notice', 3500);
+					    magic.fn.notice(magic.i(160)+' '+magic.data.min_dimensions.join('x'), 'notice', 3500);
 						return null;
 				    }	
 			    };
 			    
 			    if (
-			    	customdesign.data.max_dimensions !== '' && 
-			    	typeof customdesign.data.max_dimensions == 'object'
+			    	magic.data.max_dimensions !== '' && 
+			    	typeof magic.data.max_dimensions == 'object'
 			    ) {
 				    
 				    if (
-				    	parseFloat(customdesign.data.max_dimensions[0]) < img.width ||
-						parseFloat(customdesign.data.max_dimensions[1]) < img.height
+				    	parseFloat(magic.data.max_dimensions[0]) < img.width ||
+						parseFloat(magic.data.max_dimensions[1]) < img.height
 				    ) {
 					    
 					    var cv = document.createElement('canvas');
 					    
-					    if (parseFloat(customdesign.data.max_dimensions[0]) < img.width) {
+					    if (parseFloat(magic.data.max_dimensions[0]) < img.width) {
 						    
-						    cv.width = parseFloat(customdesign.data.max_dimensions[0]);
+						    cv.width = parseFloat(magic.data.max_dimensions[0]);
 						    cv.height = cv.width*(img.height/img.width);
 						    
-						    if (cv.height > customdesign.data.max_dimensions[1]) {
-							    cv.width = customdesign.data.max_dimensions[1]*(cv.width/cv.height);
-							    cv.height = customdesign.data.max_dimensions[1];
+						    if (cv.height > magic.data.max_dimensions[1]) {
+							    cv.width = magic.data.max_dimensions[1]*(cv.width/cv.height);
+							    cv.height = magic.data.max_dimensions[1];
 						    };
 						    
-					    } else if (parseFloat(customdesign.data.max_dimensions[1]) < img.height) {
+					    } else if (parseFloat(magic.data.max_dimensions[1]) < img.height) {
 						    
-						    cv.height = parseFloat(customdesign.data.max_dimensions[1]);
+						    cv.height = parseFloat(magic.data.max_dimensions[1]);
 						    cv.width = cv.height*(img.width/img.height);
 						    
-						    if (cv.width > customdesign.data.max_dimensions[0]) {
-							    cv.height = customdesign.data.max_dimensions[0]*(cv.height/cv.width);
-							    cv.width = customdesign.data.max_dimensions[0];
+						    if (cv.width > magic.data.max_dimensions[0]) {
+							    cv.height = magic.data.max_dimensions[0]*(cv.height/cv.width);
+							    cv.width = magic.data.max_dimensions[0];
 						    };
 					    
 					    };
@@ -9683,34 +9683,34 @@
 					
 				};
 				
-				let size = customdesign.get.size();
+				let size = magic.get.size();
 				
-				if (customdesign.data.min_ppi !== '') {
+				if (magic.data.min_ppi !== '') {
 					
-					var pi = 300/parseFloat(customdesign.data.min_ppi);
+					var pi = 300/parseFloat(magic.data.min_ppi);
 		
 				    if (
 				    	img.width*pi < size.w ||
 				    	img.height*pi < size.h
 				    ) {
-					    if (customdesign.data.ppi_notice == '1') {
-						    customdesign.fn.notice(customdesign.i(197), 'notice', 3500);
+					    if (magic.data.ppi_notice == '1') {
+						    magic.fn.notice(magic.i(197), 'notice', 3500);
 						    return img.src;
 					    }
-					    customdesign.fn.notice(customdesign.i(194)+' '+customdesign.data.min_ppi, 'notice', 3500);
+					    magic.fn.notice(magic.i(194)+' '+magic.data.min_ppi, 'notice', 3500);
 						return null;
 				    }	
 			    };
 			   
-				if (customdesign.data.max_ppi !== '') {
+				if (magic.data.max_ppi !== '') {
 					
-					var pi = 300/parseFloat(customdesign.data.max_ppi);
+					var pi = 300/parseFloat(magic.data.max_ppi);
 					
 				    if (
 				    	img.width*pi > size.w ||
 				    	img.height*pi > size.h
 				    ) {
-					    customdesign.fn.notice(customdesign.i(195)+' '+customdesign.data.max_ppi, 'notice', 3500);
+					    magic.fn.notice(magic.i(195)+' '+magic.data.max_ppi, 'notice', 3500);
 						return null;
 				    }	
 			    };
@@ -9742,8 +9742,8 @@
 
 			count_colors : function(url, callback) {
 
-				if (!customdesign.ops.count_colors_canvas)
-					customdesign.ops.count_colors_canvas = document.createElement('canvas');
+				if (!magic.ops.count_colors_canvas)
+					magic.ops.count_colors_canvas = document.createElement('canvas');
 
 				var toHex = function(c) {
 					    var hex = c.toString(16);
@@ -9754,11 +9754,11 @@
 					},
 					process = function(img, w, h) {
 
-						customdesign.ops.count_colors_canvas.width = w;
-						customdesign.ops.count_colors_canvas.height = h;
+						magic.ops.count_colors_canvas.width = w;
+						magic.ops.count_colors_canvas.height = h;
 
 						var stats = [],
-							ctx = customdesign.ops.count_colors_canvas.getContext("2d");
+							ctx = magic.ops.count_colors_canvas.getContext("2d");
 
 						ctx.drawImage(img, 0, 0, w, h);
 
@@ -9810,9 +9810,9 @@
 
 			update_state : function() {
 			
-				clearTimeout(customdesign.ops.preventDbl);
+				clearTimeout(magic.ops.preventDbl);
 				
-				customdesign.ops.preventDbl = setTimeout(function() {
+				magic.ops.preventDbl = setTimeout(function() {
 					
 					var states = {}, 
 						objs = [], 
@@ -9820,16 +9820,16 @@
 						colors = [], 
 						c;
 					
-					Object.keys(customdesign.data.stages).map(function(s){
+					Object.keys(magic.data.stages).map(function(s){
 	
 						var scolors = [], image = 0, text = 0, clipart = 0, vector = 0, upload=0;
 						
 						objs = [];
 						
-						if (customdesign.data.stages[s].canvas)
-							objs = customdesign.data.stages[s].canvas.getObjects();
-						else if (customdesign.data.stages[s].data && customdesign.data.stages[s].data.objects)
-							objs = customdesign.data.stages[s].data.objects;
+						if (magic.data.stages[s].canvas)
+							objs = magic.data.stages[s].canvas.getObjects();
+						else if (magic.data.stages[s].data && magic.data.stages[s].data.objects)
+							objs = magic.data.stages[s].data.objects;
 	
 						if (objs.length > 0) {
 							objs.map(function(o){
@@ -9838,7 +9838,7 @@
 									if (o.colors && o.colors.length > 0) {
 										o.colors.map(function(c){
 											
-											c = customdesign.tools.svg.rgb2hex(c);
+											c = magic.tools.svg.rgb2hex(c);
 											
 											if (colors.indexOf(c) === -1) {
 												colors.push(c);
@@ -9851,7 +9851,7 @@
 									//stage colors
 									if (o.stroke !== '' && o.type != 'svg') {
 										
-										c = customdesign.tools.svg.rgb2hex(o.stroke);
+										c = magic.tools.svg.rgb2hex(o.stroke);
 										
 										if(colors.indexOf(o.stroke) === -1){
 											colors.push(o.stroke);
@@ -9864,7 +9864,7 @@
 									
 									if (o.fill !== '' && o.type != 'svg') {
 										
-										c = customdesign.tools.svg.rgb2hex(o.fill);
+										c = magic.tools.svg.rgb2hex(o.fill);
 										
 										if(colors.indexOf(c) === -1){
 											colors.push(c);
@@ -9938,14 +9938,14 @@
 						bg = bg.splice(bg.length - 6);
 					} else mo = '';
 					
-					$('#customdesign-count-colors i').html(mo).css({background: 'linear-gradient(to right, '+bg.join(', ')+')'}).attr({title: 'Used '+bg.length+' colors'});
+					$('#magic-count-colors i').html(mo).css({background: 'linear-gradient(to right, '+bg.join(', ')+')'}).attr({title: 'Used '+bg.length+' colors'});
 					
-					customdesign.actions.do('updated', states);
+					magic.actions.do('updated', states);
 					
-					customdesign.get.el('status').hide();
-					customdesign.ops.before_unload = null;
+					magic.get.el('status').hide();
+					magic.ops.before_unload = null;
 					
-					customdesign.render.stage_nav();
+					magic.render.stage_nav();
 					
 				}, 250);
 				
@@ -9955,23 +9955,23 @@
 			
 			create_canvas : function(stage, img) {
 				
-				var main = customdesign.get.el('main'),
+				var main = magic.get.el('main'),
 				 	name = stage.name,
-					mw = main.width()-(customdesign.ops.window_width < 1025 ? 0 : 20),
-					mh = main.height()-(customdesign.ops.window_width < 1025 ? -40 : 10);
+					mw = main.width()-(magic.ops.window_width < 1025 ? 0 : 20),
+					mh = main.height()-(magic.ops.window_width < 1025 ? -40 : 10);
 					
 				//if (mw < img.naturalWidth)
 				//	mw = img.naturalWidth;
 				
 				main.append(
-					'<div id="customdesign-stage-'+name+'" class="customdesign-stage canvas-wrapper" style="height: '+mh+'px;">\
-						<canvas id="customdesign-stage-'+name+'-canvas" width="'+mw+'" height="'+mh+'"></canvas>\
-						<div class="customdesign-snap-line-x"></div>\
-						<div class="customdesign-snap-line-y"></div>\
+					'<div id="magic-stage-'+name+'" class="magic-stage canvas-wrapper" style="height: '+mh+'px;">\
+						<canvas id="magic-stage-'+name+'-canvas" width="'+mw+'" height="'+mh+'"></canvas>\
+						<div class="magic-snap-line-x"></div>\
+						<div class="magic-snap-line-y"></div>\
 					</div>'
 				);
 				
-				stage.canvas = new fabric.Canvas('customdesign-stage-'+name+'-canvas', {
+				stage.canvas = new fabric.Canvas('magic-stage-'+name+'-canvas', {
 					preserveObjectStacking: true,
 					controlsAboveOverlay: true
 				});
@@ -9983,23 +9983,23 @@
 				    index : 0
 			    };
 	
-				var wrp = customdesign.fn.q('#customdesign-stage-'+name);
+				var wrp = magic.fn.q('#magic-stage-'+name);
 	
-				stage.lineX = $('#customdesign-stage-'+name+' .customdesign-snap-line-x');
-				stage.lineY = $('#customdesign-stage-'+name+' .customdesign-snap-line-y');
+				stage.lineX = $('#magic-stage-'+name+' .magic-snap-line-x');
+				stage.lineY = $('#magic-stage-'+name+' .magic-snap-line-y');
 				
 				[
 					['dragover', function(e){
 	
 					e.preventDefault();
 	
-					if (!customdesign.ops.drag_start || !customdesign.ops.drag_start.getAttribute('data-ops'))
+					if (!magic.ops.drag_start || !magic.ops.drag_start.getAttribute('data-ops'))
 						return;
 	
 					var cur = stage.limit_zone.visible,
-						zoom = customdesign.stage().canvas.getZoom(),
-						disc = customdesign.ops.drag_start.distance,
-						view = customdesign.stage().canvas.viewportTransform,
+						zoom = magic.stage().canvas.getZoom(),
+						disc = magic.ops.drag_start.distance,
+						view = magic.stage().canvas.viewportTransform,
 						limit = {
 							l : (stage.limit_zone.left*zoom)+view[4],
 							t :  (stage.limit_zone.top*zoom)+view[5],
@@ -10036,33 +10036,33 @@
 		
 						e.preventDefault();
 		
-						if (!customdesign.ops.drag_start || !customdesign.ops.drag_start.getAttribute('data-ops') || stage.limit_zone.visible !== true)
+						if (!magic.ops.drag_start || !magic.ops.drag_start.getAttribute('data-ops') || stage.limit_zone.visible !== true)
 							return;
 		
 						var rect = this.getBoundingClientRect();
 
-						var ops = customdesign.ops.drag_start.getAttribute('data-ops');
-						if(customdesign.ops.drag_start.getAttribute('class') == 'customdesign-clipart' && customdesign.xitems.ops[ops] !== undefined){
-							ops = $.extend(true, [], customdesign.xitems.ops[ops]);
+						var ops = magic.ops.drag_start.getAttribute('data-ops');
+						if(magic.ops.drag_start.getAttribute('class') == 'magic-clipart' && magic.xitems.ops[ops] !== undefined){
+							ops = $.extend(true, [], magic.xitems.ops[ops]);
 						} else {
-							ops =JSON.parse(customdesign.ops.drag_start.getAttribute('data-ops'));
+							ops =JSON.parse(magic.ops.drag_start.getAttribute('data-ops'));
 						}
 		
-						var disc = customdesign.ops.drag_start.distance,
-							zoom = customdesign.stage().canvas.getZoom(),
-							view = customdesign.stage().canvas.viewportTransform;
+						var disc = magic.ops.drag_start.distance,
+							zoom = magic.stage().canvas.getZoom(),
+							view = magic.stage().canvas.viewportTransform;
 		
 						if (ops[0].type == 'shape')
-							ops[0].url = 'data:image/svg+xml;base64,'+btoa(customdesign.ops.drag_start.innerHTML.trim());
+							ops[0].url = 'data:image/svg+xml;base64,'+btoa(magic.ops.drag_start.innerHTML.trim());
 						else if (ops[0].url === undefined)
-							ops[0].url = customdesign.cliparts.storage[ops[0].id] || customdesign.cliparts.uploads[ops[0].id];
+							ops[0].url = magic.cliparts.storage[ops[0].id] || magic.cliparts.uploads[ops[0].id];
 		
 						if (ops[0].url && ops[0].url.indexOf('dumb-') === 0) {
-							customdesign.indexed.get(ops[0].url.split('dumb-')[1], 'dumb', function(res){
+							magic.indexed.get(ops[0].url.split('dumb-')[1], 'dumb', function(res){
 								if (res !== null) {
-									customdesign.cliparts.uploads[ops[0].id] = res[0];
+									magic.cliparts.uploads[ops[0].id] = res[0];
 									ops[0].url = res[0];
-									customdesign.fn.preset_import(ops, {
+									magic.fn.preset_import(ops, {
 										left: (((e.clientX - rect.left)/zoom) - disc.x)-(view[4]/zoom),
 										top: (((e.clientY - rect.top)/zoom) - disc.y)-(view[5]/zoom)
 									});
@@ -10070,7 +10070,7 @@
 								}
 							});
 						}else{
-							customdesign.fn.preset_import(ops, {
+							magic.fn.preset_import(ops, {
 								left: (((e.clientX - rect.left)/zoom) - disc.x)-(view[4]/zoom),
 								top: (((e.clientY - rect.top)/zoom) - disc.y)-(view[5]/zoom)
 							});
@@ -10079,7 +10079,7 @@
 					}],
 					['mousewheel', function(e){
 	
-						var zoom = parseFloat(customdesign.get.el('zoom').val());
+						var zoom = parseFloat(magic.get.el('zoom').val());
 		
 						if (e.shiftKey) {
 		
@@ -10090,14 +10090,14 @@
 							else if (zoom > 250)
 								zoom = 250;
 		
-							customdesign.get.el('zoom').val(zoom).trigger('input');
+							magic.get.el('zoom').val(zoom).trigger('input');
 							e.preventDefault();
 
 						} else {
 							
-							if (customdesign.stage().canvas.isDrawingMode === true) {
+							if (magic.stage().canvas.isDrawingMode === true) {
 								
-								var range = customdesign.get.el('drawing-width'),
+								var range = magic.get.el('drawing-width'),
 									val = parseFloat(range.val())+(e.wheelDelta*0.1);
 									
 								range.val(val).trigger('input');
@@ -10110,7 +10110,7 @@
 										x: 0,
 										y: (e.wheelDeltaY !== undefined ? e.wheelDeltaY*0.25 : e.wheelDelta*0.25)
 									},
-									canvas = customdesign.stage().canvas,
+									canvas = magic.stage().canvas,
 									view = canvas.viewportTransform;
 			
 					       		if (
@@ -10134,7 +10134,7 @@
 					['dblclick', function(e) {
 						var actv = stage.canvas.getActiveObject();
 						if (actv && actv.type == 'i-text')
-							customdesign.get.el('text-tools li[data-tool="spacing"]').trigger('click').find('textarea.customdesign-edit-text').focus();
+							magic.get.el('text-tools li[data-tool="spacing"]').trigger('click').find('textarea.magic-edit-text').focus();
 					}]
 				].map(function(ev){
 					wrp.addEventListener(ev[0], ev[1], false);
@@ -10142,7 +10142,7 @@
 	
 				stage.canvas.backgroundColor = '#ebeced';
 				
-				stage.canvas.on(customdesign.objects.events);
+				stage.canvas.on(magic.objects.events);
 				
 				/*
 				*	Add product base
@@ -10152,7 +10152,7 @@
 		
 				stage.product = product;
 
-				customdesign.f(false);
+				magic.f(false);
 				
 				if (product.width > mw) {
 					product.height = product.height*(mw/product.width);
@@ -10194,7 +10194,7 @@
 					
 					var canvas = document.createElement('canvas'),
 						ctx = canvas.getContext('2d'),
-						type = customdesign.fn.get_type(img.src);
+						type = magic.fn.get_type(img.src);
 					
 					canvas.width = img.naturalWidth;
 					canvas.height = img.naturalHeight;
@@ -10221,7 +10221,7 @@
 				*	Add product color
 				*/
 				
-				var color = customdesign.get.color();
+				var color = magic.get.color();
 				
 				stage.productColor = new fabric.Rect({
 					width: pw-2,
@@ -10257,7 +10257,7 @@
 					width: editing.width,
 					originX: 'left',
 					originY: 'top',
-					stroke: customdesign.fn.invert(color),
+					stroke: magic.fn.invert(color),
 					strokeDashArray: stage.crop_marks_bleed ? [0, 0] : [5, 5],
 					selectable: false,
 					evented: false,
@@ -10283,7 +10283,7 @@
 						width: editing.width-10,
 						originX: 'left',
 						originY: 'top',
-						stroke: customdesign.fn.invert(color),
+						stroke: magic.fn.invert(color),
 						strokeDashArray: [5, 5],
 						selectable: false,
 						evented: false,
@@ -10313,7 +10313,7 @@
 					stage.canvas.add(stage.bleed, stage.crop_marks);
 				};
 				
-				if (customdesign.data.auto_fit == '1' && $(window).width() > 1024) {
+				if (magic.data.auto_fit == '1' && $(window).width() > 1024) {
 					
 					var zoom = 1;
 					
@@ -10330,7 +10330,7 @@
 					};
 					
 					if (zoom*98 > 100) {		
-						$('#customdesign-zoom').
+						$('#magic-zoom').
 							val(zoom*98).
 							attr({'data-value': parseInt(zoom*98)+'%'}).
 							parent().
@@ -10347,14 +10347,14 @@
 						
 				};
 				
-				customdesign.mobile(true);
+				magic.mobile(true);
 					
 			},
 			
 			stage_nav : function(name, ty) {
 				
-				var nav = customdesign.get.el('stage-nav'),
-					ww = customdesign.ops.window_width;	
+				var nav = magic.get.el('stage-nav'),
+					ww = magic.ops.window_width;	
 				
 				if (name !== undefined) {
 					nav.attr({'data-name': name});
@@ -10384,19 +10384,19 @@
 			
 			process_variations : function(values, el) {
 				// hash : b7384613351cb126e25f6d2de13b0224
-				customdesign.cart.printing.current = null;
+				magic.cart.printing.current = null;
 
-				let stages = customdesign.ops.product_data.stages,
+				let stages = magic.ops.product_data.stages,
 					vari_data = {
 						variation	: null,
-						name		: customdesign.ops.product_data.name,
-						sku		: customdesign.ops.product_data.sku,
-						description	: customdesign.ops.product_data.description,
-						price		: customdesign.ops.product_data.price,
-						printings	: $.extend(true, [], customdesign.ops.product_data.printings),
-						attributes	: $.extend(true, {}, customdesign.ops.product_data.attributes),
+						name		: magic.ops.product_data.name,
+						sku		: magic.ops.product_data.sku,
+						description	: magic.ops.product_data.description,
+						price		: magic.ops.product_data.price,
+						printings	: $.extend(true, [], magic.ops.product_data.printings),
+						attributes	: $.extend(true, {}, magic.ops.product_data.attributes),
 						stages		: $.extend(true, {}, stages.stages ? stages.stages : stages),
-						printing	: customdesign.cart.printing.current // active print, if not the first will be actived
+						printing	: magic.cart.printing.current // active print, if not the first will be actived
 					};
 				
 				// Set default form values	
@@ -10414,23 +10414,23 @@
 				
 				// if there are no variations
 				if (
-					typeof customdesign.data.variations != 'object' || 
-					customdesign.data.variations.variations === undefined ||
-					Object.keys(customdesign.data.variations.variations).length === 0
+					typeof magic.data.variations != 'object' || 
+					magic.data.variations.variations === undefined ||
+					Object.keys(magic.data.variations.variations).length === 0
 				) 
 					return vari_data;
 				
 				// Get matched variation
 					
 				let obj = null, 
-					varis = customdesign.data.variations;
+					varis = magic.data.variations;
 				
 				// Keep options of current trigger element
 				
 				varis.attrs.map(function(a) {
 					vari_data.attributes[a].allows = [];
 					if (el !== null && el !== undefined && a == el.name) {
-						vari_data.attributes[a].allows = customdesign.ops.product_data.attributes[a].allows;
+						vari_data.attributes[a].allows = magic.ops.product_data.attributes[a].allows;
 						vari_data.attributes[a].value = values[el.name];
 					}
 				});
@@ -10534,7 +10534,7 @@
 					) {
 						obj['printings'].map(function(p) {
 							if (p['calculate'] && typeof p['calculate'] == 'string')
-								p['calculate'] = customdesign.fn.dejson(p['calculate']);
+								p['calculate'] = magic.fn.dejson(p['calculate']);
 						});
 						vari_data['printings'] = $.extend(true, [], obj['printings']);
 						vari_data['printings_cfg'] = obj['printings_cfg'];
@@ -10561,20 +10561,20 @@
 			
 			keep_current_designs : function(new_stages) {
 				
-				if (customdesign.ops.first_completed === false)
+				if (magic.ops.first_completed === false)
 					return new_stages;
 					
-				var curent_designs = customdesign.fn.export().stages;
+				var curent_designs = magic.fn.export().stages;
 				
 				Object.keys(curent_designs).map(function(c, i) {
 					if (typeof curent_designs[c].data == 'string')
 						curent_designs[c].data = JSON.parse(curent_designs[c].data);
-					customdesign.ops.session_designs[i] = curent_designs[c].data;
+					magic.ops.session_designs[i] = curent_designs[c].data;
 				});
 				
 				Object.keys(new_stages).map(function(s, i) {
-					if (customdesign.ops.session_designs[i] !== undefined) {
-						new_stages[s].data = customdesign.ops.session_designs[i];
+					if (magic.ops.session_designs[i] !== undefined) {
+						new_stages[s].data = magic.ops.session_designs[i];
 					}
 				});
 				
@@ -10584,32 +10584,32 @@
 			
 			preview_designs : function() {
 				
-				customdesign.get.el('stage-nav').addClass('stages-expand preview-designs')
+				magic.get.el('stage-nav').addClass('stages-expand preview-designs')
 			},
 			
 			print_detail : function(id) {
 				
 				var table_content = qkey = '', qkeys = [], qkeyind,
-					print = customdesign.data.printings.filter(function (print){
+					print = magic.data.printings.filter(function (print){
 						if(print.id == id)
 							return print;
 					})[0];
 				
-				customdesign.tools.lightbox({
-					content: '<div class="customdesign_content customdesign_wrapper_table">\
-								<h3 class="title">'+customdesign.i(67)+' ('+print.title+')</h3>\
-								<div id="customdesign-print-detail">\
-									<i class="customdesign-spinner x3 margin-2"></i>\
+				magic.tools.lightbox({
+					content: '<div class="magic_content magic_wrapper_table">\
+								<h3 class="title">'+magic.i(67)+' ('+print.title+')</h3>\
+								<div id="magic-print-detail">\
+									<i class="magic-spinner x3 margin-2"></i>\
 								</div>\
 							</div>'
 				});
 				
-				$('#customdesign-print-detail').html((print.description !== '' ? '<div>'+print.description+'</div><br>' : ''));
+				$('#magic-print-detail').html((print.description !== '' ? '<div>'+print.description+'</div><br>' : ''));
 				
 				if (typeof print.calculate == 'string')
-					print.calculate = customdesign.fn.dejson(print.calculate);
+					print.calculate = magic.fn.dejson(print.calculate);
 				
-				var tab_nav = '<ul class="customdesign_tab_nav ' + ((print.calculate.multi) ? '': 'hidden') +'">';
+				var tab_nav = '<ul class="magic_tab_nav ' + ((print.calculate.multi) ? '': 'hidden') +'">';
 				
 				if (print.calculate !== undefined && print.calculate.show_detail == '1') {
 					
@@ -10619,14 +10619,14 @@
 					for (var i in print.calculate.values){
 						
 						if (print.calculate.multi) {
-							tab_nav += '<li class=><a href="#" data-side="'+i+'">'+customdesign.i('stage')+' '+(j++)+'</a></li>';
-							table_content += '<div class="customdesign_tab_content" data-customdesign-tab="'+i+'">'
+							tab_nav += '<li class=><a href="#" data-side="'+i+'">'+magic.i('stage')+' '+(j++)+'</a></li>';
+							table_content += '<div class="magic_tab_content" data-magic-tab="'+i+'">'
 						};
 
 						table_content += '<table>\
 								<thead>\
 									<tr>\
-										<th>'+customdesign.i(66)+'</th>';
+										<th>'+magic.i(66)+'</th>';
 													
 						for (var r in 
 							print.calculate.values[fi][Object.keys(print.calculate.values[fi])[0]]
@@ -10651,8 +10651,8 @@
 							for (var td in print.calculate.values[i][r]) {
 								table_content += '<td>' +
 									((print.calculate.values[i][r][td]*1>0) ? 
-									customdesign.fn.price(print.calculate.values[i][r][td]) :
-									customdesign.i(100))+ '</td>';
+									magic.fn.price(print.calculate.values[i][r][td]) :
+									magic.i(100))+ '</td>';
 							};	
 							table_content += '</tr>';
 						};
@@ -10668,29 +10668,29 @@
 					
 					tab_nav += '</ul>';
 					
-					var elm = $('#customdesign-print-detail');
+					var elm = $('#magic-print-detail');
 					
 					elm.append(tab_nav+table_content);
 
-					customdesign.trigger({
+					magic.trigger({
 						el : elm,
 						events : {
-							'.customdesign_tab_nav a:click' : 'active_tab'
+							'.magic_tab_nav a:click' : 'active_tab'
 						},
 						active_tab : function (e){
 							
 							e.preventDefault();
 							
 							elm.find('li').removeClass('active');
-							elm.find('[data-customdesign-tab]').removeClass('active');
+							elm.find('[data-magic-tab]').removeClass('active');
 							$(this).closest('li').addClass('active');
-							elm.find('[data-customdesign-tab=' +$(this).
+							elm.find('[data-magic-tab=' +$(this).
 								addClass('active').data('side')+ ']').
 								addClass('active');
 						}
 					});
 					
-					elm.find('.customdesign_tab_nav a:first').trigger('click');
+					elm.find('.magic_tab_nav a:first').trigger('click');
 					
 				}
 				
@@ -10698,48 +10698,48 @@
 			
 			edit_design : function(ops) {
 				
-				customdesign.tools.save();
-				customdesign.tools.clearAll();
+				magic.tools.save();
+				magic.tools.clearAll();
 				
-				Object.keys(customdesign.data.stages).map((s, i) => {
+				Object.keys(magic.data.stages).map((s, i) => {
 					
 					if (
 						Object.keys(ops.stages)[i] !== undefined &&
 						ops.stages[Object.keys(ops.stages)[i]].data !== undefined
 					) {
-						customdesign.data.stages[s].data = ops.stages[Object.keys(ops.stages)[i]].data;
+						magic.data.stages[s].data = ops.stages[Object.keys(ops.stages)[i]].data;
 					}
 					
 				});
 				
-				customdesign.active_stage(customdesign.render.stage_nav());
-				customdesign.fn.navigation('clear');
+				magic.active_stage(magic.render.stage_nav());
+				magic.fn.navigation('clear');
 				
 			},
 						
 			load_product : function(ops) {
 				
-				customdesign.f(customdesign.i('loading'));
+				magic.f(magic.i('loading'));
 				
 				var product = null;
 					donow = function(res) {
 						
 						if (res === null || res === undefined) {
-							customdesign.f(false);
-							customdesign.actions.do('noproduct');
+							magic.f(false);
+							magic.actions.do('noproduct');
 							return;
 						};
 							
 						if (typeof res.variations == 'string' && res.variations !== '')
-							res.variations = customdesign.fn.dejson(res.variations);
+							res.variations = magic.fn.dejson(res.variations);
 						else res.variations = {};
 						
 						if (typeof res.attributes == 'string' && res.attributes !== '')
-							res.attributes = customdesign.fn.dejson(res.attributes);
+							res.attributes = magic.fn.dejson(res.attributes);
 						else res.attributes = {};
 						
 						if (typeof res.stages == 'string')
-							res.stages = customdesign.fn.dejson(res.stages);
+							res.stages = magic.fn.dejson(res.stages);
 							
 						res.variations.default = ops.options;
 						
@@ -10750,25 +10750,25 @@
 							Object.keys(res.variations.variations).map(function(v) {
 								res.variations.variations[v].printings.map(function(p) {
 									if (typeof p.calculate == 'string')
-										p.calculate = customdesign.fn.dejson(p.calculate);
+										p.calculate = magic.fn.dejson(p.calculate);
 								})
 							});
 						};
 						
 						if (typeof ops.template == 'object') {
-							customdesign.cart.template = ops.template.stages;
-							customdesign.cart.price.template = ops.template.price;
+							magic.cart.template = ops.template.stages;
+							magic.cart.price.template = ops.template.price;
 							res.template = ops.template;
 						};
 						
 						res.saved_stages = ops.stages;
 						
-						customdesign.render.product(res, function() {
-							if (customdesign.ops.first_completed !== true) {
-								customdesign.actions.do('first-completed');
-								customdesign.ops.first_completed = true;
+						magic.render.product(res, function() {
+							if (magic.ops.first_completed !== true) {
+								magic.actions.do('first-completed');
+								magic.ops.first_completed = true;
 							};
-							customdesign.fn.update_state();
+							magic.fn.update_state();
 						});
 						
 						if (typeof ops.callback == 'function')		
@@ -10777,15 +10777,15 @@
 					};
 				
 				if (
-					customdesign.ops.products !== undefined && 
-					typeof customdesign.ops.products.products == 'object'
+					magic.ops.products !== undefined && 
+					typeof magic.ops.products.products == 'object'
 				)
-					product = customdesign.ops.products.products.filter(function(p) {return p.id == ops.id;});
+					product = magic.ops.products.products.filter(function(p) {return p.id == ops.id;});
 				
 				if (product !== null && product.length > 0)
 					return donow(product[0]);
 				
-				customdesign.post({
+				magic.post({
 					action: 'load_product',
 					id: ops.id
 				}, donow);
@@ -10797,12 +10797,12 @@
 				// Editing design before add to cart
 				var data = {
 						stages : {},
-						type : customdesign.data.type,
-						extra : customdesign.cart.price.extra,
+						type : magic.data.type,
+						extra : magic.cart.price.extra,
 						updated: new Date().getTime()/1000,
-						name : customdesign.get.el('product header name t').text().trim(),
-						id: customdesign.ops.product_data.id,
-						system_version: customdesign.data.version
+						name : magic.get.el('product header name t').text().trim(),
+						id: magic.ops.product_data.id,
+						system_version: magic.data.version
 					},
 					thumbn = {
 						screenshot: '',
@@ -10810,7 +10810,7 @@
 						name: data.name,
 						updated: data.updated,
 						id: data.id,
-						system_version: customdesign.data.version 
+						system_version: magic.data.version 
 					};
 				
 				if (created !== undefined) {
@@ -10818,10 +10818,10 @@
 					thumbn.created = created;
 				};
 				
-				customdesign.get.el('stage-nav').find('li[data-stage]').each(function(i){
+				magic.get.el('stage-nav').find('li[data-stage]').each(function(i){
 
 					var s = this.getAttribute('data-stage'),
-						stage = customdesign.data.stages[s];
+						stage = magic.data.stages[s];
 
 					if (!stage)
 						return;
@@ -10833,8 +10833,8 @@
 						stage.canvas.set('viewportTransform', [1, 0, 0, 1, 0, 0]);
 						
 						data.stages[s] = {
-							data : customdesign.tools.export(stage),
-							screenshot: customdesign.tools.toImage({
+							data : magic.tools.export(stage),
+							screenshot: magic.tools.toImage({
 								stage: stage,
 								//is_bg: (save == 'cart' || save == 'share') ? 'full' : false, 
 								is_bg: 'full', 
@@ -10849,7 +10849,7 @@
 							devicePixelRatio: window.devicePixelRatio
 						};
 						
-						customdesign.data.stages[s].screenshot = data.stages[s].screenshot;
+						magic.data.stages[s].screenshot = data.stages[s].screenshot;
 						
 						stage.canvas.set('viewportTransform', view_port);
 						stage.canvas.renderAll();
@@ -10875,25 +10875,25 @@
 				});
 				
 				if (
-					customdesign.ops.first_completed === true && 
-					customdesign.fn.url_var('order_print', '') === '' &&
+					magic.ops.first_completed === true && 
+					magic.fn.url_var('order_print', '') === '' &&
 					(save === true || save == 'designs' || save == 'share' || typeof save == 'function')
 				) {
 					
 					//store template info before save
 					data['template'] = {
-						'stages' : customdesign.cart.template,
-						'price' : customdesign.cart.price.template
+						'stages' : magic.cart.template,
+						'price' : magic.cart.price.template
 					};
 					
-					if (customdesign.fn.url_var('cart', '') !== '') {
+					if (magic.fn.url_var('cart', '') !== '') {
 						
-						customdesign.actions.do('cart-changed', data);
+						magic.actions.do('cart-changed', data);
 						
 						/*
 							// Auto save design of cart item editting
 							data.id = cart_id;
-							customdesign.indexed.save([data], 'cart');
+							magic.indexed.save([data], 'cart');
 						*/
 					}
 					else if (save == 'share') {
@@ -10904,14 +10904,14 @@
 			    	}
 		    		
 		    		if (
-		    			save == 'designs' && customdesign.ops.importing !== true
+		    			save == 'designs' && magic.ops.importing !== true
 		    		) {
 			    		
 						var design_id = (id !== undefined && id !== null && id != 'new') ? 
 										id : 
 										new Date().getTime().toString(36).toUpperCase(),
-							product_id = customdesign.fn.url_var('product_base', '');
-							product_cms = customdesign.fn.url_var('product_cms', '');
+							product_id = magic.fn.url_var('product_base', '');
+							product_cms = magic.fn.url_var('product_cms', '');
 						
 						data.id = design_id;
 						
@@ -10920,11 +10920,11 @@
 							product : product_id,
 							product_cms : product_cms,
 							product_cms : product_cms,
-							printing : customdesign.cart.printing.current,
-							options: customdesign.cart.data.options,
+							printing : magic.cart.printing.current,
+							options: magic.cart.data.options,
 							template: {
-								'stages' : customdesign.cart.template,
-								'price' : customdesign.cart.price.template
+								'stages' : magic.cart.template,
+								'price' : magic.cart.price.template
 							}
 						});
 						
@@ -10939,15 +10939,15 @@
 						};
 						
 						try {
-							customdesign.indexed.save([thumbn, data], 'designs', function(){
+							magic.indexed.save([thumbn, data], 'designs', function(){
 								delete data;
 								delete thumbn;
-								customdesign.actions.do('save-design', design_id);
+								magic.actions.do('save-design', design_id);
 							});
 						}catch (ex){console.log(ex);}
 						
-						delete customdesign.ops.designs_loading;
-						delete customdesign.ops.designs_cursor;
+						delete magic.ops.designs_loading;
+						delete magic.ops.designs_cursor;
 						
 					} 
 					
@@ -11068,7 +11068,7 @@
 
 			cart_thumbn : function(id) {
                 
-                customdesign.indexed.get(id, 'cart', function(res){
+                magic.indexed.get(id, 'cart', function(res){
                     
                     if (res === null || res === undefined)
                         return;
@@ -11110,7 +11110,7 @@
 				if (scale === 0)
 					return;
 					
-				var stage = customdesign.stage(),
+				var stage = magic.stage(),
 					canvas = stage.canvas,
 					bd = stage.limit_zone.strokeWidth*2,
 					objs = canvas.getObjects().filter(function(o) {
@@ -11159,7 +11159,7 @@
 				
 				canvas.setActiveGroup(group.setCoords()).renderAll();
 				
-				customdesign.tools.discard();
+				magic.tools.discard();
 				
 			},
 			
@@ -11168,11 +11168,11 @@
 				if (typeof obj.font == 'string' && obj.font.trim().indexOf('data:') === -1) {
 
 					if (obj.font.indexOf('http') === -1)
-						obj.font = customdesign.data.upload_url+obj.font;
+						obj.font = magic.data.upload_url+obj.font;
 					
-					customdesign.fn.get_blob(obj.font, function() {
+					magic.fn.get_blob(obj.font, function() {
 						obj.set('font', this.result);
-						customdesign.tools.save();
+						magic.tools.save();
 					});
 
 				}
@@ -11183,14 +11183,14 @@
 				
 				['car', 'design_print', 'order_print', 'design', 'share'].map(function(i) {
 					if (typeof ex !== 'object' || ex.indexOf(i) === -1)
-						customdesign.fn.set_url(i, null);
+						magic.fn.set_url(i, null);
 				});
 				
 			},
 			
 			do_double: function() {
 				
-				var canvas = customdesign.stage().canvas,
+				var canvas = magic.stage().canvas,
 					active = canvas.getActiveObject(),
 					group = canvas.getActiveGroup(),
 					do_clone = function(ids) {
@@ -11203,7 +11203,7 @@
 							
 							var clone = obj.toJSON();
 							delete clone.toClip;
-							customdesign.ops.export_list.map(function(l){
+							magic.ops.export_list.map(function(l){
 								clone[l] = obj[l];
 							});
 							
@@ -11217,7 +11217,7 @@
 							
 						});
 						
-						customdesign.tools.import ({objects: clones}, function(){});
+						magic.tools.import ({objects: clones}, function(){});
 						
 					};
 					
@@ -11229,9 +11229,9 @@
 						canvas.getObjects().filter(function(o) {return o.id == active.imagebox;}).length > 0
 					) return;
 					
-					customdesign.tools.discard();
-					clearTimeout(customdesign.ops.preventDbl);
-					customdesign.ops.preventDbl = setTimeout(do_clone, 100, [active.id]);
+					magic.tools.discard();
+					clearTimeout(magic.ops.preventDbl);
+					magic.ops.preventDbl = setTimeout(do_clone, 100, [active.id]);
 
 				}else if(group){
 					
@@ -11243,11 +11243,11 @@
 							ids.push(o.id);
 					});
 					
-					customdesign.tools.discard();
+					magic.tools.discard();
 					do_clone(ids);
 					
 					return true;
-					// && confirm(customdesign.i('05'))
+					// && confirm(magic.i('05'))
 					var clones = [];
 						
 					group._objects.map(function(obj){
@@ -11278,11 +11278,11 @@
 					new_group.set('scaleX', new_group.scaleX/5);
 					new_group.set('scaleY', new_group.scaleY/5);
 
-					customdesign.objects.customdesign.image(ops, function(obj){
+					magic.objects.magic.image(ops, function(obj){
 
 						var index = canvas.getObjects().indexOf(group._objects[0]);
 
-						customdesign.stage().canvas.discardActiveGroup();
+						magic.stage().canvas.discardActiveGroup();
 
 						group._objects.map(function(c){
 							canvas.remove(c);
@@ -11291,8 +11291,8 @@
 						canvas.add(obj);
 						obj.moveTo(index);
 
-						customdesign.stack.save();
-						customdesign.design.layers.build();
+						magic.stack.save();
+						magic.design.layers.build();
 
 					});
 
@@ -11302,7 +11302,7 @@
 			
 			build_lumi: function(img) {
 		
-				var s = customdesign.stage(),
+				var s = magic.stage(),
 					cv = document.createElement('canvas'),
 					ctx = cv.getContext('2d'),
 					w = 200,
@@ -11315,7 +11315,7 @@
 				ctx.drawImage(img, 0, 0, cv.width, cv.height);
 					
 				var urldata = cv.toDataURL('image/'+(img.src.indexOf('.png') > -1 ? 'png' : 'jpeg')),
-					data = {"stages":{"customdesign":{"data":{"objects":[null,null,{"type":"image","originX":"center","originY":"center","left":(w/2)+2,"top":(h/2)+2,"width":w*0.9,"height":h*0.9,"fill":"rgb(0,0,0)","stroke":"","strokeWidth":0,"strokeLineCap":"butt","strokeLineJoin":"miter","strokeMiterLimit":10,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"visible":true,"backgroundColor":"","fillRule":"nonzero","globalCompositeOperation":"source-over","skewX":0,"skewY":0,"crossOrigin":"","alignX":"none","alignY":"none","meetOrSlice":"meet","src":urldata,"evented":true,"selectable":true,"filters":[],"resizeFilters":[]}],"background":"#ebeced","devicePixelRatio":2,"product_color":"#00ff7f","limit_zone":{"width":w,"height":h,"top":0,"left":0},"edit_zone":{"height":h,"width":w,"left":0,"top":0,"radius":"0"},"product_width":s.product.width,"product_height":s.product.height,"screenshot":""},"screenshot":"","edit_zone":{"height":h,"width":w,"left":0,"top":0,"radius":"0"},"updated":time,"padding":[0,0]}},"updated":time};
+					data = {"stages":{"magic":{"data":{"objects":[null,null,{"type":"image","originX":"center","originY":"center","left":(w/2)+2,"top":(h/2)+2,"width":w*0.9,"height":h*0.9,"fill":"rgb(0,0,0)","stroke":"","strokeWidth":0,"strokeLineCap":"butt","strokeLineJoin":"miter","strokeMiterLimit":10,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"visible":true,"backgroundColor":"","fillRule":"nonzero","globalCompositeOperation":"source-over","skewX":0,"skewY":0,"crossOrigin":"","alignX":"none","alignY":"none","meetOrSlice":"meet","src":urldata,"evented":true,"selectable":true,"filters":[],"resizeFilters":[]}],"background":"#ebeced","devicePixelRatio":2,"product_color":"#00ff7f","limit_zone":{"width":w,"height":h,"top":0,"left":0},"edit_zone":{"height":h,"width":w,"left":0,"top":0,"radius":"0"},"product_width":s.product.width,"product_height":s.product.height,"screenshot":""},"screenshot":"","edit_zone":{"height":h,"width":w,"left":0,"top":0,"radius":"0"},"updated":time,"padding":[0,0]}},"updated":time};
 				
 				delete urldata;
 				delete cv;
@@ -11359,8 +11359,8 @@
 					if (!stages[s].image) {
 						stages[s].image = (
 							stages[s].source == 'raws' ? 
-							customdesign.data.assets+'raws/' : 
-							customdesign.data.upload_url
+							magic.data.assets+'raws/' : 
+							magic.data.upload_url
 						)+stages[s].url;
 					}
 				}
@@ -11372,11 +11372,11 @@
 			price : function(p) {
 				let price = this.number_format(
 					parseFloat(p*1),
-					parseInt(customdesign.data.number_decimals),
-					customdesign.data.decimal_separator,
-					customdesign.data.thousand_separator,
+					parseInt(magic.data.number_decimals),
+					magic.data.decimal_separator,
+					magic.data.thousand_separator,
 				);
-				return (customdesign.data.currency_position === '0' ? price+customdesign.data.currency : customdesign.data.currency+price);
+				return (magic.data.currency_position === '0' ? price+magic.data.currency : magic.data.currency+price);
 			},
 			
 			number_format: function (number, decimals, dec_point, thousands_sep) {
@@ -11425,43 +11425,43 @@
 			
 			confirm : function(opt) {
 				
-				var html = '<div id="customdesign-confirm"'+(opt.type !== undefined ? ' data-type="'+opt.type+'"' :'')+'>\
+				var html = '<div id="magic-confirm"'+(opt.type !== undefined ? ' data-type="'+opt.type+'"' :'')+'>\
 						<conf data-label="'+(opt.label ? opt.label : 'Confirmation')+'">\
 							<p>'+opt.title+'</p>'+(opt.primary.text !== undefined ? 
-							'<button class="customdesign-btn" data-btn="primary">'+
+							'<button class="magic-btn" data-btn="primary">'+
 								opt.primary.text+(opt.primary.icon ? ' <i class="'+opt.primary.icon+'"></i>' : '')+
 							'</button>' : '')+(opt.second.text !== undefined ? 
-							'<button class="customdesign-btn white" data-btn="second">'+
+							'<button class="magic-btn white" data-btn="second">'+
 								opt.second.text+(opt.second.icon ? ' <i class="'+opt.second.icon+'"></i>' : '')+
 							'</button>' : '')+'\
-							<i class="customdesignx-android-close" data-btn="close"></i>\
+							<i class="magicx-android-close" data-btn="close"></i>\
 						</conf>\
 					</div>';
 					
-				$('#customdesign-confirm').remove();
-				$('#CustomdesignDesign').append(html);
+				$('#magic-confirm').remove();
+				$('#MagicDesign').append(html);
 				
-				customdesign.trigger({
-					el: $('#customdesign-confirm'),
+				magic.trigger({
+					el: $('#magic-confirm'),
 					events: {
 						'[data-btn="primary"]': function(e) {
 							// hash : 5fecb5125fdb9c9cf8f2e54802cfb020
 							if (typeof opt.primary.callback != 'function' || opt.primary.callback(e) !== false){
-								if(sessionStorage.getItem("CUSTOMDESIGN-START-NEW") === null){
-									sessionStorage.setItem('CUSTOMDESIGN-START-NEW', true);
+								if(sessionStorage.getItem("MAGIC-START-NEW") === null){
+									sessionStorage.setItem('MAGIC-START-NEW', true);
 								}
-								$('#customdesign-confirm').remove();
+								$('#magic-confirm').remove();
 							}
 							e.preventDefault();
 						},
 						'[data-btn="second"]': function(e) {
 							if (typeof opt.second.callback == 'function')
 								opt.second.callback(e);
-							$('#customdesign-confirm').remove();
+							$('#magic-confirm').remove();
 							e.preventDefault();
 						},
 						'[data-btn="close"]': function(e) {
-							$('#customdesign-confirm').remove();
+							$('#magic-confirm').remove();
 							e.preventDefault();
 						}
 					}
@@ -11481,60 +11481,60 @@
 			
 			crop : function(ops) {
 				
-				customdesign.tools.lightbox({
+				magic.tools.lightbox({
 					width: ops.width !== undefined ? ops.width : 500,
-					content: '<div class="customdesign_crop_dragArea">\
-								<img src="'+ops.src+'" class="customdesign_crop_img" style="max-height: 520px;" />\
-								<div class="customdesign_crop_selArea">\
-									<div class="customdesign_crop_marqueeHoriz customdesign_crop_marqueeNorth"><span></span></div>\
-									<div class="customdesign_crop_marqueeVert customdesign_crop_marqueeEast"><span></span></div>\
-									<div class="customdesign_crop_marqueeHoriz customdesign_crop_marqueeSouth"><span></span></div>\
-									<div class="customdesign_crop_marqueeVert customdesign_crop_marqueeWest"><span></span></div>\
-									<div class="customdesign_crop_handle customdesign_crop_handleN" data-target="n"></div>\
-									<div class="customdesign_crop_handle customdesign_crop_handleNE" data-target="ne"></div>\
-									<div class="customdesign_crop_handle customdesign_crop_handleE" data-target="e"></div>\
-									<div class="customdesign_crop_handle customdesign_crop_handleSE" data-target="se"></div>\
-									<div class="customdesign_crop_handle customdesign_crop_handleS" data-target="s"></div>\
-									<div class="customdesign_crop_handle customdesign_crop_handleSW" data-target="sw"></div>\
-									<div class="customdesign_crop_handle customdesign_crop_handleW" data-target="w"></div>\
-									<div class="customdesign_crop_handle customdesign_crop_handleNW" data-target="nw"></div>\
-									<div class="customdesign_crop_clickArea" style="background-image: url(\''+ops.src+'\');" data-target="visible" title="Enter to apply">\
+					content: '<div class="magic_crop_dragArea">\
+								<img src="'+ops.src+'" class="magic_crop_img" style="max-height: 520px;" />\
+								<div class="magic_crop_selArea">\
+									<div class="magic_crop_marqueeHoriz magic_crop_marqueeNorth"><span></span></div>\
+									<div class="magic_crop_marqueeVert magic_crop_marqueeEast"><span></span></div>\
+									<div class="magic_crop_marqueeHoriz magic_crop_marqueeSouth"><span></span></div>\
+									<div class="magic_crop_marqueeVert magic_crop_marqueeWest"><span></span></div>\
+									<div class="magic_crop_handle magic_crop_handleN" data-target="n"></div>\
+									<div class="magic_crop_handle magic_crop_handleNE" data-target="ne"></div>\
+									<div class="magic_crop_handle magic_crop_handleE" data-target="e"></div>\
+									<div class="magic_crop_handle magic_crop_handleSE" data-target="se"></div>\
+									<div class="magic_crop_handle magic_crop_handleS" data-target="s"></div>\
+									<div class="magic_crop_handle magic_crop_handleSW" data-target="sw"></div>\
+									<div class="magic_crop_handle magic_crop_handleW" data-target="w"></div>\
+									<div class="magic_crop_handle magic_crop_handleNW" data-target="nw"></div>\
+									<div class="magic_crop_clickArea" style="background-image: url(\''+ops.src+'\');" data-target="visible" title="Enter to apply">\
 									</div>\
-									<div class="customdesign_crop_info">0 x 0</div>\
+									<div class="magic_crop_info">0 x 0</div>\
 								</div>\
-								<div class="customdesign_crop_clickArea_scan" data-target="darken"></div>\
+								<div class="magic_crop_clickArea_scan" data-target="darken"></div>\
 							</div>\
-							<ul class="customdesign-crop-btns">\
+							<ul class="magic-crop-btns">\
 								<li data-func="center">\
-									<i class="customdesignx-resize-arrow-down"></i>\
-									<span>'+customdesign.i('01')+'</span>\
+									<i class="magicx-resize-arrow-down"></i>\
+									<span>'+magic.i('01')+'</span>\
 								</li>\
 								<li data-func="horizontal">\
-									<i class="customdesignx-move-horizontal"></i>\
-									<span>'+customdesign.i('02')+'</span>\
+									<i class="magicx-move-horizontal"></i>\
+									<span>'+magic.i('02')+'</span>\
 								</li>\
 								<li data-func="vertical">\
-									<i class="customdesignx-move-vertical"></i>\
-									<span>'+customdesign.i('03')+'</span>\
+									<i class="magicx-move-vertical"></i>\
+									<span>'+magic.i('03')+'</span>\
 								</li>\
 								'+(ops.square !== false ? '<li data-func="square">\
-									<i class="customdesignx-android-checkbox-outline-blank"></i>\
-									<span>'+customdesign.i('04')+'</span>\
+									<i class="magicx-android-checkbox-outline-blank"></i>\
+									<span>'+magic.i('04')+'</span>\
 								</li>\
 								' : '')+(ops.dimension !== undefined ? '<li data-func="dimension" class="active">\
-									<i class="customdesignx-link"></i>\
-									<span>'+customdesign.i('168')+'</span>\
+									<i class="magicx-link"></i>\
+									<span>'+magic.i('168')+'</span>\
 								</li>\
 								' : '')+'<li data-func="save">\
-									'+customdesign.i('save')+'\
+									'+magic.i('save')+'\
 								</li>\
 								<li data-func="cancel">\
-									'+customdesign.i('cancel')+'\
+									'+magic.i('cancel')+'\
 								</li>\
 							</ul>'
 				});
 
-				var crop = $('#customdesign-lightbox-content div.customdesign_crop_dragArea');
+				var crop = $('#magic-lightbox-content div.magic_crop_dragArea');
 				
 				crop.on('mousedown touchstart', function(e){
 						
@@ -11544,11 +11544,11 @@
 					}
 					
 					var wrp = $(this),
-						lightbox = $('#customdesign-lightbox-content'),
+						lightbox = $('#magic-lightbox-content'),
 						img = wrp.find('>img').get(0),
-						el = wrp.find('.customdesign_crop_selArea'),
-						i = wrp.find('.customdesign_crop_info'),
-						c = wrp.find('.customdesign_crop_clickArea');
+						el = wrp.find('.magic_crop_selArea'),
+						i = wrp.find('.magic_crop_info'),
+						c = wrp.find('.magic_crop_clickArea');
 
 					var ratio = img.width/img.naturalWidth,
 						target = e.target.getAttribute('data-target'),
@@ -11599,8 +11599,8 @@
 
 					if (target == 'darken') {
 
-						_o.l = e.clientX-$('#customdesign-lightbox-body').get(0).offsetLeft + (_o.pw/2);
-						_o.t = e.clientY-$('#customdesign-lightbox-body').get(0).offsetTop + (_o.ph/2) + 23;
+						_o.l = e.clientX-$('#magic-lightbox-body').get(0).offsetLeft + (_o.pw/2);
+						_o.t = e.clientY-$('#magic-lightbox-body').get(0).offsetTop + (_o.ph/2) + 23;
 
 						el.css({
 							left: _o.l+'px',
@@ -11709,9 +11709,9 @@
 
 				});
 
-				crop.find('img.customdesign_crop_img').on('load', function(){
+				crop.find('img.magic_crop_img').on('load', function(){
 
-					var s = customdesign.get.stage(), lb = $('#customdesign-lightbox-content'), p;
+					var s = magic.get.stage(), lb = $('#magic-lightbox-content'), p;
 
 					if (!s.active)
 						return;
@@ -11735,9 +11735,9 @@
 					if (ops.width === undefined && this.offsetWidth < 500)
 						lb.css({'min-width': this.offsetWidth});
 					
-					lb.find('div.customdesign_crop_selArea').css(p);
-					lb.find('div.customdesign_crop_dragArea').trigger('mousedown touchstart').off('mousemove');
-					lb.find('div.customdesign_crop_clickArea').css({
+					lb.find('div.magic_crop_selArea').css(p);
+					lb.find('div.magic_crop_dragArea').trigger('mousedown touchstart').off('mousemove');
+					lb.find('div.magic_crop_clickArea').css({
 						backgroundSize: this.offsetWidth+'px '+this.offsetHeight+'px',
 						backgroundPosition: '-'+p.left+' -'+p.top,
 						opacity: 1
@@ -11750,10 +11750,10 @@
 
 				});
 
-				$('#customdesign-lightbox-content .customdesign-crop-btns li[data-func]').on('click', function(e){
+				$('#magic-lightbox-content .magic-crop-btns li[data-func]').on('click', function(e){
 
 					var func = this.getAttribute('data-func'),
-						el = crop.find('.customdesign_crop_selArea');
+						el = crop.find('.magic_crop_selArea');
 
 					switch (func) {
 						case 'square' :
@@ -11789,29 +11789,29 @@
 							if (typeof ops.save == 'function')
 								ops.save(crop);
 							
-							return $('#customdesign-lightbox').remove();
+							return $('#magic-lightbox').remove();
 							
 						break;
 						case 'cancel':
-							return $('#customdesign-lightbox').remove();
+							return $('#magic-lightbox').remove();
 						break;
 					}
 
-					$('#customdesign-lightbox-content div.customdesign_crop_dragArea').
+					$('#magic-lightbox-content div.magic_crop_dragArea').
 						trigger('mousedown').
 						off('mousemove').
 						off('touchmove');
 
 				});
 
-				if (!customdesign.actions['globalMouseUp']) {
+				if (!magic.actions['globalMouseUp']) {
 					
-					customdesign.actions.add('globalMouseUp', function(e){
+					magic.actions.add('globalMouseUp', function(e){
 						
-						if (document.querySelectorAll('#customdesign-lightbox-content .customdesign_crop_dragArea').length > 0) {
+						if (document.querySelectorAll('#magic-lightbox-content .magic_crop_dragArea').length > 0) {
 							
-							var crop = $('#customdesign-lightbox-content div.customdesign_crop_dragArea'),
-								area = crop.find('div.customdesign_crop_selArea'),
+							var crop = $('#magic-lightbox-content div.magic_crop_dragArea'),
+								area = crop.find('div.magic_crop_selArea'),
 								w = area.width(),
 								h = area.height(),
 								l = area.get(0).offsetLeft,
@@ -11898,12 +11898,12 @@
 					
 					if (op.obj.fxOrigin) {
 						op.obj.fxOrigin.onload = function() {
-							customdesign.fn.refresh_image_fx(op.obj);
+							magic.fn.refresh_image_fx(op.obj);
 						};
 						op.obj.fxOrigin.src = src;
 					};
 					
-					customdesign.stage().canvas.renderAll();
+					magic.stage().canvas.renderAll();
 						
 					if (typeof op.callback == 'function')
 						op.callback(src);
@@ -11914,12 +11914,12 @@
 			
 			uncache_large_images : function(callback, revert) {
 				
-				$('#CustomdesignDesign').attr({'data-processing': 'true', 'data-msg': 'Uncache processing..'});
+				$('#MagicDesign').attr({'data-processing': 'true', 'data-msg': 'Uncache processing..'});
 				
 				if (typeof callback != 'function')
 					callback = function() {};
 					
-				var s = customdesign.stage(),
+				var s = magic.stage(),
 					objs = s.canvas.getObjects(),
 					index = 0,
 					process = function() {
@@ -11950,7 +11950,7 @@
 											old_src: null
 										});
 										
-										customdesign.fn.refresh_image_fx(obj, process);
+										magic.fn.refresh_image_fx(obj, process);
 										
 									});
 								
@@ -11966,7 +11966,7 @@
 										old_src: old_src
 									});
 									
-									customdesign.fn.refresh_image_fx(obj, process);
+									magic.fn.refresh_image_fx(obj, process);
 									
 								});
 								
@@ -12036,15 +12036,15 @@
 
 			colorPresets : function() {
 				
-				var colors = customdesign.data.colors,
-					el = $('.customdesign-color-presets'),
+				var colors = magic.data.colors,
+					el = $('.magic-color-presets'),
 					lb;
 				
 				if (colors !== undefined && colors.indexOf(':') > -1)
 					colors = colors.split(':')[1].replace(/\|/g, ',');
 				
-				if (customdesign.data.enable_colors != '0' && localStorage.getItem('customdesign_color_presets')) {
-					colors = localStorage.getItem('customdesign_color_presets').replace(/\|/g, ',');
+				if (magic.data.enable_colors != '0' && localStorage.getItem('magic_color_presets')) {
+					colors = localStorage.getItem('magic_color_presets').replace(/\|/g, ',');
 				};
 
 				el.html('');
@@ -12055,15 +12055,15 @@
 						
 					if (c[1] !== undefined && c[1] !== '')
 						lb = decodeURIComponent(c[1]).replace(/\"/g, '');
-					else if (customdesign.ops.color_maps[c[0]] !== undefined)
-						lb = customdesign.ops.color_maps[c[0]];
+					else if (magic.ops.color_maps[c[0]] !== undefined)
+						lb = magic.ops.color_maps[c[0]];
 						
 					el.append('<li data-color="'+c[0]+'" title="'+lb+'" style="background:'+c[0]+'"></li>');
 					
 				});
 				
 				el.find('li').on('click', function(){
-					var el = customdesign.get.el($(this).closest('ul.customdesign-color-presets').data('target'));
+					var el = magic.get.el($(this).closest('ul.magic-color-presets').data('target'));
 					el.val(this.getAttribute('data-color'));
 					if (el.get(0).color && typeof el.get(0).color.fromString == 'function')
 						el.get(0).color.fromString(this.getAttribute('data-color'));
@@ -12073,30 +12073,30 @@
 
 			refresh_my_designs : function(is_save){
 				
-				if (customdesign.ops.designs_loading === true)
+				if (magic.ops.designs_loading === true)
 					return;
 					
-				customdesign.get.el('saved-designs').html('');
+				magic.get.el('saved-designs').html('');
 				
-				customdesign.ops.designs_loading = true;
-				delete customdesign.ops.designs_cursor;
-				customdesign.indexed.list(function(data){
-					customdesign.render.my_designs(data);
-					customdesign.ops.designs_cursor = data.id;
+				magic.ops.designs_loading = true;
+				delete magic.ops.designs_cursor;
+				magic.indexed.list(function(data){
+					magic.render.my_designs(data);
+					magic.ops.designs_cursor = data.id;
 					delete data;
 				}, 'designs', function(st){
-					customdesign.ops.designs_loading = false;
+					magic.ops.designs_loading = false;
 					if (st == 'done') {
-						$('#customdesign-my-designs').off('scroll');
+						$('#magic-my-designs').off('scroll');
 						if (is_save) {
-							$('#customdesign-saved-designs').prepend(
+							$('#magic-saved-designs').prepend(
 								'<li data-view="add" data-func="edit" data-id="new">\
 									<b data-func="edit">+</b>\
-									<span data-func="edit">'+customdesign.i(107)+'</span>\
+									<span data-func="edit">'+magic.i(107)+'</span>\
 								</li>'
 							);
-						} else if ($('#customdesign-saved-designs>li').length === 0) {
-							$('#customdesign-saved-designs').append('<p class="empty">No item found!</p>');
+						} else if ($('#magic-saved-designs>li').length === 0) {
+							$('#magic-saved-designs').append('<p class="empty">No item found!</p>');
 						}
 					}
 				});
@@ -12109,31 +12109,31 @@
 					return;
 				
 				// delete old data not combine version 1.7.1+
-				if (customdesign.fn.version_compare('1.7.1', design.system_version) > 0) {
-					customdesign.indexed.delete(design.id, 'designs');
-					customdesign.indexed.delete(design.id, 'dumb');
+				if (magic.fn.version_compare('1.7.1', design.system_version) > 0) {
+					magic.indexed.delete(design.id, 'designs');
+					magic.indexed.delete(design.id, 'dumb');
 					return;
 				};
 				
 				design.screenshot = typeof design.screenshot == 'string' ?
-									URL.createObjectURL(customdesign.fn.url2blob(design.screenshot)) : 
-									customdesign.data.assets+'assets/images/default_category.jpg';
+									URL.createObjectURL(magic.fn.url2blob(design.screenshot)) : 
+									magic.data.assets+'assets/images/default_category.jpg';
 									
-				customdesign.ops.my_designs[design.id] = design;
+				magic.ops.my_designs[design.id] = design;
 				
-				var el = customdesign.get.el('saved-designs'), lis = '';
+				var el = magic.get.el('saved-designs'), lis = '';
 				
 				el.find('p.empty').remove();
 				
-				lis += '<li data-id="'+design.id+'" data-use-text="'+customdesign.i(212)+'" data-func="edit" data-save-text="'+customdesign.i(213)+'" data-created="'+design.created+'" data-name="'+design.name+'" class="bgcolorafter">\
+				lis += '<li data-id="'+design.id+'" data-use-text="'+magic.i(212)+'" data-func="edit" data-save-text="'+magic.i(213)+'" data-created="'+design.created+'" data-name="'+design.name+'" class="bgcolorafter">\
 							<div data-view="stages">\
 								<span>\
 								  <img src="'+design.screenshot+'" height="150" />\
 								</span>\
 							</div>\
-							<span data-view="name" data-id="'+design.id+'" data-func="name" title="'+customdesign.i(52)+'" data-enter="blur" contenteditable>'+(design.name ? design.name : 'Untitled')+'</span>\
-							<em data-view="date">'+customdesign.fn.date('h:m D d M, Y', design.updated*1000)+'</em>\
-							<i class="customdesignx-android-close" data-func="delete" title="'+customdesign.i(51)+'"></i>\
+							<span data-view="name" data-id="'+design.id+'" data-func="name" title="'+magic.i(52)+'" data-enter="blur" contenteditable>'+(design.name ? design.name : 'Untitled')+'</span>\
+							<em data-view="date">'+magic.fn.date('h:m D d M, Y', design.updated*1000)+'</em>\
+							<i class="magicx-android-close" data-func="delete" title="'+magic.i(51)+'"></i>\
 						</li>';
 
 				el.append(lis);
@@ -12143,19 +12143,19 @@
 
 			shapes : function(data) {
 
-				if (customdesign.get.el('shapes').find('ul.customdesign-list-items').length === 0) {
-					customdesign.get.el('shapes').html(
-						'<p class="gray">'+customdesign.i(158)+'</p>\
-						<div class="customdesign-tab-body">\
-							<ul class="customdesign-list-items"></ul>\
+				if (magic.get.el('shapes').find('ul.magic-list-items').length === 0) {
+					magic.get.el('shapes').html(
+						'<p class="gray">'+magic.i(158)+'</p>\
+						<div class="magic-tab-body">\
+							<ul class="magic-list-items"></ul>\
 						</div>');
 				}
 
 				if (data.length > 0) {
-					var ul = customdesign.get.el('shapes').find('ul.customdesign-list-items');
+					var ul = magic.get.el('shapes').find('ul.magic-list-items');
 					data.map(function(sh) {
 						ul.append(
-							'<li class="customdesign-clipart" \
+							'<li class="magic-clipart" \
 							data-ops="[{\
 								&quot;type&quot;: &quot;shape&quot;,\
 								&quot;resource&quot;: &quot;shape&quot;,\
@@ -12166,7 +12166,7 @@
 						);
 					});
 
-					customdesign.cliparts.add_events();
+					magic.cliparts.add_events();
 
 				}else html += '<h3>No item found</h3>';
 
@@ -12181,23 +12181,23 @@
 					list = '';
 
 				if (fonts) {
-					localStorage.setItem('CUSTOMDESIGN_FONTS', JSON.stringify(fonts));
+					localStorage.setItem('MAGIC_FONTS', JSON.stringify(fonts));
 				}else{
-					if (!localStorage.getItem('CUSTOMDESIGN_FONTS')) {
-						localStorage.setItem('CUSTOMDESIGN_FONTS', typeof customdesign.data.default_fonts == 'string' ? customdesign.data.default_fonts : JSON.stringify(customdesign.data.default_fonts));
+					if (!localStorage.getItem('MAGIC_FONTS')) {
+						localStorage.setItem('MAGIC_FONTS', typeof magic.data.default_fonts == 'string' ? magic.data.default_fonts : JSON.stringify(magic.data.default_fonts));
 					}
-					fonts = JSON.parse(localStorage.getItem('CUSTOMDESIGN_FONTS'));
+					fonts = JSON.parse(localStorage.getItem('MAGIC_FONTS'));
 				}
 				
-				customdesign.get.el('text-ext').html('');
+				magic.get.el('text-ext').html('');
 				
 				try {
-					active = customdesign.stage().canvas.getActiveObject().fontFamily;
+					active = magic.stage().canvas.getActiveObject().fontFamily;
 				}catch(ex){active = '';};
 
-				window.customdesign_render_text = function(family, font, fontObj) {
+				window.magic_render_text = function(family, font, fontObj) {
 
-					if ($('#customdesign-text-ext li[data-family="'+family+'"]').length > 0)
+					if ($('#magic-text-ext li[data-family="'+family+'"]').length > 0)
 						return;
 					
 					var fontShow = family;
@@ -12220,20 +12220,20 @@
 							</svg>\
 						</span>');
 
-					$('#customdesign-text-ext').append(el);
+					$('#magic-text-ext').append(el);
 
-					customdesign.design.event_add_text(el.get(0));
+					magic.design.event_add_text(el.get(0));
 
-					customdesign.fn.getTextWidth({family: family, size: 30, text: family}, function(m){
+					magic.fn.getTextWidth({family: family, size: 30, text: family}, function(m){
 						el.find('svg').attr({width: (m.width+18)});
 					});
 
 				};
 
-				customdesign_render_text('Arial');
+				magic_render_text('Arial');
 
-				if (customdesign.data.fonts && customdesign.data.fonts.length > 0) {
-					customdesign.data.fonts.map(function(font){
+				if (magic.data.fonts && magic.data.fonts.length > 0) {
+					magic.data.fonts.map(function(font){
 
 						if (font.name.indexOf('"') > -1)
 							return;
@@ -12249,11 +12249,11 @@
 								data-source="'+font.upload+'">'+fontShow+
 							'</font>';
 
-						customdesign.tools.load_font(
+						magic.tools.load_font(
 							font.name,
-							'url('+customdesign.data.upload_url+font.upload.replace(/\\/g, '/')+')',
+							'url('+magic.data.upload_url+font.upload.replace(/\\/g, '/')+')',
 							function(family){
-								customdesign_render_text(family, font.upload, font);
+								magic_render_text(family, font.upload, font);
 							}
 						);
 
@@ -12265,7 +12265,7 @@
 					txt = decodeURIComponent(family).replace(/ /g, '+')+':'+
 						  decodeURIComponent(fonts[family][1]);
 
-					list += '<link onload="customdesign_render_text(\''+decodeURIComponent(family)+'\', \''+ encodeURIComponent(JSON.stringify(fonts[family]))+'\')" rel="stylesheet" href="'+(uri+txt)+'" \
+					list += '<link onload="magic_render_text(\''+decodeURIComponent(family)+'\', \''+ encodeURIComponent(JSON.stringify(fonts[family]))+'\')" rel="stylesheet" href="'+(uri+txt)+'" \
 							type="text/css" media="all" />\
 							<font'+(active == decodeURIComponent(family) ? ' class="selected"' : '')+
 								' data-family="'+decodeURIComponent(family)+'" \
@@ -12275,13 +12275,13 @@
 
 				});
 
-				customdesign.get.el('fonts').html(list);
+				magic.get.el('fonts').html(list);
 
 			},
 			
 			stage_nav : function () {
 				
-				var stages = customdesign.data.stages,
+				var stages = magic.data.stages,
 					stage_nav = [],
 					i = 1,
 					first_stage = '',
@@ -12300,9 +12300,9 @@
 							if (stages[s].overlay !== false)
 								stages[s].overlay = true;
 								
-							stages[s].color = customdesign.data._color;
+							stages[s].color = magic.data._color;
 
-							var stageColor = customdesign.get.color();
+							var stageColor = magic.get.color();
 							
 							if (
 								(stages[s].url !== undefined && stages[s].url !== '') ||
@@ -12312,13 +12312,13 @@
 								if (!stages[s].image) {
 									stages[s].image = (
 										stages[s].source == 'raws' ? 
-										customdesign.data.assets+'raws/' : 
-										customdesign.data.upload_url
+										magic.data.assets+'raws/' : 
+										magic.data.upload_url
 									)+stages[s].url;
 								};
 								
 								if(
-									sessionStorage.getItem('customdesign_change_product') !== null && 
+									sessionStorage.getItem('magic_change_product') !== null && 
 									stages[s].data !== undefined &&
 									stages[s].data.screenshot !== undefined &&
 									stages[s].data.screenshot !== ''
@@ -12347,20 +12347,20 @@
 								if (stages[s].screenshot !== undefined && stages[s].screenshot !== '')
 									thumbn_url = stages[s].screenshot;
 								else if (stages[s].thumbnail !== undefined && stages[s].thumbnail !== '')
-									thumbn_url = customdesign.data.upload_url+stages[s].thumbnail;
+									thumbn_url = magic.data.upload_url+stages[s].thumbnail;
 								else thumbn_url = stages[s].image;
 								
 								label =(
 										stages[s].label !== undefined && 
 										stages[s].label !== ''
-									) ? stages[s].label : (customdesign.i('_'+s) ? customdesign.i('_'+s) : '');
+									) ? stages[s].label : (magic.i('_'+s) ? magic.i('_'+s) : '');
 								
 								var additional_price = 0;
 								if(typeof(stages[s].addon) != "undefined" && typeof(stages[s].addon.additional_price) != "undefined" && stages[s].addon.additional_price != null){
 									additional_price = stages[s].addon.additional_price;
 								}
 								stage_nav.push(
-									'<li data-additional_price="'+additional_price+'" data-stage="'+s+'" data-tip="true"'+(s === customdesign.current_stage ? ' class="active"' : '')+'>\
+									'<li data-additional_price="'+additional_price+'" data-stage="'+s+'" data-tip="true"'+(s === magic.current_stage ? ' class="active"' : '')+'>\
 										<img style="background:'+stageColor+'" data-stage="'+s+'" src="'+thumbn_url+'" />\
 										<span data-stage="'+s+'">'+(label !== '' ? label+' ('+i+'/'+total+')' : i+'/'+total)+'</span>\
 									</li>'
@@ -12372,8 +12372,8 @@
 							
 						}
 					});
-					if(sessionStorage.getItem('customdesign_change_product') !== null){
-						sessionStorage.removeItem('customdesign_change_product');
+					if(sessionStorage.getItem('magic_change_product') !== null){
+						sessionStorage.removeItem('magic_change_product');
 					}
 					
 					if (stage_nav.length > 1) {
@@ -12381,20 +12381,20 @@
 						stage_nav.push('<li data-nav="next" data-tip="true"><i data-svg="next"></i><span></span></li>');
 					};
 					
-					stage_nav = customdesign.apply_filters('stage_nav', stage_nav);
+					stage_nav = magic.apply_filters('stage_nav', stage_nav);
 					
 				};
 				
-				customdesign.get.el('stage-nav').find('>ul').html(stage_nav.join('')).css({
+				magic.get.el('stage-nav').find('>ul').html(stage_nav.join('')).css({
 					display: stage_nav.length > 1 ? 'inline-block' : 'none'
 				});
 				
-				$('#customdesign-stage-nav ul').sortable({
+				$('#magic-stage-nav ul').sortable({
 					items: '>li[data-stage]',
 					start: function(e, ui) {
 						if (
-							!ui.item.closest('#customdesign-stage-nav').hasClass('stages-expand') ||
-							ui.item.closest('#customdesign-stage-nav').hasClass('preview-designs')
+							!ui.item.closest('#magic-stage-nav').hasClass('stages-expand') ||
+							ui.item.closest('#magic-stage-nav').hasClass('preview-designs')
 						) {
 							setTimeout(function(el) {
 								try {el.sortable("cancel");}catch(ex){};
@@ -12403,17 +12403,17 @@
 				    },
 				    beforeStop: function() {
 					    var _stages = {};
-					    $('#customdesign-stage-nav ul li[data-stage]').each(function() {
-						    _stages[this.getAttribute('data-stage')] = customdesign.data.stages[this.getAttribute('data-stage')];
+					    $('#magic-stage-nav ul li[data-stage]').each(function() {
+						    _stages[this.getAttribute('data-stage')] = magic.data.stages[this.getAttribute('data-stage')];
 					    });
-					    customdesign.data.stages = _stages;
-					    customdesign.render.stage_nav();
+					    magic.data.stages = _stages;
+					    magic.render.stage_nav();
 				    }
 				});
 				
-				customdesign.fn.stage_nav();
+				magic.fn.stage_nav();
 				
-				customdesign.actions.do('render_stage_nav');
+				magic.actions.do('render_stage_nav');
 				
 				return first_stage;
 					
@@ -12421,51 +12421,51 @@
 			
 			product : function(data, callback, designs) {
 				
-				data = customdesign.apply_filters('product', data);
+				data = magic.apply_filters('product', data);
 				data = $.extend(true, {}, data);
 				
 				if (Object.keys(data.stages).length > 0 && Object.values(data.stages)[0].color)
-					customdesign.data.color = Object.values(data.stages)[0].color;
-				else delete customdesign.data.color;
+					magic.data.color = Object.values(data.stages)[0].color;
+				else delete magic.data.color;
 				
 				if (data.variations !== undefined && data.variations !== '' && typeof data.variations == 'string')
-					data.variations = customdesign.fn.dejson(data.variations);
+					data.variations = magic.fn.dejson(data.variations);
 				
 				if (data.attributes !== undefined && data.attributes !== '' && typeof data.attributes == 'string')
-					data.attributes = customdesign.fn.dejson(data.attributes);
+					data.attributes = magic.fn.dejson(data.attributes);
 				
 				if (data.stages !== undefined && data.stages !== '' && typeof data.stages == 'string')
-					data.stages = customdesign.fn.dejson(data.stages);
+					data.stages = magic.fn.dejson(data.stages);
 				
 				delete data.stages.options;
 				
-				customdesign.ops.product_data = data;
-				customdesign.data.printings_cfg = data.printings_cfg;
+				magic.ops.product_data = data;
+				magic.data.printings_cfg = data.printings_cfg;
 				
 				if (Object.keys(data.stages).length === 0) {
-					customdesign.f(false);
-					$('#customdesign-main').html(
-						'<div id="customdesign-no-product" style="display: block;">\
-							<p>'+customdesign.i(208)+'</p>\
-							<button class="customdesign-btn" id="customdesign-select-product">\
-								<i class="customdesignx-android-apps"></i> \
-								'+customdesign.i(87)+'\
+					magic.f(false);
+					$('#magic-main').html(
+						'<div id="magic-no-product" style="display: block;">\
+							<p>'+magic.i(208)+'</p>\
+							<button class="magic-btn" id="magic-select-product">\
+								<i class="magicx-android-apps"></i> \
+								'+magic.i(87)+'\
 							</button>\
 						</div>');
 					
-					$('#customdesign-select-product').on('click', customdesign.render.products_list);
+					$('#magic-select-product').on('click', magic.render.products_list);
 					
-					return customdesign.fn.notice(customdesign.i(209), 'error', 5000);
+					return magic.fn.notice(magic.i(209), 'error', 5000);
 				}
 				
 				var variations = data.variations !== undefined ? data.variations : {};
 				
-				customdesign.data.variations = variations;
+				magic.data.variations = variations;
 				// Get data from variation if valid one of variations
-				var vari_data = customdesign.fn.process_variations(variations.default, null);
+				var vari_data = magic.fn.process_variations(variations.default, null);
 				
-				customdesign.data.variation = vari_data.variation;
-				customdesign.data.cfgstages = vari_data.cfgstages;
+				magic.data.variation = vari_data.variation;
+				magic.data.cfgstages = vari_data.cfgstages;
 					
 				if (
 					typeof data.templates == 'object' && 
@@ -12478,10 +12478,10 @@
 					});
 				};
 				
-				customdesign.data.product = data.id;
+				magic.data.product = data.id;
 			
 				if (data.saved_stages === undefined) {
-					customdesign.data.stages = customdesign.fn.keep_current_designs(vari_data.stages);
+					magic.data.stages = magic.fn.keep_current_designs(vari_data.stages);
 				} else {
 					var _stages = {};
 					Object.keys(data.saved_stages).map(function(s) {
@@ -12490,34 +12490,34 @@
 							_stages[s].data = data.saved_stages[s].data;
 						} else _stages[s] = data.saved_stages[s];
 					});
-					customdesign.data.stages = _stages;
+					magic.data.stages = _stages;
 				};
 				
-				customdesign.data.cfgprinting = vari_data.cfgprinting;
+				magic.data.cfgprinting = vari_data.cfgprinting;
 				
 				if (vari_data.cfgprinting)
-					customdesign.data.printings_cfg = vari_data.printings_cfg;
+					magic.data.printings_cfg = vari_data.printings_cfg;
 					
-				customdesign.data.printings = vari_data.printings;
+				magic.data.printings = vari_data.printings;
 				
-				customdesign.fn.set_url('product_base', data.id);
+				magic.fn.set_url('product_base', data.id);
 				
 				if (data.product !== null && data.product !== undefined && data.product !== 0)
-					customdesign.fn.set_url('product_cms', data.product);
+					magic.fn.set_url('product_cms', data.product);
 				
-				customdesign.get.el('main').find('.customdesign-stage,#customdesign-no-product').remove();
-				customdesign.get.el('navigations').find('ul[data-block] li.active').removeClass('active');
+				magic.get.el('main').find('.magic-stage,#magic-no-product').remove();
+				magic.get.el('navigations').find('ul[data-block] li.active').removeClass('active');
 				
-				customdesign.active_stage(customdesign.render.stage_nav(), function(){
+				magic.active_stage(magic.render.stage_nav(), function(){
 					
-					var stage = customdesign.stage();
+					var stage = magic.stage();
 					
-					if (customdesign.data.share !== undefined) 
+					if (magic.data.share !== undefined) 
 					{
 						
-						customdesign.f('Loading share data..');
+						magic.f('Loading share data..');
 						
-						$.get(customdesign.data.upload_url+'shares/'+customdesign.data.share+'.lumi', function(res) {
+						$.get(magic.data.upload_url+'shares/'+magic.data.share+'.lumi', function(res) {
 			                try {
 								res = JSON.parse(res);
 							}catch(ex){
@@ -12525,15 +12525,15 @@
 							};
 							if (res.stages !== undefined) {
 								
-								customdesign.tools.imports(res, function(){
-									if (customdesign.ops.first_completed !== true) {
-										customdesign.actions.do('first-completed');
-										customdesign.ops.first_completed = true;
+								magic.tools.imports(res, function(){
+									if (magic.ops.first_completed !== true) {
+										magic.actions.do('first-completed');
+										magic.ops.first_completed = true;
 									};
-									$('#customdesign-general-status').html(
+									$('#magic-general-status').html(
 										'<span>\
-											<i class="customdesignx-android-checkmark-circle"></i> '+
-											customdesign.i(136)+
+											<i class="magicx-android-checkmark-circle"></i> '+
+											magic.i(136)+
 										'</span>'
 									);
 								});
@@ -12543,58 +12543,58 @@
 							};
 							
 			            }).done(function() {}).fail(function(data, textStatus, xhr) {
-			                customdesign.fn.notice('SHARE LINK ERROR: '+data.status, 'error', 5000);
+			                magic.fn.notice('SHARE LINK ERROR: '+data.status, 'error', 5000);
 			            }).always(function() {
-				            customdesign.f(false);
+				            magic.f(false);
 			            });
-						delete customdesign.data.share;
+						delete magic.data.share;
 						
 					} 
 					// hash : 5fecb5125fdb9c9cf8f2e54802cfb020
-					else if (customdesign.fn.url_var('cart', '') !== '' && sessionStorage.getItem("CUSTOMDESIGN-START-NEW") !== null && sessionStorage.getItem('kCUSTOMDESIGN-START-NEW') === true) 
+					else if (magic.fn.url_var('cart', '') !== '' && sessionStorage.getItem("MAGIC-START-NEW") !== null && sessionStorage.getItem('kMAGIC-START-NEW') === true) 
 					{
-						sessionStorage.setItem('CUSTOMDESIGN-START-NEW', false);
-						customdesign.f('Processing..');
+						sessionStorage.setItem('MAGIC-START-NEW', false);
+						magic.f('Processing..');
 						
-						customdesign.indexed.get(customdesign.fn.url_var('cart'), 'cart', function(res){
+						magic.indexed.get(magic.fn.url_var('cart'), 'cart', function(res){
 							
 							if (res === undefined)
-								return customdesign.f(false);
+								return magic.f(false);
 							
 							if (res['template'] !== undefined){
-								customdesign.cart.template = res.template.stages;
-								customdesign.cart.price.template = res.template.price;
+								magic.cart.template = res.template.stages;
+								magic.cart.price.template = res.template.price;
 							}
 							
 							if (res['extra'] !== undefined){
-								customdesign.cart.price.extra = res.extra;
+								magic.cart.price.extra = res.extra;
 							}
 							
-							customdesign.tools.imports(res, function(){
-								if (customdesign.ops.first_completed !== true) {
-									customdesign.actions.do('first-completed');
-									customdesign.ops.first_completed = true;
+							magic.tools.imports(res, function(){
+								if (magic.ops.first_completed !== true) {
+									magic.actions.do('first-completed');
+									magic.ops.first_completed = true;
 								};
 							});
 							
 						});
 						
-						for (var s in customdesign.data.stages) {
-							if (customdesign.data.stages[s].template !== undefined)
-								customdesign.data.stages[s].template.noload = true;
+						for (var s in magic.data.stages) {
+							if (magic.data.stages[s].template !== undefined)
+								magic.data.stages[s].template.noload = true;
 						};
 						
 						return;
 						
 					}
 					
-					stage.screenshot = customdesign.tools.toImage({
+					stage.screenshot = magic.tools.toImage({
 						stage: stage,
 						is_bg: 'full', 
 						multiplier: 1/window.devicePixelRatio
 					});
 					
-					$('#customdesign-stage-nav img[data-stage="'+customdesign.current_stage+'"]').attr({
+					$('#magic-stage-nav img[data-stage="'+magic.current_stage+'"]').attr({
 						src: stage.screenshot
 					});
 					
@@ -12611,23 +12611,23 @@
 				vari_data.ext_attributes_value = data.ext_attributes_value;
 				vari_data.ext_attributes_callback = data.ext_attributes_callback;
 				
-				customdesign.render.product_attrs(vari_data);
-				customdesign.actions.do('product', vari_data);
+				magic.render.product_attrs(vari_data);
+				magic.actions.do('product', vari_data);
 				
 			},
 			
 			product_attrs : function(data) {
 				
-				var p = customdesign.get.el('product');
+				var p = magic.get.el('product');
 				
-				if (customdesign.ops.doctitle === undefined)
-					customdesign.ops.doctitle = document.title;
+				if (magic.ops.doctitle === undefined)
+					magic.ops.doctitle = document.title;
 					
-				document.title = data.name+' | '+customdesign.ops.doctitle;
+				document.title = data.name+' | '+magic.ops.doctitle;
 				
-				p.find('nav.customdesign-add-cart-action').show();
+				p.find('nav.magic-add-cart-action').show();
 				p.find('header').show().find('>name').html('<t>'+(data.name ? data.name : '')+' &nbsp; </t>');
-				p.find('header>price').html(customdesign.fn.price(data.price));
+				p.find('header>price').html(magic.fn.price(data.price));
 				p.find('header>sku').html(data.sku ? 'SKU: '+data.sku : '');
 				
 				if (data.description !== undefined && data.description !== '') {
@@ -12648,29 +12648,29 @@
 					 .on('click', function(e) {
 						$(this).toggleClass('open');
 						if ($(this).hasClass('open')) {
-							$(this).html(customdesign.i(137));
+							$(this).html(magic.i(137));
 							$(this).closest('desc').find('span').html($(this).closest('desc').data('desc'));	
 						} else{
-							$(this).html(customdesign.i(69));
+							$(this).html(magic.i(69));
 							$(this).closest('desc').find('span').html($(this).closest('desc').data('desc').substr(0, maxl));
 						}
 						e.preventDefault();
 					});
 				} else p.find('desc').hide();
 				
-				customdesign.get.el('cart-options').show();
+				magic.get.el('cart-options').show();
 				
-				customdesign.render.cart_change();
-				customdesign.cart.render(data);
+				magic.render.cart_change();
+				magic.cart.render(data);
 					
 			},
 			
 			cart_change : function() {
 
-				var current_id = customdesign.fn.url_var('cart', ''),
-					btn = customdesign.get.el('cart-action'),
-					items = localStorage.getItem('CUSTOMDESIGN-CART-DATA'),
-					wrp = customdesign.get.el('cart-items'),
+				var current_id = magic.fn.url_var('cart', ''),
+					btn = magic.get.el('cart-action'),
+					items = localStorage.getItem('MAGIC-CART-DATA'),
+					wrp = magic.get.el('cart-items'),
 					ul = wrp.find('ul[data-view="items"]'),
 					total = 0, item, keys, color;
 				
@@ -12696,7 +12696,7 @@
 				if (Object.keys(items).length > 0) {
 					Object.keys(items).map(function(id) {
 						item = items[id];
-						if (customdesign.fn.version_compare('1.7.1', item.system_version) <= 0) {
+						if (magic.fn.version_compare('1.7.1', item.system_version) <= 0) {
 							color = '#fefdfe';
 							qty = item.options.quantity ? item.options.quantity : 1;
 							if (
@@ -12737,51 +12737,51 @@
 							ul.append(
 							'<li data-func="edit" data-id="'+id+'">\
 								<span data-view="thumbn">\
-									<img data-func="edit" title="'+customdesign.i('edit')+'" data-id="'+id+'" style="background: '+color+'" src="'+item.screenshot+'" />\
+									<img data-func="edit" title="'+magic.i('edit')+'" data-id="'+id+'" style="background: '+color+'" src="'+item.screenshot+'" />\
 								</span>\
 								<span data-view="info">\
 									'+(id != current_id ? 
 										'<name>\
-											<a href="#edit" data-func="edit" title="'+customdesign.i('edit')+'" data-id="'+id+'">'+
+											<a href="#edit" data-func="edit" title="'+magic.i('edit')+'" data-id="'+id+'">'+
 												item.name+'\
 											</a>\
 										</name>' + '<quantity>x '+qty+'</quantity>' :
 										'<name>'+item.name+'</name> ' +'<quantity>x '+qty+'</quantity>'
-									)+'<price>'+customdesign.fn.price(item.price_total)+'</price> \
-									<a href="#remove" title="'+customdesign.i('remove')+'">\
-										<i class="customdesignx-android-close" data-func="remove" data-id="'+id+'"></i>\
+									)+'<price>'+magic.fn.price(item.price_total)+'</price> \
+									<a href="#remove" title="'+magic.i('remove')+'">\
+										<i class="magicx-android-close" data-func="remove" data-id="'+id+'"></i>\
 									</a>\
-									'+(id == current_id ? '<small>'+customdesign.i(72)+'</small> ' : '')+'\
+									'+(id == current_id ? '<small>'+magic.i(72)+'</small> ' : '')+'\
 								</span>\
 							</li>');
 							total += parseFloat(item.price_total);
 						}
 					});
-					ul.append('<li><strong>'+customdesign.i(74)+': '+customdesign.fn.price(total.toFixed(2))+'</strong></li>');
+					ul.append('<li><strong>'+magic.i(74)+': '+magic.fn.price(total.toFixed(2))+'</strong></li>');
 					ul.attr({'data-empty': 'false'});
 				}else {
-					ul.attr({'data-empty': 'true'}).html('<p><i class="customdesignx-bag"></i> '+customdesign.i(71)+'</p>');
+					ul.attr({'data-empty': 'true'}).html('<p><i class="magicx-bag"></i> '+magic.i(71)+'</p>');
 				}
 
-				customdesign.get.el('addToCart').find('small').remove();
-				customdesign.get.el('addToCart').append(' <small>'+keys.length+'</small>');
+				magic.get.el('addToCart').find('small').remove();
+				magic.get.el('addToCart').append(' <small>'+keys.length+'</small>');
 				
-				customdesign.actions.do('cart-change');
+				magic.actions.do('cart-change');
 				
 			},
 
 			cart_details : function(e) {
 
-				var items = JSON.parse(localStorage.getItem('CUSTOMDESIGN-CART-DATA') || '{}'),
-					ind = 1, item, attr, total = 0, current = customdesign.fn.url_var('cart'),
-					table = ['<table class="customdesign-table sty2"><thead>',
+				var items = JSON.parse(localStorage.getItem('MAGIC-CART-DATA') || '{}'),
+					ind = 1, item, attr, total = 0, current = magic.fn.url_var('cart'),
+					table = ['<table class="magic-table sty2"><thead>',
 								'<tr>',
 								'<th> &nbsp; # &nbsp; </th>',
-								'<th>'+customdesign.i(76)+'</th>',
-								'<th data-align="left"><div style="width: 240px;">'+customdesign.i(77)+'</div></th>',
-								'<th data-align="center">'+customdesign.i(104)+'</th>',
-								'<th data-align="center">'+customdesign.i(79)+'</th>',
-								'<th data-align="center"><div style="width: 120px;">'+customdesign.i(78)+'</div></th>',
+								'<th>'+magic.i(76)+'</th>',
+								'<th data-align="left"><div style="width: 240px;">'+magic.i(77)+'</div></th>',
+								'<th data-align="center">'+magic.i(104)+'</th>',
+								'<th data-align="center">'+magic.i(79)+'</th>',
+								'<th data-align="center"><div style="width: 120px;">'+magic.i(78)+'</div></th>',
 								'</tr>',
 							'</thead>',
 							'<tbody>'],
@@ -12800,10 +12800,10 @@
 				if (Object.keys(items).length > 0) {
 					Object.keys(items).map(function(id) {
 						
-						if (customdesign.fn.version_compare('1.7.1', items[id].system_version) > 0) {
+						if (magic.fn.version_compare('1.7.1', items[id].system_version) > 0) {
 							delete items[id];
-							localStorage.setItem('CUSTOMDESIGN-CART-DATA', JSON.stringify(items));
-							customdesign.indexed.delete(id, 'cart');
+							localStorage.setItem('MAGIC-CART-DATA', JSON.stringify(items));
+							magic.indexed.delete(id, 'cart');
 							return;
 						};
 							
@@ -12821,16 +12821,16 @@
 								item.attributes[at].type == 'color'
 							) {
 								
-								var lb = customdesign.fn.attr_label(val, item.attributes[at].values);
+								var lb = magic.fn.attr_label(val, item.attributes[at].values);
 								
-								val = '<span title="'+lb+'" style="background: '+val+';padding: 3px 5px;border-radius: 2px;color:'+customdesign.fn.invert(val)+'">'+lb+'</span>';
+								val = '<span title="'+lb+'" style="background: '+val+';padding: 3px 5px;border-radius: 2px;color:'+magic.fn.invert(val)+'">'+lb+'</span>';
 								
 							} else if (item.attributes[at].type == 'quantity') {
 								if (val !== '' && isNaN(parseInt(val))) {
 									try {
 										val = JSON.parse(val);
 										Object.keys(val).map(function(o) {
-											var lb = customdesign.fn.attr_label(o, item.attributes[at].values.multiple_options);
+											var lb = magic.fn.attr_label(o, item.attributes[at].values.multiple_options);
 											if(val[o] == 0){
 												delete val[o];
 												return;
@@ -12841,7 +12841,7 @@
 									} catch (ex) {};
 								}
 							} else if (typeof item.attributes[at].values == 'object') {
-								val = customdesign.fn.attr_label(val, item.attributes[at].values);
+								val = magic.fn.attr_label(val, item.attributes[at].values);
 							};
 							
 							attr += '<strong>'+item.attributes[at].name+':</strong> '+val+'<br />';
@@ -12855,16 +12855,16 @@
 							'<div data-design-layer="'+id+'"></div>',
 							'<span class="product-title"  align="center">'+item.name+'</span>',
 							'</td>',
-							'<td>'+attr+'<strong>'+customdesign.i(191)+':</strong> '+item.stages+'</td>',
-							'<td data-align="center">'+customdesign.fn.price(item.price_total)+'</td>',
-							'<td data-align="center">'+customdesign.fn.date('h:m D d M, Y', item.updated)+'</td>',
+							'<td>'+attr+'<strong>'+magic.i(191)+':</strong> '+item.stages+'</td>',
+							'<td data-align="center">'+magic.fn.price(item.price_total)+'</td>',
+							'<td data-align="center">'+magic.fn.date('h:m D d M, Y', item.updated)+'</td>',
 							'<td data-align="center">',
-							(current != id ? '<a href="#edit" data-id="'+id+'">'+customdesign.i('edit')+'</a>' : customdesign.i(72)),
-							'&nbsp; | &nbsp;<a href="#remove" data-id="'+id+'">'+customdesign.i('remove')+'</a>',
+							(current != id ? '<a href="#edit" data-id="'+id+'">'+magic.i('edit')+'</a>' : magic.i(72)),
+							'&nbsp; | &nbsp;<a href="#remove" data-id="'+id+'">'+magic.i('remove')+'</a>',
 							'</td>'
 						]);
 						
-						setTimeout(customdesign.fn.cart_thumbn, 100, id);
+						setTimeout(magic.fn.cart_thumbn, 100, id);
 						
 						total += parseFloat(item.price_total);
 						
@@ -12873,57 +12873,57 @@
 					table = table.concat(['</tbody>',
 						'<tfoot>',
 						'<tr>',
-						'<td colspan="3" class="customdesign-total">'+customdesign.i(74)+': '+customdesign.fn.price(total.toFixed(2)),
+						'<td colspan="3" class="magic-total">'+magic.i(74)+': '+magic.fn.price(total.toFixed(2)),
 						'</td>',
 						'<td colspan="3" data-align="right">',
-						'<button class="customdesign-btn-primary">'+customdesign.i(75)+' <i class="customdesignx-android-arrow-forward"></i></button>',
+						'<button class="magic-btn-primary">'+magic.i(75)+' <i class="magicx-android-arrow-forward"></i></button>',
 						'</td>',
 						'</tr>',
 						'</tfoot>',
 						'</table>']);
 				
 				}else{
-					table = table.concat(['<tr>', '<td colspan="6"><h3>'+customdesign.i(42)+'</h3></td>','</tr>','</table>']);
+					table = table.concat(['<tr>', '<td colspan="6"><h3>'+magic.i(42)+'</h3></td>','</tr>','</table>']);
 				};
 				
-				customdesign.tools.lightbox({
-					content: '<div id="customdesign-cart-details" class="customdesign_content customdesign_wrapper_table">\
-								<h3 class="title">'+customdesign.i(73)+'</h3>\
+				magic.tools.lightbox({
+					content: '<div id="magic-cart-details" class="magic_content magic_wrapper_table">\
+								<h3 class="title">'+magic.i(73)+'</h3>\
 								<div>'+table.join('')+'</div>\
 							</div>'
 				});
 				
-				customdesign.trigger({
+				magic.trigger({
 					
-					el: $('#customdesign-cart-details'),
+					el: $('#magic-cart-details'),
 					
 					events: {
 						'a[href="#edit"]': 'edit_item',
 						'a[href="#remove"]': 'remove_item',
-						'tfoot button.customdesign-btn-primary': customdesign.cart.do_checkout
+						'tfoot button.magic-btn-primary': magic.cart.do_checkout
 					},
 					
 					edit_item: function(e) {
-						customdesign.cart.edit_item(this.getAttribute('data-id'), e);
+						magic.cart.edit_item(this.getAttribute('data-id'), e);
 						e.preventDefault();
 					},
 					
 					remove_item: function(e) {
 						
-						if (confirm(customdesign.i('sure'))) {
+						if (confirm(magic.i('sure'))) {
 							
 							var id = this.getAttribute('data-id'),
-								total_elm = $('#customdesign-cart-details').find('tfoot tr:first td'),
+								total_elm = $('#magic-cart-details').find('tfoot tr:first td'),
 								total = 0;
 							
-							if (customdesign.fn.url_var('cart', null) == id)
-								customdesign.fn.set_url('cart', null);
+							if (magic.fn.url_var('cart', null) == id)
+								magic.fn.set_url('cart', null);
 							
-							var items = JSON.parse(localStorage.getItem('CUSTOMDESIGN-CART-DATA'));
+							var items = JSON.parse(localStorage.getItem('MAGIC-CART-DATA'));
 							delete items[id];
 							
-							localStorage.setItem('CUSTOMDESIGN-CART-DATA', JSON.stringify(items));
-							customdesign.render.cart_change();
+							localStorage.setItem('MAGIC-CART-DATA', JSON.stringify(items));
+							magic.render.cart_change();
 							
 							$(this).closest('tr').remove();
 							
@@ -12934,12 +12934,12 @@
 							});
 							
 							$(total_elm[0]).html(
-								customdesign.i(74)+': '+customdesign.fn.price(total.toFixed(2))
+								magic.i(74)+': '+magic.fn.price(total.toFixed(2))
 							);
 							
 							if(total == 0) {
 								$(total_elm[1]).html('');
-								$('#customdesign-cart-details').find('tfoot .customdesign-btn-primary').hide();
+								$('#magic-cart-details').find('tfoot .magic-btn-primary').hide();
 							}
 							
 						};
@@ -12958,19 +12958,19 @@
 				var btn = $('button[data-func="show-categories"][data-type="'+type+'"]');
 				
 				if (res !== undefined) {
-					customdesign.ops.categories[type] = res;
+					magic.ops.categories[type] = res;
 					if (res.category !== 0 && res.category !== '' && res.category_name !== '')
 						btn.find('span').html(res.category_name);
-					else btn.find('span').html(customdesign.i(57));
-				}else res = customdesign.ops.categories[type];
+					else btn.find('span').html(magic.i(57));
+				}else res = magic.ops.categories[type];
 				
 				var items = res.categories,
 					curr = res.category,
-					wrp = customdesign.get.el('x-thumbn-preview'),
-					html = '<div class="customdesign-categories-wrp" data-type="'+type+'">';
+					wrp = magic.get.el('x-thumbn-preview'),
+					html = '<div class="magic-categories-wrp" data-type="'+type+'">';
 				
 				if (items === undefined || items.length === 0)
-					wrp.find('>div').html('<div class="customdesign-categories-wrp" data-type="'+type+'"><br><br>'+customdesign.i(42)+'</div>');
+					wrp.find('>div').html('<div class="magic-categories-wrp" data-type="'+type+'"><br><br>'+magic.i(42)+'</div>');
 				else {
 					
 					if (res.category_parents.length > 0) {
@@ -12979,12 +12979,12 @@
 							html += '<nav><span>'+res.category_parents[0].name+'</span></nav>';
 						}else{
 						
-							html += '<nav><a href="#category-all" data-act="item" data-id="">'+customdesign.i(57)+'</a>';
+							html += '<nav><a href="#category-all" data-act="item" data-id="">'+magic.i(57)+'</a>';
 							
 							res.category_parents.map(function(cp){
 								if (cp.id != res.category)
-									html += '<i class="customdesignx-ios-arrow-forward"></i><a href="#category-'+cp.id+'" data-act="item" data-id="'+cp.id+'">'+cp.name+'</a>';
-								else html += '<i class="customdesignx-ios-arrow-forward"></i><span>'+cp.name+'</span>';
+									html += '<i class="magicx-ios-arrow-forward"></i><a href="#category-'+cp.id+'" data-act="item" data-id="'+cp.id+'">'+cp.name+'</a>';
+								else html += '<i class="magicx-ios-arrow-forward"></i><span>'+cp.name+'</span>';
 							});
 							html += '</nav>';
 							
@@ -12995,9 +12995,9 @@
 					items.map(function(item) {
 						var thumbn = item.thumbnail;
 						if (thumbn === null || thumbn === undefined || thumbn === '')
-							thumbn = customdesign.data.assets+'assets/images/default_category.jpg';
+							thumbn = magic.data.assets+'assets/images/default_category.jpg';
 						else if(thumbn.indexOf('http') !== 0) 
-							thumbn = customdesign.data.upload_url+'thumbnails/'+thumbn;
+							thumbn = magic.data.upload_url+'thumbnails/'+thumbn;
 						html += '<li data-act="item" data-id="'+item.id+'"'+(curr == item.id ? ' class="active"' : '')+'>\
 									<span style="background-image:url(\''+thumbn+'\');"></span>\
 									<p>'+item.name+'</p>\
@@ -13005,16 +13005,16 @@
 					});
 					html += '</ul></div>';
 					
-					var scrt = wrp.find('.customdesign-categories-wrp ul').scrollTop();
+					var scrt = wrp.find('.magic-categories-wrp ul').scrollTop();
 					wrp.find('>div').html(html);
-					wrp.find('.customdesign-categories-wrp ul').scrollTop(scrt);
+					wrp.find('.magic-categories-wrp ul').scrollTop(scrt);
 					
-					customdesign.trigger({
+					magic.trigger({
 						
 						el: wrp,
 						
 						events: {
-							'div.customdesign-categories-wrp': 'click'
+							'div.magic-categories-wrp': 'click'
 						},
 						click: function(e) {
 							
@@ -13027,15 +13027,15 @@
 							switch (act) {
 								case 'item':
 								
-									$('.customdesign-categories-wrp').attr({'data-process': 'true'});
+									$('.magic-categories-wrp').attr({'data-process': 'true'});
 									
-									customdesign.ops[type+'_category'] = el.data('id');
+									magic.ops[type+'_category'] = el.data('id');
 
-									customdesign.ops[type+'_index'] = 0;
-									customdesign.ops[type+'_loading'] = false;
+									magic.ops[type+'_index'] = 0;
+									magic.ops[type+'_loading'] = false;
 			
-									customdesign.get.el(type+'-list').find('ul').html('');
-									customdesign.get.el(type+'-list').trigger('scroll');
+									magic.get.el(type+'-list').find('ul').html('');
+									magic.get.el(type+'-list').trigger('scroll');
 									
 								break;
 							}
@@ -13051,18 +13051,18 @@
 			products_list : function (btn_txt) {
 				
 				if (!btn_txt)
-					btn_txt = customdesign.i(87);
+					btn_txt = magic.i(87);
 				
-				customdesign.tools.lightbox({
-					content: '<div id="customdesign-change-products-wrp" data-btn="'+btn_txt+'" >\
-								<center><i class="customdesign-spinner x3"></i></center>\
+				magic.tools.lightbox({
+					content: '<div id="magic-change-products-wrp" data-btn="'+btn_txt+'" >\
+								<center><i class="magic-spinner x3"></i></center>\
 							  </div>'
 				});
 
-				if (customdesign.ops.products !== undefined)
-					return customdesign.response.list_products(customdesign.ops.products);
+				if (magic.ops.products !== undefined)
+					return magic.response.list_products(magic.ops.products);
 
-				customdesign.post({
+				magic.post({
 					action: 'list_products',
 					s: '',
 					category: '',
@@ -13074,28 +13074,28 @@
 			
 			cart_confirm : function() {
 				
-				var el = $('<div id="customdesign-update-cart-confirm" data-func="close" style="opacity:0">\
+				var el = $('<div id="magic-update-cart-confirm" data-func="close" style="opacity:0">\
 							<div>\
-								<img src="'+customdesign.data.assets+'assets/images/done.svg" alt="" />\
-								<em>'+customdesign.i(172)+'!</em>\
+								<img src="'+magic.data.assets+'assets/images/done.svg" alt="" />\
+								<em>'+magic.i(172)+'!</em>\
 								<ul>\
 									<li>\
-										<a href="#details" data-func="details">'+customdesign.i(173)+'</a>\
+										<a href="#details" data-func="details">'+magic.i(173)+'</a>\
 									</li>\
 									<li>\
-										<a href="#new" data-func="new">'+customdesign.i(174)+'</a>\
+										<a href="#new" data-func="new">'+magic.i(174)+'</a>\
 									</li>\
 								</ul>\
 								<br>\
-								<button class="customdesign-btn-primary" data-func="checkout">\
-									'+customdesign.i(175)+'\
-									<i class="customdesignx-android-arrow-forward" data-func="checkout"></i>\
+								<button class="magic-btn-primary" data-func="checkout">\
+									'+magic.i(175)+'\
+									<i class="magicx-android-arrow-forward" data-func="checkout"></i>\
 								</button>\
-								<i class="customdesignx-android-close close" title="'+customdesign.i(176)+'" data-func="close"></i>\
+								<i class="magicx-android-close close" title="'+magic.i(176)+'" data-func="close"></i>\
 							</div>\
 						</div>');
 						
-				$('#CustomdesignDesign').append(el);
+				$('#MagicDesign').append(el);
 				
 				el.animate({opacity: 1}, 150).on('click', function(e) {
 					
@@ -13104,22 +13104,22 @@
 					var _this = $(this), 
 						func = e.target.getAttribute('data-func');
 					
-					customdesign.get.el('proceed').removeClass('active');
+					magic.get.el('proceed').removeClass('active');
 						
 					switch (func) {
 						case 'close':
 							$(this).fadeOut(150, function() {$(this).remove();});
 						break;
 						case 'details' : 
-							customdesign.render.cart_details(e); 
+							magic.render.cart_details(e); 
 						break;
 						case 'new' : 
-							customdesign.fn.set_url('cart', null);
-							customdesign.get.el('general-status').html('');
-							customdesign.render.products_list();
+							magic.fn.set_url('cart', null);
+							magic.get.el('general-status').html('');
+							magic.render.products_list();
 						break;
 						case 'checkout' : 
-							customdesign.cart.do_checkout(e); 
+							magic.cart.do_checkout(e); 
 						break;
 					}
 					
@@ -13148,7 +13148,7 @@
 
 				var t = this;
 
-				t.req = indexedDB.open("customdesign", 8);
+				t.req = indexedDB.open("magic", 8);
 				t.req.onsuccess = function (e) {
 
 			        if ( e.target.result.setVersion) {
@@ -13174,7 +13174,7 @@
 				
 				this.db = db;
 				
-				if (customdesign.data.version !== undefined && typeof this.onDBReady == 'function') {
+				if (magic.data.version !== undefined && typeof this.onDBReady == 'function') {
 					this.onDBReady();
 				}
 				
@@ -13195,7 +13195,7 @@
 			        	created: new Date().getTime()
 			        }, (ob[0] !== undefined ? ob[0] : ob));
 				
-				obj = customdesign.indexed.prepare(obj);
+				obj = magic.indexed.prepare(obj);
 				
 				var process = store.put(obj, obj.id);
 
@@ -13209,7 +13209,7 @@
 			        	created: obj.created
 			        }, ob[1]);
 					
-					obj_dumb = customdesign.indexed.prepare(obj_dumb);
+					obj_dumb = magic.indexed.prepare(obj_dumb);
 					
 			        trans.objectStore('dumb').put(obj_dumb, obj.id);
 
@@ -13253,8 +13253,8 @@
 
 			    trans.oncomplete = onComplete;
 
-			    var range = customdesign.ops[storeName+'_cursor'] ?
-			    			IDBKeyRange.upperBound(customdesign.ops[storeName+'_cursor'], true) : null,
+			    var range = magic.ops[storeName+'_cursor'] ?
+			    			IDBKeyRange.upperBound(magic.ops[storeName+'_cursor'], true) : null,
 			    	cursorRequest = store.openCursor(range ,'prev');
 
 			    cursorRequest.onerror = function(error) {
@@ -13317,7 +13317,7 @@
 						) {
 							delete obj[n];
 						} else {
-							obj[n] = customdesign.indexed.prepare(obj[n]);
+							obj[n] = magic.indexed.prepare(obj[n]);
 						}
 					}
 				}
@@ -13332,31 +13332,31 @@
 				* Addons callback
 				*/
 				
-				if (customdesign.data.access_core !== undefined && customdesign.data.access_core !== '') {
-					customdesign.data.access_core.split(',').map(function(a) {
+				if (magic.data.access_core !== undefined && magic.data.access_core !== '') {
+					magic.data.access_core.split(',').map(function(a) {
 						if (
 							window[a] !== undefined && 
 							typeof window[a] == 'function'
 						) {
 							try {
-								window[a](customdesign);
+								window[a](magic);
 							} catch (ex) {
-								console.warn('Error on customdesign addon callback "'+a+'": '+ex.message);
+								console.warn('Error on magic addon callback "'+a+'": '+ex.message);
 								console.log(ex);
 							}
 						}
 					});
-					delete customdesign.data.access_core;
+					delete magic.data.access_core;
 				};
 				
 				try {
-					customdesign.actions.do('db-ready');
+					magic.actions.do('db-ready');
 				} catch (ex) {
 					console.warn(ex.message);
 					console.log(ex);
 				}
 				
-				delete customdesign.indexed.onDBReady;
+				delete magic.indexed.onDBReady;
 					
 			}
 		},
@@ -13364,23 +13364,23 @@
 		post : function(ops, callback){
 
 			if (!ops.action)
-				return customdesign.fn.notice('customdesign.post() missing param action', 'error');
+				return magic.fn.notice('magic.post() missing param action', 'error');
 
 			$.ajax({
-				url: customdesign.data.ajax,
+				url: magic.data.ajax,
 				method: 'POST',
-				data: customdesign.apply_filters('ajax', $.extend({
-					nonce: 'CUSTOMDESIGN-SECURITY:'+customdesign.data.nonce,
+				data: magic.apply_filters('ajax', $.extend({
+					nonce: 'MAGIC-SECURITY:'+magic.data.nonce,
 					ajax: 'frontend',
-					product_base: customdesign.fn.url_var('product_base'),
-					product_cms: customdesign.fn.url_var('product_cms')
+					product_base: magic.fn.url_var('product_base'),
+					product_cms: magic.fn.url_var('product_cms')
 				}, ops)),
-				statusCode: customdesign.response.statusCode,
+				statusCode: magic.response.statusCode,
 				success: function(res) {
 					if (typeof callback == 'function')
 						return callback(res);
-					else if (typeof customdesign.response[ops.action] == 'function')
-						customdesign.response[ops.action](res);
+					else if (typeof magic.response[ops.action] == 'function')
+						magic.response[ops.action](res);
 				}
 			});
 
@@ -13394,7 +13394,7 @@
 
 				if (res.items && res.items.length > 0) {
 					res.items.map(function(item) {
-						customdesign.templates.storage[item.id] = customdesign.data.upload_url+item.upload;
+						magic.templates.storage[item.id] = magic.data.upload_url+item.upload;
 						html += '<li style="background-image: url(\''+item.screenshot+'\')" \
 								data-ops=\'[{\
 									"type": "template", \
@@ -13404,24 +13404,24 @@
 									"cates": "'+(item.cates?item.cates:'')+'", \
 									"screenshot": "'+item.screenshot+'", \
 									"price": "'+item.price+'"\
-								}]\' class="customdesign-template">\
-								<i data-tag="'+item.id+'">'+(item.price?customdesign.fn.price(item.price) : customdesign.i(100))+'</i><i data-info="'+item.id+'"></i>\
+								}]\' class="magic-template">\
+								<i data-tag="'+item.id+'">'+(item.price?magic.fn.price(item.price) : magic.i(100))+'</i><i data-info="'+item.id+'"></i>\
 								</li>';
 					});
 					var total = res.total ? res.total : 0;
-					customdesign.ops.templates_q = res.q;
-					customdesign.ops.templates_category = res.category;
-					customdesign.ops.templates_index = parseInt(res.index)+res.items.length;
-					if (customdesign.ops.templates_index<total)
-						customdesign.ops.templates_loading = false;
+					magic.ops.templates_q = res.q;
+					magic.ops.templates_category = res.category;
+					magic.ops.templates_index = parseInt(res.index)+res.items.length;
+					if (magic.ops.templates_index<total)
+						magic.ops.templates_loading = false;
 
-				}else html += '<span class="noitems">'+customdesign.i(42)+'</span>';
+				}else html += '<span class="noitems">'+magic.i(42)+'</span>';
 
-				customdesign.get.el('templates-list').find('i.customdesign-spinner').remove();
-				customdesign.get.el('templates-list').find('ul.customdesign-list-items').append(html);
+				magic.get.el('templates-list').find('i.magic-spinner').remove();
+				magic.get.el('templates-list').find('ul.magic-list-items').append(html);
 				
-				customdesign.render.categories('templates', res);
-				customdesign.templates.add_events();
+				magic.render.categories('templates', res);
+				magic.templates.add_events();
 
 			},
 			
@@ -13435,7 +13435,7 @@
 						
 						var oid = 'Art-'+item.id;
 						
-						customdesign.xitems.ops[oid] = [{
+						magic.xitems.ops[oid] = [{
 							type : 'image',
 							name : item.name,
 							id : item.id.toString(),
@@ -13444,51 +13444,51 @@
 							resource : 'cliparts',
 							resource_id : item.id,
 							price : parseFloat(item.price),
-							url: customdesign.data.upload_url+item.upload
+							url: magic.data.upload_url+item.upload
 						}];
 						
 						html += '<li style="background-image: url(\''+item.thumbnail_url+
-										'\')" data-ops="'+oid+'" class="customdesign-clipart">'+
+										'\')" data-ops="'+oid+'" class="magic-clipart">'+
 									'<i data-tag="'+item.id+'">'+
-									(item.price>0?customdesign.fn.price(item.price) : customdesign.i(100))+
+									(item.price>0?magic.fn.price(item.price) : magic.i(100))+
 									'</i><i data-info="'+item.id+'"></i>'+
 								'</li>';
 					});
 					
 					var total = res.total ? res.total : 0;
 					
-					customdesign.ops.cliparts_q = res.q;
-					customdesign.ops.cliparts_category = res.category;
-					customdesign.ops.cliparts_index = parseInt(res.index)+res.items.length;
-					if (customdesign.ops.cliparts_index<total)
-						customdesign.ops.cliparts_loading = false;
+					magic.ops.cliparts_q = res.q;
+					magic.ops.cliparts_category = res.category;
+					magic.ops.cliparts_index = parseInt(res.index)+res.items.length;
+					if (magic.ops.cliparts_index<total)
+						magic.ops.cliparts_loading = false;
 
-				}else html += '<span class="noitems">'+customdesign.i(42)+'</span>';
+				}else html += '<span class="noitems">'+magic.i(42)+'</span>';
 
-				customdesign.get.el('cliparts-list').find('i.customdesign-spinner').remove();
-				customdesign.get.el('cliparts-list').find('ul.customdesign-list-items').append(html);
+				magic.get.el('cliparts-list').find('i.magic-spinner').remove();
+				magic.get.el('cliparts-list').find('ul.magic-list-items').append(html);
 				
-				customdesign.render.categories('cliparts', res);
-				customdesign.cliparts.add_events();
+				magic.render.categories('cliparts', res);
+				magic.cliparts.add_events();
 
 			},
 
 			save_design : function(res) {
 
-				customdesign.f(false);
+				magic.f(false);
 
 				if (res.success) {
 
-					customdesign.fn.notice(customdesign.i(21), 'success');
+					magic.fn.notice(magic.i(21), 'success');
 
-					customdesign.data.design = res.id;
-					customdesign.get.el('navigations').find('li[data-tool="designs"]').attr({'data-load': 'designs'});
+					magic.data.design = res.id;
+					magic.get.el('navigations').find('li[data-tool="designs"]').attr({'data-load': 'designs'});
 					/*
 					if ( window.location.href.indexOf('design='+res.id+'&') === -1)
-						window.history.replaceState({},"", customdesign.data.url+'?design='+res.id+'&product_base='+res.pid);
+						window.history.replaceState({},"", magic.data.url+'?design='+res.id+'&product_base='+res.pid);
 					*/
 				}else if(res.error) {
-					customdesign.fn.notice(res.error, 'error');
+					magic.fn.notice(res.error, 'error');
 				}
 
 			},
@@ -13496,38 +13496,38 @@
 			my_designs : function(res) {
 
 				if(res.error)
-					return customdesign.fn.notice(res.error, 'error');
+					return magic.fn.notice(res.error, 'error');
 					
-				customdesign.render.my_designs(res);
+				magic.render.my_designs(res);
 
 			},
 
 			edit_design : function(res) {
 
 				if(res.error)
-					return customdesign.fn.notice(res.error, 'error');
+					return magic.fn.notice(res.error, 'error');
 
 				try{
 					var data = JSON.parse(res.data);
 				}catch(ex) {
-					return customdesign.fn.notice(ex.message, 'error');
+					return magic.fn.notice(ex.message, 'error');
 				};
 				
-				customdesign.tools.imports(data);
+				magic.tools.imports(data);
 				
-				customdesign.get.el('share-link').val(customdesign.data.url+'?design='+res.id+'&product_base='+res.pid+'&private_key='+res.share_token)
+				magic.get.el('share-link').val(magic.data.url+'?design='+res.id+'&product_base='+res.pid+'&private_key='+res.share_token)
 					   .closest('li[data-view="link"]').removeAttr('data-msg');
 
-				customdesign.get.el('navigations')
-					   .find('li[data-tool="share"] p[data-view="radio"] input[name="customdesign-share-permission"]')
+				magic.get.el('navigations')
+					   .find('li[data-tool="share"] p[data-view="radio"] input[name="magic-share-permission"]')
 					   .get(res.share_permission).checked = true;
 
-				customdesign.data.design = res.id;
-				customdesign.data.private_key = res.share_token;
-				customdesign.get.el('navigations').find('li[data-tool="designs"]').attr({'data-load': 'designs'});
+				magic.data.design = res.id;
+				magic.data.private_key = res.share_token;
+				magic.get.el('navigations').find('li[data-tool="designs"]').attr({'data-load': 'designs'});
 
 				if ( window.location.href.indexOf('design='+res.id+'&') === -1) {
-					window.history.replaceState({},"", customdesign.data.url+'?design='+res.id+'&product_base='+res.pid);
+					window.history.replaceState({},"", magic.data.url+'?design='+res.id+'&product_base='+res.pid);
 				}
 
 			},
@@ -13535,21 +13535,21 @@
 			delete_design : function(res) {
 
 				if(res.error) {
-					return customdesign.fn.notice(res.error, 'error');
+					return magic.fn.notice(res.error, 'error');
 				}
 
-				$('ul#customdesign-saved-designs li[data-id="'+res.id+'"]').remove();
-				customdesign.fn.notice(customdesign.i(22), 'success');
+				$('ul#magic-saved-designs li[data-id="'+res.id+'"]').remove();
+				magic.fn.notice(magic.i(22), 'success');
 
 			},
 
 			design_permission : function(res) {
 
 				if(res.error)
-					customdesign.get.el('navigations')
+					magic.get.el('navigations')
 					   .find('li[data-tool="share"] li[data-view="link"]').attr({'data-msg': res.error});
 
-				customdesign.get.el('navigations')
+				magic.get.el('navigations')
 					   .find('li[data-tool="share"] button[data-func="copy-link"]')
 					   .removeClass('disabled').next('i').remove();
 
@@ -13558,23 +13558,23 @@
 			shapes : function(res) {
 
 				if(res.error) {
-					return customdesign.fn.notice(res.error, 'error');
+					return magic.fn.notice(res.error, 'error');
 				}
 
-				$('#customdesign-shapes i.customdesign-spinner').remove();
+				$('#magic-shapes i.magic-spinner').remove();
 
 				if (res.items && res.items.length > 0) {
 					
-					customdesign.ops.shapes_index = parseInt(res.index)+res.items.length;
-					customdesign.ops.shapes_loading = false;
-					customdesign.render.shapes(res.items);
-					var shapewrp = $('#customdesign-shapes .customdesign-tab-body').get(0);
+					magic.ops.shapes_index = parseInt(res.index)+res.items.length;
+					magic.ops.shapes_loading = false;
+					magic.render.shapes(res.items);
+					var shapewrp = $('#magic-shapes .magic-tab-body').get(0);
 					
 					if (shapewrp.scrollHeight == shapewrp.clientHeight) {
 						$(shapewrp).trigger('scroll');
 					}
 					
-				}else $('#customdesign-shapes ul').append('<span class="noitems">'+customdesign.i(42)+'</span>');
+				}else $('#magic-shapes ul').append('<span class="noitems">'+magic.i(42)+'</span>');
 
 			},
 
@@ -13584,15 +13584,15 @@
 
 			list_products : function(res) {
 				
-				var wrp = $('#customdesign-change-products-wrp'),
+				var wrp = $('#magic-change-products-wrp'),
 					btn_text = wrp.data('btn');
 				
-				customdesign.ops.products = res;
+				magic.ops.products = res;
 					
 				var cates = ['<ul data-view="categories">',
-								'<h3>'+customdesign.i(56)+'</h3>',
-								'<li data-id="" '+(res.category === '' ? 'class="active"' : '')+' data-lv="0"> '+customdesign.i(57)+'</li>'],
-					prods = ['<h3 data-view="top"><input type="search" value="'+res.s+'" placeholder="'+customdesign.i(63)+'" /></h3>','<ul data-view="products" class="smooth">'];
+								'<h3>'+magic.i(56)+'</h3>',
+								'<li data-id="" '+(res.category === '' ? 'class="active"' : '')+' data-lv="0"> '+magic.i(57)+'</li>'],
+					prods = ['<h3 data-view="top"><input type="search" value="'+res.s+'" placeholder="'+magic.i(63)+'" /></h3>','<ul data-view="products" class="smooth">'];
 
 				if (res.categories) {
 					res.categories.map(function(c) {
@@ -13608,9 +13608,9 @@
 							return;
 							
 						if (p.stages !== '' && typeof p.stages == 'string')
-							p.stages = customdesign.fn.dejson(p.stages);
+							p.stages = magic.fn.dejson(p.stages);
 						
-						var stages = customdesign.fn.pimage(p.stages.stages !== undefined ? p.stages.stages : p.stages);
+						var stages = magic.fn.pimage(p.stages.stages !== undefined ? p.stages.stages : p.stages);
 						
 						var cates = '',
 							color = (
@@ -13638,27 +13638,27 @@
 						
 						prods.push(
 							'<li data-id="'+p.id+'"'+(
-									(customdesign.data.product == p.id) ? ' data-current="true"':''
+									(magic.data.product == p.id) ? ' data-current="true"':''
 								)+' data-name="'+
 									p.name.toLowerCase().trim().replace(/[^a-z0-9 ]/gmi, "")+
 								'"'+((p.id !== p.product)? ' data-cms="'+p.product+'"': '')+'>\
 								<span data-view="thumbn" data-start="'+btn_text+'">\
-									<img '+template+' style="background:'+color+'" src="'+(stages[first] ? stages[first].image : customdesign.data.assets+'assets/images/default_category.jpg')+'" />\
+									<img '+template+' style="background:'+color+'" src="'+(stages[first] ? stages[first].image : magic.data.assets+'assets/images/default_category.jpg')+'" />\
 								</span>\
 								<span data-view="name">'+p.name+'</span>\
-								<span data-view="price">'+customdesign.fn.price(p.price)+'</span>\
+								<span data-view="price">'+magic.fn.price(p.price)+'</span>\
 							</li>'
 						)
 					});
 
-				}else prods.push('<li data-view="noitem">'+customdesign.i(42)+'</li>');
+				}else prods.push('<li data-view="noitem">'+magic.i(42)+'</li>');
 				
 				if (res.limit < res.total) {
 					var pagination = ['<li data-view="pagination">', '<ul>'],
 						pages = Math.ceil(res.total/res.limit),
 						page = Math.ceil(res.index/res.limit);
 					for(var i=1; i<=pages; i++) {
-						pagination.push('<li data-page="'+i+'" '+(page == i ? ' class="customdesign-color"' : '')+'>'+i+'</li>');
+						pagination.push('<li data-page="'+i+'" '+(page == i ? ' class="magic-color"' : '')+'>'+i+'</li>');
 					}
 					pagination.push('</ul></li>');
 					prods.push(pagination.join(''));
@@ -13693,8 +13693,8 @@
 				});
 				*/
 				
-				customdesign.trigger({
-					el: $('#customdesign-change-products-wrp'),
+				magic.trigger({
+					el: $('#magic-change-products-wrp'),
 					events: {
 						'ul[data-view="categories"] li': 'category',
 						'ul[data-view="products"] li[data-id]': 'product',
@@ -13704,16 +13704,16 @@
 					
 					category: function() {
 
-						var wrp = $(this).closest('#customdesign-change-products-wrp'),
+						var wrp = $(this).closest('#magic-change-products-wrp'),
 							id = this.getAttribute('data-id');
 						
-						customdesign.ops.products.category = id;
+						magic.ops.products.category = id;
 						
-						$('#customdesign-change-products-wrp').html('<center><i class="customdesign-spinner x3"></i></center>');
+						$('#magic-change-products-wrp').html('<center><i class="magic-spinner x3"></i></center>');
 						
-						customdesign.post({
+						magic.post({
 							action: 'list_products',
-							s: customdesign.ops.products.s,
+							s: magic.ops.products.s,
 							category: id,
 							product_cms: null,
 							index: 0
@@ -13727,44 +13727,44 @@
 							return;
 						
 						var id = this.getAttribute('data-id'),
-							product = customdesign.ops.products.products.filter(function(p){return p.id == id;});
+							product = magic.ops.products.products.filter(function(p){return p.id == id;});
 
 						if (product.length > 0) {
 							if (typeof wrp.data('callback') == 'function') {
 								wrp.data('callback')(product[0]);
 							} else {
 								
-								if (customdesign.fn.url_var('cart', '') !== '') {
-									customdesign.fn.confirm({
-										title: customdesign.i(119),
+								if (magic.fn.url_var('cart', '') !== '') {
+									magic.fn.confirm({
+										title: magic.i(119),
 										primary: {
-											text: customdesign.i(124),
+											text: magic.i(124),
 											callback: function(e) {
-												$('customdesign-general-status').html('');
-												customdesign.fn.clear_url([]);
-												customdesign.render.product(product[0]);
+												$('magic-general-status').html('');
+												magic.fn.clear_url([]);
+												magic.render.product(product[0]);
 											}
 										},
 										second: {
-											text: customdesign.i(125),
+											text: magic.i(125),
 											callback: function(e) {
-												customdesign.fn.clear_url(['cart']);
-												customdesign.render.product(product[0]);
+												magic.fn.clear_url(['cart']);
+												magic.render.product(product[0]);
 											}
 										}
 									});
 								}else{
-									sessionStorage.setItem('customdesign_change_product','changed');
-									customdesign.fn.clear_url([]);
-									customdesign.render.product(product[0]);
+									sessionStorage.setItem('magic_change_product','changed');
+									magic.fn.clear_url([]);
+									magic.render.product(product[0]);
 								}
 								
-								customdesign.actions.do('select-product', product[0]);
+								magic.actions.do('select-product', product[0]);
 								
 							}
 						}
 						
-						$(this).closest('#customdesign-lightbox').remove();
+						$(this).closest('#magic-lightbox').remove();
 
 					},
 
@@ -13778,12 +13778,12 @@
 						
 						var s = this.value.toLowerCase();
 						
-						$('#customdesign-change-products-wrp').html('<center><i class="customdesign-spinner x3"></i></center>');
+						$('#magic-change-products-wrp').html('<center><i class="magic-spinner x3"></i></center>');
 						
-						customdesign.post({
+						magic.post({
 							action: 'list_products',
 							s: s,
-							category: (customdesign.ops.products.category ? customdesign.ops.products.category : ''),
+							category: (magic.ops.products.category ? magic.ops.products.category : ''),
 							index: 0,
 							product_cms: null
 						});
@@ -13796,18 +13796,18 @@
 						
 						var p = parseInt(this.getAttribute('data-page'));
 						
-						$('#customdesign-change-products-wrp').html('<center><i class="customdesign-spinner x3"></i></center>');
+						$('#magic-change-products-wrp').html('<center><i class="magic-spinner x3"></i></center>');
 						
-						var limit = parseInt(customdesign.ops.products.limit);
+						var limit = parseInt(magic.ops.products.limit);
 						
 						if (isNaN(limit))
 							limit = 10;
 						
-						customdesign.post({
+						magic.post({
 							action: 'list_products',
-							s: customdesign.ops.products.s,
+							s: magic.ops.products.s,
 							product_cms: null,
-							category: customdesign.ops.products.category,
+							category: magic.ops.products.category,
 							index: (p*limit)-limit
 						});
 					}
@@ -13819,8 +13819,8 @@
 			categories : function(res) {
 				if (res.length > 0) {
 					var type = res[0].type;
-					customdesign.ops.categories[type] = res;
-					customdesign.render.categories(type);
+					magic.ops.categories[type] = res;
+					magic.render.categories(type);
 				}
 			},
 			
@@ -13829,20 +13829,20 @@
 				403: function() {
 
 					$.post(
-						customdesign.data.ajax,
-						customdesign.apply_filters('ajax', {
+						magic.data.ajax,
+						magic.apply_filters('ajax', {
 							action: 'extend',
 							name: 'general',
-							nonce: customdesign.data.nonce,
+							nonce: magic.data.nonce,
 						}), function(res){
 
-							customdesign.f(false);
+							magic.f(false);
 
 							if (res == '-1')
-								return customdesign.fn.notice(customdesign.i(23), 'error', 3000);
+								return magic.fn.notice(magic.i(23), 'error', 3000);
 
-							customdesign.data.nonce = res;
-							return customdesign.fn.notice(customdesign.i(24), 'notice', 3000);
+							magic.data.nonce = res;
+							return magic.fn.notice(magic.i(24), 'notice', 3000);
 
 						});
 
@@ -13859,8 +13859,8 @@
 				
 			if (canvas_view === true) {
 				
-				var main = customdesign.get.el('main'),
-					stage = customdesign.stage(),
+				var main = magic.get.el('main'),
+					stage = magic.stage(),
 					mw = stage.canvas.width,
 					mh = stage.canvas.height;
 				
@@ -13877,7 +13877,7 @@
 						'left': -(((mw-(main.width()-0))/2)*rati)+'px'
 					});
 					
-					if (customdesign.data.rtl == '1') {
+					if (magic.data.rtl == '1') {
 						main.css({
 							'right': -(((mw-main.width())/2)*rati)+'px',
 							'left': 'auto'
@@ -13894,10 +13894,10 @@
 				
 			};
 			
-			if (customdesign.ops.excmobile)
+			if (magic.ops.excmobile)
 				return;
 			
-			customdesign.ops.window_width = ww;
+			magic.ops.window_width = ww;
 				
 			if (ww<1025) {
 				
@@ -13918,21 +13918,21 @@
 				
 				setInterval(function() {document.body.scrollTop = -1;}, 500);
 				
-				$('#customdesign-left').on('mousedown touchstart touchend touchmove', function(e) {
+				$('#magic-left').on('mousedown touchstart touchend touchmove', function(e) {
 					if (e.originalEvent.touches && e.originalEvent.touches.length > 1) {
 						e.preventDefault();
 						return true;
 					}
 				});
 				
-				$('#customdesign-main')
+				$('#magic-main')
 					.on('mousedown touchstart', function(e) {
 					
 					this.t = this.offsetTop;
 					this.l = this.offsetLeft;
 					this.x = e.originalEvent.pageX ? e.originalEvent.pageX : e.originalEvent.touches[0].pageX;
 					this.y = e.originalEvent.pageY ? e.originalEvent.pageY : e.originalEvent.touches[0].pageY;
-					this._do = ($('#customdesign-top-tools').attr('data-view') == 'standard');
+					this._do = ($('#magic-top-tools').attr('data-view') == 'standard');
 					this._gest = this.gest;
 					
 					if (e.originalEvent.touches && e.originalEvent.touches.length === 2) {
@@ -14019,12 +14019,12 @@
 					
 				});
 				
-				if (!localStorage.getItem('CUSTOMDESIGN-GUIDE')) {
-					var img = $('<img id="mobile-guide" src="'+customdesign.data.assets+'assets/images/mobile-guide.jpg" />');
+				if (!localStorage.getItem('MAGIC-GUIDE')) {
+					var img = $('<img id="mobile-guide" src="'+magic.data.assets+'assets/images/mobile-guide.jpg" />');
 					$('body').append(img);
 					img.on('click', function() {
 						$(this).remove();
-						localStorage.setItem('CUSTOMDESIGN-GUIDE', '{}');
+						localStorage.setItem('MAGIC-GUIDE', '{}');
 					});
 				}
 				
@@ -14032,14 +14032,14 @@
 			
 			if (ww<450) {
 				
-				customdesign.actions.add('first-completed', function(){
+				magic.actions.add('first-completed', function(){
 					$('li[data-tab="design"]').trigger('click');
 				});
 				
-				var wrp = $('div#customdesign-left .customdesign-left-nav,#customdesign-top-tools');
+				var wrp = $('div#magic-left .magic-left-nav,#magic-top-tools');
 				
-				if ($('div#customdesign-left .customdesign-left-nav').width() < 450)
-					var wrp = $('#customdesign-top-tools');
+				if ($('div#magic-left .magic-left-nav').width() < 450)
+					var wrp = $('#magic-top-tools');
 				
 				wrp.on('mousedown touchstart', function(e){
 					this.sub = $(e.target).closest('[data-view="sub"]');
@@ -14077,46 +14077,46 @@
 					
 				});
 				
-				customdesign.actions.add('object:added', function(){
+				magic.actions.add('object:added', function(){
 					$('li[data-tab="design"]').trigger('click');
-					$('div#customdesign-left .customdesign-left-nav').css({left: '0px'});
+					$('div#magic-left .magic-left-nav').css({left: '0px'});
 				});
-				customdesign.actions.add('selection:cleared', function(){
-					$('#customdesign-top-tools').css({left: ''});
+				magic.actions.add('selection:cleared', function(){
+					$('#magic-top-tools').css({left: ''});
 				});
-				customdesign.actions.add('object:selected', function(){
-					$('#customdesign-top-tools').css({left: ''});
+				magic.actions.add('object:selected', function(){
+					$('#magic-top-tools').css({left: ''});
 				});
-				customdesign.actions.add('after:render', function(){
-					/*$('#customdesign-top-tools [data-tool].active').removeClass('active');*/
+				magic.actions.add('after:render', function(){
+					/*$('#magic-top-tools [data-tool].active').removeClass('active');*/
 				});
 				
-				$('#customdesign-templates-list,#customdesign-cliparts-list').css({'max-height': (wh-224)+'px'});
-				$('div#customdesign-left .customdesign-tab-body-wrp').css({height: (wh-110)+'px'});
-				$('#customdesign-cart-wrp').css({'max-height': (wh - 200)+'px'});
-				$('div#customdesign-left>div.customdesign-left-nav-wrp,div#customdesign-stage-nav').css({top: wh+'px'});
-				$('#customdesign-left #customdesign-uploads div[data-tab]').css({height: (wh-169)+'px'});
+				$('#magic-templates-list,#magic-cliparts-list').css({'max-height': (wh-224)+'px'});
+				$('div#magic-left .magic-tab-body-wrp').css({height: (wh-110)+'px'});
+				$('#magic-cart-wrp').css({'max-height': (wh - 200)+'px'});
+				$('div#magic-left>div.magic-left-nav-wrp,div#magic-stage-nav').css({top: wh+'px'});
+				$('#magic-left #magic-uploads div[data-tab]').css({height: (wh-169)+'px'});
 				
 			}else if (ww<1025) {
 				
-				$('#customdesign-main').on('touchstart', function(){
-					$('#customdesign-side-close').trigger('click');
+				$('#magic-main').on('touchstart', function(){
+					$('#magic-side-close').trigger('click');
 				});
-				customdesign.actions.add('object:added', function(){
-					$('#customdesign-side-close').trigger('click');
+				magic.actions.add('object:added', function(){
+					$('#magic-side-close').trigger('click');
 				});
-				$('#customdesign-templates-list,#customdesign-cliparts-list').css({'max-height': (wh-170)+'px'});
-				$('div#customdesign-left .customdesign-tab-body-wrp').css({height: (wh-54)+'px'});
-				$('div#customdesign-stage-nav').css({top: (wh-30)+'px'});
-				$('#customdesign-left #customdesign-uploads div[data-tab]').css({height: (wh-115)+'px'});
+				$('#magic-templates-list,#magic-cliparts-list').css({'max-height': (wh-170)+'px'});
+				$('div#magic-left .magic-tab-body-wrp').css({height: (wh-54)+'px'});
+				$('div#magic-stage-nav').css({top: (wh-30)+'px'});
+				$('#magic-left #magic-uploads div[data-tab]').css({height: (wh-115)+'px'});
 			};
 			
-			customdesign.ops.excmobile = true;
+			magic.ops.excmobile = true;
 				
 		},
 
 		stage : function(){
-			return customdesign.data.stages[customdesign.current_stage];
+			return magic.data.stages[magic.current_stage];
 		},
 
 		active_stage : function(name, callback) {
@@ -14130,14 +14130,14 @@
 			this.current_stage = name;
 
 			if (!this.current_stage || !this.data.stages[this.current_stage])
-				return alert(customdesign.i(20));
+				return alert(magic.i(20));
 			
 			var stage = this.data.stages[this.current_stage],
-				nav = $('#customdesign-print-nav');
+				nav = $('#magic-print-nav');
 				
 			stage.name = name;
 			
-			$('#customdesign-main div.customdesign-stage').hide();
+			$('#magic-main div.magic-stage').hide();
 			
 			if ( stage.orientation !== undefined && stage.orientation !== '' ) {
 				
@@ -14171,7 +14171,7 @@
 				nav.find('select[name="select-size"],input[name="size"],input[data-unit]').attr({disabled: null});
 				nav.find('li[data-row="csize"],li[data-row="unit"],li[data-row="size"],li[data-row="orien"]').show();
 				
-				var pcfg = localStorage.getItem('CUSTOMDESIGN_PRINT_CFG');
+				var pcfg = localStorage.getItem('MAGIC_PRINT_CFG');
 				
 				if (pcfg && pcfg !== '') {
 					pcfg = JSON.parse(pcfg);
@@ -14188,54 +14188,54 @@
 			
 			if (stage.canvas) {
 				// the stage has been rendered
-				if (stage.productColor != customdesign.get.color()) {
-					stage.productColor.set('fill', customdesign.get.color());
+				if (stage.productColor != magic.get.color()) {
+					stage.productColor.set('fill', magic.get.color());
 				}
 
-				customdesign.tools.discard();
+				magic.tools.discard();
 
-				$('#customdesign-stage-'+name).show();
+				$('#magic-stage-'+name).show();
 
 				if (stage.data) {
 					
-					customdesign.tools.import(stage.data, function(){
-						customdesign.stack.save();
-						customdesign.actions.do('active_stage', stage);
+					magic.tools.import(stage.data, function(){
+						magic.stack.save();
+						magic.actions.do('active_stage', stage);
 					});
 					delete stage.data;
-				} else customdesign.actions.do('active_stage', stage);;
+				} else magic.actions.do('active_stage', stage);;
 				
-				customdesign.fn.stage_nav(name, stage.product.width/stage.product.height);
+				magic.fn.stage_nav(name, stage.product.width/stage.product.height);
 				
-				customdesign.mobile(true);
+				magic.mobile(true);
 				
 				return callback();
 
 			};
 			
-			customdesign.f('Loading..');
+			magic.f('Loading..');
 			
 			fabric.util.loadImage(stage.image, function(img) {
 				
-				customdesign.f(false);
+				magic.f(false);
 				
 			    if(img === null) {
-			        customdesign.fn.notice(customdesign.i(33)+stage.image, 'error', 5000);
+			        magic.fn.notice(magic.i(33)+stage.image, 'error', 5000);
 			    } else {
 				    
-					customdesign.fn.create_canvas(stage, img);
+					magic.fn.create_canvas(stage, img);
 					
 					stage.canvas.renderAll();
 					
-					customdesign.actions.do('render_stage', stage);
+					magic.actions.do('render_stage', stage);
 					
 					if (stage.data) {
 						var scale = (stage.data.product_height ? stage.product.height/stage.data.product_height : 1);
-						customdesign.tools.import(stage.data, function(){
+						magic.tools.import(stage.data, function(){
 							if (scale !== 1)
-								customdesign.fn.scale_designs(scale);
-							customdesign.stack.save();
-							customdesign.actions.do('active_stage', stage);
+								magic.fn.scale_designs(scale);
+							magic.stack.save();
+							magic.actions.do('active_stage', stage);
 							callback();
 						});
 						delete stage.data;
@@ -14244,22 +14244,22 @@
 						stage.template.upload !== undefined &&
 						stage.template.noload !== true
 					) {
-						customdesign.templates.load(stage.template, function() {
-							customdesign.actions.do('active_stage', stage);
+						magic.templates.load(stage.template, function() {
+							magic.actions.do('active_stage', stage);
 							callback();
 						}); 
 					} else {
-						customdesign.stack.save();
-						if (customdesign.ops.first_completed !== true) {
-							customdesign.actions.do('first-completed');
-							customdesign.ops.first_completed = true;
+						magic.stack.save();
+						if (magic.ops.first_completed !== true) {
+							magic.actions.do('first-completed');
+							magic.ops.first_completed = true;
 						};
-						customdesign.actions.do('active_stage', stage);
+						magic.actions.do('active_stage', stage);
 						callback();
 					}
 				};
 				
-				customdesign.fn.stage_nav(name, stage.product.width/stage.product.height);
+				magic.fn.stage_nav(name, stage.product.width/stage.product.height);
 				
 			});
 			
@@ -14293,8 +14293,8 @@
 			sum_calc			: function (){
 				
 				var prices = {},
-					extra_filter = customdesign.apply_filters('product_extra_price', {}),
-					price = customdesign.cart.price.base+customdesign.cart.price.color+customdesign.cart.price.attr;
+					extra_filter = magic.apply_filters('product_extra_price', {}),
+					price = magic.cart.price.base+magic.cart.price.color+magic.cart.price.attr;
 				
 				prices.base = price; 
 				price = 0;
@@ -14310,8 +14310,8 @@
 				
 				//calc extra price from addons
 				
-				if( Object.keys(customdesign.cart.price.extra).length > 0 ) {
-					Object.values(customdesign.cart.price.extra).map(function (objs){
+				if( Object.keys(magic.cart.price.extra).length > 0 ) {
+					Object.values(magic.cart.price.extra).map(function (objs){
 						objs.map(function (obj) {
 							price += parseFloat(obj.price);
 						});
@@ -14324,9 +14324,9 @@
 				// price template
 				
 				price += (
-					Object.keys(customdesign.cart.price.template).length > 0 &&
-					Object.values(customdesign.cart.price.template).filter(price => parseFloat(price)).length > 0 ? 
-					Object.values(customdesign.cart.price.template).
+					Object.keys(magic.cart.price.template).length > 0 &&
+					Object.values(magic.cart.price.template).filter(price => parseFloat(price)).length > 0 ? 
+					Object.values(magic.cart.price.template).
 					   filter(price => parseFloat(price) >= 0).
 					   reduce((a, b) => parseFloat(a) + parseFloat(b)) : 
 					0
@@ -14349,62 +14349,62 @@
 			extra_price			: function ( ext_id, data ) {
 				
 				if (data == null) {
-					delete customdesign.cart.price.extra[ext_id];
+					delete magic.cart.price.extra[ext_id];
 					return;
 				};
 				
-				if (typeof customdesign.cart.price.extra[ext_id] === 'undefined')
-					customdesign.cart.price.extra[ext_id] = [];
+				if (typeof magic.cart.price.extra[ext_id] === 'undefined')
+					magic.cart.price.extra[ext_id] = [];
 					
 				//check exists id of resource
-				var f = customdesign.cart.price.extra[ext_id].filter(
+				var f = magic.cart.price.extra[ext_id].filter(
 					obj => obj.id == data.id && obj.table == data.table
 				);
 				
 				if (typeof f[0] === 'undefined') 
-					customdesign.cart.price.extra[ext_id].push(data);
+					magic.cart.price.extra[ext_id].push(data);
 					
 			},
 			
 			get_price			: function (f){
 				
 				var price	= 0, 
-					sum		= customdesign.cart.sum();
+					sum		= magic.cart.sum();
 				
-				if (isNaN(customdesign.cart.qty) || customdesign.cart.qty == 0)
-					customdesign.cart.qty = 1;
+				if (isNaN(magic.cart.qty) || magic.cart.qty == 0)
+					magic.cart.qty = 1;
 					
-				price = ( sum + customdesign.cart.printing.calc( customdesign.cart.qty ) ) * customdesign.cart.qty;
+				price = ( sum + magic.cart.printing.calc( magic.cart.qty ) ) * magic.cart.qty;
 				
-				price += customdesign.cart.price.fixed;
+				price += magic.cart.price.fixed;
 				
-				return f === true ? [price, customdesign.cart.qty] : price;
+				return f === true ? [price, magic.cart.qty] : price;
 				
 			},
 
 			init				: function () {
 
-				if(customdesign.onload == undefined)
-					customdesign.cart.render();
+				if(magic.onload == undefined)
+					magic.cart.render();
 					
 				/*
 					update printing price when objects changed
 				*/
-				customdesign.actions.add('updated', function (data){
+				magic.actions.add('updated', function (data){
 					
-					clearTimeout(customdesign.cart.timer);
+					clearTimeout(magic.cart.timer);
 					
-					customdesign.cart.timer = setTimeout(function (){
-						customdesign.cart.calc(data);
+					magic.cart.timer = setTimeout(function (){
+						magic.cart.calc(data);
 					}, 300);
 					
 				});
 				
-				customdesign.actions.add('checkout', customdesign.cart.checkout);
+				magic.actions.add('checkout', magic.cart.checkout);
 
-				$('#customdesign-cart-action').on('click', function(e){
+				$('#magic-cart-action').on('click', function(e){
 					
-					customdesign.cart.add_cart('button add cart click');
+					magic.cart.add_cart('button add cart click');
 					
 					e.preventDefault();
 				});
@@ -14416,13 +14416,13 @@
 					});	
 				};
 
-				customdesign.render.cart_change();
+				magic.render.cart_change();
 				
 			},
 			
 			add_cart			: function(e) {
 				
-				if (customdesign.fn.url_var('product_cms', '') == '0') {
+				if (magic.fn.url_var('product_cms', '') == '0') {
 					alert('Could not add to cart, missing product_cms id');
 					return;
 				}
@@ -14431,20 +14431,20 @@
 					has_design		= 0,
 					invalids		= [],
 					inv				= null,
-					attrs			= $('.customdesign-cart-attributes');
+					attrs			= $('.magic-cart-attributes');
 			
 				/*
 				*	Check cart_design empty
 				*/
 				
-				Object.keys(customdesign.data.stages).map(function(s) {
+				Object.keys(magic.data.stages).map(function(s) {
 					if (
-						typeof customdesign.data.stages[s] !== 'undefined'
+						typeof magic.data.stages[s] !== 'undefined'
 					) {
 						if (
-							customdesign.data.stages[s].canvas !== undefined
+							magic.data.stages[s].canvas !== undefined
 						){
-							var canvas = customdesign.data.stages[s].canvas,
+							var canvas = magic.data.stages[s].canvas,
 								objs = canvas.getObjects();
 							
 							if (
@@ -14456,11 +14456,11 @@
 							}
 							
 						} else if (
-							customdesign.data.stages[s].data !== undefined &&
-							customdesign.data.stages[s].data.objects !== undefined
+							magic.data.stages[s].data !== undefined &&
+							magic.data.stages[s].data.objects !== undefined
 						) {
 							if (
-								customdesign.data.stages[s].data.objects.filter(function(o) {
+								magic.data.stages[s].data.objects.filter(function(o) {
 									return o.evented === true;
 								}).length > 0
 							) {
@@ -14473,17 +14473,17 @@
 				if (
 					has_design === 0
 				) {
-					customdesign.fn.notice(customdesign.i(96), 'error');
+					magic.fn.notice(magic.i(96), 'error');
 					delete cart_data;
 					delete cart_design;
 					return false;
 				};
 				
 				if (
-					customdesign.data.required_full_design == '1' &&
-					has_design < Object.keys(customdesign.data.stages).length
+					magic.data.required_full_design == '1' &&
+					has_design < Object.keys(magic.data.stages).length
 				) {
-					customdesign.fn.notice(customdesign.i(210), 'error');
+					magic.fn.notice(magic.i(210), 'error');
 					delete cart_data;
 					delete cart_design;
 					return false;
@@ -14494,17 +14494,17 @@
 				*/
 				
 				if(
-					customdesign.data.printings.length > 0 && 
-					customdesign.cart.printing.current === null
+					magic.data.printings.length > 0 && 
+					magic.cart.printing.current === null
 				){
-					inv = $('.customdesign-prints').find('.customdesign-cart-field-printing-tmpl').get(0);
+					inv = $('.magic-prints').find('.magic-cart-field-printing-tmpl').get(0);
 					if (inv !== undefined)
 						invalid_fields.push(inv);
-					$('.customdesign-prints').find('.customdesign-cart-field-printing-tmpl .customdesign-required-msg').html(customdesign.i(99));
+					$('.magic-prints').find('.magic-cart-field-printing-tmpl .magic-required-msg').html(magic.i(99));
 				};
 					
-				attrs.find('em.customdesign-required-msg').remove();
-				attrs.find('.customdesign-cart-param').each(function (ind) {
+				attrs.find('em.magic-required-msg').remove();
+				attrs.find('.magic-cart-param').each(function (ind) {
 					
 					var field	= $(this),
 						name	= field.attr('name'),
@@ -14516,7 +14516,7 @@
 							(
 								(
 									(type == 'radio' || type == 'checkbox') &&
-									field.closest('.customdesign-cart-field').find('[name="'+name+'"]:checked').length === 0
+									field.closest('.magic-cart-field').find('[name="'+name+'"]:checked').length === 0
 								) 
 								|| 
 								this.value === ''
@@ -14525,27 +14525,27 @@
 							invalids.indexOf(name) === -1
 						){
 							invalids.push(name);
-							invalid_fields.push(field.closest('.customdesign-cart-field')[0]);
+							invalid_fields.push(field.closest('.magic-cart-field')[0]);
 							field.after(
-								'<em class="customdesign-required-msg">'+
-								customdesign.i(102)+
+								'<em class="magic-required-msg">'+
+								magic.i(102)+
 								'</em>'
-							).closest('.customdesign_form_group').shake();
+							).closest('.magic_form_group').shake();
 						}
             		}
 				});
 				
 				if (invalid_fields.length > 0) {
 					
-					var wrp = $('#customdesign-cart-wrp'),
+					var wrp = $('#magic-cart-wrp'),
 						pos = invalid_fields[0].offsetTop;
 					
-					if (wrp.closest('#customdesign-product').length > 0) {
-						$('#customdesign-left .customdesign-left-nav li[data-tab="product"]').trigger('click');
-						$('#customdesign-product').show().animate({scrollTop: pos - 20}, 400);
+					if (wrp.closest('#magic-product').length > 0) {
+						$('#magic-left .magic-left-nav li[data-tab="product"]').trigger('click');
+						$('#magic-product').show().animate({scrollTop: pos - 20}, 400);
 					} else wrp.animate({scrollTop: pos - 20}, 400);
 					
-					customdesign.fn.notice(customdesign.i(179), 'error', 3500);
+					magic.fn.notice(magic.i(179), 'error', 3500);
 					
 					delete cart_data;
 					delete cart_design;
@@ -14554,12 +14554,12 @@
 				};
 				
 				try {
-					var vari = customdesign.ops.product_data.variations.variations[customdesign.data.variation];
-					if (parseFloat(customdesign.cart.qty) < parseFloat(vari.minqty)) {
-						customdesign.fn.notice(customdesign.i(149)+" <br>(Variation #"+customdesign.data.variation+" has min quantity are "+vari.minqty+")", 'error', 5000);
+					var vari = magic.ops.product_data.variations.variations[magic.data.variation];
+					if (parseFloat(magic.cart.qty) < parseFloat(vari.minqty)) {
+						magic.fn.notice(magic.i(149)+" <br>(Variation #"+magic.data.variation+" has min quantity are "+vari.minqty+")", 'error', 5000);
 						return;
-					} else if (parseFloat(customdesign.cart.qty) > parseFloat(vari.maxqty)) {
-						customdesign.fn.notice(customdesign.i(150)+" <br>(Variation #"+customdesign.data.variation+" has max quantity are "+vari.maxqty+")", 'error', 5000);
+					} else if (parseFloat(magic.cart.qty) > parseFloat(vari.maxqty)) {
+						magic.fn.notice(magic.i(150)+" <br>(Variation #"+magic.data.variation+" has max quantity are "+vari.maxqty+")", 'error', 5000);
 						return;
 					}
 				} catch(ex) {};
@@ -14570,47 +14570,47 @@
 				*
 				*/
 				
-				var cart_design			= customdesign.fn.export('cart'),
+				var cart_design			= magic.fn.export('cart'),
 					start_render 		= 0,
-					current_stage		= customdesign.current_stage,
-					first_stage 		= Object.keys(customdesign.data.stages)[start_render],
+					current_stage		= magic.current_stage,
+					first_stage 		= Object.keys(magic.data.stages)[start_render],
 					export_print_file 	= function(s) {
 						
 						start_render++;
 						
-						customdesign.active_stage(s, function() {
+						magic.active_stage(s, function() {
 							
-							$('#CustomdesignDesign').attr({
+							$('#MagicDesign').attr({
 								'data-processing': 'true',
-								'data-msg': customdesign.i('render')
+								'data-msg': magic.i('render')
 							});
 								
-							customdesign.get.el('zoom').val('100').trigger('input');
+							magic.get.el('zoom').val('100').trigger('input');
 							
-							customdesign.fn.uncache_large_images(function() {
+							magic.fn.uncache_large_images(function() {
 									
-								let psize = customdesign.get.size();
+								let psize = magic.get.size();
 								
-								customdesign.f(false);
+								magic.f(false);
 								
-								customdesign.fn.download_design({
+								magic.fn.download_design({
 									type: 'png',
 									orien: psize.o,
 									height: psize.h,
 									width: psize.w,
 									include_base: false,
-									with_base: customdesign.data.stages[s].include_base,
+									with_base: magic.data.stages[s].include_base,
 									callback: function(data) {
 										
-										customdesign.fn.uncache_large_images(null, true);
+										magic.fn.uncache_large_images(null, true);
 										
 										cart_design.stages[s].print_file = data;	
 										
-										if (Object.keys(customdesign.data.stages)[start_render] !== undefined) {
-											export_print_file (Object.keys(customdesign.data.stages)[start_render]);
+										if (Object.keys(magic.data.stages)[start_render] !== undefined) {
+											export_print_file (Object.keys(magic.data.stages)[start_render]);
 										} else {
-											customdesign.active_stage(current_stage);
-											return customdesign.cart.process_add_cart(cart_design);
+											magic.active_stage(current_stage);
+											return magic.cart.process_add_cart(cart_design);
 										}
 										
 									}	
@@ -14622,7 +14622,7 @@
 							
 					};
 				
-				$('#CustomdesignDesign').attr({'data-processing': 'true', 'data-msg': 'Preparing cart data'});
+				$('#MagicDesign').attr({'data-processing': 'true', 'data-msg': 'Preparing cart data'});
 				
 				export_print_file(first_stage);
 				
@@ -14634,65 +14634,65 @@
 			
 			process_add_cart	: function(cart_design) {
 				
-				customdesign.f(false);
+				magic.f(false);
 						
 				var values			= [],
-					id				= customdesign.fn.url_var('cart', new Date().getTime().toString(36).toUpperCase()),
-					cart_data		= JSON.parse(localStorage.getItem('CUSTOMDESIGN-CART-DATA') || '{}');
+					id				= magic.fn.url_var('cart', new Date().getTime().toString(36).toUpperCase()),
+					cart_data		= JSON.parse(localStorage.getItem('MAGIC-CART-DATA') || '{}');
 				
 				cart_data[id] = {
 					id			: id,
 				    screenshot	: '',
 					stages		: 0,
-					name		: customdesign.ops.product_data.name,
+					name		: magic.ops.product_data.name,
 					updated		: new Date().getTime(),
-					product		: customdesign.ops.product_data.id,
-					product_cms : customdesign.ops.product_data.product,
-					printing	: customdesign.cart.printing.current,
-					printings_cfg : customdesign.data.printings_cfg,
-					options		: $.extend(true, {}, customdesign.cart.data.options),
-					attributes	: $.extend(true, {}, customdesign.ops.product_data.attributes),
-					price_total	: customdesign.cart.get_price(),
-					extra		: $.extend(true, {}, customdesign.cart.price.extra),
-				    states_data : $.extend(true, {}, customdesign.cart.printing.states_data),
-				    variation	: customdesign.data.variation,
+					product		: magic.ops.product_data.id,
+					product_cms : magic.ops.product_data.product,
+					printing	: magic.cart.printing.current,
+					printings_cfg : magic.data.printings_cfg,
+					options		: $.extend(true, {}, magic.cart.data.options),
+					attributes	: $.extend(true, {}, magic.ops.product_data.attributes),
+					price_total	: magic.cart.get_price(),
+					extra		: $.extend(true, {}, magic.cart.price.extra),
+				    states_data : $.extend(true, {}, magic.cart.printing.states_data),
+				    variation	: magic.data.variation,
 					template	: {
-						'stages'	: customdesign.cart.template,
-						'price'		: customdesign.cart.price.template
+						'stages'	: magic.cart.template,
+						'price'		: magic.cart.price.template
 					},
-					system_version : customdesign.data.version
+					system_version : magic.data.version
 				};
 				
-				Object.keys(customdesign.data.stages).map(function(s) {
+				Object.keys(magic.data.stages).map(function(s) {
 					cart_data[id].stages++;
 					if (cart_data[id].screenshot === '')
-						cart_data[id].screenshot = customdesign.data.stages[s].image;
+						cart_data[id].screenshot = magic.data.stages[s].image;
 				});
 				
-				Object.keys(customdesign.cart.data.options).map(function (i){
-					values.push(customdesign.cart.data.options[i]);
+				Object.keys(magic.cart.data.options).map(function (i){
+					values.push(magic.cart.data.options[i]);
 				});
 				
 				
-				customdesign.cart.qty = parseInt(customdesign.cart.qty);
+				magic.cart.qty = parseInt(magic.cart.qty);
 				
-				if (isNaN(customdesign.cart.qty) || customdesign.cart.qty == 0) 
-					customdesign.cart.qty = 1;
+				if (isNaN(magic.cart.qty) || magic.cart.qty == 0) 
+					magic.cart.qty = 1;
 				
-				cart_data = customdesign.apply_filters('cart_data', cart_data);
-				cart_design = customdesign.apply_filters('cart_design', cart_design);
+				cart_data = magic.apply_filters('cart_data', cart_data);
+				cart_design = magic.apply_filters('cart_design', cart_design);
 				
-				localStorage.setItem('CUSTOMDESIGN-CART-DATA', JSON.stringify(cart_data));
+				localStorage.setItem('MAGIC-CART-DATA', JSON.stringify(cart_data));
 				
 				cart_design.id = id;
-				customdesign.indexed.save([cart_design], 'cart');
+				magic.indexed.save([cart_design], 'cart');
 				
 				delete cart_design;
 				delete cart_data;
 				
-				customdesign.render.cart_confirm();
-				customdesign.render.cart_change();
-				customdesign.actions.do('add-cart', id); 
+				magic.render.cart_confirm();
+				magic.render.cart_change();
+				magic.actions.do('add-cart', id); 
 		
 				return true;
 				
@@ -14700,69 +14700,69 @@
 			
 			variations			: function(el) {
 				
-				if (customdesign.data.variations.attrs === undefined || customdesign.data.variations.attrs.indexOf(el.name) === -1)
+				if (magic.data.variations.attrs === undefined || magic.data.variations.attrs.indexOf(el.name) === -1)
 					return;
 				
 				var values = {};
 				
-				$('.customdesign-cart-attributes .customdesign-cart-param:not(.disabled)').serializeArray().map(function(x){
+				$('.magic-cart-attributes .magic-cart-param:not(.disabled)').serializeArray().map(function(x){
 					values[x.name] = x.value;
 				});
 				
-				var vari_data = customdesign.fn.process_variations(values, el);
+				var vari_data = magic.fn.process_variations(values, el);
 				
 				// no variations change
 				if (
 					(
 						vari_data.variation === null && 
-						customdesign.data.variation === null
+						magic.data.variation === null
 					) ||
-					customdesign.data.variation == vari_data.variation
-				) return customdesign.render.product_attrs(vari_data);
+					magic.data.variation == vari_data.variation
+				) return magic.render.product_attrs(vari_data);
 				
-				customdesign.data.variation = vari_data.variation;
+				magic.data.variation = vari_data.variation;
 				
 				if (vari_data.cfgprinting)
-					customdesign.data.printings_cfg = vari_data.printings_cfg;
-				else customdesign.data.printings_cfg = customdesign.ops.product_data.printings_cfg;	
+					magic.data.printings_cfg = vari_data.printings_cfg;
+				else magic.data.printings_cfg = magic.ops.product_data.printings_cfg;	
 				
-				customdesign.data.printings = vari_data.printings;
+				magic.data.printings = vari_data.printings;
 				
-				customdesign.render.product_attrs(vari_data);
+				magic.render.product_attrs(vari_data);
 				
-				if (vari_data.cfgstages !== true && customdesign.data.cfgstages !== true)
+				if (vari_data.cfgstages !== true && magic.data.cfgstages !== true)
 					return; // no cfgstages 
 				
-				customdesign.data.stages = customdesign.fn.keep_current_designs(vari_data.stages);
-				customdesign.data.cfgstages = vari_data.cfgstages;
+				magic.data.stages = magic.fn.keep_current_designs(vari_data.stages);
+				magic.data.cfgstages = vari_data.cfgstages;
 				
-				customdesign.get.el('main').find('.customdesign-stage,#customdesign-no-product').remove();
+				magic.get.el('main').find('.magic-stage,#magic-no-product').remove();
 				
-				customdesign.active_stage(customdesign.render.stage_nav(), customdesign.cart.calc);
+				magic.active_stage(magic.render.stage_nav(), magic.cart.calc);
 				
-				customdesign.actions.do('product-variation', vari_data);
+				magic.actions.do('product-variation', vari_data);
 				
 			},
 			
 			calc				: function (states_data) {
 				
 				if (states_data == undefined)
-					states_data = customdesign.cart.printing.states_data;
+					states_data = magic.cart.printing.states_data;
 				else
-					customdesign.cart.printing.states_data = states_data;
+					magic.cart.printing.states_data = states_data;
 					
-				customdesign.cart.data = {
+				magic.cart.data = {
 					options : {},
-					printing : customdesign.cart.printing.current,
-					states_data : customdesign.cart.printing.states_data
+					printing : magic.cart.printing.current,
+					states_data : magic.cart.printing.states_data
 				};
 				
-				customdesign.cart.price.attr = 0;
-				customdesign.cart.price.fixed = 0;
-				customdesign.cart.qty = 0;
+				magic.cart.price.attr = 0;
+				magic.cart.price.fixed = 0;
+				magic.cart.qty = 0;
 				
-				var fields = $('.customdesign-cart-attributes .customdesign-cart-param:not(.disabled)').serializeArray(),
-					attrs = customdesign.ops.product_data.attributes;
+				var fields = $('.magic-cart-attributes .magic-cart-param:not(.disabled)').serializeArray(),
+					attrs = magic.ops.product_data.attributes;
 				
 				fields.map(function (field){
 					
@@ -14772,18 +14772,18 @@
 					var attr = attrs[field.name];
 
 					if (field.value === '') {
-						delete customdesign.cart.data.options[attr.id];
+						delete magic.cart.data.options[attr.id];
 					} else {
-						if (customdesign.cart.data.options[attr.id] === undefined)
-							customdesign.cart.data.options[attr.id] = field.value;
-						else customdesign.cart.data.options[attr.id] += "\n"+field.value;
+						if (magic.cart.data.options[attr.id] === undefined)
+							magic.cart.data.options[attr.id] = field.value;
+						else magic.cart.data.options[attr.id] += "\n"+field.value;
 					};
 					
 					if (attr.type == 'quantity') {
 						
 						if ( !isNaN(parseInt(field.value)) ) {
 							
-							customdesign.cart.qty += parseInt(field.value);
+							magic.cart.qty += parseInt(field.value);
 							
 							if (
 								attr.values !== undefined &&
@@ -14800,7 +14800,7 @@
 									attr_price[0].price !== '' && 
 									!isNaN(parseInt(attr_price[0].price))
 								) {
-									customdesign.cart.price.attr += parseFloat(attr_price[0].price);
+									magic.cart.price.attr += parseFloat(attr_price[0].price);
 								}
 							}
 							
@@ -14814,7 +14814,7 @@
 									
 									if ( !isNaN(parseInt(qtys[i])) ) {
 										
-										customdesign.cart.qty += parseInt(qtys[i]);
+										magic.cart.qty += parseInt(qtys[i]);
 										
 									}
 								});
@@ -14831,7 +14831,7 @@
 										!isNaN(parseInt(attr_price[0].price)) &&
 										!isNaN(parseInt(qtys[i]))
 									) {
-										customdesign.cart.price.fixed += parseFloat(attr_price[0].price)*parseInt(qtys[i]);
+										magic.cart.price.fixed += parseFloat(attr_price[0].price)*parseInt(qtys[i]);
 									}
 									
 								});
@@ -14858,7 +14858,7 @@
 								attr_price[0].price !== '' && 
 								!isNaN(parseInt(attr_price[0].price))
 							) {
-								customdesign.cart.price.attr += parseFloat(attr_price[0].price);
+								magic.cart.price.attr += parseFloat(attr_price[0].price);
 							}
 							
 						});
@@ -14867,31 +14867,31 @@
 					
 				});
 				
-				customdesign.cart.price.template = {};
+				magic.cart.price.template = {};
 				
-				Object.keys(customdesign.data.stages).map(function(s){
+				Object.keys(magic.data.stages).map(function(s){
 					
-					if (typeof customdesign.data.stages[s].canvas !== 'undefined'){
+					if (typeof magic.data.stages[s].canvas !== 'undefined'){
 					
-						var canvas = customdesign.data.stages[s].canvas;
+						var canvas = magic.data.stages[s].canvas;
 						
-						customdesign.cart.template[s] = [];
-						customdesign.cart.price.template[s] = 0;
+						magic.cart.template[s] = [];
+						magic.cart.price.template[s] = 0;
 						
 						canvas.getObjects().map(function (obj){
 							
 							if (obj.evented == true) {
 								if (obj.price !== undefined && parseFloat(obj.price) > 0)
-									customdesign.cart.price.attr += parseFloat(obj.price);
+									magic.cart.price.attr += parseFloat(obj.price);
 							}
 							
 							if (
 								obj.template !== undefined && 
 								typeof obj.template == 'object' &&
-								customdesign.cart.template[s].indexOf(obj.template[0]) === -1
+								magic.cart.template[s].indexOf(obj.template[0]) === -1
 							) {
-								customdesign.cart.template[s].push(obj.template[0]);
-								customdesign.cart.price.template[s] += obj.template[1];
+								magic.cart.template[s].push(obj.template[0]);
+								magic.cart.price.template[s] += obj.template[1];
 							}
 							
 						});
@@ -14904,19 +14904,19 @@
 				*	will notice error when add to cart if dont valid min-max qty of variation
 				*
 				try {
-					var vari = customdesign.ops.product_data.variations.variations[customdesign.data.variation];
-					if (parseFloat(customdesign.cart.qty) < parseFloat(vari.minqty))
-						customdesign.cart.qty = parseFloat(vari.minqty);
-					if (parseFloat(customdesign.cart.qty) > parseFloat(vari.maxqty))
-						customdesign.cart.qty = parseFloat(vari.maxqty);
+					var vari = magic.ops.product_data.variations.variations[magic.data.variation];
+					if (parseFloat(magic.cart.qty) < parseFloat(vari.minqty))
+						magic.cart.qty = parseFloat(vari.minqty);
+					if (parseFloat(magic.cart.qty) > parseFloat(vari.maxqty))
+						magic.cart.qty = parseFloat(vari.maxqty);
 				} catch(ex) {};
 				*/
 				
-				if (customdesign.cart.qty === 0)
-					customdesign.cart.qty = 1;
+				if (magic.cart.qty === 0)
+					magic.cart.qty = 1;
 				
-				customdesign.actions.do('cart-calc');	
-				customdesign.cart.display();
+				magic.actions.do('cart-calc');	
+				magic.cart.display();
 				
 			},
 			
@@ -14929,7 +14929,7 @@
 				
 				formData.append('action', 'checkout'); 
 				formData.append('ajax', 'frontend'); 
-				formData.append('nonce', 'CUSTOMDESIGN-SECURITY:'+customdesign.data.nonce); 
+				formData.append('nonce', 'MAGIC-SECURITY:'+magic.data.nonce); 
 				
 	            Object.keys(data).map(function(key) {
 	                
@@ -14942,7 +14942,7 @@
 	                    
 	                data[key].product_name = data[key].name;
 	                
-	                blob = JSON.stringify(customdesign.apply_filter('checkout-item', data[key]));
+	                blob = JSON.stringify(magic.apply_filter('checkout-item', data[key]));
 					 upload_size += blob.length;
 					
 	                formData.append(key, new Blob([blob]));
@@ -14951,17 +14951,17 @@
 	            
 	            delete data;
 	            
-	            if (customdesign.data.max_upload_size > 0 && upload_size/1024000 > customdesign.data.max_upload_size) {
-		            customdesign.fn.notice('Error: your design is too large ('+(upload_size/1024000).toFixed(2)+'MB out of max '+customdesign.data.max_upload_size +'MB)<br>Please contact the administrator to change the server configuration', 'error', 5000);
-		            return customdesign.f(false);
+	            if (magic.data.max_upload_size > 0 && upload_size/1024000 > magic.data.max_upload_size) {
+		            magic.fn.notice('Error: your design is too large ('+(upload_size/1024000).toFixed(2)+'MB out of max '+magic.data.max_upload_size +'MB)<br>Please contact the administrator to change the server configuration', 'error', 5000);
+		            return magic.f(false);
 	            }
 	            
-	            customdesign.f('0% complete');
+	            magic.f('0% complete');
 					
 				 $.ajax({
 				    data	:	 formData,
 				    type	:	 "POST",
-				    url		:	 customdesign.data.ajax,
+				    url		:	 magic.data.ajax,
 				    contentType: false,
 				    processData: false,
 				    xhr		:	 function() {
@@ -14971,8 +14971,8 @@
 						    if (evt.lengthComputable) {
 						        var percentComplete = evt.loaded / evt.total;
 						        if (percentComplete < 1)
-						       		$('div#CustomdesignDesign').attr({'data-msg': parseInt(percentComplete*100)+'% upload complete'});
-						        else $('div#CustomdesignDesign').attr({'data-msg': customdesign.i(159)});
+						       		$('div#MagicDesign').attr({'data-msg': parseInt(percentComplete*100)+'% upload complete'});
+						        else $('div#MagicDesign').attr({'data-msg': magic.i(159)});
 						    }
 						    
 					    }, false);
@@ -14980,12 +14980,12 @@
 					},
 				    success: function (res, status) {
 					    
-					    $('div#CustomdesignDesign').attr({'data-msg': customdesign.i(161)});
+					    $('div#MagicDesign').attr({'data-msg': magic.i(161)});
 					    
 					    if (res == '0') {
 						    alert('Error: could not checkout this time');
 					    } else {
-						    res = customdesign.apply_filters('checkout-success', res);
+						    res = magic.apply_filters('checkout-success', res);
 						    if (
 						    	res !== false &&
 						    	typeof res == 'string'
@@ -15017,34 +15017,34 @@
 				    contentType: "multipart/form-data; boundary="+boundary,
 				    data: body,
 				    type: "POST",
-				    url: customdesign.data.ajax+'&action=upload&ajax=frontend&nonce=CUSTOMDESIGN-SECURITY:'+customdesign.data.nonce,
+				    url: magic.data.ajax+'&action=upload&ajax=frontend&nonce=MAGIC-SECURITY:'+magic.data.nonce,
 				    xhr: function() {
 					    var xhr = new window.XMLHttpRequest();
 					    xhr.upload.addEventListener("progress", function(evt){
 					      if (evt.lengthComputable) {
 					        var percentComplete = evt.loaded / evt.total;
 					        if (percentComplete < 1)
-					       		$('div#CustomdesignDesign').attr({'data-msg': parseInt(percentComplete*100)+'% upload complete'});
-					       	else $('div#CustomdesignDesign').attr({'data-msg': customdesign.i(159)});
+					       		$('div#MagicDesign').attr({'data-msg': parseInt(percentComplete*100)+'% upload complete'});
+					       	else $('div#MagicDesign').attr({'data-msg': magic.i(159)});
 					      }
 					    }, false);
 					    return xhr;
 					},
 				    success: function (res, status) {
 					    
-					    $('div#CustomdesignDesign').attr({'data-msg': customdesign.i(161)});
+					    $('div#MagicDesign').attr({'data-msg': magic.i(161)});
 					    
 					    res = JSON.parse(res);
 					    
 					    if (res.success !== undefined) {
 						    $('<form>', {
-				                "id": "customdesign-checkout",
+				                "id": "magic-checkout",
 				                "method": "POST",
 				                "html": '<input type="hidden" name="file" value="'+res.success+'"/>\
 				                		 <input type="hidden" name="datalen" value="'+data.length+'"/>\
 				                		 <input type="hidden" name="action" value="process"/>\
-				                		 <input type="hidden" name="nonce" value="CUSTOMDESIGN-SECURITY:'+customdesign.data.nonce+'"/>',
-				                "action": customdesign.data.checkout_url
+				                		 <input type="hidden" name="nonce" value="MAGIC-SECURITY:'+magic.data.nonce+'"/>',
+				                "action": magic.data.checkout_url
 				            }).appendTo(document.body).submit();
 					    } else {
 						    alert('Error: could not checkout this time');
@@ -15064,19 +15064,19 @@
 			render				: function (data) {
 				
 				var attr = {},
-					wrp = customdesign.get.el('cart-attributes');
+					wrp = magic.get.el('cart-attributes');
 				
 				wrp.html('');
 				
 				if (data === undefined)
 					return;
 					
-				customdesign.cart.printing.render(data.printing);
+				magic.cart.printing.render(data.printing);
 				
-				customdesign.cart.price.base = parseFloat(data.price);
+				magic.cart.price.base = parseFloat(data.price);
 				
-				var cart = localStorage.getItem('CUSTOMDESIGN-CART-DATA'),
-					cur = customdesign.fn.url_var('cart', '');
+				var cart = localStorage.getItem('MAGIC-CART-DATA'),
+					cur = magic.fn.url_var('cart', '');
 				
 				if (cart !== '')
 					cart =  JSON.parse(cart);
@@ -15115,7 +15115,7 @@
 							});
 						});
 						
-						wrp.append(customdesign.cart.fields.render(arr));
+						wrp.append(magic.cart.fields.render(arr));
 						
 					};
 					
@@ -15126,7 +15126,7 @@
 					
 					var attr = data.attributes[k];
 					
-					customdesign.ops.product_data.attributes[k].allows = attr.allows;
+					magic.ops.product_data.attributes[k].allows = attr.allows;
 					
 					if (attr.value === undefined) {
 						if (typeof attr.values == 'object' && typeof attr.values.options == 'object') {
@@ -15142,27 +15142,27 @@
 					};
 					
 					if (attr.id === undefined)	
-						attr.id = customdesign.cart.slug(attr.name);
+						attr.id = magic.cart.slug(attr.name);
 					
-					wrp.append(customdesign.cart.fields.render(attr));
+					wrp.append(magic.cart.fields.render(attr));
 					
 				});
 				
-				if (customdesign.data.calc_formula == '1') {
+				if (magic.data.calc_formula == '1') {
 					wrp.append(
-						'<div class="customdesign-cart-field how-calculate">\
+						'<div class="magic-cart-field how-calculate">\
 							<a href="#formula">\
-								'+customdesign.i(180)+'\
-								<i class="customdesignx-ios-arrow-forward"></i>\
+								'+magic.i(180)+'\
+								<i class="magicx-ios-arrow-forward"></i>\
 							</a>\
 						</div>'
 					)
 				};
 				
-				customdesign.trigger({
+				magic.trigger({
 					el: wrp,
 					events : {
-						'.customdesign-cart-param:change' : 'calc_cart',
+						'.magic-cart-param:change' : 'calc_cart',
 						'a[href="#formula"]': 'formula'
 					},
 					calc_cart : function (e){
@@ -15170,29 +15170,29 @@
 						// hash : 2cca8dcd607566aec4da56227019f71f
 						// make sesion local variable save satate dropdown change
 						
-						sessionStorage.setItem('CUSTOMDESIGN-PRINT-DROPDOWN', 'false');
+						sessionStorage.setItem('MAGIC-PRINT-DROPDOWN', 'false');
 						
-						$('#customdesign-cart-attributes em.customdesign-required-msg').remove();
+						$('#magic-cart-attributes em.magic-required-msg').remove();
 						
-						customdesign.cart.variations(this);
-						customdesign.cart.calc();
+						magic.cart.variations(this);
+						magic.cart.calc();
 						
-						customdesign.render.cart_change();
-						customdesign.actions.do('cart-changed', true);
+						magic.render.cart_change();
+						magic.actions.do('cart-changed', true);
 						
 					},
 					formula : function(e) {
 						
 						e.preventDefault();
 						
-						var sum = customdesign.cart.sum_calc(),
+						var sum = magic.cart.sum_calc(),
 							table = '',
 							print_detail = false;
 							
-						if (customdesign.data.printings.length > 0) {
+						if (magic.data.printings.length > 0) {
 							
-							var print = customdesign.data.printings.filter(function(p) {
-									return p.id == customdesign.cart.printing.current;
+							var print = magic.data.printings.filter(function(p) {
+									return p.id == magic.cart.printing.current;
 								});
 							
 							print_detail = (
@@ -15203,72 +15203,72 @@
 										print[0].calculate.show_detail == 1
 									)
 								) && 
-								customdesign.cart.printing.calc(customdesign.cart.qty) > 0
+								magic.cart.printing.calc(magic.cart.qty) > 0
 							) ? true : false;
 							
 						};
 						
 						var varitxt = '', 
 							vr = (
-									customdesign.ops.product_data.variations !== undefined && 
-									customdesign.ops.product_data.variations.variations !== undefined &&
-									customdesign.ops.product_data.variations.variations[customdesign.data.variation] !== undefined
-								 ) ? customdesign.ops.product_data.variations.variations[customdesign.data.variation] : null;
+									magic.ops.product_data.variations !== undefined && 
+									magic.ops.product_data.variations.variations !== undefined &&
+									magic.ops.product_data.variations.variations[magic.data.variation] !== undefined
+								 ) ? magic.ops.product_data.variations.variations[magic.data.variation] : null;
 						
-						if (customdesign.data.variation !== null && vr !== null) {
+						if (magic.data.variation !== null && vr !== null) {
 							varitxt += '<p class="notice">'+
-										customdesign.i(193)+' <strong>#'+customdesign.data.variation+'</strong>'+
-										(vr.price !== '' ? ', '+customdesign.i(182)+': <strong>'+vr.price+'</strong>' : '')+
+										magic.i(193)+' <strong>#'+magic.data.variation+'</strong>'+
+										(vr.price !== '' ? ', '+magic.i(182)+': <strong>'+vr.price+'</strong>' : '')+
 										(vr.minqty !== '' ? ', min-qty: <strong>'+vr.minqty+'</strong>' : '')+
 										(vr.maxqty !== '' ? ', max-qty: <strong>'+vr.maxqty+'</strong>' : '')+
 										'</p>';
 						}
 						
-						var item_price = sum.ext+sum.base+sum.template+customdesign.cart.printing.calc(customdesign.cart.qty);
+						var item_price = sum.ext+sum.base+sum.template+magic.cart.printing.calc(magic.cart.qty);
 						
-						customdesign.tools.lightbox({
-							content: '<div class="customdesign_content customdesign_wrapper_table">\
-								<h3 class="title">'+customdesign.i(180)+'</h3>\
-								<div id="customdesign-formula-detail">\
+						magic.tools.lightbox({
+							content: '<div class="magic_content magic_wrapper_table">\
+								<h3 class="title">'+magic.i(180)+'</h3>\
+								<div id="magic-formula-detail">\
 									'+varitxt+'\
 									<table>\
 										<tr>\
-											<td style="width:20%;text-align: left">'+customdesign.i(182)+'</td>\
-											<td>'+customdesign.fn.price(sum.base-customdesign.cart.price.attr)+'</td>\
+											<td style="width:20%;text-align: left">'+magic.i(182)+'</td>\
+											<td>'+magic.fn.price(sum.base-magic.cart.price.attr)+'</td>\
 										</tr>\
 										<tr>\
-											<td style="width:20%;text-align: left">'+customdesign.i(199)+'</td>\
-											<td>'+customdesign.fn.price(customdesign.cart.price.attr)+'</td>\
+											<td style="width:20%;text-align: left">'+magic.i(199)+'</td>\
+											<td>'+magic.fn.price(magic.cart.price.attr)+'</td>\
 										</tr>\
 										<tr>\
-											<td style="width:20%;text-align: left">'+customdesign.i(91)+'</td>\
-											<td>'+customdesign.fn.price(sum.template)+'</td>\
+											<td style="width:20%;text-align: left">'+magic.i(91)+'</td>\
+											<td>'+magic.fn.price(sum.template)+'</td>\
 										</tr>\
 										<tr>\
-											<td style="width:20%;text-align: left">'+customdesign.i(108)+'</td>\
+											<td style="width:20%;text-align: left">'+magic.i(108)+'</td>\
 											<td>'+
-												customdesign.fn.price(customdesign.cart.printing.calc(customdesign.cart.qty))+
+												magic.fn.price(magic.cart.printing.calc(magic.cart.qty))+
 												(
 													print_detail ? 
 													' &nbsp; <a href="#" data-print="'+print[0].id+'">'+
-														customdesign.i(68)+
-														' <i class="customdesignx-android-open"></i></a>' : ''
+														magic.i(68)+
+														' <i class="magicx-android-open"></i></a>' : ''
 												)+
 												'</td>\
 										</tr>\
 										<tr>\
-											<td style="width:20%;text-align: left">'+customdesign.i(183)+'</td>\
-											<td>'+customdesign.fn.price(sum.ext)+'</td>\
+											<td style="width:20%;text-align: left">'+magic.i(183)+'</td>\
+											<td>'+magic.fn.price(sum.ext)+'</td>\
 										</tr>\
 										<tr>\
-											<td style="width:20%;text-align: left">'+customdesign.i(74)+'</td>\
-											<td>'+customdesign.fn.price(item_price)+' x '+
-												customdesign.cart.qty+'qty = <strong>'+customdesign.fn.price(item_price*customdesign.cart.qty)+'</strong></td>\
+											<td style="width:20%;text-align: left">'+magic.i(74)+'</td>\
+											<td>'+magic.fn.price(item_price)+' x '+
+												magic.cart.qty+'qty = <strong>'+magic.fn.price(item_price*magic.cart.qty)+'</strong></td>\
 										</tr>\
-										'+(customdesign.cart.price.fixed !== 0 ? '\
+										'+(magic.cart.price.fixed !== 0 ? '\
 										<tr>\
-											<td style="width:20%;text-align: left">'+customdesign.i(198)+'</td>\
-											<td>'+customdesign.i(74)+' + '+customdesign.fn.price(customdesign.cart.price.fixed)+' = <strong>'+customdesign.fn.price((item_price*customdesign.cart.qty)+customdesign.cart.price.fixed)+'</strong></td>\
+											<td style="width:20%;text-align: left">'+magic.i(198)+'</td>\
+											<td>'+magic.i(74)+' + '+magic.fn.price(magic.cart.price.fixed)+' = <strong>'+magic.fn.price((item_price*magic.cart.qty)+magic.cart.price.fixed)+'</strong></td>\
 										</tr>\
 										' : '')+'\
 									</table>\
@@ -15276,9 +15276,9 @@
 							</div>'
 						});
 						
-						$('#customdesign-formula-detail a[data-print]').on('click', function(e) {
+						$('#magic-formula-detail a[data-print]').on('click', function(e) {
 							e.preventDefault();
-							customdesign.fn.print_detail(this.getAttribute('data-print'));
+							magic.fn.print_detail(this.getAttribute('data-print'));
 						});
 						
 					}
@@ -15293,23 +15293,23 @@
 					}
 				};
 				
-				customdesign.cart.calc();
+				magic.cart.calc();
 				
-				customdesign.trigger({
-					el : $('.customdesign-add-cart-btn'),
+				magic.trigger({
+					el : $('.magic-add-cart-btn'),
 					events : {
 						':click' : 'submit_cart'
 					},
 					submit_cart : function (e){
-						var form = $('#customdesign-cart-form');
+						var form = $('#magic-cart-form');
 
-						form.find('input[name=data]').val(JSON.stringify(customdesign.cart.data));
-						form.find('input[name=product]').val(customdesign.data.product);
+						form.find('input[name=data]').val(JSON.stringify(magic.cart.data));
+						form.find('input[name=product]').val(magic.data.product);
 						form.submit();
 					}
 				});
 				
-				customdesign.actions.do('cart-render', wrp);
+				magic.actions.do('cart-render', wrp);
 
 			},
 
@@ -15346,14 +15346,14 @@
 				
 				render : function(data) {
 					
-					var lac = customdesign.data.attributes_cfg[data.type];
+					var lac = magic.data.attributes_cfg[data.type];
 					
 					if (lac === undefined || lac.render === undefined || lac.render === '')
 						return '';
 					
 					if (typeof lac.frontend_render != 'function') {
 						try {
-							lac.frontend_render = Function("data", "$", "customdesign", lac.render);
+							lac.frontend_render = Function("data", "$", "magic", lac.render);
 						} catch (ex) {
 							return $('<p>JS Error: field render <b>'+data.type+'</b> :: '+ex.message+'</p>');
 						}
@@ -15373,7 +15373,7 @@
 					
 					if (data.use_variation === true) {
 						data.required = true;
-						data.values = {options: [{value: '', title: customdesign.i(178), price: ''}]};
+						data.values = {options: [{value: '', title: magic.i(178), price: ''}]};
 					};
 					
 					if (
@@ -15396,20 +15396,20 @@
 					
 					var field = $('<div data-type="'+data.type+'" data-id="'+(
 								data.id !== undefined ? data.id : ''
-							)+'" class="customdesign-cart-field field-inline'+(
+							)+'" class="magic-cart-field field-inline'+(
 								data.classes !== undefined ? ' '+data.classes : ''
 							)+'">\
-							<div class="customdesign_form_group">\
-								<span class="customdesign-cart-field-label">'+
+							<div class="magic_form_group">\
+								<span class="magic-cart-field-label">'+
 									(data.name)+': '+
 									(data.required ? ' <em class="required">*</em>' : '')+'\
 								</span>\
-								<div class="customdesign_form_content"></div>\
+								<div class="magic_form_content"></div>\
 							</div>\
 						</div>'),
-						inp = lac.frontend_render(data, $, customdesign);
+						inp = lac.frontend_render(data, $, magic);
 					
-					field.find('div.customdesign_form_content').append(inp);
+					field.find('div.magic_form_content').append(inp);
 					
 					return field;
 
@@ -15417,16 +15417,16 @@
 				
 				printing : function (data){
 					
-					var field_tpml = $('<div class="customdesign_radios">\
-										<div class="customdesign-radio">\
-				                			<input type="radio" class="customdesign-cart-param" name="printing" value="1" id="" required>\
-							                <label class="customdesign-cart-option-label" for=""></label>\
+					var field_tpml = $('<div class="magic_radios">\
+										<div class="magic-radio">\
+				                			<input type="radio" class="magic-cart-param" name="printing" value="1" id="" required>\
+							                <label class="magic-cart-option-label" for=""></label>\
 							            </div>\
 									</div>'),
-						label = field_tpml.find('.customdesign-cart-field-label'),
-						inp = field_tpml.find('.customdesign-cart-param');
+						label = field_tpml.find('.magic-cart-field-label'),
+						inp = field_tpml.find('.magic-cart-param');
 
-					label.html((data.label ? data.label : data.title)+': '+(data.required ? '<em class="required">*</em>' : '') + ' <em class="customdesign-required-msg"></em>');
+					label.html((data.label ? data.label : data.title)+': '+(data.required ? '<em class="required">*</em>' : '') + ' <em class="magic-required-msg"></em>');
 
 					inp.attr('name', data.name);
 					
@@ -15439,17 +15439,17 @@
 
 			display				: function () {
 				
-				var price = customdesign.cart.get_price(true);
+				var price = magic.cart.get_price(true);
 				
-				$('.customdesign-product-price').html(
-					customdesign.fn.price(price[0].toFixed(2))
+				$('.magic-product-price').html(
+					magic.fn.price(price[0].toFixed(2))
 				);
-				$('#customdesign-product-attributes .customdesign-product-price').append(
+				$('#magic-product-attributes .magic-product-price').append(
 					'<avg>\
 						<strong>'+
-						customdesign.i(156)+
+						magic.i(156)+
 						':</strong> '+
-						(customdesign.fn.price((price[0]/price[1]).toFixed(1)))+'/'+customdesign.i(157)+
+						(magic.fn.price((price[0]/price[1]).toFixed(1)))+'/'+magic.i(157)+
 					'</avg>'
 				);
 			},
@@ -15464,27 +15464,27 @@
 
 				render : function (active){
 					
-					customdesign.cart.printing.price = 0;
-					customdesign.cart.printing.current = active ? active : null;
+					magic.cart.printing.price = 0;
+					magic.cart.printing.current = active ? active : null;
 					
-					$('#customdesign-cart-wrp .customdesign-prints').html('');
-					if (!customdesign.data.printings || customdesign.data.printings.length === 0)
+					$('#magic-cart-wrp .magic-prints').html('');
+					if (!magic.data.printings || magic.data.printings.length === 0)
 						return;
 						
-					var wrp	 = $('<div class="customdesign-cart-field">\
-						<div class="customdesign_form_group">\
-							<span class="customdesign-cart-field-label">'+customdesign.i(64)+' <em class="required">*</em></span>\
-							<div class="customdesign_form_content">\
-								<div class="customdesign_radios"></div>\
+					var wrp	 = $('<div class="magic-cart-field">\
+						<div class="magic_form_group">\
+							<span class="magic-cart-field-label">'+magic.i(64)+' <em class="required">*</em></span>\
+							<div class="magic_form_content">\
+								<div class="magic_radios"></div>\
 							</div>\
 						</div>\
 					</div>');
 					
-					customdesign.data.printings.map(function (print, index){
+					magic.data.printings.map(function (print, index){
 						
-						print.thumbnail =  print.thumbnail || customdesign.data.assets + 'assets/images/print-default.jpg';
+						print.thumbnail =  print.thumbnail || magic.data.assets + 'assets/images/print-default.jpg';
 						
-						var id = 'customdesign-printing-' + print.id,
+						var id = 'magic-printing-' + print.id,
 							show_link = (
 								print.description !== '' || 
 								(
@@ -15492,71 +15492,71 @@
 									print.calculate.show_detail == 1
 								)
 							) ? true : false,
-							new_op 	= $('<div class="customdesign-radio">\
-	                			<input type="radio" class="customdesign-cart-param" name="printing" value="'+print.id+
+							new_op 	= $('<div class="magic-radio">\
+	                			<input type="radio" class="magic-cart-param" name="printing" value="'+print.id+
 	                				'" data-id="'+print.id+'" id="'+id+'" required>\
-				                <label class="customdesign-cart-option-label" for="'+id+'">\
-				                	<div class="customdesign-cart-option-thumb">\
+				                <label class="magic-cart-option-label" for="'+id+'">\
+				                	<div class="magic-cart-option-thumb">\
 				                		<img src="'+print.thumbnail+'" alt="" />\
 				                	</div>\
-									<div class="customdesign-desc">\
+									<div class="magic-desc">\
 										<span>' + print.title + '</span>' +
-										( show_link ? ' <a href="#" class="customdesign-color customdesign-print-detail" data-id="'+
-											print.id+'">'+ customdesign.i(68) +'</a>' : '')+'</div>\
+										( show_link ? ' <a href="#" class="magic-color magic-print-detail" data-id="'+
+											print.id+'">'+ magic.i(68) +'</a>' : '')+'</div>\
 				                </label>\
 							</div>');
 						
-						customdesign.trigger({
+						magic.trigger({
 							el : new_op,
 							events : {
-								'a.customdesign-print-detail' : 'price_table',
+								'a.magic-print-detail' : 'price_table',
 								'input:change' : 'select_printing',
 							},
 							price_table : function (e){
 								
 								e.preventDefault();
 								
-								customdesign.fn.print_detail(this.getAttribute('data-id'));
+								magic.fn.print_detail(this.getAttribute('data-id'));
 								
 							},
 							select_printing : function (e){
-								customdesign.cart.printing.current = parseInt($(this).val());
-								customdesign.cart.calc();
+								magic.cart.printing.current = parseInt($(this).val());
+								magic.cart.calc();
 							}
 						});
 
 						// hash : 2cca8dcd607566aec4da56227019f71f
 						//if dropdown change first item selected
-						if(sessionStorage.getItem("CUSTOMDESIGN-PRINT-DROPDOWN") === 'false'){
-							customdesign.cart.printing.current = parseInt(print.id);
-							customdesign.cart.calc();
-							sessionStorage.setItem('CUSTOMDESIGN-PRINT-DROPDOWN', 'true');
+						if(sessionStorage.getItem("MAGIC-PRINT-DROPDOWN") === 'false'){
+							magic.cart.printing.current = parseInt(print.id);
+							magic.cart.calc();
+							sessionStorage.setItem('MAGIC-PRINT-DROPDOWN', 'true');
 						}
 
-						wrp.find('div.customdesign_radios').append(new_op);
+						wrp.find('div.magic_radios').append(new_op);
 
 						if (print.active === true)
-							customdesign.cart.printing.current = print.id;
+							magic.cart.printing.current = print.id;
 							
 					});
 					
-					$('.customdesign-prints').append(wrp);
+					$('.magic-prints').append(wrp);
 					
-					if (customdesign.cart.printing.current === null && customdesign.data.printings.length > 0) {
-						customdesign.data.printings[0].active = true;
-						customdesign.cart.printing.current = customdesign.data.printings[0].id;
+					if (magic.cart.printing.current === null && magic.data.printings.length > 0) {
+						magic.data.printings[0].active = true;
+						magic.cart.printing.current = magic.data.printings[0].id;
 					}
 						
-					if (customdesign.cart.printing.current !== null)
-						$('#customdesign-printing-'+customdesign.cart.printing.current).trigger('click');
+					if (magic.cart.printing.current !== null)
+						$('#magic-printing-'+magic.cart.printing.current).trigger('click');
 
 				},
 
 	            calc : function (qty) {
 		            
 	                if(
-						customdesign.data.printings.length == 0 ||
-						customdesign.cart.printing.current == null
+						magic.data.printings.length == 0 ||
+						magic.cart.printing.current == null
 					) return 0;
 					
 	                var print = null,
@@ -15566,13 +15566,13 @@
 	                    rule = [],
 	                    price = 0,
 						colors = [],
-						states_data = customdesign.cart.printing.states_data,
+						states_data = magic.cart.printing.states_data,
 						print_type = '',
 						index = -1,
 						total_res = 0;
 
-					var match_print = customdesign.data.printings.filter(function (p){
-						return (customdesign.cart.printing.current == p.id);
+					var match_print = magic.data.printings.filter(function (p){
+						return (magic.cart.printing.current == p.id);
 					});
 					
 					if (match_print.length > 0) {
@@ -15580,7 +15580,7 @@
 						print = match_print[0];
 						
 						if (typeof print.calculate == 'string')
-							print.calculate = customdesign.fn.dejson(print.calculate);
+							print.calculate = magic.fn.dejson(print.calculate);
 							
 						print_type = print.calculate.type;
 						rules = print.calculate.values;
@@ -15668,10 +15668,10 @@
 						if(
 							print_type == 'size' 
 							&& total_res > 0
-							&& customdesign.data.printings_cfg !== undefined
+							&& magic.data.printings_cfg !== undefined
 						){
-							var cur = customdesign.cart.printing.current,
-								ptrcfg = customdesign.data.printings_cfg,
+							var cur = magic.cart.printing.current,
+								ptrcfg = magic.data.printings_cfg,
 								product_size = ptrcfg['_'+cur] !== undefined ? ptrcfg['_'+cur] : ptrcfg[cur];
 							
 							price += (
@@ -15703,20 +15703,20 @@
 	        
 	        edit_item			: function (id, e) {
 		    	
-		    	var items = JSON.parse(localStorage.getItem('CUSTOMDESIGN-CART-DATA')),
+		    	var items = JSON.parse(localStorage.getItem('MAGIC-CART-DATA')),
 		    		cart = items[id];
 				
 				if (cart) {
-					customdesign.get.el('general-status').html(
+					magic.get.el('general-status').html(
 						'<span>\
-							<text><i class="customdesignx-android-alert"></i> '+customdesign.i(115)+'</text> \
+							<text><i class="magicx-android-alert"></i> '+magic.i(115)+'</text> \
 							<a href="#clear-designs" data-btn="cancel" data-func="clear-designs">\
-								'+customdesign.i(185)+'\
+								'+magic.i(185)+'\
 							</a>\
 						</span>'
 					);
 					
-					customdesign.actions.do('cart_edit', customdesign.apply_filters('cart_edit', cart));
+					magic.actions.do('cart_edit', magic.apply_filters('cart_edit', cart));
 					
 					delete data;
 				};
@@ -15734,29 +15734,29 @@
 		        var donow = function() {
 			         try {
 		        	
-			        	var data = JSON.parse(localStorage.getItem('CUSTOMDESIGN-CART-DATA')),
+			        	var data = JSON.parse(localStorage.getItem('MAGIC-CART-DATA')),
 			        		count = 0, 
 			        		get_design = function(res){
 				        		count ++;
 				        		data[res.id].design = res;
 				        		
 				        		if (count === Object.keys(data).length) {
-					        		if(customdesign.apply_filter('custom-checkout',false) === true)
+					        		if(magic.apply_filter('custom-checkout',false) === true)
 				        			{
-				        				customdesign.do_action('custom-checkout', customdesign.apply_filters('checkout', data));
+				        				magic.do_action('custom-checkout', magic.apply_filters('checkout', data));
 				        			}
 				        			else 
 				        			{
-				        				customdesign.actions.do('checkout', customdesign.apply_filters('checkout', data));
+				        				magic.actions.do('checkout', magic.apply_filters('checkout', data));
 				        			}
-				        		} else customdesign.f(false);
+				        		} else magic.f(false);
 				        		
 				        	};
 			        	
-			        	customdesign.f(customdesign.i(44));
+			        	magic.f(magic.i(44));
 			        		
 						Object.keys(data).map(function(key) {
-							customdesign.indexed.get(key, 'cart', get_design);
+							magic.indexed.get(key, 'cart', get_design);
 						});
 						
 			        
@@ -15766,15 +15766,15 @@
 				    }
 		        };
 		        
-		        if (customdesign.data.conditions !== '') {
-			        var content = customdesign.fn.dejson(customdesign.data.conditions).replace(/\>/g, '&gt;').replace(/\</g, '&lt;')+'<em><input type="checkbox" id="condition-agree" /> <label for="condition-agree">'+customdesign.i(177)+' <font color="red">*</font></label></em>';
-			        customdesign.fn.confirm({
+		        if (magic.data.conditions !== '') {
+			        var content = magic.fn.dejson(magic.data.conditions).replace(/\>/g, '&gt;').replace(/\</g, '&lt;')+'<em><input type="checkbox" id="condition-agree" /> <label for="condition-agree">'+magic.i(177)+' <font color="red">*</font></label></em>';
+			        magic.fn.confirm({
 						title: content,
 						primary: {
-							text: customdesign.i(175),
+							text: magic.i(175),
 							callback: function(e) {
-								if (customdesign.get.el('confirm').find('input[type="checkbox"]').prop('checked') !== true) {
-									customdesign.get.el('confirm').find('input[type="checkbox"]').shake();
+								if (magic.get.el('confirm').find('input[type="checkbox"]').prop('checked') !== true) {
+									magic.get.el('confirm').find('input[type="checkbox"]').shake();
 									return false;
 								} else donow();
 							}
@@ -15792,8 +15792,8 @@
 			this.html = document.querySelector('html');
 			this.body = document.querySelector('body');
 
-			if (!this.fn.get_cookie('customdesign-AID'))
-				this.fn.set_cookie('customdesign-AID', Math.random().toString(36).substr(2));
+			if (!this.fn.get_cookie('magic-AID'))
+				this.fn.set_cookie('magic-AID', Math.random().toString(36).substr(2));
 
 			/* 
 			*	Start to load when everything is ready 	
@@ -15818,11 +15818,11 @@
 			this.actions.add('object:selected', function(opts){
 
 				var selected = [],
-					s = customdesign.stage(),
+					s = magic.stage(),
 					a = s.canvas.getActiveObject(),
 					g = s.canvas.getActiveGroup();
 
-				if (customdesign.fn.ctrl_btns(opts) === true)
+				if (magic.fn.ctrl_btns(opts) === true)
 					return;
 				
 				/*if (!g && a && a.group_pos) {
@@ -15848,18 +15848,18 @@
 						
 					group.setCoords();	
 					s.canvas.setActiveGroup(group).renderAll();
-					customdesign.tools.set();
+					magic.tools.set();
 				} else */
 				
 				if (a) {
 					selected.push (s.canvas.getActiveObject());
-					customdesign.tools.set();
+					magic.tools.set();
 				} else if (g) {
 					selected = g._objects;
-					customdesign.e.tools.attr({'data-view': 'default'});
+					magic.e.tools.attr({'data-view': 'default'});
 				};
 
-				customdesign.e.layers.find('li[data-id].active').removeClass('active');
+				magic.e.layers.find('li[data-id].active').removeClass('active');
 				
 				if (selected.length === 0)
 					return;
@@ -15874,7 +15874,7 @@
 				selected.forEach(function(obj){
 					
 					if (obj.selectable !== false)
-						customdesign.e.layers.find('li[data-id="'+obj.id+'"]').addClass('active');
+						magic.e.layers.find('li[data-id="'+obj.id+'"]').addClass('active');
 
 				});
 				
@@ -15886,7 +15886,7 @@
 				var date = new Date(), 
 					obj = opts.target, 
 					click = false,
-					stage = customdesign.stage();
+					stage = magic.stage();
 
 				if (obj.id === undefined)
 					obj.set('id', parseInt(date.getTime()/1000).toString(36)+'-'+(Math.random().toString(36).substr(2)));
@@ -15906,33 +15906,33 @@
 					
 				switch (obj.type) {
 					case 'i-text':
-						obj.set('thumbn', '<i class="customdesignx-character layer-type" style="color:%color%;background:%bgcolor%"></i>');
+						obj.set('thumbn', '<i class="magicx-character layer-type" style="color:%color%;background:%bgcolor%"></i>');
 					break;
 					case 'curvedText':
-						obj.set('thumbn', '<i class="customdesignx-vector layer-type" style="color:%color%;background:%bgcolor%"></i>');
+						obj.set('thumbn', '<i class="magicx-vector layer-type" style="color:%color%;background:%bgcolor%"></i>');
 					break;
 					case 'image':
 						
-						customdesign.fn.createThumbn({
+						magic.fn.createThumbn({
 				    		source: obj.src,
 				    		width: 50,
 				    		height: 50,
 				    		callback: function(canvas) {
 								obj.set('thumbn', '<img class="layer-type" style="background:%color%" src="'+(canvas.toDataURL('image/jpeg'))+'" />');
 								if (obj.colors === undefined)
-									obj.set('colors', customdesign.fn.count_colors(canvas, true));
+									obj.set('colors', magic.fn.count_colors(canvas, true));
 				    		}
 			    		});
 							
 					break;
 					case 'qrcode':
-						obj.set('thumbn', '<i class="customdesignx-qrcode-1 layer-type" style="color:%color%;background:%bgcolor%"></i>');
+						obj.set('thumbn', '<i class="magicx-qrcode-1 layer-type" style="color:%color%;background:%bgcolor%"></i>');
 					break;
 					case 'path':
-						obj.set('thumbn', '<i class="customdesign-icon-graph layer-type" style="color:%color%;background:%bgcolor%"></i>');
+						obj.set('thumbn', '<i class="magic-icon-graph layer-type" style="color:%color%;background:%bgcolor%"></i>');
 					break;
 					case 'svg':
-						customdesign.fn.createThumbn({
+						magic.fn.createThumbn({
 				    		source: obj.src,
 				    		width: 24,
 				    		height: 24,
@@ -15942,11 +15942,11 @@
 			    		});
 					break;
 					default:
-						obj.set('thumbn', '<i class="customdesign-icon-picture layer-type" style="color:%color%;background:%bgcolor%"></i>');
+						obj.set('thumbn', '<i class="magic-icon-picture layer-type" style="color:%color%;background:%bgcolor%"></i>');
 					break;
 				};
 				
-				customdesign.fn.font_blob(obj);
+				magic.fn.font_blob(obj);
 				
 				if (stage.bleed) {
 					stage.canvas.bringToFront(stage.bleed);
@@ -15958,23 +15958,23 @@
 			});
 		
 			this.actions.add('object:remove', function(){
-				customdesign.fn.update_state();
-				var stage = customdesign.stage();
-				stage.screenshot = customdesign.tools.toImage({
+				magic.fn.update_state();
+				var stage = magic.stage();
+				stage.screenshot = magic.tools.toImage({
 					stage: stage,
 					is_bg: 'full', 
 					multiplier: 1/window.devicePixelRatio
 				});
 				
-				$('#customdesign-stage-nav img[data-stage="'+customdesign.current_stage+'"]').attr({
+				$('#magic-stage-nav img[data-stage="'+magic.current_stage+'"]').attr({
 					src: stage.screenshot
 				});
 			});
 			
 			this.actions.add('selection:cleared', function(){
-				customdesign.e.tools.attr({'data-view': 'standard'});
-				let s = customdesign.stage();
-				customdesign.stage().limit_zone.set('visible', false);
+				magic.e.tools.attr({'data-view': 'standard'});
+				let s = magic.stage();
+				magic.stage().limit_zone.set('visible', false);
 				if (s.bleed) {
 					s.bleed.set('visible', false);
 					s.crop_marks.set('visible', false);
@@ -15983,7 +15983,7 @@
 
 			this.actions.add('key-move', function(e) {
 
-				var canvas = customdesign.stage().canvas,
+				var canvas = magic.stage().canvas,
 					active = canvas.getActiveObject() || canvas.getActiveGroup();
 					
 				if (active === null || active === undefined)
@@ -16031,18 +16031,18 @@
 			});
 
 			this.actions.add('key-enter', function(e) {
-				return customdesign.stage().canvas.deactivateAllWithDispatch().renderAll();
+				return magic.stage().canvas.deactivateAllWithDispatch().renderAll();
 			});
 
 			this.actions.add('key-esc', function(e) {
-				if (customdesign.stage().canvas.isDrawingMode === true) {
-					customdesign.get.el('discard-drawing').trigger('click');
+				if (magic.stage().canvas.isDrawingMode === true) {
+					magic.get.el('discard-drawing').trigger('click');
 				}
 			});
 
-			this.actions.add('ctrl-z', customdesign.stack.back);
+			this.actions.add('ctrl-z', magic.stack.back);
 
-			this.actions.add('ctrl-shift-z', customdesign.stack.forward);
+			this.actions.add('ctrl-shift-z', magic.stack.forward);
 
             this.actions.add('ctrl-a', function(e) {
 	            
@@ -16050,7 +16050,7 @@
 					return true;
 				}
 					
-				var canvas = customdesign.stage().canvas;
+				var canvas = magic.stage().canvas;
 				var objs = canvas.getObjects().filter(function(o) {
 					if (o.evented === true && (o.imagebox === undefined || o.imagebox === '')) {
 						o.set('active', true);
@@ -16072,7 +16072,7 @@
 
 				canvas.setActiveGroup(group.setCoords()).renderAll();
 				
-				customdesign.objects.events['mouse:up'](e);
+				magic.objects.events['mouse:up'](e);
 				
 				e.preventDefault();
 				return false;
@@ -16081,7 +16081,7 @@
 
 			this.actions.add('ctrl-d', function(e) {
 
-				customdesign.fn.do_double();
+				magic.fn.do_double();
 
 				e.preventDefault();
 				return false;
@@ -16089,19 +16089,19 @@
 			});
 
 			this.actions.add('ctrl+', function(e) {
-				customdesign.get.el('zoom').val(parseInt(customdesign.get.el('zoom').val())+20).trigger('input');
+				magic.get.el('zoom').val(parseInt(magic.get.el('zoom').val())+20).trigger('input');
 				e.preventDefault();
 				return false;
 			});
 
 			this.actions.add('ctrl-', function(e) {
-				customdesign.get.el('zoom').val(parseInt(customdesign.get.el('zoom').val())-20).trigger('input');
+				magic.get.el('zoom').val(parseInt(magic.get.el('zoom').val())-20).trigger('input');
 				e.preventDefault();
 				return false;
 			});
 
 			this.actions.add('ctrl-0', function(e) {
-				customdesign.get.el('zoom').val(100).trigger('input');
+				magic.get.el('zoom').val(100).trigger('input');
 				e.preventDefault();
 				return false;
 			});
@@ -16110,10 +16110,10 @@
 				
 				e.preventDefault();
 				
-				if (customdesign.fn.url_var('cart', '') !== '') {
-					return customdesign.cart.add_cart(e);
+				if (magic.fn.url_var('cart', '') !== '') {
+					return magic.cart.add_cart(e);
 				} else {
-					customdesign.design.my_designs.pre_save();
+					magic.design.my_designs.pre_save();
 				};
 				
 				return false;
@@ -16122,9 +16122,9 @@
 
             this.actions.add('key-delete', function(e) {
 
-            	customdesign.itemInStage('del');
+            	magic.itemInStage('del');
 
-	            var canvas = customdesign.stage().canvas,
+	            var canvas = magic.stage().canvas,
 	            	objs = canvas.getActiveGroup() ? canvas.getActiveGroup()._objects : canvas.getObjects(),
 	            	elms = [];
 
@@ -16133,8 +16133,8 @@
 		            	elms.push(o);
 	            });
 
-	            customdesign.stack.save();
-	         	customdesign.tools.discard();
+	            magic.stack.save();
+	         	magic.tools.discard();
 
 	         	elms.map(function(el) {
 		         	canvas.remove(el);
@@ -16142,22 +16142,22 @@
 
 	            canvas.renderAll();
 
-	            customdesign.stack.save();
-				customdesign.design.layers.build();
+	            magic.stack.save();
+				magic.design.layers.build();
 				
-				customdesign.actions.do('object:remove');
+				magic.actions.do('object:remove');
 				
             });
 
-			this.actions.add('save', customdesign.fn.update_state);
+			this.actions.add('save', magic.fn.update_state);
 			
 			this.actions.add('cart_edit', function(ops) {
 				
-				$('.customdesign-lightbox').remove();
+				$('.magic-lightbox').remove();
 				
-				customdesign.indexed.get(ops.id, 'cart', function(res){
+				magic.indexed.get(ops.id, 'cart', function(res){
 					
-					customdesign.fn.load_product({
+					magic.fn.load_product({
 						id: ops.product,
 						cms: ops.product_cms,
 						printing: ops.printing,
@@ -16167,19 +16167,19 @@
 						callback: function(res) {
 							
 							if (res.id === undefined) {
-								customdesign.f(false);
-								customdesign.fn.notice('ERROR_LOAD_PRODUCT', 'error', 3500);
+								magic.f(false);
+								magic.fn.notice('ERROR_LOAD_PRODUCT', 'error', 3500);
 								return;
 							} else {
 								
-								customdesign.get.el('general-status').html(
+								magic.get.el('general-status').html(
 									'<span>\
 										<text>\
-											<i class="customdesignx-android-alert"></i> '+
-											customdesign.i(186)+
+											<i class="magicx-android-alert"></i> '+
+											magic.i(186)+
 										' <strong>#'+ops.id+'</strong></text>\
 										<a href="#cancel-design" data-btn="cancel" data-func="cancel-design">\
-											'+customdesign.i(187)+'\
+											'+magic.i(187)+'\
 										</a>\
 									</span>'
 								);
@@ -16189,10 +16189,10 @@
 					});
 				});
 				
-				customdesign.fn.clear_url();
-				customdesign.fn.set_url('cart', ops.id);
+				magic.fn.clear_url();
+				magic.fn.set_url('cart', ops.id);
 				
-				customdesign.render.cart_change();
+				magic.render.cart_change();
 				
 			});
 			
@@ -16201,9 +16201,9 @@
 				var bg = [],
 					mo = '';
 				
-				if (typeof customdesign.cart.printing.states_data[customdesign.current_stage] !== 'undefined'){
+				if (typeof magic.cart.printing.states_data[magic.current_stage] !== 'undefined'){
 					
-					var stage_colors = customdesign.cart.printing.states_data[customdesign.current_stage].colors;
+					var stage_colors = magic.cart.printing.states_data[magic.current_stage].colors;
 					for (var i=0; i<6; i++) {
 						if (stage_colors[i])
 							bg.push(stage_colors[i]);
@@ -16213,62 +16213,62 @@
 						mo = (stage_colors.length-6)+'+';
 				}
 				
-				$('#customdesign-count-colors i').html(mo).css({background: 'linear-gradient(to right, '+bg.join(', ')+')'});
+				$('#magic-count-colors i').html(mo).css({background: 'linear-gradient(to right, '+bg.join(', ')+')'});
 				
 			});
 			
 			this.actions.add('db-ready', function(){
 				
 				try {
-					var cart_data = JSON.parse(localStorage.getItem('CUSTOMDESIGN-CART-DATA'));
+					var cart_data = JSON.parse(localStorage.getItem('MAGIC-CART-DATA'));
 				}catch(ex){
 					var cart_data = null;
 				};
 				
 				var has_cart = false;
 				
-				if (customdesign.fn.url_var('cart', '') !== '') {
+				if (magic.fn.url_var('cart', '') !== '') {
 					
-					if (cart_data !== null && cart_data[customdesign.fn.url_var('cart')] !== undefined)
+					if (cart_data !== null && cart_data[magic.fn.url_var('cart')] !== undefined)
 						has_cart = true;
-					else customdesign.fn.notice(customdesign.i(120), 'error', 3500);
+					else magic.fn.notice(magic.i(120), 'error', 3500);
 				
 				};
 				
 				if (has_cart === true) {
 					
-					customdesign.cart.edit_item(customdesign.fn.url_var('cart'));
+					magic.cart.edit_item(magic.fn.url_var('cart'));
 				
-				} else if (customdesign.data.onload) {
+				} else if (magic.data.onload) {
 					
-					customdesign.f(customdesign.i('importing')+'..');
+					magic.f(magic.i('importing')+'..');
 					
-					customdesign.fn.set_url('cart', null);
+					magic.fn.set_url('cart', null);
 					
 					setTimeout(function(){
 						
-						if (customdesign.data.share !== undefined) {
-							Object.keys(customdesign.data.onload.stages).map(function(s){
-								delete customdesign.data.onload.stages[s].template;
+						if (magic.data.share !== undefined) {
+							Object.keys(magic.data.onload.stages).map(function(s){
+								delete magic.data.onload.stages[s].template;
 							});
 						};
 						
-						customdesign.render.product(customdesign.data.onload);
+						magic.render.product(magic.data.onload);
 						
-						delete customdesign.data.onload;
+						delete magic.data.onload;
 						
 					}, 100);
 					
-				} else if (customdesign.fn.url_var('reorder', '') === '' && customdesign.get.el('no-product').length > 0) {
+				} else if (magic.fn.url_var('reorder', '') === '' && magic.get.el('no-product').length > 0) {
 					
-					customdesign.f(false);
-					customdesign.actions.do('noproduct');
+					magic.f(false);
+					magic.actions.do('noproduct');
 					
 				};
 				
-				if (customdesign.data.share_invalid !== undefined) {
-					customdesign.fn.confirm({
-						title: customdesign.data.share_invalid,
+				if (magic.data.share_invalid !== undefined) {
+					magic.fn.confirm({
+						title: magic.data.share_invalid,
 						primary: {},
 						second: {
 							text: 'Ok'
@@ -16278,16 +16278,16 @@
 				};
 				
 				/* Clear unuse cart data in DB */
-				var carts = localStorage.getItem('CUSTOMDESIGN-CART-DATA');
+				var carts = localStorage.getItem('MAGIC-CART-DATA');
 				
 				if (carts && carts !== '') {
 					carts = Object.keys(JSON.parse(carts));
-					customdesign.indexed.list(function(data){
+					magic.indexed.list(function(data){
 						if (carts.indexOf(data.id) === -1)
-							customdesign.indexed.delete(data.id, 'cart');
+							magic.indexed.delete(data.id, 'cart');
 					}, 'cart', function(st){
 						if (st == 'done') {
-							customdesign.ops.cart_cursor = null;
+							magic.ops.cart_cursor = null;
 						}
 					});
 				}
@@ -16296,54 +16296,54 @@
 			
 			this.actions.add('first-completed', function(){
 				
-				if (customdesign.fn.url_var('cart', '') != '') {
+				if (magic.fn.url_var('cart', '') != '') {
 					
-					customdesign.get.el('general-status').html(
+					magic.get.el('general-status').html(
 						'<span>\
-							<text><i class="customdesignx-android-alert"></i> '+customdesign.i(115)+'</text> \
+							<text><i class="magicx-android-alert"></i> '+magic.i(115)+'</text> \
 							<a href="#clear-designs" data-btn="cancel" data-func="clear-designs">\
-								'+customdesign.i(185)+'\
+								'+magic.i(185)+'\
 							</a>\
 						</span>'
 					);
 					
-				} else if (customdesign.fn.url_var('order_print', '') !== '') {
-					$('#customdesign-general-status').html(
+				} else if (magic.fn.url_var('order_print', '') !== '') {
+					$('#magic-general-status').html(
 						'<span>\
 							<text>\
-								<i class="customdesignx-android-alert"></i> '+
-								customdesign.i(122)+' #'+customdesign.fn.url_var('order_print')+
+								<i class="magicx-android-alert"></i> '+
+								magic.i(122)+' #'+magic.fn.url_var('order_print')+
 							'</text>\
 						</span>'
 					);
-					if (customdesign.fn.url_var('design_print', '') !== '') {
+					if (magic.fn.url_var('design_print', '') !== '') {
 						
-						customdesign.f('Loading..');
+						magic.f('Loading..');
 						
-						var design_path =   customdesign.apply_filters('print-design-url',customdesign.data.upload_url+'designs/' );
-						var url = (typeof design_path === "string") ? design_path : customdesign.data.upload_url  +'designs/';
+						var design_path =   magic.apply_filters('print-design-url',magic.data.upload_url+'designs/' );
+						var url = (typeof design_path === "string") ? design_path : magic.data.upload_url  +'designs/';
 
 						$.ajax({
-							url: url+customdesign.fn.url_var('design_print', '')+'.lumi',
+							url: url+magic.fn.url_var('design_print', '')+'.lumi',
 							method: 'GET',
 							dataType: 'JSON',
 							statusCode: {
-								403: customdesign.response.statusCode[403],
+								403: magic.response.statusCode[403],
 								404: function(){
-									customdesign.fn.notice(customdesign.i(123), 'error', 3500);
-									customdesign.f(false);
+									magic.fn.notice(magic.i(123), 'error', 3500);
+									magic.f(false);
 								},
 								200: function(res) {
 									
 									if (res === null) {
-										customdesign.fn.notice(customdesign.i(166), 'error', 3500);
-										customdesign.f(false);
+										magic.fn.notice(magic.i(166), 'error', 3500);
+										magic.f(false);
 										return;
 									};
 									
-									customdesign.fn.clear_url(['design_print', 'order_print']);
+									magic.fn.clear_url(['design_print', 'order_print']);
 									
-									customdesign.fn.load_product({
+									magic.fn.load_product({
 										id: res.product,
 										cms: res.product_cms,
 										printing: res.printing,
@@ -16353,21 +16353,21 @@
 										callback: function(res) {
 											
 											if (res.id === undefined) {
-												customdesign.f(false);
-												customdesign.fn.notice('ERROR_LOAD_PRODUCT', 'error', 3500);
+												magic.f(false);
+												magic.fn.notice('ERROR_LOAD_PRODUCT', 'error', 3500);
 												return;
 											} else {
 												
-												customdesign.get.el('general-status').html(
+												magic.get.el('general-status').html(
 													'<span>\
 														<text>\
-															<i class="customdesignx-android-alert"></i> '+
-															customdesign.i(192)+
-														' <strong>#'+customdesign.fn.url_var('order_print')+'</strong></text>\
+															<i class="magicx-android-alert"></i> '+
+															magic.i(192)+
+														' <strong>#'+magic.fn.url_var('order_print')+'</strong></text>\
 													</span>'
 												);
 												
-												//customdesign.get.el('navigations').find('li[data-tool="print"]').trigger('click');
+												//magic.get.el('navigations').find('li[data-tool="print"]').trigger('click');
 												
 											}
 										}
@@ -16379,54 +16379,54 @@
 					}
 				}
 				
-				customdesign.fn.set_url('share', null);
-				$('#customdesign-left ul.customdesign-left-nav>li[data-tab]').eq(1).click();
+				magic.fn.set_url('share', null);
+				$('#magic-left ul.magic-left-nav>li[data-tab]').eq(1).click();
 				
 			});
 			
 			this.actions.add('cart-changed', function(){
 				
-				if (customdesign.fn.url_var('cart', '') === '')
+				if (magic.fn.url_var('cart', '') === '')
 					return;
 				
-				$('#customdesign-general-status').html(
+				$('#magic-general-status').html(
 					'<span>\
 						<text>\
-							<i class="customdesignx-android-alert"></i> '+
-							customdesign.i(116)+': '+customdesign.fn.date('h:m d M, Y', new Date().getTime())+
+							<i class="magicx-android-alert"></i> '+
+							magic.i(116)+': '+magic.fn.date('h:m d M, Y', new Date().getTime())+
 						'</text>\
 						<a href="#cancel-cart" data-btn="cancel" data-func="cancel-cart">\
-							'+customdesign.i(117)+'\
+							'+magic.i(117)+'\
 						</a>\
 					</span>'
 				);
 				
-				//$('#customdesign-general-status button[data-func="save-cart"]').on('click', customdesign.cart.add_cart);
+				//$('#magic-general-status button[data-func="save-cart"]').on('click', magic.cart.add_cart);
 								
 			});
 			
 			this.actions.add('add-cart', function(){
 				
-				$('#customdesign-general-status').html(
+				$('#magic-general-status').html(
 					'<span>\
-						<text>'+customdesign.i(118)+'!</text> \
+						<text>'+magic.i(118)+'!</text> \
 						<a href="#checkout">'+
-							customdesign.i(75)+' <i class="customdesignx-android-arrow-forward"></i>\
+							magic.i(75)+' <i class="magicx-android-arrow-forward"></i>\
 						</a>\
 					</span>'
 				);
 				
-				$('#customdesign-general-status a[href="#checkout"]').on('click', customdesign.cart.do_checkout);
+				$('#magic-general-status a[href="#checkout"]').on('click', magic.cart.do_checkout);
 				
 			});
 			
 			this.actions.add('noproduct', function() {
-				$('#customdesign-no-product').show();
-				customdesign.fn.set_url('cart', null);
-				// customdesign.get.el('change-product').trigger('click');
-				var flag  = customdesign.apply_filters('no-product');
+				$('#magic-no-product').show();
+				magic.fn.set_url('cart', null);
+				// magic.get.el('change-product').trigger('click');
+				var flag  = magic.apply_filters('no-product');
 			    if (flag == false ||  flag == undefined) {
-			    	customdesign.get.el('change-product').trigger('click');
+			    	magic.get.el('change-product').trigger('click');
 			    }
 			});
 			
@@ -16436,8 +16436,8 @@
 				* Check print permission 
 				*/
 				
-				var priacc = customdesign.get.el('navigations').find('li[data-tool="print"][data-alwd]'),
-					priurl = encodeURIComponent(customdesign.fn.url_var('design_print', ''));
+				var priacc = magic.get.el('navigations').find('li[data-tool="print"][data-alwd]'),
+					priurl = encodeURIComponent(magic.fn.url_var('design_print', ''));
 				
 				if (priacc.length > 0 && priacc.attr('data-alwd') != priurl)
 					priacc.remove();
@@ -16446,13 +16446,13 @@
 			
 			this.actions.add('updated', function() {
 				if (
-					customdesign.fn.url_var('cart', '') === '' &&
-					customdesign.fn.url_var('design_print', '') === ''
+					magic.fn.url_var('cart', '') === '' &&
+					magic.fn.url_var('design_print', '') === ''
 				) {
-					customdesign.get.el('general-status').html(
+					magic.get.el('general-status').html(
 						'<span>\
-							<text><i class="customdesignx-android-alert"></i> '+customdesign.i(189)+'</text>\
-							<a href="#save-design" data-func="save-design"><i class="customdesignx-floppy"></i> '+customdesign.i(190)+'</a>\
+							<text><i class="magicx-android-alert"></i> '+magic.i(189)+'</text>\
+							<a href="#save-design" data-func="save-design"><i class="magicx-floppy"></i> '+magic.i(190)+'</a>\
 						</span>'
 					);
 				}
@@ -16465,8 +16465,8 @@
 				['ctrl-shift-s', 'saveas'],
 				['ctrl-p', 'print']
 			].map(function(k){
-				customdesign.actions.add(k[0], function(e) {
-					customdesign.get.el('navigations').find('li[data-tool="file"] li[data-func="'+k[1]+'"]').trigger('click');
+				magic.actions.add(k[0], function(e) {
+					magic.get.el('navigations').find('li[data-tool="file"] li[data-func="'+k[1]+'"]').trigger('click');
 					e.preventDefault();
 					e.stopPropagation();
 					return false;
@@ -16476,7 +16476,7 @@
 			fabric.Object.prototype.originX = fabric.Object.prototype.originY = 'center';
 			fabric.Object.prototype.transparentCorners = false;
 			
-			window.CustomdesignDesign = null;
+			window.MagicDesign = null;
 			window.indexedDB = window.indexedDB || 
 							   window.webkitIndexedDB || 
 							   window.mozIndexedDB || 
@@ -16518,41 +16518,41 @@
 					
 			window.addEventListener('message', function(e) {
 				
-				if (e.origin != 'https://services.customdesign.com' && e.origin != window.location.origin)
+				if (e.origin != 'https://services.Magicrugs.com' && e.origin != window.location.origin)
 					return;
 		
 				if (e.data && e.data.action) {
 					switch (e.data.action) {
 						case 'close_lightbox' :
-							$('#customdesign-lightbox').remove();
+							$('#magic-lightbox').remove();
 						break;
 						case 'import_image' :
 							var id = parseInt(new Date().getTime()/1000).toString(36)+':'+Math.random().toString(36).substr(2);
 							if (e.data.ops.name.indexOf('/') > -1)
 								e.data.ops.name = e.data.ops.name.split('/').pop();
-							customdesign.cliparts.import(id, e.data.ops, 'prepend');
+							magic.cliparts.import(id, e.data.ops, 'prepend');
 						break;
 						case 'add_image' : 
 						
-							customdesign.fn.preset_import([{type: 'image', url: e.data.url, user_upload: true}]);
+							magic.fn.preset_import([{type: 'image', url: e.data.url, user_upload: true}]);
 						break;
 						case 'preview_image': 
-							customdesign.get.el('x-thumbn-preview').show().find('>div').html('<img src="'+e.data.ops.url+'" />');
-							customdesign.get.el('x-thumbn-preview').find('>header').html(
+							magic.get.el('x-thumbn-preview').show().find('>div').html('<img src="'+e.data.ops.url+'" />');
+							magic.get.el('x-thumbn-preview').find('>header').html(
 								(e.data.ops.name ? e.data.ops.name : e.data.ops.url.split('/').pop().substr(0, 50))
 							);
 							if (e.data.ops.tags !== '')
-								customdesign.get.el('x-thumbn-preview').find('>footer').show().html(e.data.ops.tags);
+								magic.get.el('x-thumbn-preview').find('>footer').show().html(e.data.ops.tags);
 						break;
 						case 'close_preview_image': 
-							customdesign.get.el('x-thumbn-preview').hide();
+							magic.get.el('x-thumbn-preview').hide();
 						break;
 						case 'fonts' :
-							customdesign.render.fonts(e.data.fonts);
+							magic.render.fonts(e.data.fonts);
 						break;
 						case 'update-svg' :
 						
-							var canvas = customdesign.stage().canvas;
+							var canvas = magic.stage().canvas;
 								active = canvas.getActiveObject();
 							
 							if (active !== null) {
@@ -16568,7 +16568,7 @@
 								};
 							};
 							
-							customdesign.tools.lightbox('close');
+							magic.tools.lightbox('close');
 							
 						break;
 					}
@@ -16584,8 +16584,8 @@
 			});
 			
 			$(window).bind('beforeunload', function(){
-				if (customdesign.ops.before_unload)
-					return customdesign.ops.before_unload;
+				if (magic.ops.before_unload)
+					return magic.ops.before_unload;
 			})
 			.on('touchstart', function(e){
 				
@@ -16609,7 +16609,7 @@
 		        
 		    })
 		    .on('load', function(){
-				customdesign.mobile();
+				magic.mobile();
 			});
 			
 			this.design.events();
@@ -16636,11 +16636,11 @@
 			this.render.fonts();
 			this.cart.init();
 			
-			jscolor.detectDir = function(){ return customdesign.data.assets+'/assets/images/'; };
+			jscolor.detectDir = function(){ return magic.data.assets+'/assets/images/'; };
 			jscolor.init();
 			delete jscolor.init;
 			
-			customdesign.mobile();
+			magic.mobile();
 
 		},
 		
@@ -16649,33 +16649,33 @@
 			n = n.toUpperCase();
 			
 			$.ajax({
-				url: customdesign.data.ajax,
+				url: magic.data.ajax,
 				method: 'POST',
 				data: {
-					nonce: 'CUSTOMDESIGN-INIT:'+n,
+					nonce: 'MAGIC-INIT:'+n,
 					ajax: 'frontend',
 					action: 'init',
-					product_base: customdesign.fn.url_var('product_base', ''),
-					product_cms: customdesign.fn.url_var('product_cms', ''),
-					share: customdesign.fn.url_var('share', ''),
-					quantity: customdesign.fn.url_var('quantity', '1')
+					product_base: magic.fn.url_var('product_base', ''),
+					product_cms: magic.fn.url_var('product_cms', ''),
+					share: magic.fn.url_var('share', ''),
+					quantity: magic.fn.url_var('quantity', '1')
 				},
 				dataType: 'JSON',
 				success: function(res) {
 					
 					if (res.custom_js !== undefined && res.custom_js !== '') {
 						try {
-							Function("customdesign", res.custom_js)(customdesign);
+							Function("magic", res.custom_js)(magic);
 						} catch (ex) {};
 						delete res.custom_js;
 					}
 					
-					$.extend(customdesign.data, res);
+					$.extend(magic.data, res);
 					
-					customdesign.load();
+					magic.load();
 					
-					if (customdesign.indexed.db !== null && typeof customdesign.indexed.onDBReady == 'function') {
-						customdesign.indexed.onDBReady();
+					if (magic.indexed.db !== null && typeof magic.indexed.onDBReady == 'function') {
+						magic.indexed.onDBReady();
 					};
 					
 					if (
@@ -16683,7 +16683,7 @@
 						typeof(res.onload.id) !== 'undefined' && 
 						res.onload.id.toString().indexOf('variable') != -1
 					) {
-						customdesign.data.calc_formula == '0';
+						magic.data.calc_formula == '0';
 					}
 					
 				}
@@ -16693,9 +16693,9 @@
 		
 	};
 
-	if (typeof CustomdesignDesign == 'function') {
-		customdesign.indexed.init();
-		customdesign.init(CustomdesignDesign(customdesign));
+	if (typeof MagicDesign == 'function') {
+		magic.indexed.init();
+		magic.init(MagicDesign(magic));
 	}
 	
 });

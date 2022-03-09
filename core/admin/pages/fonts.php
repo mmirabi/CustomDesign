@@ -9,34 +9,34 @@
 		$val = isset($_POST['id_action']) ? $_POST['id_action'] : '';
 		$val = explode(',', $val);
 		
-		$customdesign_admin->check_caps('fonts');
+		$magic_admin->check_caps('fonts');
 		
 		foreach ($val as $value) {
 
-			$dt = $customdesign_admin->get_row_id($value, 'fonts');
+			$dt = $magic_admin->get_row_id($value, 'fonts');
 			switch ($data_action) {
 
 				case 'active':
 					$data = array(
 						'active' => 1
 					);
-					$dt = $customdesign_admin->edit_row( $value, $data, 'fonts' );
+					$dt = $magic_admin->edit_row( $value, $data, 'fonts' );
 					break;
 				case 'deactive':
 					$data = array(
 						'active' => 0
 					);
-					$dt = $customdesign_admin->edit_row( $value, $data, 'fonts' );
+					$dt = $magic_admin->edit_row( $value, $data, 'fonts' );
 					break;
 				case 'delete':
-					$tar_file = realpath($customdesign->cfg->upload_path).DS;
+					$tar_file = realpath($magic->cfg->upload_path).DS;
 
 					if (!empty($dt['upload'])) {
 						if (file_exists($tar_file.$dt['upload'])) {
 							unlink($tar_file.$dt['upload']);
 						}
 					}
-					$customdesign_admin->delete_row($value, 'fonts');
+					$magic_admin->delete_row($value, 'fonts');
 					break;
 				default:
 					break;
@@ -120,65 +120,65 @@
     );
 
     $start = ( $current_page - 1 ) *  $per_page;
-	$fonts = $customdesign_admin->get_rows('fonts', $search_filter, $orderby, $ordering, $per_page, $start);
-	$total_record = $customdesign_admin->get_rows_total('fonts');
+	$fonts = $magic_admin->get_rows('fonts', $search_filter, $orderby, $ordering, $per_page, $start);
+	$total_record = $magic_admin->get_rows_total('fonts');
 
     $config = array(
     	'current_page'  => $current_page,
 		'total_record'  => $fonts['total_count'],
 		'total_page'    => $fonts['total_page'],
  	    'limit'         => $per_page,
-	    'link_full'     => $customdesign->cfg->admin_url.'customdesign-page=fonts&tpage={page}',
-	    'link_first'    => $customdesign->cfg->admin_url.'customdesign-page=fonts',
+	    'link_full'     => $magic->cfg->admin_url.'magic-page=fonts&tpage={page}',
+	    'link_first'    => $magic->cfg->admin_url.'magic-page=fonts',
 	);
 
-	$customdesign_pagination->init($config);
+	$magic_pagination->init($config);
 
 ?>
 
-<div class="customdesign_wrapper">
+<div class="magic_wrapper">
 
-	<div class="customdesign_content">
+	<div class="magic_content">
 
-		<div class="customdesign_header">
-			<h2><?php echo $customdesign->lang('Custom Fonts'); ?></h2>
-			<a href="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=font" class="add-new customdesign-button">
+		<div class="magic_header">
+			<h2><?php echo $magic->lang('Custom Fonts'); ?></h2>
+			<a href="<?php echo $magic->cfg->admin_url;?>magic-page=font" class="add-new magic-button">
 				<i class="fa fa-plus"></i> 
-				<?php echo $customdesign->lang('Add new font'); ?>
+				<?php echo $magic->lang('Add new font'); ?>
 			</a>
 			<?php
-				$customdesign_page = isset($_GET['customdesign-page']) ? $_GET['customdesign-page'] : '';
-				echo $customdesign_helper->breadcrumb($customdesign_page);
+				$magic_page = isset($_GET['magic-page']) ? $_GET['magic-page'] : '';
+				echo $magic_helper->breadcrumb($magic_page);
 			?>
 		</div>
-		<div class="customdesign_message noti">
-			<em class="customdesign_suc">
+		<div class="magic_message noti">
+			<em class="magic_suc">
 				<i class="fa fa-info-circle"></i>
-				<?php echo $customdesign->lang('Users can also select from over 800+ Google fonts and you can set the list default Google fonts in'); ?>
-				<a href="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=settings">
-					<?php echo $customdesign->lang('General Settings'); ?>
+				<?php echo $magic->lang('Users can also select from over 800+ Google fonts and you can set the list default Google fonts in'); ?>
+				<a href="<?php echo $magic->cfg->admin_url;?>magic-page=settings">
+					<?php echo $magic->lang('General Settings'); ?>
 					<i class="fa fa-cog"></i>
 				</a>
 			</em>
 		</div>
 	
 
-		<div class="customdesign_option">
+		<div class="magic_option">
 			<div class="left">
-				<form action="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=fonts" method="post">
+				<form action="<?php echo $magic->cfg->admin_url;?>magic-page=fonts" method="post">
 					<select name="action" class="art_per_page">
-						<option value="none"><?php echo $customdesign->lang('Bulk Actions'); ?></option>
-						<option value="active"><?php echo $customdesign->lang('Active'); ?></option>
-						<option value="deactive"><?php echo $customdesign->lang('Deactive'); ?></option>
-						<option value="delete"><?php echo $customdesign->lang('Delete'); ?></option>
+						<option value="none"><?php echo $magic->lang('Bulk Actions'); ?></option>
+						<option value="active"><?php echo $magic->lang('Active'); ?></option>
+						<option value="deactive"><?php echo $magic->lang('Deactive'); ?></option>
+						<option value="delete"><?php echo $magic->lang('Delete'); ?></option>
 					</select>
 					<input type="hidden" name="id_action" class="id_action">
-					<input  class="customdesign_submit" type="submit" name="action_submit" value="<?php echo $customdesign->lang('Apply'); ?>">
-					<?php $customdesign->securityFrom();?>
+					<input  class="magic_submit" type="submit" name="action_submit" value="<?php echo $magic->lang('Apply'); ?>">
+					<?php $magic->securityFrom();?>
 				</form>
-				<form action="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=fonts" method="post">
+				<form action="<?php echo $magic->cfg->admin_url;?>magic-page=fonts" method="post">
 					<select name="per_page" class="art_per_page" data-action="submit">
-						<option value="none">-- <?php echo $customdesign->lang('Per page'); ?> --</option>
+						<option value="none">-- <?php echo $magic->lang('Per page'); ?> --</option>
 						<?php
 							$per_pages = array('5', '10', '15', '20', '100');
 
@@ -193,40 +193,40 @@
 							}
 						?>
 					</select>
-					<?php $customdesign->securityFrom();?>
+					<?php $magic->securityFrom();?>
 				</form>
-				<form action="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=fonts" method="post">
+				<form action="<?php echo $magic->cfg->admin_url;?>magic-page=fonts" method="post">
 					<select name="sort" class="art_per_page" data-action="submit">
-						<option value="">-- <?php echo $customdesign->lang('Sort by'); ?> --</option>
-						<option value="name_asc" <?php if ($dt_order == 'name_asc' ) echo 'selected' ; ?> ><?php echo $customdesign->lang('Name'); ?> A-Z</option>
-						<option value="name_desc" <?php if ($dt_order == 'name_desc' ) echo 'selected' ; ?> ><?php echo $customdesign->lang('Name'); ?> Z-A</option>
+						<option value="">-- <?php echo $magic->lang('Sort by'); ?> --</option>
+						<option value="name_asc" <?php if ($dt_order == 'name_asc' ) echo 'selected' ; ?> ><?php echo $magic->lang('Name'); ?> A-Z</option>
+						<option value="name_desc" <?php if ($dt_order == 'name_desc' ) echo 'selected' ; ?> ><?php echo $magic->lang('Name'); ?> Z-A</option>
 					</select>
-					<?php $customdesign->securityFrom();?>
+					<?php $magic->securityFrom();?>
 				</form>
 			</div>
 			<div class="right">
-				<form action="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=fonts" method="post">
-					<input type="search" name="search" class="search" placeholder="<?php echo $customdesign->lang('Search ...'); ?>" value="<?php if(isset($_SESSION[$prefix.'data_search'])) echo $_SESSION[$prefix.'data_search']; ?>">
-					<input  class="customdesign_submit" type="submit" name="search_font" value="<?php echo $customdesign->lang('Search'); ?>">
-					<?php $customdesign->securityFrom();?>
+				<form action="<?php echo $magic->cfg->admin_url;?>magic-page=fonts" method="post">
+					<input type="search" name="search" class="search" placeholder="<?php echo $magic->lang('Search ...'); ?>" value="<?php if(isset($_SESSION[$prefix.'data_search'])) echo $_SESSION[$prefix.'data_search']; ?>">
+					<input  class="magic_submit" type="submit" name="search_font" value="<?php echo $magic->lang('Search'); ?>">
+					<?php $magic->securityFrom();?>
 
 				</form>
 			</div>
 		</div>
 		<?php if ( isset($fonts['total_count']) && $fonts['total_count'] > 0) { ?>
-			<div class="customdesign_wrap_table">
-				<table class="customdesign_table customdesign_fonts">
+			<div class="magic_wrap_table">
+				<table class="magic_table magic_fonts">
 					<thead>
 						<tr>
-							<th class="customdesign_check">
-								<div class="customdesign_checkbox">
+							<th class="magic_check">
+								<div class="magic_checkbox">
 									<input type="checkbox" id="check_all">
 									<label for="check_all"><em class="check"></em></label>
 								</div>
 							</th>
-							<th><?php echo $customdesign->lang('Name'); ?></th>
-							<th><?php echo $customdesign->lang('Preview'); ?></th>
-							<th><?php echo $customdesign->lang('Status'); ?></th>
+							<th><?php echo $magic->lang('Name'); ?></th>
+							<th><?php echo $magic->lang('Preview'); ?></th>
+							<th><?php echo $magic->lang('Status'); ?></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -237,15 +237,15 @@
 								foreach ($fonts['rows'] as $value) { ?>
 
 									<tr>
-										<td class="customdesign_check">
-											<div class="customdesign_checkbox">
+										<td class="magic_check">
+											<div class="magic_checkbox">
 												<input type="checkbox" name="checked[]" class="action_check" value="<?php if(isset($value['id'])) echo $value['id']; ?>" class="action" id="<?php if(isset($value['id'])) echo $value['id']; ?>">
 												<label for="<?php if(isset($value['id'])) echo $value['id']; ?>"><em class="check"></em></label>
 											</div>
 										</td>
 										<td>
 											<a href="<?php
-												echo $customdesign->cfg->admin_url;?>customdesign-page=font&id=<?php
+												echo $magic->cfg->admin_url;?>magic-page=font&id=<?php
 													echo (isset($value['id']) ? $value['id'] : '');
 												?>" class="name">
 												<?php if(isset($value['name'])) echo $value['name']; ?>
@@ -254,28 +254,28 @@
 										<td>
 										<?php
 											if(isset($value['upload'])) {
-											$id = $customdesign->generate_id();
+											$id = $magic->generate_id();
 										?>
 											<h3 id="<?php echo $id; ?>"><?php
 												echo (isset($value['name']) ? $value['name'] : 'Font Preview');
 											?></h3>
 											<script type="text/javascript">
 												jQuery(document).ready(function() {
-													customdesign_font_preview(
+													magic_font_preview(
 														"<?php echo $id; ?>",
-														"url(<?php echo $customdesign->cfg->upload_url.str_replace(TS, '/', $value['upload']); ?>)",
+														"url(<?php echo $magic->cfg->upload_url.str_replace(TS, '/', $value['upload']); ?>)",
 														"#<?php echo $id; ?>");
 												});
 											</script>
 										<?php } ?></td>
 										<td>
-											<a href="#" class="customdesign_action" data-type="fonts" data-action="switch_active" data-status="<?php echo (isset($value['active']) ? $value['active'] : '0'); ?>" data-id="<?php if(isset($value['id'])) echo $value['id'] ?>">
+											<a href="#" class="magic_action" data-type="fonts" data-action="switch_active" data-status="<?php echo (isset($value['active']) ? $value['active'] : '0'); ?>" data-id="<?php if(isset($value['id'])) echo $value['id'] ?>">
 												<?php
 													if (isset($value['active'])) {
 														if ($value['active'] == 1) {
-															echo '<em class="pub">'.$customdesign->lang('active').'</em>';
+															echo '<em class="pub">'.$magic->lang('active').'</em>';
 														} else {
-															echo '<em class="un pub">'.$customdesign->lang('deactive').'</em>';
+															echo '<em class="un pub">'.$magic->lang('deactive').'</em>';
 														}
 													}
 												?>
@@ -292,16 +292,16 @@
 				</table>
 			</div>
 			
-			<div class="customdesign_pagination"><?php echo $customdesign_pagination->pagination_html(); ?></div>
+			<div class="magic_pagination"><?php echo $magic_pagination->pagination_html(); ?></div>
 
 		<?php } else {
 					if (isset($total_record) && $total_record > 0) {
-						echo '<p class="no-data">'.$customdesign->lang('Apologies, but no results were found.').'</p>';
+						echo '<p class="no-data">'.$magic->lang('Apologies, but no results were found.').'</p>';
 						$_SESSION[$prefix.'data_search'] = '';
-						echo '<a href="'.$customdesign->cfg->admin_url.'customdesign-page=fonts" class="btn-back"><i class="fa fa-reply" aria-hidden="true"></i>'.$customdesign->lang('Back To Lists').'</a>';
+						echo '<a href="'.$magic->cfg->admin_url.'magic-page=fonts" class="btn-back"><i class="fa fa-reply" aria-hidden="true"></i>'.$magic->lang('Back To Lists').'</a>';
 					}
 					else
-						echo '<p class="no-data">'.$customdesign->lang('No data. Please add font.').'</p>';
+						echo '<p class="no-data">'.$magic->lang('No data. Please add font.').'</p>';
 			}?>
 
 	</div>

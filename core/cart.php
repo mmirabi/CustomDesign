@@ -6,7 +6,7 @@
 /**
  *
  */
-class customdesign_cart extends customdesign_lib
+class magic_cart extends magic_lib
 {
 	
     protected $action 		= '';
@@ -18,8 +18,8 @@ class customdesign_cart extends customdesign_lib
       	/*
 	    *	Process data from uploaded file before
 	    */
-	    global $customdesign;
-	    $this->main = $customdesign;
+	    global $magic;
+	    $this->main = $magic;
 	    $this->action 	= $this->main->lib->esc('action');
 	   
 	    $this->process_checkout();
@@ -28,7 +28,7 @@ class customdesign_cart extends customdesign_lib
     
     public function process_checkout() {
 
-		global $customdesign;
+		global $magic;
         
         $items_cart 	= array();
         $upload_fields 	= array();
@@ -42,7 +42,7 @@ class customdesign_cart extends customdesign_lib
         //check none
 		$nonce = isset( $_POST['nonce'] ) ? explode( ":", htmlspecialchars($_POST['nonce'])) : array('', '');
 
-		if ( !customdesign_secure::check_nonce($nonce[0], $nonce[1]) ){
+		if ( !magic_secure::check_nonce($nonce[0], $nonce[1]) ){
 			header('HTTP/1.0 403 Forbidden');
 			exit;
 		}
@@ -242,7 +242,7 @@ class customdesign_cart extends customdesign_lib
 		                    		$template = $this->get_template( $tem_id );
 									$template_price += ( $template['price'] > 0 ) ? $template['price'] : 0;
 									// filter template price
-									$template_price = $customdesign->apply_filters('cart-process-template-price', $template_price, $item->cms_id);
+									$template_price = $magic->apply_filters('cart-process-template-price', $template_price, $item->cms_id);
 								}
 		                    }
 	                    }
@@ -250,10 +250,10 @@ class customdesign_cart extends customdesign_lib
 	                }
 	            }
 	            
-	            $base_price = $customdesign->apply_filters(
+	            $base_price = $magic->apply_filters(
 	                'product_base_price',
 	                $current_product['price'], 
-	                ($customdesign->connector->platform == 'php') ? $item->product_id : $item->cms_id
+	                ($magic->connector->platform == 'php') ? $item->product_id : $item->cms_id
 	            );
 	            
 				if (is_array($base_price))
@@ -324,7 +324,7 @@ class customdesign_cart extends customdesign_lib
 					}
 				}
 				
-	            $extra_filters = $customdesign->apply_filters(
+	            $extra_filters = $magic->apply_filters(
 	                'product_extra_price',
 	                array(),
 	                $item
@@ -355,7 +355,7 @@ class customdesign_cart extends customdesign_lib
 	                'data'          => $item,
 	                'qty'           => $qty,
 	                'product_id'    => $item->product_id,
-	                'product_cms'   => ( $customdesign->connector->platform == 'php' )? $item->product_id : $item->cms_id,
+	                'product_cms'   => ( $magic->connector->platform == 'php' )? $item->product_id : $item->cms_id,
 	                'product_name'  => $item->product_name,
 	                'price' => array(
 	                    'total'     => 0,
@@ -374,7 +374,7 @@ class customdesign_cart extends customdesign_lib
 	                'screenshots'   => $screenshorts
 	            );
 
-	            $items_cart[ $cart_id ] = $customdesign->apply_filters( 'items-cart-temp', $items_cart[ $cart_id ], array('attributes' => $attributes, 'variations' => $variations, 'product_stages' => $product_stages));
+	            $items_cart[ $cart_id ] = $magic->apply_filters( 'items-cart-temp', $items_cart[ $cart_id ], array('attributes' => $attributes, 'variations' => $variations, 'product_stages' => $product_stages));
 	            
 	            unset($item);
 			}
@@ -550,7 +550,7 @@ class customdesign_cart extends customdesign_lib
 									$template_price += ( $template['price'] > 0 ) ? $template['price'] : 0;
 
 									// filter template price
-									$template_price = $customdesign->apply_filters('cart-process-template-price', $template_price, $item->cms_id);
+									$template_price = $magic->apply_filters('cart-process-template-price', $template_price, $item->cms_id);
 								}
 		                    }
 	                    }
@@ -559,13 +559,13 @@ class customdesign_cart extends customdesign_lib
 	            }
 	            
 	            $priceTemp = isset($item->price) ? $item->price : 0;
-	            $base_price = $customdesign->apply_filters(
+	            $base_price = $magic->apply_filters(
 	                'product_base_price',
 	                $priceTemp, 
-	                ($customdesign->connector->platform == 'php') ? $item->product_id : $item->cms_id
+	                ($magic->connector->platform == 'php') ? $item->product_id : $item->cms_id
 	            );
 
-	            if( $customdesign->connector->platform == 'woocommerce'){
+	            if( $magic->connector->platform == 'woocommerce'){
             		$product_id = intval(preg_replace('/[^0-9]+/mi', '', $item->product_id));
 					$product = wc_get_product( $product_id );
 					$base_price = floatval($product->get_price());
@@ -640,7 +640,7 @@ class customdesign_cart extends customdesign_lib
 					}
 				}
 				
-	            $extra_filters = $customdesign->apply_filters(
+	            $extra_filters = $magic->apply_filters(
 	                'product_extra_price',
 	                array(),
 	                $item
@@ -671,7 +671,7 @@ class customdesign_cart extends customdesign_lib
 	                'data'          => $item,
 	                'qty'           => $qty,
 	                'product_id'    => $item->product_id,
-	                'product_cms'   => ( $customdesign->connector->platform == 'php' )? $item->product_id : $item->cms_id,
+	                'product_cms'   => ( $magic->connector->platform == 'php' )? $item->product_id : $item->cms_id,
 	                'product_name'  => $item->product_name,
 	                'price' => array(
 	                    'total'     => 0,
@@ -683,6 +683,7 @@ class customdesign_cart extends customdesign_lib
 	                'options'    	=> $item->options,
 	                'variation'    	=> $item->variation,
 	                'attributes'    => $attributes,
+					'ext_attributes'=> $item->ext_attributes,
 	                'printing'      => $item->printing,
 	                'resource'      => $resource,
 	                'design'        => $item->design,
@@ -691,7 +692,7 @@ class customdesign_cart extends customdesign_lib
 	            );
 
 				$product_stage_printful		= $this->dejson(isset($current_product['stages']) ? $current_product['stages'] : '{}');
-	            $items_cart[ $cart_id ] = $customdesign->apply_filters( 'items-cart-temp', $items_cart[ $cart_id ], array('attributes' => $attributes, 'variations' => $variations, 'product_stages' => $product_stage_printful));
+	            $items_cart[ $cart_id ] = $magic->apply_filters( 'items-cart-temp', $items_cart[ $cart_id ], array('attributes' => $attributes, 'variations' => $variations, 'product_stages' => $product_stage_printful));
 	            
 	            unset($item);
 			}
@@ -710,14 +711,14 @@ class customdesign_cart extends customdesign_lib
         }
         
         // $resources = $this->resources( $ids );
-
+		
         $cart_total = 0;
         foreach( $items_cart as $key => $item ) {
             foreach ( $item[ 'resource' ] as $res ){
                 // $item[ 'price' ][ 'resource' ] += floatval( $resources[ $res['id'] ][ 'price' ] );
                 $type = preg_replace('/[^a-zA-Z0-9]+/i', '', $res['type']);
                 if(isset($resource_ids[ $type.'_'.$res['id'] ][ 'price' ]) && $type == 'cliparts' && floatval( $resource_ids[ $type.'_'.$res['id'] ][ 'price' ] ) > 0){
-                	$resource_ids[ $type.'_'.$res['id'] ][ 'price' ] = $customdesign->apply_filters('cart-process-clipart-price', floatval( $resource_ids[ $type.'_'.$res['id'] ][ 'price' ] ), $item['product_cms']);
+                	$resource_ids[ $type.'_'.$res['id'] ][ 'price' ] = $magic->apply_filters('cart-process-clipart-price', floatval( $resource_ids[ $type.'_'.$res['id'] ][ 'price' ] ), $item['product_cms']);
                 }
                 $item[ 'price' ][ 'resource' ] += floatval( $resource_ids[ $type.'_'.$res['id'] ][ 'price' ] );
                 $items_cart[ $key ][ 'price' ]['resource'] = $item['price']['resource'];
@@ -739,13 +740,13 @@ class customdesign_cart extends customdesign_lib
             unset( $items_cart[ $key ]['data'] );
             
             //store items to files
-            $customdesign->check_upload();
+            $magic->check_upload();
             
             $item_data  =  $items_cart[ $key ];
             $filename   = $this->save_cart_item_file( $item_data );
             
             if( $filename === false ){
-                return $customdesign->lang( 'Could not write data on the user data folder, please report to the administrator' );
+                return $magic->lang( 'Could not write data on the user data folder, please report to the administrator' );
             }else{
                 $items_cart[ $key ]['file'] = $filename;
             }
@@ -759,29 +760,29 @@ class customdesign_cart extends customdesign_lib
         $_POST = array();
         $cart_data = array(
             'items'     => $items_cart,
-            'currency'  => $customdesign->cfg->settings[ 'currency' ],
+            'currency'  => $magic->cfg->settings[ 'currency' ],
             'total'     => 0
         );
         
-        $customdesign->connector->set_session( 'customdesign_cart_removed', array() );
-        $customdesign->connector->set_session( 'customdesign_cart', $cart_data );
+        $magic->connector->set_session( 'magic_cart_removed', array() );
+        $magic->connector->set_session( 'magic_cart', $cart_data );
         
-		if ( method_exists( $customdesign->connector, 'add_to_cart' ) )
-			echo  $customdesign->connector->add_to_cart ($items_cart);
+		if ( method_exists( $magic->connector, 'add_to_cart' ) )
+			echo  $magic->connector->add_to_cart ($items_cart);
 		else echo '0';
 
     }
 
     public function printing_calc( $item, $qty ){
     	
-    	global $customdesign;
+    	global $magic;
     	
     	$print_price = 0;
-    	$db = $customdesign->get_db();
+    	$db = $magic->get_db();
     	
         if (isset($item->printing) && $item->printing > 0) {
            
-           	$query = "SELECT * FROM `{$db->prefix}printings` WHERE `author`='{$customdesign->vendor_id}' AND id = {$item->printing}";
+           	$query = "SELECT * FROM `{$db->prefix}printings` WHERE `author`='{$magic->vendor_id}' AND id = {$item->printing}";
 			$printing =  $db->rawQuery($query);
 			 
 			if (count($printing) > 0)
@@ -794,109 +795,139 @@ class customdesign_cart extends customdesign_lib
 	        
 	        $calc			= json_decode(urldecode(base64_decode($printing['calculate'])), true);
             $rules 			= $calc['values'];
+			$cfgpricing     = $calc['cfgpricing'];
             $states_data 	= $item->states_data;
-			
-            if (empty($rules) && !is_array($rules)) 
-            	return $print_price;
-			
+			//echo "<pre>";
+			//print_r($states_data);
+
+			if (empty($rules) && !is_array($rules)) 
+					return $print_price;
+				
 			$keys = array_keys($rules);
 			
 			$ind_stage = 0;
 			
 			foreach ($states_data as $s => $options){
-                
-                $is_multi = $calc['multi'];
 				
-                if (!$is_multi)
+				$is_multi = $calc['multi'];
+				
+				if (!$is_multi)
 					$ind_stage  = 0;
-                if(!isset($keys[$ind_stage])) continue;
+				if(!isset($keys[$ind_stage])) continue;
 				$stage    	  = $keys[$ind_stage];
-                $rules_stages = $rules[$stage];
-                $qtys		  = array_keys($rules_stages);
+				$rules_stages = $rules[$stage];
+				$qtys		  = array_keys($rules_stages);
 				
-                sort($qtys, SORT_NATURAL);
-                
+				sort($qtys, SORT_NATURAL);
+				
 				$ind_stage++;
 				
-                if (count($qtys) == 0) 
-                	continue;
-                
-                $index = -1;
-                
-                for ($i=0; $i < count($qtys); $i++){
-                    if(
-                        (
-                            intval($qtys[$i] ) < $qty &&
-                            strpos($qtys[$i], '>') === false
-                        ) ||
-                        (
-                            strpos($qtys[$i], '>') !== false &&
-                            (intval(str_replace('>', '', $qtys[$i])) + 1) <= $qty
-                        )
-                    )
-                        $index = $i;
-                }
+				if (count($qtys) == 0) 
+					continue;
+				
+				$index = -1;
+				
+				for ($i=0; $i < count($qtys); $i++){
+					if(
+						(
+							intval($qtys[$i] ) < $qty &&
+							strpos($qtys[$i], '>') === false
+						) ||
+						(
+							strpos($qtys[$i], '>') !== false &&
+							(intval(str_replace('>', '', $qtys[$i])) + 1) <= $qty
+						)
+					)
+						$index = $i;
+				}
 
-                if (isset($qtys[$index + 1]))
-                    $qty_key = $qtys[$index + 1];
-                else
-                    $qty_key = $qtys[$index];
-                    
-                $rule = $rules_stages[$qty_key];
-                
-                
-                $total_res = 0;
-                
-                foreach ($options as $key => $val) {
-	                
-                    $unit 	= $val;
-                    $option = $key;
-                    
-                    if( 
-                        $calc['type'] == 'color' && 
-                        $key == 'colors' && 
-                        count((array)$val) > 0
-                    ){
-                        $unit 	= 1;
-                        $option = count((array)$val).'-color';
-                        $option = (!isset($rule[$option])) ? 'full-color' : $option;
-                    }
+				if (isset($qtys[$index + 1]))
+					$qty_key = $qtys[$index + 1];
+				else
+					$qty_key = $qtys[$index];
+					
+				$rule = $rules_stages[$qty_key];
+				
+				
+				$total_res = 0;
+				
+				foreach ($options as $key => $val) {
+					
+					$unit 	= $val;
+					$option = $key;
+					
+					if( 
+						$calc['type'] == 'color' && 
+						$key == 'colors' && 
+						count((array)$val) > 0
+					){
+						$unit 	= 1;
+						$option = count((array)$val).'-color';
+						$option = (!isset($rule[$option])) ? 'full-color' : $option;
+						$print_price += ((isset($rule[$option]) && $cfgpricing) ? floatval($rule[$option]) : floatval($rule['ppu'])) * count((array)$val);
+					}
+					if( 
+						$calc['type'] == 'character' && 
+						$key == 'character' && 
+						is_object($val)	
+					){
+						$val = json_decode( json_encode($val), true );
+						foreach($val as $k => $v){
+							$character = array_sum($v);
+							$opt = $character.'-character';
+							$print_price += ((isset($rule[$opt]) && $cfgpricing) ? floatval($rule[$opt]) : floatval($rule['ppu'])) * $character;
+						}
+					}
+					
+					if( 
+						$calc['type'] == 'line' && 
+						$key == 'line' && 
+						is_object($val)	
+					){
+						$val = json_decode( json_encode($val), true );
+						foreach($val as $k => $v){
+							$opt = $v.'-line';
+							$print_price += ((isset($rule[$opt]) && $cfgpricing) ? floatval($rule[$opt]) : floatval($rule['ppu'])) * $v;
+						}
+					}
 
-                    if (isset($rule[$option]))
-                        // $print_price += floatval($rule[$option]*$unit);
-                    	$print_price += floatval(floatval($rule[$option])*floatval($unit));
-                    
-                    if (!is_array($val))
-                    	$total_res += $unit;
-                }
-                
-                if(
-                   $calc['type'] == 'fixed' 
-                    && $total_res > 0
-                ){
-                    $print_price += floatval( $rule['price'] );
-                    if( !$is_multi ) return $print_price;
-                }
-                
-                if(
-                    $calc['type'] == 'size' &&
-                    is_object($item->printings_cfg) &&
-                    $total_res > 0
-                ){
-                    $product_size   = '';
-                    
-                    foreach ( $item->printings_cfg as $key => $value ) {
-                        if( $key == $item->printing || $key == '_'.$item->printing) 
-                        	$product_size = $value;
-                    } 
-                    
-                    $print_price += floatval( $rule[ $product_size ] );
-                    
-                    if ( !$is_multi ) 
-                    	return $print_price;
-                }
-            }
-                           
+					if ($calc['type'] != 'color' && isset($rule[$option]))
+						// $print_price += floatval($rule[$option]*$unit);
+						$print_price += floatval(floatval($rule[$option]) * floatval($unit));
+					
+					if (!is_array($val) && !is_object($val))
+						$total_res += $unit;
+				}
+				
+				if(
+				$calc['type'] == 'fixed' 
+					&& $total_res > 0
+				){
+					$print_price += floatval( $rule['price'] );
+					//if( !$is_multi ) return $print_price;
+				}
+				
+				if(
+					$calc['type'] == 'acreage' &&
+					$total_res > 0 && 
+					is_object($options->sizes)
+				){
+					$acreage = $options->sizes->width * $options->sizes->height;
+					$print_price += floatval($acreage) * floatval( $rule['price'] );
+					//if( !$is_multi ) return $print_price;
+				}
+				
+				if(
+					$calc['type'] == 'size' &&
+					is_object($options->sizes) &&
+					$total_res > 0
+				){
+					$product_size  = $options->sizes->size;				
+					$print_price += (isset($rule[$product_size]) && $cfgpricing) ? floatval( $rule[ $product_size ] ) : floatval( $rule['ppu'] );
+					
+					//if ( !$is_multi ) return $print_price;
+				}
+			}              
         }
 		
         return $print_price;
@@ -904,15 +935,15 @@ class customdesign_cart extends customdesign_lib
 	
 	public function find_resource( $res ) {
 		
-		global $customdesign;
+		global $magic;
 		
 		$query = array(
 			"SELECT  t.id, t.price",
-			"FROM {$customdesign->db->prefix}{$res->table} t",
-			"WHERE `t`.`author`='{$customdesign->vendor_id}' AND `t`.`id` = {$res->id}"
+			"FROM {$magic->db->prefix}{$res->table} t",
+			"WHERE `t`.`author`='{$magic->vendor_id}' AND `t`.`id` = {$res->id}"
 		);
 		
-		$res_items = $customdesign->db->rawQuery( implode( ' ', $query ) );
+		$res_items = $magic->db->rawQuery( implode( ' ', $query ) );
 		
 		return isset($res_items[0])? $res_items[0] : false;
 	}
@@ -930,7 +961,7 @@ class customdesign_cart extends customdesign_lib
     
     public function resources( $res ){
         
-        global $customdesign;
+        global $magic;
         
         $resources = array();
 
@@ -938,11 +969,11 @@ class customdesign_cart extends customdesign_lib
 
         $query = array(
 			"SELECT  c.id, c.name, c.price",
-			"FROM {$customdesign->db->prefix}".$table." c",
-			"WHERE `c`.`author`='{$customdesign->vendor_id}' AND `c`.`id` IN (" . intval($res['id']) .")"
+			"FROM {$magic->db->prefix}".$table." c",
+			"WHERE `c`.`author`='{$magic->vendor_id}' AND `c`.`id` IN (" . intval($res['id']) .")"
 		);
         
-        $resourceData = $customdesign->db->rawQuery( implode( ' ', $query ) );
+        $resourceData = $magic->db->rawQuery( implode( ' ', $query ) );
 
         if(count($resourceData) > 0){
         	$resources = array(
@@ -983,4 +1014,6 @@ class customdesign_cart extends customdesign_lib
 *	Init Cart
 */
 
-new customdesign_cart();
+new magic_cart();
+
+

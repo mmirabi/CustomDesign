@@ -27,7 +27,7 @@
         'fields' => 'ops.product_name'
     );
     
-    $customdesign->do_action('before_order_products', $order_id);
+    $magic->do_action('before_order_products', $order_id);
     
     // Sort Form
 	if (!empty($_POST['sort'])) {
@@ -68,81 +68,81 @@
             isset($_POST['do'])
         )
     ){
-        $customdesign->redirect($customdesign->cfg->admin_url.'customdesign-page=order&order_id='.$order_id);
+        $magic->redirect($magic->cfg->admin_url.'magic-page=order&order_id='.$order_id);
     }
 
 	$orderby  = (isset($_SESSION[$prefix.'orderby']) && !empty($_SESSION[$prefix.'orderby'])) ? $_SESSION[$prefix.'orderby'] : 'product_id';
 	$ordering = (isset($_SESSION[$prefix.'ordering']) && !empty($_SESSION[$prefix.'ordering'])) ? $_SESSION[$prefix.'ordering'] : 'asc';
 	$dt_order = isset($_SESSION[$prefix.'dt_order']) ? $_SESSION[$prefix.'dt_order'] : 'product_id_desc';
-    $items = $customdesign->connector->products_order($order_id, $search_filter, $orderby, $ordering);
+    $items = $magic->connector->products_order($order_id, $search_filter, $orderby, $ordering);
 
-    $customdesign_printings = $customdesign->lib->get_prints();
+    $magic_printings = $magic->lib->get_prints();
     $printings = array();
-    foreach( $customdesign_printings as $p ) {
+    foreach( $magic_printings as $p ) {
         $printings[ $p['id'] ] = $p;
     }
     
-?><div class="customdesign_wrapper">
+?><div class="magic_wrapper">
 	
-	<div class="customdesign_content">
+	<div class="magic_content">
 
-		<div class="customdesign_header">
+		<div class="magic_header">
 			<h2>
-				<a href="<?php echo $customdesign->cfg->admin_url; ?>customdesign-page=orders"><?php echo $customdesign->lang('All Orders'); ?></a> 
+				<a href="<?php echo $magic->cfg->admin_url; ?>magic-page=orders"><?php echo $magic->lang('All Orders'); ?></a> 
 				<i class="fa fa-angle-right"></i> 
-				<?php printf($customdesign->lang('Order %s'), '#'.$_REQUEST['order_id']) ?>
+				<?php printf($magic->lang('Order %s'), '#'.$_REQUEST['order_id']) ?>
 			</h2>
 			<?php
-				$customdesign_page = isset($_GET['customdesign-page']) ? $_GET['customdesign-page'] : '';
-				echo $customdesign_helper->breadcrumb($customdesign_page);
+				$magic_page = isset($_GET['magic-page']) ? $_GET['magic-page'] : '';
+				echo $magic_helper->breadcrumb($magic_page);
 			?>
-            <div class="customdesign-order-details customdesign_option">
+            <div class="magic-order-details magic_option">
                 <div class="col-3">
-                    <h4><?php echo $customdesign->lang('General Details'); ?></h4>
+                    <h4><?php echo $magic->lang('General Details'); ?></h4>
                     <p>
-                        <strong><?php echo $customdesign->lang('Total Price:'); ?></strong>
-                        <span><?php echo $customdesign->lib->price($items['order']['total']);?></span>
+                        <strong><?php echo $magic->lang('Total Price:'); ?></strong>
+                        <span><?php echo $magic->lib->price($items['order']['total']);?></span>
                     </p>
                     <p>
-                        <strong><?php echo $customdesign->lang('Created At:'); ?></strong>
+                        <strong><?php echo $magic->lang('Created At:'); ?></strong>
                         <span><?php echo $items['order']['created'];?></span>
                     </p>
                     <p>
-                        <strong><?php echo $customdesign->lang('Updated At:'); ?></strong>
+                        <strong><?php echo $magic->lang('Updated At:'); ?></strong>
                         <span><?php echo $items['order']['updated'];?></span>
                     </p>
                     <?php if(isset($items['order']['payment'])): ?>
                     <p>
-                        <strong><?php echo $customdesign->lang('Payment:'); ?></strong>
-                        <span class="customdesign-payment-method"><?php echo isset($items['order']['payment'])? $items['order']['payment']: '';?></span>
+                        <strong><?php echo $magic->lang('Payment:'); ?></strong>
+                        <span class="magic-payment-method"><?php echo isset($items['order']['payment'])? $items['order']['payment']: '';?></span>
                     </p>
                     <?php endif; ?>
                     <div class="order_status">
-                        <strong><?php echo $customdesign->lang('Status:'); ?></strong>
+                        <strong><?php echo $magic->lang('Status:'); ?></strong>
                     
-                        <form action="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=order&order_id=<?php echo $order_id;?>" method="post">
-                            <?php $customdesign->views->order_statuses($items['order']['status'], true);?>
+                        <form action="<?php echo $magic->cfg->admin_url;?>magic-page=order&order_id=<?php echo $order_id;?>" method="post">
+                            <?php $magic->views->order_statuses($items['order']['status'], true);?>
                             <input type="hidden" name="do" value="action"/>
                         </form>
                     </div>
                 </div>
                 <?php if(isset($items['billing']) && count($items['billing'])>0):?>
                 <div class="col-3">
-                	<h4><?php echo $customdesign->lang('Billing details'); ?></h4>
+                	<h4><?php echo $magic->lang('Billing details'); ?></h4>
                     <p>
-                        <strong><?php echo $customdesign->lang('Name:'); ?></strong>
+                        <strong><?php echo $magic->lang('Name:'); ?></strong>
                         <span><?php echo isset($items['billing']['name'])? $items['billing']['name'] : '';?></span>
                     </p>
                 	<p>
-                		<strong><?php echo $customdesign->lang('Address:'); ?></strong>
+                		<strong><?php echo $magic->lang('Address:'); ?></strong>
                 		<span><?php echo isset($items['billing']['address'])? $items['billing']['address'] : '';?></span>
                 	</p>
                 	<p>
-                		<strong><?php echo $customdesign->lang('Email address:'); ?></strong>
+                		<strong><?php echo $magic->lang('Email address:'); ?></strong>
                 		<span><?php echo isset($items['billing']['email'])? $items['billing']['email'] : '';?></span>
                 	</p>
                 	<p>
-                		<strong><?php echo $customdesign->lang('Phone:'); ?></strong>
+                		<strong><?php echo $magic->lang('Phone:'); ?></strong>
                 		<span><?php echo isset($items['billing']['phone'])? $items['billing']['phone'] : '';?></span>
                 	</p>
                 	
@@ -152,33 +152,33 @@
             
 		</div>
 
-            <div class="customdesign_option">
+            <div class="magic_option">
                 <div class="left">
-                    <form action="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=order&order_id=<?php echo $order_id;?>" method="post">
-                        <?php $customdesign->securityFrom();?>
+                    <form action="<?php echo $magic->cfg->admin_url;?>magic-page=order&order_id=<?php echo $order_id;?>" method="post">
+                        <?php $magic->securityFrom();?>
                     </form>
                 </div>
                 <div class="right">
-                    <form action="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=order&order_id=<?php echo $order_id;?>" method="post">
-                        <input type="text" name="search" class="search" placeholder="<?php echo $customdesign->lang('Search ...'); ?>" value="<?php if(isset($_SESSION[$prefix.'data_search'])) echo $_SESSION[$prefix.'data_search']; ?>">
-                        <input  class="customdesign_submit" type="submit" name="search_ops" value="<?php echo $customdesign->lang('Search'); ?>">
-                        <?php $customdesign->securityFrom();?>
+                    <form action="<?php echo $magic->cfg->admin_url;?>magic-page=order&order_id=<?php echo $order_id;?>" method="post">
+                        <input type="text" name="search" class="search" placeholder="<?php echo $magic->lang('Search ...'); ?>" value="<?php if(isset($_SESSION[$prefix.'data_search'])) echo $_SESSION[$prefix.'data_search']; ?>">
+                        <input  class="magic_submit" type="submit" name="search_ops" value="<?php echo $magic->lang('Search'); ?>">
+                        <?php $magic->securityFrom();?>
 
                     </form>
                 </div>
             </div>
         
-        <div class="customdesign_wrap_table">
-			<table class="customdesign_table customdesign_ops customdesign_order_details">
+        <div class="magic_wrap_table">
+			<table class="magic_table magic_ops magic_order_details">
 				<thead>
 					<tr>
-						<th width="5%"><?php echo $customdesign->lang('ID'); ?></th>
-						<th width="5%"><?php echo $customdesign->lang('Product ID'); ?></th>
-						<th><?php echo $customdesign->lang('Product Name'); ?></th>
-						<th><?php echo $customdesign->lang('Thumbnail'); ?></th>
-						<th><?php echo $customdesign->lang('Attributes'); ?></th>
-                        <th width="5%"><?php echo $customdesign->lang('Subtotal'); ?></th>
-                        <th width="30%"><?php echo $customdesign->lang('Print'); ?></th>
+						<th width="5%"><?php echo $magic->lang('ID'); ?></th>
+						<th width="5%"><?php echo $magic->lang('Product ID'); ?></th>
+						<th><?php echo $magic->lang('Product Name'); ?></th>
+						<th><?php echo $magic->lang('Thumbnail'); ?></th>
+						<th><?php echo $magic->lang('Attributes'); ?></th>
+                        <th width="5%"><?php echo $magic->lang('Subtotal'); ?></th>
+                        <th width="30%"><?php echo $magic->lang('Print'); ?></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -196,8 +196,8 @@
 						
 						foreach ($sc as $i => $s) {
 							array_push($scrs, array(
-								"url" => is_array($prt) && isset($prt[$i]) ? $customdesign->cfg->upload_url.'orders/'.$prt[$i] : '#',
-								"screenshot" => $customdesign->cfg->upload_url.'orders/'.$s,
+								"url" => is_array($prt) && isset($prt[$i]) ? $magic->cfg->upload_url.'orders/'.$prt[$i] : '#',
+								"screenshot" => $magic->cfg->upload_url.'orders/'.$s,
 								"download" => true
 							));
 						}
@@ -208,23 +208,23 @@
 						<td><?php echo $item['product_name'] . ' x ' .$item['qty'];?></td>
 						<td>
                             <?php
-                            $product = $customdesign->lib->get_product($item['product_base']);
+                            $product = $magic->lib->get_product($item['product_base']);
                             if(isset($item['screenshots']) && $item['screenshots'] != null){
                                 $screenshots = json_decode($item['screenshots']);
                                 foreach ($screenshots as $screenshot) {
-                					echo '<img src="'.$customdesign->cfg->upload_url.'orders/'.$screenshot.'" class="customdesign-order-thumbnail" />';
+                					echo '<img src="'.$magic->cfg->upload_url.'orders/'.$screenshot.'" class="magic-order-thumbnail" />';
                 				}
                             }
                             if(isset($item['custom']) && !$item['custom']){
                                 
                                 if(isset($product['thumbnail_url']))
-                                    echo '<img src="'.$product['thumbnail_url'].'" class="customdesign-order-thumbnail" />';
+                                    echo '<img src="'.$product['thumbnail_url'].'" class="magic-order-thumbnail" />';
                             }
                             ?>
                         </td>
                         <td><?php
 	                        
-                            $data_obj = $customdesign->lib->dejson($item['data']);
+                            $data_obj = $magic->lib->dejson($item['data']);
                             
                             if ( isset($data_obj->attributes) ) {
 	                            
@@ -280,38 +280,38 @@
                                 && isset($printings[ $data_obj->printing]) 
                             ){
                                 $pmethod = $printings[ $data_obj->printing];
-                                echo "<strong>".$customdesign->lang('Printing Type').":</strong>";
+                                echo "<strong>".$magic->lang('Printing Type').":</strong>";
                                 echo "<dt>".$pmethod['title']."</dt>";
                             }
                             
                             if( isset($data_obj->color) ){
-                                echo "<strong>".$customdesign->lang('Color').":</strong>";
+                                echo "<strong>".$magic->lang('Color').":</strong>";
                                 echo "<dt>".(($data_obj->color != $data_obj->color_name)? $data_obj->color . ' - '. $data_obj->color_name : $data_obj->color)."</dt>";
                             }
                         ?></td>
-                        <td><?php echo $customdesign->lib->price($item['product_price']);?></td>
+                        <td><?php echo $magic->lib->price($item['product_price']);?></td>
                         <td>
 	                        <?php
                                
 		                        if (count($scrs) > 0) {
                                    
-		                        	$key = $customdesign->get_option('purchase_key');
+		                        	$key = $magic->get_option('purchase_key');
 									$key_valid = ($key === null || empty($key) || strlen($key) != 36 || count(explode('-', $key)) != 5) ? false : true;
                                     
  
 			
-									$is_query = explode('?', $customdesign->cfg->tool_url);
+									$is_query = explode('?', $magic->cfg->tool_url);
 													
-									$url = $customdesign->cfg->tool_url.(isset($is_query[1])? '&':'?');
+									$url = $magic->cfg->tool_url.(isset($is_query[1])? '&':'?');
 									
                                     if (!empty($item['design'])) {
 										$url .= '&design_print='.str_replace('.lumi', '', $item['design']);
 										$url .= '&order_print='.$item['order_id'];
 										
-										if($customdesign->connector->platform == 'woocommerce'){
+										if($magic->connector->platform == 'woocommerce'){
 											$order = wc_get_order($item['order_id']);
 											foreach ( $order->get_items() as $item_id => $order_item ) {
-												if($order_item->get_product_id() == $item['product_id'] && $order_item->get_meta( 'customdesign_data', true )){
+												if($order_item->get_product_id() == $item['product_id'] && $order_item->get_meta( 'magic_data', true )){
 													if($order_item->get_variation_id()){
 														$url .= '&product_base='.'variable:'.$order_item->get_variation_id();
 														$url .=  '&product_cms=' . $item['product_id'];
@@ -323,7 +323,7 @@
 												}
 											};
 										}
-										if($customdesign->connector->platform == 'php'){
+										if($magic->connector->platform == 'php'){
 											$url .= '&product_base='.$item['product_base'];
 										}
 									}
@@ -352,19 +352,19 @@
 									
 									if ($prtable === true && $key_valid) {
 										$html .= '<p><font color="#e74c3c">(*) ';
-										$html .= $customdesign->lang('Click on each image above to download the printable file <b>(.PNG)</b>').'</font></p>';
+										$html .= $magic->lang('Click on each image above to download the printable file <b>(.PNG)</b>').'</font></p>';
 									}
 									
 									$html .= '<p>';
 									if(!$key_valid){
 										$html .= '<p style="font-size:14px;"><font color="#E91E63">(*) ';
-										$html .= $customdesign->lang('<span>Please enter your purchase code to display and download file designs</span></br>
-<b><a target="_blank" href="'.$customdesign->cfg->admin_url.'customdesign-page=license"style="font-weight: 700; text-decoration: underline; font-style: italic;">Enter purchase code now</a></b></br>
+										$html .= $magic->lang('<span>Please enter your purchase code to display and download file designs</span></br>
+<b><a target="_blank" href="'.$magic->cfg->admin_url.'magic-page=license"style="font-weight: 700; text-decoration: underline; font-style: italic;">Enter purchase code now</a></b></br>
 <span>Notice: Each License can only be used for one domain.</br><a href="#" target="blank" style="font-weight: 700; text-decoration: underline; font-style: italic;">Click to learn more about license term in Envato.</a></span>').'</font></p>';
 									}
 									
 									if (!empty($pdfid)) {
-										$link = $customdesign->cfg->tool_url;
+										$link = $magic->cfg->tool_url;
 										if(strpos($link, '?') !== false && substr($link, -1) != '?'){
 											$link .= '&pdf_download='.$pdfid;
 										} 
@@ -375,12 +375,12 @@
 											$link .= '?pdf_download='.$pdfid;
 										}
 										if($key_valid) {
-											$html .= '<a href="'.$link.'" target=_blank class="customdesign-button customdesign-button-primary" style="margin-bottom:5px;">'.$customdesign->lang('Download designs as PDF').'</a>  &nbsp; <a href="#" data-href="'.$link.'" target=_blank class="customdesign-button customdesign-button-primary" onclick="let r = prompt(\'Enter bleed range in mimilet (Typically it is 2mm)\', \'2\');if (r){this.href = this.dataset.href+\'&bleed=\'+r;return true;}else return false;" style="margin-bottom:5px;">'.$customdesign->lang('PDF cropmarks & bleed').'</a> &nbsp; ';
+											$html .= '<a href="'.$link.'" target=_blank class="magic-button magic-button-primary" style="margin-bottom:5px;">'.$magic->lang('Download designs as PDF').'</a>  &nbsp; <a href="#" data-href="'.$link.'" target=_blank class="magic-button magic-button-primary" onclick="let r = prompt(\'Enter bleed range in mimilet (Typically it is 2mm)\', \'2\');if (r){this.href = this.dataset.href+\'&bleed=\'+r;return true;}else return false;" style="margin-bottom:5px;">'.$magic->lang('PDF cropmarks & bleed').'</a> &nbsp; ';
 										}
 									}	
 									
 									if($key_valid) {
-										$html .= '<a href="'.$url.'" target=_blank class="customdesign-button">'.$customdesign->lang('View in MagicRugs editor').'</a>';
+										$html .= '<a href="'.$url.'" target=_blank class="magic-button">'.$magic->lang('View in MagicRugs editor').'</a>';
 									}
 									
 									$html .= '</p>';
@@ -399,7 +399,7 @@
 	                ?>
 	                <tr>
 	                    <td colspan="6">
-	                        <p class="no-data"><?php echo $customdesign->lang('Apologies, but no results were found'); ?></p>
+	                        <p class="no-data"><?php echo $magic->lang('Apologies, but no results were found'); ?></p>
 	                    </td>
 	                </tr>
 	                    
@@ -413,10 +413,10 @@
                         <td colspan="3"></td>
                         <td></td>
                         <td colspan="2">
-                            <strong style="float: right;"><?php echo $customdesign->lang('Order Total:'); ?></strong>
+                            <strong style="float: right;"><?php echo $magic->lang('Order Total:'); ?></strong>
                         </td>
                         <td>
-                            <?php echo $customdesign->lib->price($items['order']['total']); ?>
+                            <?php echo $magic->lib->price($items['order']['total']); ?>
                         </td>
                     </tr>
                 </tfoot>

@@ -1,12 +1,12 @@
 <?php
 /**
 *
-*   (p) package: Custom Design
-*   (c) author: Mehdi Mirabi
-*   (i) website: https://www.magicrugs.com
+*	(p) package: MagicRugs
+*	(c) author:	Mehdi Mirabi
+*	(i) website: https://www.magicrugs.com
 *
 */
-if(!defined('CUSTOMDESIGN')) {
+if(!defined('MAGIC')) {
 	header('HTTP/1.0 403 Forbidden');
 	exit;
 }
@@ -15,7 +15,7 @@ if(!defined('CUSTOMDESIGN')) {
 *	Extensions class
 */
 
-class customdesign_addons {
+class magic_addons {
 	
 	private $tab = 'store';
 	private $page = 1;
@@ -24,12 +24,12 @@ class customdesign_addons {
 	private $errors = array();
 	protected $actives = array();
 	
-	function __construct($customdesign){
+	function __construct($magic){
 		
 		$this->storage = new stdClass();
 		
-		$this->main = $customdesign;
-		$this->path = $customdesign->cfg->upload_path.'addons'.DS;
+		$this->main = $magic;
+		$this->path = $magic->cfg->upload_path.'addons'.DS;
 		
 		$this->load_addons();
 		
@@ -41,11 +41,11 @@ class customdesign_addons {
 	
 	public function get_url($file = '') {
 		
-		global $customdesign;
+		global $magic;
 		
 		$key = array_search(__FUNCTION__, array_column(debug_backtrace(), 'function'));
 		$path = debug_backtrace()[$key]['file'];
-		$url = $customdesign->cfg->upload_url.'addons/'.basename(dirname($path));
+		$url = $magic->cfg->upload_url.'addons/'.basename(dirname($path));
 		
 		if (!empty($file))
 			$url .= '/'.$file;
@@ -67,13 +67,13 @@ class customdesign_addons {
 	}
 	
 	public function add_component($arg) {
-		global $customdesign;
-		$customdesign->cfg->editor_menus($arg);
+		global $magic;
+		$magic->cfg->editor_menus($arg);
 	}
 	
 	public function render_xitems($arg) {
 		
-		global $customdesign;
+		global $magic;
 		
 		$html = '';
 		
@@ -92,34 +92,34 @@ class customdesign_addons {
 			$arg['price'] = true;
 		
 		if ($arg['search'] === true || $arg['category'] === true) {
-			$html .= '<header class="customdesign-xitems-header">';
+			$html .= '<header class="magic-xitems-header">';
 			if ($arg['search'] === true) {
-				$html .= '<span class="customdesign-xitems-search">'.
-							'<input type="search" data-component="'.$comp.'" id="customdesign-'.$comp.'-search-inp" '.
-								'placeholder="'.$customdesign->lang('Search').' '.$comp.'" />'.
-							'<i class="customdesignx-android-search"></i>'.
+				$html .= '<span class="magic-xitems-search">'.
+							'<input type="search" data-component="'.$comp.'" id="magic-'.$comp.'-search-inp" '.
+								'placeholder="'.$magic->lang('Search').' '.$comp.'" />'.
+							'<i class="magicx-android-search"></i>'.
 						'</span>';
 			}
 			if ($arg['category'] === true) {	
-				$html .= '<div class="customdesign-xitem-categories" data-prevent-click="true">'.
+				$html .= '<div class="magic-xitem-categories" data-prevent-click="true">'.
 							'<button data-func="show-categories" data-type="'.$comp.'">'.
-								'<span>'.$customdesign->lang('All categories').'</span>'.
-								'<i class="customdesignx-ios-arrow-forward"></i>'.
+								'<span>'.$magic->lang('All categories').'</span>'.
+								'<i class="magicx-ios-arrow-forward"></i>'.
 							'</button>'.
 						'</div>';
 			}
 			$html .= '</header>';
 		}
 		
-		$html .= '<div id="customdesign-'.$comp.'-list" data-component="'.$comp.'" class="smooth customdesign-xitems-list'.
+		$html .= '<div id="magic-'.$comp.'-list" data-component="'.$comp.'" class="smooth magic-xitems-list'.
 			($arg['preview'] !== true ? ' nopreview' : '').
 			($arg['price'] !== true ? ' noprice' : '').
 			($arg['search'] === false ? ' nosearch' : '').
 			($arg['category'] === false ? ' nocategory' : '').
 			'">'.(isset($arg['after_header']) ? $arg['after_header'] : '').
-					'<ul class="customdesign-list-items customdesign-list-xitems">'.
+					'<ul class="magic-list-items magic-list-xitems">'.
 						(isset($arg['list']) ? $arg['list'] : '').
-						'<i class="customdesign-spinner white x3 mt2"></i>'.
+						'<i class="magic-spinner white x3 mt2"></i>'.
 					'</ul>'.
 				'</div>';
 				
@@ -128,12 +128,12 @@ class customdesign_addons {
 	}
 	
 	public function access_corejs($name) {
-		global $customdesign;
-		$customdesign->cfg->access_core($name);
+		global $magic;
+		$magic->cfg->access_core($name);
 	}
 	
 	public function is_backend() {
-		if (defined('CUSTOMDESIGN_ADMIN') && CUSTOMDESIGN_ADMIN === true)
+		if (defined('MAGIC_ADMIN') && MAGIC_ADMIN === true)
 			return true;
 		return false;
 	}
@@ -150,9 +150,9 @@ class customdesign_addons {
 		
 	}
 
-	public function customdesign_check_verify_lincense($addon_name){
-    	global $customdesign;
-    	$addon_list = $customdesign->addons->addon_installed_list();
+	public function magic_check_verify_lincense($addon_name){
+    	global $magic;
+    	$addon_list = $magic->addons->addon_installed_list();
 
     	if(isset($addon_list) && !empty($addon_list) && count($addon_list) > 0 && (
     		$addon_name == 'assign'
@@ -162,19 +162,19 @@ class customdesign_addons {
     		|| $addon_name == 'distress'
     		)
     	){
-    		$key_addon_bundle = $customdesign->get_option('purchase_key_addon_bundle');
+    		$key_addon_bundle = $magic->get_option('purchase_key_addon_bundle');
 			$key_valid_addon_bundle = ($key_addon_bundle === null || empty($key_addon_bundle) || strlen($key_addon_bundle) != 36 || count(explode('-', $key_addon_bundle)) != 5) ? false : true;
 
 			if (!$key_valid_addon_bundle){ return false; } else { return true; }
     	}else if(isset($addon_list) && !empty($addon_list) && count($addon_list) > 0 && $addon_name == 'vendors'){
 			// exist addon vendor
-			$key_addon_vendor = $customdesign->get_option('purchase_key_addon_vendor');
+			$key_addon_vendor = $magic->get_option('purchase_key_addon_vendor');
 			$key_valid_addon_vendor = ($key_addon_vendor === null || empty($key_addon_vendor) || strlen($key_addon_vendor) != 36 || count(explode('-', $key_addon_vendor)) != 5) ? false : true;
 
 			if (!$key_valid_addon_vendor) { return false; } else { return true; }
 		}else if(isset($addon_list) && !empty($addon_list) && count($addon_list) > 0 && $addon_name == 'printful'){
 			// exist addon printful
-			$key_addon_printful = $customdesign->get_option('purchase_key_addon_printful');
+			$key_addon_printful = $magic->get_option('purchase_key_addon_printful');
 			$key_valid_addon_printful = ($key_addon_printful === null || empty($key_addon_printful) || strlen($key_addon_printful) != 36 || count(explode('-', $key_addon_printful)) != 5) ? false : true;
 
 			if (!$key_valid_addon_printful) { return false; } else { return true; }
@@ -301,21 +301,21 @@ class customdesign_addons {
 						unset($actives[$name]);
 						$this->main->set_option('active_addons', json_encode($actives));
 						
-					} else if (version_compare(CUSTOMDESIGN, $data[0]) >= 0) {
+					} else if (version_compare(MAGIC, $data[0]) >= 0) {
 						
 						require_once($this->path.$name.DS.'index.php');
 						
 						$slug = $this->main->lib->sanitize_title($name);
 						$slug = str_replace('-', '_', $slug);
 						
-						$ex_class = 'customdesign_addon_'.$slug;
+						$ex_class = 'magic_addon_'.$slug;
 						
 						if (class_exists($ex_class)) {
 							$this->storage->{$slug} = new $ex_class();
 						} else {
 							array_push(
 								$this->errors, 
-								'Could not find the PHP classname "customdesign_addon_'.$slug.'" in the addon file "/'.$name.DS.'index.php"'
+								'Could not find the PHP classname "magic_addon_'.$slug.'" in the addon file "/'.$name.DS.'index.php"'
 							);
 							unset($actives[$name]);
 							$this->main->set_option('active_addons', json_encode($actives));
@@ -324,7 +324,7 @@ class customdesign_addons {
 					}else {
 						array_push(
 							$this->errors, 
-							'Error: The addon <strong>'.$name.'</strong> does not compatible with your magicrugs '.CUSTOMDESIGN
+							'Error: The addon <strong>'.$name.'</strong> does not compatible with your magicrugs '.MAGIC
 						);
 						unset($actives[$name]);
 						$this->main->set_option('active_addons', json_encode($actives));
@@ -341,7 +341,7 @@ class customdesign_addons {
 		$this->actives = $actives;
 		
 		if (count($this->errors) > 0)
-			$this->main->connector->set_session('customdesign_msg', array("status" => "error", "errors" => $this->errors));
+			$this->main->connector->set_session('magic_msg', array("status" => "error", "errors" => $this->errors));
 		
 		return $this->errors;
 		
@@ -351,11 +351,11 @@ class customdesign_addons {
 
 		if (isset($_POST['action'])) {
 			
-			if (!$this->main->caps('customdesign_can_upload')) {
-				echo '<div class="customdesign_wrapper" id="customdesign-product-page">
-							<div class="customdesign_content">
-								<div class="customdesign_message err">
-									<em class="customdesign_err">
+			if (!$this->main->caps('magic_can_upload')) {
+				echo '<div class="magic_wrapper" id="magic-product-page">
+							<div class="magic_content">
+								<div class="magic_message err">
+									<em class="magic_err">
 										<i class="fa fa-times"></i>  Sorry, You do not have permission to do action
 									</em>	
 							</div>
@@ -386,7 +386,7 @@ class customdesign_addons {
 					}
 					
 					if (count($this->errors) > 0)
-						$this->main->connector->set_session('customdesign_msg', array("status" => "error", "errors" => $this->errors));
+						$this->main->connector->set_session('magic_msg', array("status" => "error", "errors" => $this->errors));
 					
 				break;
 				
@@ -480,7 +480,7 @@ class customdesign_addons {
 						);
 					}
 					
-					$this->main->connector->set_session('customdesign_msg', $msg);
+					$this->main->connector->set_session('magic_msg', $msg);
 					
 				break;
 				
@@ -515,11 +515,11 @@ class customdesign_addons {
 				strpos(strtolower($platform), $this->main->connector->platform) === false
 			) {
 				$error = 'Active Error: The addon <strong>'.$ext.'</strong> does not support your magicrugs platform (only support '.$data[1].')';
-			} else if (version_compare(CUSTOMDESIGN, $data[0]) >= 0) {
+			} else if (version_compare(MAGIC, $data[0]) >= 0) {
 				
 				require_once($this->path.$ext.DS.'index.php');
 				
-				$ex_class = 'customdesign_addon_'.str_replace('-', '_', $ext);
+				$ex_class = 'magic_addon_'.str_replace('-', '_', $ext);
 				
 				if (class_exists($ex_class)) {
 					
@@ -534,7 +534,7 @@ class customdesign_addons {
 					
 				} else $error = 'Active Error: '.$ext.'/index.php is missing the addon class '.$ex_class;
 				
-			} else $error = 'Active Error: The addon <strong>'.$ext.'</strong> does not compatible with your magicrugs '.CUSTOMDESIGN;
+			} else $error = 'Active Error: The addon <strong>'.$ext.'</strong> does not compatible with your magicrugs '.MAGIC;
 			
 		} else $error = 'Active Error: The index.php of addon '.$ext.' could not found';
 		
@@ -554,7 +554,7 @@ class customdesign_addons {
 	public function deactive_addon($ext) {
 		
 		$actives = $this->main->get_option('active_addons');
-		$msg = ''; $ex_class = 'customdesign_addon_'.str_replace('-', '_', $ext);
+		$msg = ''; $ex_class = 'magic_addon_'.str_replace('-', '_', $ext);
 							
 		if ($actives !== null && !empty($actives))
 			$actives = (Array)@json_decode($actives);

@@ -1,12 +1,12 @@
 <?php
-	global $customdesign;
-	$check = $customdesign->lib->get_system_status();
+	global $magic;
+	$check = $magic->lib->get_system_status();
 ?>
 
-<div class="customdesign_wrapper">
-	<div class="customdesign_content">
-		<div class="customdesign_header">
-			<h2><?php echo $customdesign->lang('System status'); ?></h2>	
+<div class="magic_wrapper">
+	<div class="magic_content">
+		<div class="magic_header">
+			<h2><?php echo $magic->lang('System status'); ?></h2>	
 		</div>
 		<ul class="system-status">
 		<?php
@@ -26,6 +26,6 @@
 		?>
 		</ul>
 		<br>
-		<p style="font-size: 15px;"><?php echo $customdesign->lang('Check our document for more details about the system status'); ?>. <a href="https://MagicRugs.com/system-status/?utm_source=client-site&utm_medium=text&utm_campaign=system-page&utm_term=links&utm_content=<?php echo $customdesign->connector->platform; ?>" target=_blank><?php echo $customdesign->lang('Click here'); ?> &#10230;</a></p>
+		<p style="font-size: 15px;"><?php echo $magic->lang('Check our document for more details about the system status'); ?>. <a href="https://MagicRugs.com/system-status/?utm_source=client-site&utm_medium=text&utm_campaign=system-page&utm_term=links&utm_content=<?php echo $magic->connector->platform; ?>" target=_blank><?php echo $magic->lang('Click here'); ?> &#10230;</a></p>
 	</div>
 </div>

@@ -1,7 +1,7 @@
 <?php
 /**
 *
-*	(p) package: Custom Design
+*	(p) package: MagicRugs
 *	(c) author:	Mehdi Mirabi
 *	(i) website: https://www.magicrugs.com
 *
@@ -9,7 +9,7 @@
 
 ini_set('display_errors', 1);
 	
-class customdesign_lib{
+class magic_lib{
 
 	protected $main;
  
@@ -38,10 +38,10 @@ class customdesign_lib{
 
 	public function sql_esc($str) {
 		
-		global $customdesign;
+		global $magic;
 		
 		if (function_exists('mysqli_real_escape_string'))
-			return mysqli_real_escape_string($customdesign->db->mysqli(), $str);
+			return mysqli_real_escape_string($magic->db->mysqli(), $str);
 		else if (function_exists('mysql_real_escape_string'))
 			return mysql_real_escape_string($str);
 		else return $str;
@@ -205,7 +205,7 @@ class customdesign_lib{
 
 	protected function get_my_designs ($index = 0, $limit = 20) {
 
-		$aid = str_replace("'", "", $this->main->connector->cookie('customdesign-AID'));
+		$aid = str_replace("'", "", $this->main->connector->cookie('magic-AID'));
 		$db = $this->main->get_db();
 
 		return $db->where("aid = '$aid'")->get('designs', $limit);
@@ -218,7 +218,7 @@ class customdesign_lib{
 
 	protected function do_save_design ($id = 0, $data = '') {
 
-		$aid = $this->main->connector->cookie('customdesign-AID');
+		$aid = $this->main->connector->cookie('magic-AID');
 
 		if ($data !== '' && $id !== 0) {
 
@@ -230,11 +230,11 @@ class customdesign_lib{
 			if ($check_upload !== 1)
 				return array('error' => $check_upload);
 
-			global $customdesign;
+			global $magic;
 
-			$db = $customdesign->get_db();
+			$db = $magic->get_db();
 
-			$db->where ("author = '{$customdesign->vendor_id}' AND id='$id' AND (aid='$aid' OR share_token='$stk')");
+			$db->where ("author = '{$magic->vendor_id}' AND id='$id' AND (aid='$aid' OR share_token='$stk')");
 
 			$check = $db->getOne ('designs');
 
@@ -311,7 +311,7 @@ class customdesign_lib{
 	protected function is_own_design ($id = 0) {
 
 		$db = $this->main->get_db();
-		$db->where ("author='{$customdesign->vendor_id}' AND id='$id' AND aid='{$this->aid}'");
+		$db->where ("author='{$magic->vendor_id}' AND id='$id' AND aid='{$this->aid}'");
 		$check = $db->getOne ('designs');
 
 		if ($check && isset($check['id']))
@@ -352,9 +352,9 @@ class customdesign_lib{
     
     public function x_items($type = 'cliparts') {
 
-		global $customdesign;
+		global $magic;
 		
-		$customdesign->do_action('x_items', $type);
+		$magic->do_action('x_items', $type);
 		
 		$category = htmlspecialchars(isset($_POST['category']) ? $_POST['category'] : 0);
 		$index = (int)htmlspecialchars(isset($_POST['index']) ? $_POST['index'] : 0);
@@ -373,11 +373,11 @@ class customdesign_lib{
 
 		$query = sprintf(
 			"SELECT `parent`, `name` FROM `%s` WHERE `author`='{$this->main->vendor_id}' AND `id`='%d'",
-            $this->sql_esc($customdesign->db->prefix."categories"),
+            $this->sql_esc($magic->db->prefix."categories"),
            $category
         );
 		
-		$get_cate = $customdesign->db->rawQueryOne($query);
+		$get_cate = $magic->db->rawQueryOne($query);
 		
 		if ($category !== 0 && count($categories) === 0 && isset($get_cate['parent'])) {
 			if($get_cate['parent'] != 0){
@@ -400,20 +400,20 @@ class customdesign_lib{
 			/*if ($type == 'cliparts') {*/
 			array_unshift($categories,array(
 				"id" => "{free}",
-				"name" => $customdesign->lang('Free items'),
-				"thumbnail" => $customdesign->cfg->assets_url.'assets/images/free_thumbn.jpg'
+				"name" => $magic->lang('Free items'),
+				"thumbnail" => $magic->cfg->assets_url.'assets/images/free_thumbn.jpg'
 			));
 			array_unshift($categories, array(
 				"id" => "{featured}",
-				"name" => "&star; ".$customdesign->lang('Featured'),
-				"thumbnail" => $customdesign->cfg->assets_url.'assets/images/featured_thumbn.jpg'
+				"name" => "&star; ".$magic->lang('Featured'),
+				"thumbnail" => $magic->cfg->assets_url.'assets/images/featured_thumbn.jpg'
 			));
 		}
 		
 		if ($category == 0) {
 			$parents = array(array(
 				"id" => "",
-				"name" => $customdesign->lang('All categories')
+				"name" => $magic->lang('All categories')
 			));
 		}
 
@@ -424,13 +424,13 @@ class customdesign_lib{
 		$cate_name = $get_cate['name'];
 
 		if ($category == '{featured}') {
-			$cate_name = "&star; ".$customdesign->lang('Featured');
+			$cate_name = "&star; ".$magic->lang('Featured');
 			$parents = array(array(
 				"id" => "{featured}",
 				"name" => $cate_name
 			));
 		}else if ($category == '{free}'){
-			$cate_name = $customdesign->lang('Free items');
+			$cate_name = $magic->lang('Free items');
 			$parents = array(array(
 				"id" => "{free}",
 				"name" => $cate_name
@@ -438,11 +438,11 @@ class customdesign_lib{
 		}
 		
 		foreach ($parents as $key => $val) {
-			$parents[$key]['name'] = $customdesign->lang($val['name']);
+			$parents[$key]['name'] = $magic->lang($val['name']);
 		}
 		
 		foreach ($categories as $key => $val) {
-			$categories[$key]['name'] = $customdesign->lang($val['name']);
+			$categories[$key]['name'] = $magic->lang($val['name']);
 		}
 
 		header('Content-Type: application/json');
@@ -457,7 +457,7 @@ class customdesign_lib{
 		
 		echo json_encode(array(
 			"category" => $category,
-			"category_name" => $customdesign->lang($cate_name),
+			"category_name" => $magic->lang($cate_name),
 			"category_parents" => array_reverse($parents),
 			"categories" => $categories,
 			"categories_full" => (isset($_POST['ajax']) && $_POST['ajax'] == 'backend') ? $this->get_categories($type) : '',
@@ -667,11 +667,11 @@ class customdesign_lib{
 
     protected function get_items($atts){
 		
-		global $customdesign;
+		global $magic;
 		
         extract($atts);
 
-        $db = $customdesign->get_db();
+        $db = $magic->get_db();
 
         $order_default = isset($atts['order_default']) ? $order_default : 'name';
 
@@ -773,14 +773,14 @@ class customdesign_lib{
 	
 	public function get_category_parents($id, $result = array()) {
 		
-		global $customdesign;
+		global $magic;
 		
 		$query = sprintf(
 			"SELECT `id`, `name`, `parent` FROM `%s` WHERE `author`='{$this->main->vendor_id}' AND `id`='%d' ORDER BY `name`",
-            $this->sql_esc($customdesign->db->prefix."categories"),
+            $this->sql_esc($magic->db->prefix."categories"),
             $id
         );
-		$cate = $customdesign->db->rawQueryOne($query);
+		$cate = $magic->db->rawQueryOne($query);
 		
 		if (isset($cate['id'])) {
 			array_push($result, $cate);
@@ -795,20 +795,20 @@ class customdesign_lib{
 
 	public function get_categories($type = 'cliparts', $parent = null, $orderby = '`order` ASC', $active = false, $search_where ='') {
 
-		global $customdesign;
+		global $magic;
 		if($type == 'distress') $type = 'distressings';
 		
 		$query = sprintf(
 			"SELECT `id`, `name`, `parent`, `thumbnail_url` as `thumbnail` FROM `%s` WHERE `%s`.`author`='%s' AND `type`='%s' %s {$search_where} ORDER BY {$orderby}",
-            $this->sql_esc($customdesign->db->prefix."categories"),
-            $this->sql_esc($customdesign->db->prefix."categories"),
+            $this->sql_esc($magic->db->prefix."categories"),
+            $this->sql_esc($magic->db->prefix."categories"),
             $this->main->vendor_id,
             $this->sql_esc($type),
 			($active? " AND `active` = 1 ": '') . 
             ($parent !== null ? " AND `parent`='".$this->sql_esc($parent)."'" : '')
         );
         
-		$cates = $customdesign->db->rawQuery($query);
+		$cates = $magic->db->rawQuery($query);
 		
 		if ($parent === null)
 			return $this->get_categories_parent($cates);
@@ -818,25 +818,25 @@ class customdesign_lib{
 
 	public function get_tags($type = 'cliparts') {
 
-		global $customdesign;
+		global $magic;
 		$query = sprintf(
 			"SELECT * FROM `%s` WHERE `author`='{$this->main->vendor_id}' AND `type`='%s' ORDER BY `name`",
-            $this->sql_esc($customdesign->db->prefix."tags"),
+            $this->sql_esc($magic->db->prefix."tags"),
             $this->sql_esc($type)
         );
-		$tags = $customdesign->db->rawQuery($query);
+		$tags = $magic->db->rawQuery($query);
 		return $tags;
 
 	}
 
 	public function upload_file ($data = '', $path = '') {
 	
-		global $customdesign;
+		global $magic;
 
 		if (empty($data) || empty($path))
-			return array("error" =>  $customdesign->lang('Invalid input data'));
+			return array("error" =>  $magic->lang('Invalid input data'));
 
-		$path = $customdesign->cfg->upload_path.$path;
+		$path = $magic->cfg->upload_path.$path;
 
 		if (is_string($data)){
 			
@@ -850,7 +850,7 @@ class customdesign_lib{
 			$data = @json_decode(urldecode(base64_decode($data)));
 
 			if (!is_object($data))
-				return array("error" => $customdesign->lang('Could not decode data'));
+				return array("error" => $magic->lang('Could not decode data'));
 		}
 		
 		if (!isset($data->type))
@@ -887,13 +887,13 @@ class customdesign_lib{
 				)
 			)
 
-		) return array("error" => $customdesign->lang('Invalid upload file types, only allows .jpg, .png, .gif and .svg'));
+		) return array("error" => $magic->lang('Invalid upload file types, only allows .jpg, .png, .gif and .svg'));
 		
 		if (!isset($data->size) || ($data->size > 52428800 && strpos($data->name, '.lumi') === false))
-			return array("error" => $customdesign->lang('Max file size upload is 5MB'));
+			return array("error" => $magic->lang('Max file size upload is 5MB'));
 		
 		if($data->size > 52428800 && strpos($data->name, '.lumi') !== false)
-			return array("error" => $customdesign->lang('Max file size upload is 50MB'));
+			return array("error" => $magic->lang('Max file size upload is 50MB'));
 		
 		$ext = strrchr($data->name, '.');
 		$name = urlencode(substr($data->name, 0, strlen($data->name) - strlen($ext)));
@@ -907,10 +907,10 @@ class customdesign_lib{
 		$data->data = base64_decode($data->data[1]);
 
 		if (!is_dir($path.$data->name))
-			$customdesign->check_upload(time());
+			$magic->check_upload(time());
 
 		if (!file_put_contents($path.$data->name, $data->data))
-			return array("error" => $customdesign->lang('Could not upload file, error on function file_put_contents when trying to push '.$path.$data->name));
+			return array("error" => $magic->lang('Could not upload file, error on function file_put_contents when trying to push '.$path.$data->name));
 
 		$thumn_name = '';
 
@@ -920,14 +920,14 @@ class customdesign_lib{
 				$ext = '.png';
 			else $ext = '.jpg';
 			
-			$thumn_name = $customdesign->generate_id(12).$ext;
+			$thumn_name = $magic->generate_id(12).$ext;
 			$i = 1;
 
 			$data->thumbn = explode('base64,', $data->thumbn);
 			$data->thumbn = base64_decode($data->thumbn[1]);
 
 			if (!@file_put_contents($path.$thumn_name, $data->thumbn))
-				return array("error" => $customdesign->lang('Could not upload thumbn file'));
+				return array("error" => $magic->lang('Could not upload thumbn file'));
 
 		}
 
@@ -957,7 +957,7 @@ class customdesign_lib{
 
     public function get_products ($args) {
 		
-		global $customdesign;
+		global $magic;
 		
 		if (!isset($args['limit']))
 			$args['limit'] = 12;
@@ -985,7 +985,7 @@ class customdesign_lib{
 			
 		} else {
 
-			$query = $customdesign->apply_filters('query_products', $query, $args);
+			$query = $magic->apply_filters('query_products', $query, $args);
 			$products = $this->main->db->rawQuery(implode(' ', $query));
 			$total = $this->main->db->rawQuery("SELECT FOUND_ROWS() AS count");
 		
@@ -993,7 +993,7 @@ class customdesign_lib{
 				$products[$i] = $this->prepare_product($product);
 			}
 			
-			$products = $customdesign->apply_filters('products', $products);
+			$products = $magic->apply_filters('products', $products);
 			
 		}
 		
@@ -1014,22 +1014,22 @@ class customdesign_lib{
 
 	public function get_product($id = null) {
 		
-		global $customdesign;
+		global $magic;
 		
 		if (!$id && isset($_GET['product_base']))
-			$id = $customdesign->esc('product_base');
+			$id = $magic->esc('product_base');
 		
 		if (!$id && isset($_POST['product_base']))
-			$id = $customdesign->esc('product_base');
+			$id = $magic->esc('product_base');
 		
 		if ($id === null)
 	    	return null;
 		
-	    $product = $customdesign->db->rawQuery(
-	    	"SELECT * FROM `{$customdesign->db->prefix}products` WHERE `author`='{$this->main->vendor_id}' AND id=".(Int)$id
+	    $product = $magic->db->rawQuery(
+	    	"SELECT * FROM `{$magic->db->prefix}products` WHERE `author`='{$this->main->vendor_id}' AND id=".(Int)$id
 	    );
 		
-		$product = $customdesign->apply_filters('get_product', $product, $id);
+		$product = $magic->apply_filters('get_product', $product, $id);
 		
 	    if (count($product) > 0) {
 			return $this->prepare_product($product[0]);
@@ -1039,13 +1039,13 @@ class customdesign_lib{
 	
 	public function prepare_product($product = array()) {
 		
-		global $customdesign;
+		global $magic;
 		
 		$product['printings_cfg'] = json_decode(str_replace('\\\'', "'", rawurldecode($product['printings'])));
 		$product['printings'] = $this->get_printings($product['printings']);
 		$product['variations'] = $this->get_variations($product['variations']);
 		
-		$product['product'] = ($customdesign->connector->platform == 'php') ? 0 : $product['product'];
+		$product['product'] = ($magic->connector->platform == 'php') ? 0 : $product['product'];
 		$product['price'] = floatval($product['price']);
 		$product['stages'] = $this->dejson(stripslashes($product['stages']));
 		$product['attributes'] = $this->dejson($product['attributes']);
@@ -1055,7 +1055,7 @@ class customdesign_lib{
 		foreach ($product['attributes'] as $id => $attr) {
 			
 			if (isset($attr->name))
-				$attr->name = $customdesign->lang($attr->name);
+				$attr->name = $magic->lang($attr->name);
 			else $attr->name = '';
 			
 			if (isset($attr->values) && !empty($attr->values)) {
@@ -1104,7 +1104,7 @@ class customdesign_lib{
 		if ($has_quantity === false) {
 			$product['attributes']->quantity = array(
 				"id" => "quantity",
-				"name" => $customdesign->lang('Quantity'),
+				"name" => $magic->lang('Quantity'),
 				"value" => isset($_POST['quantity']) ? (Int)$_POST['quantity'] : 1,
 				"type" => "quantity"
 			);	
@@ -1118,15 +1118,15 @@ class customdesign_lib{
 			
 		foreach ($product['stages'] as $key => $val) {
 			if (isset($val->label) && !empty($val->label)) {
-				$product['stages']->{$key}->label = $customdesign->lang(urldecode($val->label));
+				$product['stages']->{$key}->label = $magic->lang(urldecode($val->label));
 			}
 		}
 			
 		$product['variations'] = $this->enjson($product['variations']);
 		$product['attributes'] = $this->enjson($product['attributes']);
 		
-	    $return_product = $customdesign->apply_filters('product', $product);
-		//var_dump($customdesign->filters);die();
+	    $return_product = $magic->apply_filters('product', $product);
+		//var_dump($magic->filters);die();
 	    //$return_product = $product;
 
 	    if(isset($product['description']) && isset($product['active_description']) && $product['active_description'] == 1 && $return_product !== null ){
@@ -1141,10 +1141,10 @@ class customdesign_lib{
 				
 				if (isset($d->template['id'])) {
 					
-					$prod = $customdesign->db->rawQuery(
+					$prod = $magic->db->rawQuery(
 						sprintf(
 							"SELECT * FROM `%s` WHERE `id`=%d",
-							$customdesign->db->prefix.'templates',
+							$magic->db->prefix.'templates',
 							(Int)$d->template['id']
 						)
 					);
@@ -1169,7 +1169,7 @@ class customdesign_lib{
 	
 	public function get_printings($prt) {
 		
-		global $customdesign;
+		global $magic;
 		
 		if (!empty($prt) && $prt != '%7B%7D') {
 		    
@@ -1182,9 +1182,9 @@ class customdesign_lib{
 					$prints[$i] = preg_replace("/[^0-9.]/", "", $k); 
 				}
 				$prints = implode(',', $prints);
-				$query = "SELECT * FROM `{$customdesign->db->prefix}printings` WHERE `author`='{$this->main->vendor_id}' AND `id` IN ($prints) ORDER BY field(id, $prints)";
+				$query = "SELECT * FROM `{$magic->db->prefix}printings` WHERE `author`='{$this->main->vendor_id}' AND `id` IN ($prints) ORDER BY field(id, $prints)";
 				
-				return $customdesign->db->rawQuery($query);
+				return $magic->db->rawQuery($query);
 				
 			}
 			
@@ -1212,16 +1212,16 @@ class customdesign_lib{
 	
 	public function get_print_types(){
 
-		global $customdesign;
+		global $magic;
 
 		return array(
 			'multi' => array(
 				'options' => array(
-					'text'   => $customdesign->lang('Text'),
-					'clipart'=> $customdesign->lang('Clipart'),
-					'images' => $customdesign->lang('Images'),
-					'vector' => $customdesign->lang('Vector'),
-					'upload' => $customdesign->lang('Upload')
+					'text'   => $magic->lang('Text'),
+					'clipart'=> $magic->lang('Clipart'),
+					'images' => $magic->lang('Images'),
+					'vector' => $magic->lang('Vector'),
+					'upload' => $magic->lang('Upload')
 				),
 				'default' => array(
 					5 => array(
@@ -1233,14 +1233,14 @@ class customdesign_lib{
 						'upload' => 1
 					)
 				),
-				'ppu'    => $customdesign->lang('Price per resource'),
-				'label' => $customdesign->lang('Calculate price with Text, Clipart, Images, Upload'),
-				'desc' => $customdesign->lang('Set the price based on quantity range for each text, clipart, images, upload, Vector SVG')
+				'ppu'    => $magic->lang('Price per resource'),
+				'label' => $magic->lang('Calculate price with Text, Clipart, Images, Upload'),
+				'desc' => $magic->lang('Set the price based on quantity range for each text, clipart, images, upload, Vector SVG')
 			),
 			'color' => array(
 				'options' => array(
-					'full-color' => $customdesign->lang('Full Color'),
-					//'white-base' => $customdesign->lang('White Base'),
+					'full-color' => $magic->lang('Full Color'),
+					//'white-base' => $magic->lang('White Base'),
 				),
 				'default' => array(
 					1 => array(
@@ -1249,9 +1249,9 @@ class customdesign_lib{
 						//'white-base' => 1,
 					),
 				),
-				'ppu'    => $customdesign->lang('Price per color'),
-				'label' => $customdesign->lang('Calculate price with one color'),
-				'desc' => $customdesign->lang('Allow setup price with one color of area design. Price of printing = Price of one color * colors number.')
+				'ppu'    => $magic->lang('Price per color'),
+				'label' => $magic->lang('Calculate price with one color'),
+				'desc' => $magic->lang('Allow setup price with one color of area design. Price of printing = Price of one color * colors number.')
 			),
 			'size' => array(
 				'options' => array(
@@ -1271,25 +1271,25 @@ class customdesign_lib{
 						'a4' => 1,
 					),
 				),
-				'ppu' => $customdesign->lang('Price of area design'),
-				'label' => $customdesign->lang('Calculate price with size of area design'),
-				'desc' => $customdesign->lang('Allow setup price with paper size (A0, A1, A2, A3, A4, A5, A6). This size is size of area design.')
+				'ppu' => $magic->lang('Price of area design'),
+				'label' => $magic->lang('Calculate price with size of area design'),
+				'desc' => $magic->lang('Allow setup price with paper size (A0, A1, A2, A3, A4, A5, A6). This size is size of area design.')
 			),
 			'fixed' => array(
 				'options' => array(
-					'price' => $customdesign->lang('Price'),
+					'price' => $magic->lang('Price'),
 				),
 				'default' => array(
 					5 => array(
 						'price' => 1
 					),
 				),
-				'label' => $customdesign->lang('Price Fixed'),
-				'desc' => $customdesign->lang('Price is fixed on each view (front, back, left, right) of product design.')
+				'label' => $magic->lang('Price Fixed'),
+				'desc' => $magic->lang('Price is fixed on each view (front, back, left, right) of product design.')
 			),
 			'line' => array(
 				'options' => array(
-					'price' => $customdesign->lang('Price'),
+					'price' => $magic->lang('Price'),
 				),
 				'default' => array(
 					5 => array(
@@ -1299,13 +1299,13 @@ class customdesign_lib{
 						'3-line' => 1,
 					),
 				),
-				'ppu'    => $customdesign->lang('Price per line'),
-				'label' => $customdesign->lang('Calculate price per line'),
-				'desc' => $customdesign->lang('Allow pricing per line.')
+				'ppu'    => $magic->lang('Price per line'),
+				'label' => $magic->lang('Calculate price per line'),
+				'desc' => $magic->lang('Allow pricing per line.')
 			),
 			'character' => array(
 				'options' => array(
-					'price' => $customdesign->lang('Price'),
+					'price' => $magic->lang('Price'),
 				),
 				'default' => array(
 					5 => array(
@@ -1315,22 +1315,22 @@ class customdesign_lib{
 						'3-character' => 1,
 					),
 				),
-				'ppu'   => $customdesign->lang('Price per character'),
-				'label' => $customdesign->lang('Calculate price per character'),
-				'desc'  => $customdesign->lang('Allow pricing per character.')
+				'ppu'   => $magic->lang('Price per character'),
+				'label' => $magic->lang('Calculate price per character'),
+				'desc'  => $magic->lang('Allow pricing per character.')
 			),
 			'acreage' => array(
 				'options' => array(
-					'price' => $customdesign->lang('Price per square inch'),
+					'price' => $magic->lang('Price per square inch'),
 				),
 				'default' => array(
 					5 => array(
 						'price' => 1
 					),
 				),
-				'ppu' => $customdesign->lang('Price per square inch'),
-				'label' => $customdesign->lang('Calculate price with acreage design square inch'),
-				'desc' => $customdesign->lang('Allow setup price with acreage design / 1 in²')
+				'ppu' => $magic->lang('Price per square inch'),
+				'label' => $magic->lang('Calculate price with acreage design square inch'),
+				'desc' => $magic->lang('Allow setup price with acreage design / 1 in²')
 			)
 		);
 	}
@@ -1411,54 +1411,54 @@ class customdesign_lib{
 	* Add more item to session cart
 	*/
 	public function add_item_cart($item){
-		$cart_data = $this->main->connector->get_session('customdesign_cart');
+		$cart_data = $this->main->connector->get_session('magic_cart');
 		if($cart_data == null)
 			$cart_data['items'] = array();
 			
 		$cart_data['items'][$item['cart_id']] = $item;
-		$this->main->connector->set_session('customdesign_cart', $cart_data);
+		$this->main->connector->set_session('magic_cart', $cart_data);
 	}
 	
 	public function remove_cart_item( $cart_id, $data = null ){
 		
-		global $customdesign, $customdesign_cart_adding;
+		global $magic, $magic_cart_adding;
 		
-		$cart_data = $customdesign->connector->get_session('customdesign_cart');
-		$items = $customdesign->connector->get_session('customdesign_cart_removed');
+		$cart_data = $magic->connector->get_session('magic_cart');
+		$items = $magic->connector->get_session('magic_cart_removed');
 		$removed_items = ($items == null)? array() : $items;
 		$removed_items[] = $cart_id;
 		
 		//remove file data
 		if( isset( $data[ 'file' ] ) ){
-			$path = $customdesign->cfg->upload_path . 'user_data'. DS . $data[ 'file' ]. '.tmp';
+			$path = $magic->cfg->upload_path . 'user_data'. DS . $data[ 'file' ]. '.tmp';
 		}else if( $data == null) {
-			$path = $customdesign->cfg->upload_path . 'user_data'. DS . $cart_data[ 'items' ][ $cart_id ]['file'] . '.tmp';
+			$path = $magic->cfg->upload_path . 'user_data'. DS . $cart_data[ 'items' ][ $cart_id ]['file'] . '.tmp';
 		}
 		
 		@unlink( $path );
 		
-		if( !isset($customdesign_cart_adding) ) {
+		if( !isset($magic_cart_adding) ) {
 			
 			unset($cart_data['items'][$cart_id]);
 			
-			$this->main->connector->set_session('customdesign_cart', $cart_data);
-			$this->main->connector->set_session('customdesign_cart_removed', $removed_items);
+			$this->main->connector->set_session('magic_cart', $cart_data);
+			$this->main->connector->set_session('magic_cart_removed', $removed_items);
 		}
 	}
 
 	public function store_cart($order_id, $cart_data){
 		
-		global $customdesign;
+		global $magic;
 		
-		$db = $customdesign->get_db();
+		$db = $magic->get_db();
 		$insert_fail = 0;
 		
 		$time = time();
 		$date = @date ("Y-m-d H:i:s");
-		$design_path = $customdesign->cfg->upload_path.'designs';
-		$order_path = $customdesign->cfg->upload_path.'orders';
+		$design_path = $magic->cfg->upload_path.'designs';
+		$order_path = $magic->cfg->upload_path.'orders';
 		
-		$checkupl = $customdesign->check_upload($time);
+		$checkupl = $magic->check_upload($time);
 				
 		if ($checkupl !== 1) {
 			return array(
@@ -1475,7 +1475,7 @@ class customdesign_lib{
 			!is_array($cart_data['items']) || 
 			count($cart_data['items']) == 0
 		) {
-			$customdesign->logger->log('Customdesign log for order ID#' . $order_id.' '.date ("Y-m-d H:i:s").' - cart_data session is empty or no items');
+			$magic->logger->log('magicrugs log for order ID#' . $order_id.' '.date ("Y-m-d H:i:s").' - cart_data session is empty or no items');
 			return true;
 		}
 
@@ -1506,7 +1506,7 @@ class customdesign_lib{
 			){
 				foreach ($extra_data['screenshots'] as $stage => $screenshot) {
 					
-					$scr_file_name = date('Y', $time).DS.date('m', $time).DS.$customdesign->generate_id().'.png';
+					$scr_file_name = date('Y', $time).DS.date('m', $time).DS.$magic->generate_id().'.png';
 					$scr_name = $order_path . DS . $scr_file_name;
 					
 					/*
@@ -1515,8 +1515,8 @@ class customdesign_lib{
 					if (strpos($screenshot, 'data:image') === false) {
 						$screenshot = str_replace('/', DS, $screenshot);
 						if (
-							is_file($customdesign->cfg->upload_path.$screenshot) &&
-							rename($customdesign->cfg->upload_path.$screenshot, $scr_name)
+							is_file($magic->cfg->upload_path.$screenshot) &&
+							rename($magic->cfg->upload_path.$screenshot, $scr_name)
 						) array_push($screenshots, $scr_file_name);
 						continue;
 					};
@@ -1531,7 +1531,7 @@ class customdesign_lib{
 					){
 						return array(
 							'error' => 1,
-							'msg' => $customdesign->lang('Could not save product screenshot').': '.$order_path
+							'msg' => $magic->lang('Could not save product screenshot').': '.$order_path
 						);
 					}
 					
@@ -1565,9 +1565,9 @@ class customdesign_lib{
 						if (isset($sdata['print_file'])) {
 							// if (isset($sdata['print_file']) && isset($sdata['data']['objects'])) {
 							
-							$scr_file_name = date('Y', $time).DS.date('m', $time).DS.$customdesign->generate_id().'-stage'.$isf.'.png';
+							$scr_file_name = date('Y', $time).DS.date('m', $time).DS.$magic->generate_id().'-stage'.$isf.'.png';
 
-							$scr_file_name = $customdesign->apply_filters('scr-file-name-stage', $scr_file_name, array('sdata' => $sdata, 'isf' => $isf));
+							$scr_file_name = $magic->apply_filters('scr-file-name-stage', $scr_file_name, array('sdata' => $sdata, 'isf' => $isf));
 							$scr_name = $order_path . DS . $scr_file_name;
 							
 							if (strpos($sdata['print_file'], 'data:image') === false)
@@ -1591,12 +1591,12 @@ class customdesign_lib{
 						}
 					}
 
-					$customdesign->do_action('store-cart-stage', $order_id, array('stagesArr' => $stagesArr, 'qty' => $item['qty']) );
+					$magic->do_action('store-cart-stage', $order_id, array('stagesArr' => $stagesArr, 'qty' => $item['qty']) );
 				}
 				
 				$design_raw = json_encode($extra_data['design']);
 				
-				$design_file = date('Y', $time).DS.date('m', $time).DS.$customdesign->generate_id().'.lumi';
+				$design_file = date('Y', $time).DS.date('m', $time).DS.$magic->generate_id().'.lumi';
 				
 				if (!file_put_contents($design_path.DS.$design_file, $design_raw)){
 					return array(
@@ -1629,11 +1629,11 @@ class customdesign_lib{
 				'updated' => $date,
 				'product_price' => floatval($item['price']['total']),
 				'product_name' => $item['product_name'],
-				'currency' => $customdesign->cfg->settings['currency'],
+				'currency' => $magic->cfg->settings['currency'],
 				'qty' => $item['qty'],
 				'design' => $design_product,
 				'custom' => (false === $item['template']) ? 1 : 0,
-				'author' => $customdesign->vendor_id,
+				'author' => $magic->vendor_id,
 			);
 
 			$id = $db->insert('order_products', $insert_data);
@@ -1658,14 +1658,14 @@ class customdesign_lib{
 		
 		unset($cart_data);
 			
-		$customdesign->connector->set_session('customdesign_cart', array('items' => array()));
-		$customdesign->connector->set_session('customdesign_last_checkout', array('items' => $last_checkout ) );
-		$customdesign->connector->set_session('customdesign_checkout', true);
+		$magic->connector->set_session('magic_cart', array('items' => array()));
+		$magic->connector->set_session('magic_last_checkout', array('items' => $last_checkout ) );
+		$magic->connector->set_session('magic_checkout', true);
 		
 		if ($insert_fail > 0) {
 			return array(
 				'error' => 1,
-				'msg' => 'Fail to insert item to customdesign.order_products ('.$insert_fail.' items failed)'
+				'msg' => 'Fail to insert item to magic.order_products ('.$insert_fail.' items failed)'
 			);	
 		}
 		
@@ -1673,7 +1673,7 @@ class customdesign_lib{
 		*	After finishing an order
 		*/
 			
-		$customdesign->do_action('store-cart', $order_id);
+		$magic->do_action('store-cart', $order_id);
 		
 		return true;
 		
@@ -1681,19 +1681,19 @@ class customdesign_lib{
 	
 	public function price( $price ) {
 		
-		global $customdesign;
+		global $magic;
 		
 		$price = number_format(
 			floatval($price),
-			intval($customdesign->cfg->settings['number_decimals']),
-			$customdesign->cfg->settings['decimal_separator'],
-			$customdesign->cfg->settings['thousand_separator']
+			intval($magic->cfg->settings['number_decimals']),
+			$magic->cfg->settings['decimal_separator'],
+			$magic->cfg->settings['thousand_separator']
 		);
 		
 		return (
-			$customdesign->cfg->settings['currency_position'] === '0' ? 
-			$price . $customdesign->cfg->settings['currency'] : 
-			$customdesign->cfg->settings['currency'] . $price
+			$magic->cfg->settings['currency_position'] === '0' ? 
+			$price . $magic->cfg->settings['currency'] : 
+			$magic->cfg->settings['currency'] . $price
 		);
 		
 	}
@@ -1708,9 +1708,9 @@ class customdesign_lib{
 		$type = 'products'
 	) {
 
-		global $customdesign;
+		global $magic;
         $data = array();
-       	$db = $customdesign->get_db();
+       	$db = $magic->get_db();
 		$db->join("categories_reference c", "p.id=c.item_id", "LEFT");
 		$db->where("c.category_id", $cate_id);
 		$db->where("c.type", $type);
@@ -1736,10 +1736,10 @@ class customdesign_lib{
 		$default_filter = null
 	) {
 
-		global $customdesign;
+		global $magic;
 		
         $data = array();
-       	$db = $customdesign->get_db();
+       	$db = $magic->get_db();
 		$db->join("categories_reference c", "p.id=c.item_id", "LEFT");
 		$db->where("c.category_id", $cate_id);
 		$db->where("c.type", $type);
@@ -1777,8 +1777,8 @@ class customdesign_lib{
 		$type = null
 	) {
 
-        global $customdesign;
-        $db = $customdesign->get_db();
+        global $magic;
+        $db = $magic->get_db();
 
         $data = array();
 		
@@ -1830,9 +1830,9 @@ class customdesign_lib{
 
 	public function get_rows_custom($arr, $tb_name, $orderby = 'name', $order='asc') {
 
-		global $customdesign;
+		global $magic;
 		
-		$db = $customdesign->get_db();
+		$db = $magic->get_db();
 		$db->where('author', $this->main->vendor_id);
 		$db->orderBy($orderby, $order);
 		$slug = $db->get ($tb_name, null, $arr);
@@ -1843,16 +1843,16 @@ class customdesign_lib{
 
 	public function get_row_id($id, $tb_name) {
 
-		global $customdesign;
-		$db = $customdesign->get_db();
+		global $magic;
+		$db = $magic->get_db();
 		$db->where ('id', $id);
 		//$db->where('author', $this->main->vendor_id);
 		
 		$item = $db->getOne ($tb_name);
 		
 		if (isset($item['author']) && $item['author'] != $this->main->vendor_id) {
-			$customdesign->connector->set_session(
-				'customdesign_msg', 
+			$magic->connector->set_session(
+				'magic_msg', 
 				array(
 					'status' => 'error', 
 					'errors' => array($this->main->lang('Error, Access denied on editing this section!'))
@@ -1866,8 +1866,8 @@ class customdesign_lib{
 
 	public function get_rows_limit($tb_name, $limit ) {
 
-		global $customdesign;
-		$db = $customdesign->get_db();
+		global $magic;
+		$db = $magic->get_db();
 		$db->where('author', $this->main->vendor_id);
 
 		$arts = $db->get($tb_name, $limit);
@@ -1878,8 +1878,8 @@ class customdesign_lib{
 
 	public function get_rows_total($tb_name, $col = null, $val = null) {
 
-		global $customdesign;
-		$db = $customdesign->get_db();
+		global $magic;
+		$db = $magic->get_db();
 		
 		$db->where('author', $this->main->vendor_id);
 		
@@ -1896,15 +1896,15 @@ class customdesign_lib{
 
 	public function add_row( $data, $tb_name ) {
 
-		global $customdesign;
+		global $magic;
 		
-		$db = $customdesign->get_db();
+		$db = $magic->get_db();
 		
 		$data['author'] = $this->main->vendor_id;
 		
 		$id = $db->insert($tb_name, $data);
 		
-		$customdesign->do_action ('add_row', $id, $data, $tb_name);
+		$magic->do_action ('add_row', $id, $data, $tb_name);
 		
         return $id;
 
@@ -1912,8 +1912,8 @@ class customdesign_lib{
 
 	public function edit_row( $id, $data, $tb_name ) {
 		
-		global $customdesign;
-		$db = $customdesign->get_db();
+		global $magic;
+		$db = $magic->get_db();
 		
 		$check_per = $db->rawQuery(
 			sprintf(
@@ -1930,7 +1930,7 @@ class customdesign_lib{
 				$check_per[0]['author'] == $this->main->vendor_id
 			) {
 				
-				$customdesign->do_action ('edit_row', $id, $data, $tb_name);
+				$magic->do_action ('edit_row', $id, $data, $tb_name);
 				
 				$db->where ('id', $id);
 				$db->update ($tb_name, $data);
@@ -1954,11 +1954,11 @@ class customdesign_lib{
 
 	public function delete_row($id, $tb_name) {
 
-		global $customdesign;
+		global $magic;
 		
-		$customdesign->do_action ('delete_row', $id, $tb_name);
+		$magic->do_action ('delete_row', $id, $tb_name);
 		
-		$db = $customdesign->get_db();
+		$db = $magic->get_db();
 		$db->where('id', $id);
 		$db->where('author', $this->main->vendor_id);
 		
@@ -1982,8 +1982,8 @@ class customdesign_lib{
 
 	public function get_tag_item($item_id, $type){
 
-		global $customdesign;
-		$db = $customdesign->get_db();
+		global $magic;
+		$db = $magic->get_db();
 		$db->join("tags_reference tf", "t.id=tf.tag_id", "LEFT");
 		$db->where("tf.item_id", $item_id);
 		$db->where("tf.type", $type);
@@ -1996,9 +1996,9 @@ class customdesign_lib{
 	
 	public function get_template($id = 0){
 		
-		global $customdesign;
+		global $magic;
 		
-		$db = $customdesign->get_db();
+		$db = $magic->get_db();
 		$db->where ('id', (int)$id);
 		
 		//$db->where('author', $this->main->vendor_id);
@@ -2009,9 +2009,9 @@ class customdesign_lib{
 		
 	public function get_order($id = 0){
 		
-		global $customdesign;
+		global $magic;
 		
-		$db = $customdesign->get_db();
+		$db = $magic->get_db();
 		$db->where ('id', (int)$id);
 		$db->where('author', $this->main->vendor_id);
 		
@@ -2021,9 +2021,9 @@ class customdesign_lib{
 	
 	public function get_order_products($order_id = 0){
 		
-		global $customdesign;
+		global $magic;
 		
-		$db = $customdesign->get_db();
+		$db = $magic->get_db();
 		$db->where ('order_id', (int)$order_id);
 		$db->where('author', $this->main->vendor_id);
 		
@@ -2034,9 +2034,9 @@ class customdesign_lib{
 	/** counting all resource **/
 	public function stats(){
 		
-		global $customdesign;
+		global $magic;
 		
-		$db = $customdesign->get_db();
+		$db = $magic->get_db();
 		
 		
 		$data = array();
@@ -2103,7 +2103,7 @@ class customdesign_lib{
 	protected function getShares($index = 0) {
 		
 		$stream = $this->main->lib->esc('stream');
-		$aid = $this->main->connector->cookie('customdesign-AID');
+		$aid = $this->main->connector->cookie('magic-AID');
 		
 		$query = "SELECT SQL_CALC_FOUND_ROWS * FROM `{$this->main->db->prefix}shares` WHERE `author`='{$this->main->vendor_id}' ";
 		
@@ -2125,7 +2125,7 @@ class customdesign_lib{
 	
 	public function product_cfg($cfg = array()) {
 		
-		global $customdesign;
+		global $magic;
 		
 		$product = $this->get_product();
 
@@ -2143,21 +2143,21 @@ class customdesign_lib{
 			// 	}
 			// }
 			if(is_string($product['stages']))
-				$product['stages'] = $customdesign->lib->dejson($product['stages']);
-			$product['attributes'] = $customdesign->lib->dejson($product['attributes']);
+				$product['stages'] = $magic->lib->dejson($product['stages']);
+			$product['attributes'] = $magic->lib->dejson($product['attributes']);
 
 			if (is_array($product['printings'])) {
 				
 				foreach ($product['printings'] as $key => $value) {
-					$product['printings'][$key]['calculate'] = $customdesign->lib->dejson($value['calculate']);
-					$product['printings'][$key]['layout'] = $customdesign->lib->dejson($value['layout']);
-					$product['printings'][$key]['resource'] = $customdesign->lib->dejson($value['resource']);
+					$product['printings'][$key]['calculate'] = $magic->lib->dejson($value['calculate']);
+					$product['printings'][$key]['layout'] = $magic->lib->dejson($value['layout']);
+					$product['printings'][$key]['resource'] = $magic->lib->dejson($value['resource']);
 					
 					if($product['printings'][$key]['resource']){
 						$resource = $product['printings'][$key]['resource'];
 						foreach($resource as $k => $v){
 							if(isset($v->options)){
-								$options = $customdesign->lib->dejson($v->options);
+								$options = $magic->lib->dejson($v->options);
 								$options = $options->active ? $options->values : (object) [];
 	
 								foreach($options as $name => $val){
@@ -2193,7 +2193,7 @@ class customdesign_lib{
 			
 			foreach ($product['stages'] as $name => $data) {
 				if (isset($data->template) && isset($data->template->id)) {
-					$template = $customdesign->lib->get_template($data->template->id);
+					$template = $magic->lib->get_template($data->template->id);
 					if (isset($template['upload'])) {
 						$data->template->upload = $template['upload'];
 						$data->template->price = isset($template['price']) ? $template['price'] : 0;
@@ -2209,21 +2209,21 @@ class customdesign_lib{
 		
 		}
 		
-		$cfg['enable_colors'] = $customdesign->cfg->settings['enable_colors'];
-		$cfg['colors'] = $customdesign->cfg->settings['colors'];
+		$cfg['enable_colors'] = $magic->cfg->settings['enable_colors'];
+		$cfg['colors'] = $magic->cfg->settings['colors'];
 		
 		if (isset($_POST['share']) && !empty($_POST['share'])) {
 			
 			$share_id = $_POST['share'];
-			$share = $customdesign->lib->get_share($_POST['share']);
+			$share = $magic->lib->get_share($_POST['share']);
 			$pdbase = (isset($_POST['product_base']) ? $_POST['product_base'] : '');
 			if (
 				$share === null || $share['product'] != $pdbase
 			) {
-				$cfg['share_invalid'] = $customdesign->lang('Oops, The link share is invalid or has been removed by admin');
+				$cfg['share_invalid'] = $magic->lang('Oops, The link share is invalid or has been removed by admin');
 			} else {
 				
-				$history = $this->main->connector->get_session('customdesign_shares_access');
+				$history = $this->main->connector->get_session('magic_shares_access');
 				
 				if (!isset($history))
 					$history = array();
@@ -2232,7 +2232,7 @@ class customdesign_lib{
 					array_push($history, $share_id);
 					$this->main->db->where('id', $share['id']);
 					$this->main->db->update('shares', array('view' => $share['view']+1));
-					$this->main->connector->set_session('customdesign_shares_access', $history);
+					$this->main->connector->set_session('magic_shares_access', $history);
 				}
 				
 				$cfg['share'] = date('Y', strtotime($share['created'])).'/'.date('m', strtotime($share['created'])).'/'.$share['share_id'];
@@ -2314,33 +2314,33 @@ class customdesign_lib{
 		
 		if(empty($order_id)) return;
 		
-		global $customdesign;
+		global $magic;
 		
 		$products = $this->get_order_products($order_id);
 		foreach($products as $product){
 			if(isset($product['custom']) && $product['custom']){
-				$design_path = realpath($customdesign->cfg->upload_path).DS . 'designs'. DS . $product['design'].'.lumi';
+				$design_path = realpath($magic->cfg->upload_path).DS . 'designs'. DS . $product['design'].'.lumi';
 				$this->delete_files($design_path);
 			}	
 		}
 		
-		$db = $customdesign->get_db();
+		$db = $magic->get_db();
 		$db->where('order_id', $order_id);
-		$db->where('author', $customdesign->vendor_id);
+		$db->where('author', $magic->vendor_id);
 		$db->delete('order_products');
 		
 		//delete order folder
-		$path = realpath($customdesign->cfg->upload_path).DS . 'orders'. DS . $order_id;
+		$path = realpath($magic->cfg->upload_path).DS . 'orders'. DS . $order_id;
 		$this->delete_files($path);
 	}
 	
-	public function report_bug_customdesign($id = 0) {
+	public function report_bug_magic($id = 0) {
 		
-		global $customdesign;
-		$db = $customdesign->get_db();
+		global $magic;
+		$db = $magic->get_db();
 
 		$db->where ('id', $id);
-		$db->where ('author', $customdesign->vendor_id);
+		$db->where ('author', $magic->vendor_id);
 
 		$bug = $db->getOne ('bugs');
 		
@@ -2348,12 +2348,12 @@ class customdesign_lib{
 			$arg = array(
 				'reporting-channel=backend',
 				'content='.base64_encode(urlencode($bug['content'])),
-				'domain='.urlencode($customdesign->cfg->url),
+				'domain='.urlencode($magic->cfg->url),
 				'created='.$bug['created'],
 				'updated='.$bug['updated']
 			);
 			
-			$url = (strpos($customdesign->cfg->url, 'https') === 0 ? 'https' : 'http').'://bugs.customdesign.com';
+			$url = (strpos($magic->cfg->url, 'https') === 0 ? 'https' : 'http').'://bugs.magic.com';
 			$arg = implode('&', $arg);
 			
 			$ch = curl_init( $url );
@@ -2368,7 +2368,7 @@ class customdesign_lib{
 			if ($response != 0) {
 				$db->where ('id', $id);
 				$db->update ('bugs', array(
-					'customdesign' => 1,
+					'magic' => 1,
 					'status' => 'pending',
 					'updated' => date("Y-m-d").' '.date("H:i:s")
 				));
@@ -2387,11 +2387,11 @@ class customdesign_lib{
 	
 	public function save_cart_item_file( $data ) {
 		
-		global $customdesign;
+		global $magic;
 		
 		@ini_set('memory_limit','5000M');
 		
-		$check = $customdesign->check_upload(time());
+		$check = $magic->check_upload(time());
 		
 		if ($check !== 1)
 			return false;
@@ -2399,7 +2399,7 @@ class customdesign_lib{
 		$datepath = date('Y', time()).DS.date('m', time()).DS;
 		$filename = $datepath.$data[ 'cart_id' ] . '_' . $this->gen_str();
 		
-		$path = $customdesign->cfg->upload_path . 'user_data'. DS . $filename . '.tmp';
+		$path = $magic->cfg->upload_path . 'user_data'. DS . $filename . '.tmp';
 		
 		$screenshots = array();
 		
@@ -2408,7 +2408,7 @@ class customdesign_lib{
 			$scr = explode(',', $scr);
 			if(count($scr) < 2) continue;
 			$scr = base64_decode($scr[1]);
-			file_put_contents( $customdesign->cfg->upload_path . 'user_data'. DS.$datepath.$fnam, $scr );
+			file_put_contents( $magic->cfg->upload_path . 'user_data'. DS.$datepath.$fnam, $scr );
 			array_push($screenshots, 'user_data/'.str_Replace(DS, '/', $datepath).$fnam);
 		}
 		
@@ -2440,17 +2440,17 @@ class customdesign_lib{
 		
 	}
 	
-	public function get_cart_data( $customdesign_data ) {
+	public function get_cart_data( $magic_data ) {
 		
-		global $customdesign;
+		global $magic;
 		
-		if (!isset($customdesign_data[ 'file' ])) 
+		if (!isset($magic_data[ 'file' ])) 
 			return null;
 		
-		$file = $customdesign_data[ 'file' ];
+		$file = $magic_data[ 'file' ];
 		$file_data = $this->get_cart_item_file( $file );
 		
-		return ($file_data== null) ? $customdesign_data : $file_data;
+		return ($file_data== null) ? $magic_data : $file_data;
 
 	}	
 
@@ -2650,11 +2650,11 @@ class customdesign_lib{
 	    }
 	    if ($amount > 0) {
 	?>
-		<div class="customdesign-col customdesign-col-12">
-			<div class="customdesign-update-notice top">
+		<div class="magic-col magic-col-12">
+			<div class="magic-update-notice top">
 				<?php echo $this->main->lang('We found'); ?> <?php echo $amount; ?> <?php echo $this->main->lang('misconfiguration(s) on your server that may cause the system to operate incorrectly'); ?>. 
 				&nbsp; 
-				<a href="<?php echo $this->main->cfg->admin_url; ?>customdesign-page=system">
+				<a href="<?php echo $this->main->cfg->admin_url; ?>magic-page=system">
 					<?php echo $this->main->lang('System status'); ?> &#10230;
 				</a>
 			</div>
@@ -2760,7 +2760,7 @@ class customdesign_lib{
     
     public function render_css($data) {
 		
-		global $customdesign;
+		global $magic;
 		
 		$color = $data['primary_color'];
 		$custom_css = $data['custom_css'];
@@ -2774,8 +2774,8 @@ class customdesign_lib{
 			);
 		}
 		
-		$primary = $customdesign->cfg->root_path.'assets'.DS.'css'.DS.'primary_color.css';
-		$path = $customdesign->cfg->upload_path.'user_data'.DS.'custom.css';
+		$primary = $magic->cfg->root_path.'assets'.DS.'css'.DS.'primary_color.css';
+		$path = $magic->cfg->upload_path.'user_data'.DS.'custom.css';
 		
 		if (is_file($primary)){
 			
@@ -2794,7 +2794,7 @@ class customdesign_lib{
 		
 		$content .= stripslashes($custom_css);
 		
-		if ($customdesign->check_upload(time()))
+		if ($magic->check_upload(time()))
 			return @file_put_contents($path, $content);
 		else return 0;
 		
@@ -2810,7 +2810,7 @@ class customdesign_lib{
 			header('location: '.$this->main->cfg->upload_url. 'user_data/pdf/'.$pdf_target);
 		}
 		
-		global $customdesign;
+		global $magic;
 		
 		$files = array();
 		
@@ -2963,7 +2963,7 @@ class customdesign_lib{
 	
 }
 
-class customdesign_pagination {
+class magic_pagination {
 
 	protected $_pagination = array(
 		'current_page' => 1,
@@ -2977,7 +2977,7 @@ class customdesign_pagination {
 
 	public function init( $pagination = array() ) {
 
-		global $customdesign;
+		global $magic;
 
 		foreach ($pagination as $key => $value) {
 
@@ -2997,8 +2997,8 @@ class customdesign_pagination {
 
 		$this->_pagination['start'] = ( $this->_pagination['current_page'] - 1 ) * $this->_pagination['limit'];
 
-		if ($_SERVER['REQUEST_METHOD'] =='POST' && CUSTOMDESIGN_ADMIN) {
-			$admin_url = explode('?', $customdesign->cfg->admin_url);
+		if ($_SERVER['REQUEST_METHOD'] =='POST' && MAGIC_ADMIN) {
+			$admin_url = explode('?', $magic->cfg->admin_url);
 			$this->redirect($admin_url[0].'?'.$_SERVER['QUERY_STRING']);
 		}
 
@@ -3021,12 +3021,12 @@ class customdesign_pagination {
 
 	public function pagination_html() {
 
-		global $customdesign;
+		global $magic;
 		$result = '';
 
 		if ( $this->_pagination['total_record'] > $this->_pagination['limit'] ) {
 
-			$result = '<p>'.$customdesign->lang('Showing').' '.(($this->_pagination['current_page']-1)*$this->_pagination['limit']).' '.$customdesign->lang('to').' '.($this->_pagination['current_page']*$this->_pagination['limit'] < $this->_pagination['total_record'] ? $this->_pagination['current_page']*$this->_pagination['limit'] : $this->_pagination['total_record']).' '.$customdesign->lang('of').' '.$this->_pagination['total_record'].' '.$customdesign->lang('entries').'</p>';
+			$result = '<p>'.$magic->lang('Showing').' '.(($this->_pagination['current_page']-1)*$this->_pagination['limit']).' '.$magic->lang('to').' '.($this->_pagination['current_page']*$this->_pagination['limit'] < $this->_pagination['total_record'] ? $this->_pagination['current_page']*$this->_pagination['limit'] : $this->_pagination['total_record']).' '.$magic->lang('of').' '.$this->_pagination['total_record'].' '.$magic->lang('entries').'</p>';
 			$result .= '<ul>';
 
 			if ( $this->_pagination['current_page'] > 1 ) {
@@ -3072,7 +3072,7 @@ class customdesign_pagination {
 			}
 
 		} else {
-			$result = '<p>'.$customdesign->lang('Showing').' '.$this->_pagination['total_record'].' '.$customdesign->lang('entries').'</p>';
+			$result = '<p>'.$magic->lang('Showing').' '.$this->_pagination['total_record'].' '.$magic->lang('entries').'</p>';
 		}
 
 		return $result;
@@ -3085,7 +3085,7 @@ class customdesign_pagination {
 /**
  * Logger class
  */
-class customdesign_logger{
+class magic_logger{
 	
 	private $file_path;
 	

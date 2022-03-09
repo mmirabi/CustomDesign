@@ -29,7 +29,7 @@
 		$val = isset($_POST['id_action']) ? $_POST['id_action'] : '';
 		$val = explode(',', $val);
 		
-		$customdesign_admin->check_caps('categories');
+		$magic_admin->check_caps('categories');
 		
 		foreach ($val as $value) {
 
@@ -39,25 +39,25 @@
 					$data = array(
 						'active' => 1
 					);
-					$dt = $customdesign_admin->edit_row( $value, $data, 'categories' );
+					$dt = $magic_admin->edit_row( $value, $data, 'categories' );
 					break;
 				case 'deactive':
 					$data = array(
 						'active' => 0
 					);
-					$dt = $customdesign_admin->edit_row( $value, $data, 'categories' );
+					$dt = $magic_admin->edit_row( $value, $data, 'categories' );
 					break;
 				case 'delete':
 
-					$dt = $customdesign_admin->get_row_id($value, 'categories');
+					$dt = $magic_admin->get_row_id($value, 'categories');
 					$arr = array("id", "parent");
-					$dts = $customdesign_admin->get_rows_custom($arr, 'categories');
+					$dts = $magic_admin->get_rows_custom($arr, 'categories');
 					$arr = array("id","category_id");
-					$cate_reference = $customdesign_admin->get_rows_custom($arr, 'categories_reference', $orderby = 'id', $order='asc');
+					$cate_reference = $magic_admin->get_rows_custom($arr, 'categories_reference', $orderby = 'id', $order='asc');
 
 					foreach ($cate_reference as $vals) {
 						if ($vals['category_id'] == $value) {
-							$customdesign_admin->delete_row($vals['id'], 'categories_reference');
+							$magic_admin->delete_row($vals['id'], 'categories_reference');
 						}
 					}
 
@@ -65,20 +65,20 @@
 
 						if ($val['parent'] == $dt['id']) {
 							$val['parent'] = $dt['parent'];
-							$customdesign_admin->edit_row($val['id'], $val, 'categories');
+							$magic_admin->edit_row($val['id'], $val, 'categories');
 						}
 
 					}
 
-					$tar_file = realpath($customdesign->cfg->upload_path).DS;
+					$tar_file = realpath($magic->cfg->upload_path).DS;
 					if (!empty($dt['upload'])) {
 						if (file_exists($tar_file.$dt['upload'])) {
 							unlink($tar_file.$dt['upload']);
-							unlink(str_replace(array($customdesign->cfg->upload_url, '/'), array($customdesign->cfg->upload_path, TS), $dt['thumbnail_url']));
+							unlink(str_replace(array($magic->cfg->upload_url, '/'), array($magic->cfg->upload_path, TS), $dt['thumbnail_url']));
 						}
 					}
 
-					$customdesign_admin->delete_row($value, 'categories');
+					$magic_admin->delete_row($value, 'categories');
 
 					break;
 				default:
@@ -147,8 +147,8 @@
     );
 
     $start = ( $current_page - 1 ) * $per_page;
-	$cate = $customdesign_admin->get_rows('categories', $search_filter, $orderby, $ordering, null, null, null, $type);
-	$total_record = $customdesign_admin->get_rows_total('categories', $type, 'type');
+	$cate = $magic_admin->get_rows('categories', $search_filter, $orderby, $ordering, null, null, null, $type);
+	$total_record = $magic_admin->get_rows_total('categories', $type, 'type');
     $cate['total_page'] = ceil($cate['total_count'] / $per_page);
 
     $config = array(
@@ -156,46 +156,46 @@
 		'total_record'  => $cate['total_count'],
 		'total_page'    => $cate['total_page'],
  	    'limit'         => $per_page,
-	    'link_full'     => $customdesign->cfg->admin_url.'customdesign-page=categories&type='.$type.'&tpage={page}',
-	    'link_first'    => $customdesign->cfg->admin_url.'customdesign-page=categories&type='.$type,
+	    'link_full'     => $magic->cfg->admin_url.'magic-page=categories&type='.$type.'&tpage={page}',
+	    'link_first'    => $magic->cfg->admin_url.'magic-page=categories&type='.$type,
 	);
 
-	$customdesign_pagination->init($config);
+	$magic_pagination->init($config);
 
 ?>
 
-<div class="customdesign_wrapper">
-	<div class="customdesign_content">
+<div class="magic_wrapper">
+	<div class="magic_content">
 
-		<div class="customdesign_header">
-			<h2><?php echo $customdesign->lang('Categories'); ?></h2>
-			<a href="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=category&type=<?php echo $type; ?>" class="add-new customdesign-button">
+		<div class="magic_header">
+			<h2><?php echo $magic->lang('Categories'); ?></h2>
+			<a href="<?php echo $magic->cfg->admin_url;?>magic-page=category&type=<?php echo $type; ?>" class="add-new magic-button">
 				<i class="fa fa-plus"></i> 
-				<?php echo $customdesign->lang('Add new category'); ?>
+				<?php echo $magic->lang('Add new category'); ?>
 			</a>
 			<?php
-				$customdesign_page = isset($_GET['customdesign-page']) ? $_GET['customdesign-page'] : '';
+				$magic_page = isset($_GET['magic-page']) ? $_GET['magic-page'] : '';
 				$type = isset($_GET['type']) ? $_GET['type'] : '';
-				echo $customdesign_helper->breadcrumb($customdesign_page,$type);
+				echo $magic_helper->breadcrumb($magic_page,$type);
 			?>
 		</div>
-		<div class="customdesign_option">
+		<div class="magic_option">
 			<div class="left">
-				<form action="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=categories&type=<?php echo $type ?>" method="post">
+				<form action="<?php echo $magic->cfg->admin_url;?>magic-page=categories&type=<?php echo $type ?>" method="post">
 					<select name="action" class="art_per_page">
-						<option value="none"><?php echo $customdesign->lang('Bulk Actions'); ?></option>
-						<option value="active"><?php echo $customdesign->lang('Active'); ?></option>
-						<option value="deactive"><?php echo $customdesign->lang('Deactive'); ?></option>
-						<option value="delete"><?php echo $customdesign->lang('Delete'); ?></option>
+						<option value="none"><?php echo $magic->lang('Bulk Actions'); ?></option>
+						<option value="active"><?php echo $magic->lang('Active'); ?></option>
+						<option value="deactive"><?php echo $magic->lang('Deactive'); ?></option>
+						<option value="delete"><?php echo $magic->lang('Delete'); ?></option>
 					</select>
 					<input type="hidden" name="id_action" class="id_action">
 					<input type="hidden" name="do" value="action" />
-					<input type="submit" class="customdesign_submit" name="action_submit" value="<?php echo $customdesign->lang('Apply'); ?>" />
-					<?php $customdesign->securityFrom();?>
+					<input type="submit" class="magic_submit" name="action_submit" value="<?php echo $magic->lang('Apply'); ?>" />
+					<?php $magic->securityFrom();?>
 				</form>
-				<form class="less" action="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=categories&type=<?php echo $type ?>" method="post">
+				<form class="less" action="<?php echo $magic->cfg->admin_url;?>magic-page=categories&type=<?php echo $type ?>" method="post">
 					<select name="per_page" class="art_per_page" data-action="submit">
-						<option value="none">-- <?php echo $customdesign->lang('Per page'); ?> --</option>
+						<option value="none">-- <?php echo $magic->lang('Per page'); ?> --</option>
 						<?php
 							$per_pages = array('20', '50', '100', '200');
 
@@ -210,40 +210,40 @@
 							}
 						?>
 					</select>
-					<?php $customdesign->securityFrom();?>
+					<?php $magic->securityFrom();?>
 				</form>
-				<form class="less" action="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=categories&type=<?php echo $type ?>" method="post">
+				<form class="less" action="<?php echo $magic->cfg->admin_url;?>magic-page=categories&type=<?php echo $type ?>" method="post">
 					<select name="sort" class="art_per_page" data-action="submit">
-						<option value="">-- <?php echo $customdesign->lang('Sort by'); ?> --</option>
-						<option value="name_asc" <?php if ($dt_order == 'name_asc' ) echo 'selected' ; ?> ><?php echo $customdesign->lang('Name'); ?> A-Z</option>
-						<option value="name_desc" <?php if ($dt_order == 'name_desc' ) echo 'selected' ; ?> ><?php echo $customdesign->lang('Name'); ?> Z-A</option>
+						<option value="">-- <?php echo $magic->lang('Sort by'); ?> --</option>
+						<option value="name_asc" <?php if ($dt_order == 'name_asc' ) echo 'selected' ; ?> ><?php echo $magic->lang('Name'); ?> A-Z</option>
+						<option value="name_desc" <?php if ($dt_order == 'name_desc' ) echo 'selected' ; ?> ><?php echo $magic->lang('Name'); ?> Z-A</option>
 					</select>
-					<?php $customdesign->securityFrom();?>
+					<?php $magic->securityFrom();?>
 				</form>
 			</div>
 			<div class="right">
-				<form action="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=categories&type=<?php echo $type ?>" method="post">
+				<form action="<?php echo $magic->cfg->admin_url;?>magic-page=categories&type=<?php echo $type ?>" method="post">
 					<input class="search" type="search" name="search" class="form-control form_search" placeholder="Search ..." value="<?php if(isset($_SESSION[$prefix.$type.'data_search'])) echo $_SESSION[$prefix.$type.'data_search']; ?>">
-					<input class="customdesign_submit" type="submit" name="search_cate" value="<?php echo $customdesign->lang('Search'); ?>">
-					<?php $customdesign->securityFrom();?>
+					<input class="magic_submit" type="submit" name="search_cate" value="<?php echo $magic->lang('Search'); ?>">
+					<?php $magic->securityFrom();?>
 				</form>
 			</div>
 		</div>
 		<?php if ( isset($cate['total_count']) && $cate['total_count'] > 0) { ?>
-			<div class="customdesign_wrap_table">
-				<table class="customdesign_table customdesign_categories">
+			<div class="magic_wrap_table">
+				<table class="magic_table magic_categories">
 					<thead>
 						<tr>
-							<th class="customdesign_check">
-								<div class="customdesign_checkbox">
+							<th class="magic_check">
+								<div class="magic_checkbox">
 									<input type="checkbox" id="check_all">
 									<label for="check_all"><em class="check"></em></label>
 								</div>
 							</th>
-							<th width="40%"><?php echo $customdesign->lang('Name'); ?></th>
-							<th><?php echo $customdesign->lang('Thumbnail'); ?></th>
-							<th><?php echo $customdesign->lang('Status'); ?></th>
-							<th><?php echo $customdesign->lang('Ordering'); ?></th>
+							<th width="40%"><?php echo $magic->lang('Name'); ?></th>
+							<th><?php echo $magic->lang('Thumbnail'); ?></th>
+							<th><?php echo $magic->lang('Status'); ?></th>
+							<th><?php echo $magic->lang('Ordering'); ?></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -251,7 +251,7 @@
 
 							if (empty($data_search)) {
 
-								$cate = $customdesign_admin->get_categories_parent($cate['rows']);
+								$cate = $magic_admin->get_categories_parent($cate['rows']);
 								$start = ($current_page - 1) * $per_page;
 
 								for ($i = $start; $i < $start + $per_page; $i++) {
@@ -259,31 +259,31 @@
 										break; ?>
 
 									<tr>
-										<td class="customdesign_check">
-											<div class="customdesign_checkbox">
+										<td class="magic_check">
+											<div class="magic_checkbox">
 												<input type="checkbox" name="checked[]" class="action_check" value="<?php if(isset($cate[$i]['id'])) echo $cate[$i]['id']; ?>" class="action" id="<?php if(isset($cate[$i]['id'])) echo $cate[$i]['id']; ?>">
 												<label for="<?php if(isset($cate[$i]['id'])) echo $cate[$i]['id']; ?>"><em class="check"></em></label>
 											</div>
 										</td>
-										<td class="customdesign-resource-title">
-											<a href="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=category&type=<?php echo $type; ?>&id=<?php if(isset($cate[$i]['id'])) echo $cate[$i]['id']; ?>" class="name"><?php if(isset($cate[$i]['name'])) echo str_repeat('&mdash;', $cate[$i]['lv']).$cate[$i]['name']; ?></a>
+										<td class="magic-resource-title">
+											<a href="<?php echo $magic->cfg->admin_url;?>magic-page=category&type=<?php echo $type; ?>&id=<?php if(isset($cate[$i]['id'])) echo $cate[$i]['id']; ?>" class="name"><?php if(isset($cate[$i]['name'])) echo str_repeat('&mdash;', $cate[$i]['lv']).$cate[$i]['name']; ?></a>
 											<span> - #<?php echo $cate[$i]['id'] ?></span>
 										</td>
 										<td>
 										<?php
 											if (isset($cate[$i]['thumbnail_url']) && !empty($cate[$i]['thumbnail_url'])) {
-												echo '<img class="customdesign-thumbn" src="'.$cate[$i]['thumbnail_url'].'">' ;
+												echo '<img class="magic-thumbn" src="'.$cate[$i]['thumbnail_url'].'">' ;
 											}
 										?>
 										</td>
 										<td>
-											<a href="#" class="customdesign_action" data-type="categories" data-action="switch_active" data-status="<?php echo (isset($cate[$i]['active']) ? $cate[$i]['active'] : '0'); ?>" data-id="<?php if(isset($cate[$i]['id'])) echo $cate[$i]['id'] ?>">
+											<a href="#" class="magic_action" data-type="categories" data-action="switch_active" data-status="<?php echo (isset($cate[$i]['active']) ? $cate[$i]['active'] : '0'); ?>" data-id="<?php if(isset($cate[$i]['id'])) echo $cate[$i]['id'] ?>">
 												<?php
 													if (isset($cate[$i]['active'])) {
 														if ($cate[$i]['active'] == 1) {
-															echo '<em class="pub">'.$customdesign->lang('active').'</em>';
+															echo '<em class="pub">'.$magic->lang('active').'</em>';
 														} else {
-															echo '<em class="un pub">'.$customdesign->lang('deactive').'</em>';
+															echo '<em class="un pub">'.$magic->lang('deactive').'</em>';
 														}
 													}
 												?>
@@ -299,12 +299,12 @@
 								foreach ($cate['rows'] as $value) { ?>
 									<tr>
 										<td>
-											<div class="customdesign_checkbox">
+											<div class="magic_checkbox">
 												<input type="checkbox" name="checked[]" class="action_check" value="<?php if(isset($value['id'])) echo $value['id']; ?>" class="action" id="<?php if(isset($value['id'])) echo $value['id']; ?>">
 												<label for="<?php if(isset($value['id'])) echo $value['id']; ?>"><em class="check"></em></label>
 											</div>
 										</td>
-										<td><a href="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=category&id=<?php if(isset($value['id'])) echo $value['id']; ?>&type=<?php echo $type?>" class="name"><?php if(isset($value['name'])) echo $value['name']; ?></a></td>
+										<td><a href="<?php echo $magic->cfg->admin_url;?>magic-page=category&id=<?php if(isset($value['id'])) echo $value['id']; ?>&type=<?php echo $type?>" class="name"><?php if(isset($value['name'])) echo $value['name']; ?></a></td>
 										<td>
 										<?php
 											if (isset($value['thumbnail_url']) && !empty($value['thumbnail_url'])) {
@@ -313,13 +313,13 @@
 										?>
 										</td>
 										<td>
-											<a href="#" class="customdesign_action" data-type="categories" data-action="switch_active" data-status="<?php echo (isset($value['active']) ? $value['active'] : '0'); ?>" data-id="<?php if(isset($value['id'])) echo $value['id'] ?>">
+											<a href="#" class="magic_action" data-type="categories" data-action="switch_active" data-status="<?php echo (isset($value['active']) ? $value['active'] : '0'); ?>" data-id="<?php if(isset($value['id'])) echo $value['id'] ?>">
 												<?php
 													if (isset($value['active'])) {
 														if ($value['active'] == 1)
-															echo '<em class="pub">'.$customdesign->lang('active').'</em>';
+															echo '<em class="pub">'.$magic->lang('active').'</em>';
 														else
-															echo '<em class="un pub">'.$customdesign->lang('deactive').'</em>';
+															echo '<em class="un pub">'.$magic->lang('deactive').'</em>';
 													}
 												?>
 											</a>
@@ -335,17 +335,17 @@
 				</table>
 			</div>
 
-			<div class="customdesign_pagination"><?php echo $customdesign_pagination->pagination_html(); ?></div>
+			<div class="magic_pagination"><?php echo $magic_pagination->pagination_html(); ?></div>
 
 		<?php } else {
 					if (isset($total_record) && $total_record > 0) {
-						echo '<p class="no-data">'.$customdesign->lang('Apologies, but no results were found.').'</p>';
+						echo '<p class="no-data">'.$magic->lang('Apologies, but no results were found.').'</p>';
 						$type = isset($_GET['type']) ? $_GET['type'] : '$type';
 						$_SESSION[$prefix.$type.'data_search'] = '';
-						echo '<a href="'.$customdesign->cfg->admin_url.'customdesign-page=categories&type='.$type.'" class="btn-back"><i class="fa fa-reply" aria-hidden="true"></i>'.$customdesign->lang('Back To Lists').'</a>';
+						echo '<a href="'.$magic->cfg->admin_url.'magic-page=categories&type='.$type.'" class="btn-back"><i class="fa fa-reply" aria-hidden="true"></i>'.$magic->lang('Back To Lists').'</a>';
 					}
 					else
-						echo '<p class="no-data">'.$customdesign->lang('No data. Please add category.').'</p>';
+						echo '<p class="no-data">'.$magic->lang('No data. Please add category.').'</p>';
 			} ?>
 
 	</div>

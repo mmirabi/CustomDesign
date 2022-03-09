@@ -1,39 +1,39 @@
 <?php
 /**
 *
-*   (p) package: Custom Design
-*   (c) author: Mehdi Mirabi
-*   (i) website: https://www.magicrugs.com
+*	(p) package: MagicRugs
+*	(c) author:	Mehdi Mirabi
+*	(i) website: https://www.magicrugs.com
 *
 */
 
-if (!defined('CUSTOMDESIGN')) {
+if (!defined('MAGIC')) {
 	header('HTTP/1.0 403 Forbidden');
 	die();
 }
 
-class customdesign_update extends customdesign_lib {
+class magic_update extends magic_lib {
 	
 	protected $current;
 	protected $api_url;
 	
 	public function __construct() {
 		
-		global $customdesign;
+		global $magic;
 		
-		if (!$customdesign->dbready)
+		if (!$magic->dbready)
 			return;
 			
-		$this->main = $customdesign;
+		$this->main = $magic;
 		
-		$current = $customdesign->db->rawQuery("SELECT `value` FROM `{$customdesign->db->prefix}settings` WHERE `key`='current_version'");
+		$current = $magic->db->rawQuery("SELECT `value` FROM `{$magic->db->prefix}settings` WHERE `key`='current_version'");
 		
 		if (count($current) === 0)
 			$current = '1.3';
 		else $current = $current[0]['value'];
 		
 		if ($current == '{{{version}}}') {
-			$this->main->set_option('current_version', CUSTOMDESIGN);
+			$this->main->set_option('current_version', MAGIC);
 			return;
 		}
 		
@@ -43,9 +43,9 @@ class customdesign_update extends customdesign_lib {
 			) ? 'https' : 'http';
 		$this->api_url = $scheme.'://magicrugs.com/';
 
-		if ($current != CUSTOMDESIGN) {
+		if ($current != MAGIC) {
 			$this->run_updater();
-			$this->main->set_option('current_version', CUSTOMDESIGN);
+			$this->main->set_option('current_version', MAGIC);
 		}
 	}
 	
@@ -53,7 +53,7 @@ class customdesign_update extends customdesign_lib {
 		
 		$curDate = date_default_timezone_get();
 		date_default_timezone_set("Asia/Bangkok");
-		$check = $this->main->lib->remote_connect($this->api_url.'updates/customdesign.xml?nonce='.date('dH'));
+		$check = $this->main->lib->remote_connect($this->api_url.'updates/magic.xml?nonce='.date('dH'));
 		date_default_timezone_set($curDate);
 		
 		$check = @simplexml_load_string($check);
@@ -80,7 +80,7 @@ class customdesign_update extends customdesign_lib {
 	protected function run_updater() {
 		/*
 		*	Call this when a new version is installed	
-		*	$this->main = global $customdesign
+		*	$this->main = global $magic
 		*/
 		
 		/*
@@ -88,7 +88,7 @@ class customdesign_update extends customdesign_lib {
 		* add `active` to table categories
 		*/
 		
-		if (version_compare(CUSTOMDESIGN, '1.4') >=0 ){
+		if (version_compare(MAGIC, '1.4') >=0 ){
 			$sql = "SHOW COLUMNS FROM `{$this->main->db->prefix}categories` LIKE 'active'";
 			$columns = $this->main->db->rawQuery($sql);
 			if(count($columns) == 0){
@@ -97,14 +97,14 @@ class customdesign_update extends customdesign_lib {
 			}
 		}
 		
-		if (version_compare(CUSTOMDESIGN, '1.5') >=0 ){
+		if (version_compare(MAGIC, '1.5') >=0 ){
 			$sql_active = "ALTER TABLE `{$this->main->db->prefix}products` CHANGE `color` `color` TEXT NOT NULL";
 			$this->main->db->rawQuery($sql_active);
 			$sql_active = "ALTER TABLE `{$this->main->db->prefix}products` CHANGE `printings` `printings` TEXT NOT NULL";
 			$this->main->db->rawQuery($sql_active);
 		}
 		
-		if (version_compare(CUSTOMDESIGN, '1.7') >=0 ){
+		if (version_compare(MAGIC, '1.7') >=0 ){
 			
 			$sql = "SHOW COLUMNS FROM `{$this->main->db->prefix}fonts` LIKE 'upload_ttf'";
 			$columns = $this->main->db->rawQuery($sql);
@@ -115,7 +115,7 @@ class customdesign_update extends customdesign_lib {
 			}
 		}
         
-		if (version_compare(CUSTOMDESIGN, '1.7.1') >=0 ){
+		if (version_compare(MAGIC, '1.7.1') >=0 ){
 			
 			$this->upgrade_1_7();
 			
@@ -144,11 +144,11 @@ class customdesign_update extends customdesign_lib {
 			
 		}
         
-		if (version_compare(CUSTOMDESIGN, '1.7.3') >=0 ){
+		if (version_compare(MAGIC, '1.7.3') >=0 ){
 			$this->upgrade_1_7_3();
 		}
 		
-		if (version_compare(CUSTOMDESIGN, '1.7.4') >=0 ) {
+		if (version_compare(MAGIC, '1.7.4') >=0 ) {
 			
 			$tables = $this->main->db->rawQuery("SHOW TABLES LIKE '{$this->main->db->prefix}sessions'");
 			
@@ -175,11 +175,11 @@ class customdesign_update extends customdesign_lib {
 			
 		}
 		
-		if (version_compare(CUSTOMDESIGN, '1.7.5') >=0 ) {
+		if (version_compare(MAGIC, '1.7.5') >=0 ) {
 			$this->upgrade_1_7_5();
 		}
 
-		if (version_compare(CUSTOMDESIGN, '1.9.2') >=0 ) {
+		if (version_compare(MAGIC, '1.9.2') >=0 ) {
 			$sql = "SHOW COLUMNS FROM `{$this->main->db->prefix}fonts` LIKE 'name_desc'";
 			$columns = $this->main->db->rawQuery($sql);
 			if(count($columns) == 0){
@@ -188,7 +188,7 @@ class customdesign_update extends customdesign_lib {
 			}
 		}
 
-		if (version_compare(CUSTOMDESIGN, '1.9.3') >=0 ) {
+		if (version_compare(MAGIC, '1.9.3') >=0 ) {
 			$sql = "SHOW COLUMNS FROM `{$this->main->db->prefix}products` LIKE 'active_description'";
 			$columns = $this->main->db->rawQuery($sql);
 			if(count($columns) == 0){
@@ -197,7 +197,7 @@ class customdesign_update extends customdesign_lib {
 			}
 		}
 
-		if (version_compare(CUSTOMDESIGN, '1.9.9') >=0 ) {
+		if (version_compare(MAGIC, '1.9.9') >=0 ) {
 			$this->upgrade_1_9_9();
 		}
 		
@@ -294,8 +294,8 @@ class customdesign_update extends customdesign_lib {
 			'bugs' => array(
 				"CHANGE `id` `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT",
 				"CHANGE `content` `content` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL",
-				"SET `customdesign` = '1' WHERE `customdesign` IS NULL",
-				"CHANGE `customdesign` `customdesign` INT(1) NOT NULL DEFAULT 1",
+				"SET `magic` = '1' WHERE `magic` IS NULL",
+				"CHANGE `magic` `magic` INT(1) NOT NULL DEFAULT 1",
 				"CHANGE `status` `status` VARCHAR(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'open'",
 				"SET `created` = '{$date}' WHERE `created` IS NULL",
 				"CHANGE `created` `created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00'",

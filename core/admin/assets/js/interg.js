@@ -1,6 +1,6 @@
 jQuery(document).ready(function($){
 	
-	//$('#woocommerce-product-data ul.wc-tabs li.customdesign_tab a').trigger('click');
+	//$('#woocommerce-product-data ul.wc-tabs li.magic_tab a').trigger('click');
 	
 	var storage_products = {},
 		trigger = function( obj ) {
@@ -56,12 +56,12 @@ jQuery(document).ready(function($){
 
 			if (ops == 'close') {
 				$('body').css({overflow: ''});
-				return $('#customdesign-lightbox').remove();
+				return $('#magic-lightbox').remove();
 			}
 			
-			var tmpl = '<div id="customdesign-lightbox" class="customdesign-lightbox" style="display:block">\
-							<div id="customdesign-lightbox-body">\
-								<div id="customdesign-lightbox-content" class="%class%" style="min-width:%width%px">\
+			var tmpl = '<div id="magic-lightbox" class="magic-lightbox" style="display:block">\
+							<div id="magic-lightbox-body">\
+								<div id="magic-lightbox-content" class="%class%" style="min-width:%width%px">\
 									%content%\
 								</div>\
 								%footer%\
@@ -81,20 +81,20 @@ jQuery(document).ready(function($){
 				}, ops);
 
 			if (cfg.footer !== '')
-				cfg.footer = '<div id="customdesign-lightbox-footer">'+cfg.footer+'</div>';
+				cfg.footer = '<div id="magic-lightbox-footer">'+cfg.footer+'</div>';
 
 			tmpl = $(tmpl.replace(/\%width\%/g, cfg.width).
 						replace(/\%class\%/g, cfg.class).
 						replace(/\%content\%/g, cfg.content).
 						replace(/\%footer\%/g, cfg.footer));
 
-			$('.customdesign-lightbox').remove();
+			$('.magic-lightbox').remove();
 			$('body').append(tmpl).css({overflow: 'hidden'});
 
 			cfg.onload(tmpl);
 			tmpl.find('a.kalb-close,div.kalb-overlay').on('click', function(e){
 				cfg.onclose(tmpl);
-				$('.customdesign-lightbox').remove();
+				$('.magic-lightbox').remove();
 				$('body').css({overflow: ''});
 				e.preventDefault();
 			});
@@ -105,10 +105,10 @@ jQuery(document).ready(function($){
 			storage_products = res;
 			
 			var cates = ['<ul data-view="categories">',
-							'<h3>'+customdesignjs._i56+'</h3>',
-							'<li data-id="" '+(res.category === '' ? 'class="active"' : '')+' data-lv="0"> '+customdesignjs._i57+'</li>'],
-				prods = ['<h3 data-view="top"><input type="search" value="'+res.s+'" placeholder="'+customdesignjs._i63+'" />'+(
-					ops.products.cfg.can_create_new ? '<a href="#new-product"><i class="dashicons dashicons-plus"></i> '+customdesignjs._i59+'</a>' : ''
+							'<h3>'+magicjs._i56+'</h3>',
+							'<li data-id="" '+(res.category === '' ? 'class="active"' : '')+' data-lv="0"> '+magicjs._i57+'</li>'],
+				prods = ['<h3 data-view="top"><input type="search" value="'+res.s+'" placeholder="'+magicjs._i63+'" />'+(
+					ops.products.cfg.can_create_new ? '<a href="#new-product"><i class="dashicons dashicons-plus"></i> '+magicjs._i59+'</a>' : ''
 				)+'</h3>','<ul data-view="items">'];
 
 			if (res.categories) {
@@ -133,7 +133,7 @@ jQuery(document).ready(function($){
 						var attrs = {};
 					};
 					
-					var color = customdesignjs.color;
+					var color = magicjs.color;
 					
 					if (stages.stages !== undefined)
 						stages = stages.stages;
@@ -165,13 +165,13 @@ jQuery(document).ready(function($){
 						
 					var f = Object.keys(stages)[0] !== 'colors' ? Object.keys(stages)[0] : Object.keys(stages)[1],
 						fstage = stages[f],
-						current_product = $('#customdesign_product_base').val(),
+						current_product = $('#magic_product_base').val(),
 						img_url = '';
 					
 					if(fstage.source === undefined || fstage.source == 'raws')
-						img_url = customdesignjs.assets_url + 'raws/' + fstage.url;
+						img_url = magicjs.assets_url + 'raws/' + fstage.url;
 					else
-						img_url = customdesignjs.upload_url + fstage.url;
+						img_url = magicjs.upload_url + fstage.url;
 						
 					prods.push(
 						'<li data-id="'+p.id+'"'+((current_product == p.id)?' data-current="true"':'')+' data-name="'+p.name.toLowerCase().trim().replace(/[^a-z0-9 ]/gmi, "")+'">\
@@ -183,25 +183,25 @@ jQuery(document).ready(function($){
 					)
 				});
 
-			}else prods.push('<li data-view="noitem">'+customdesignjs._i42+'</li>');
+			}else prods.push('<li data-view="noitem">'+magicjs._i42+'</li>');
 			
 			if (res.limit < res.total) {
 				var pagination = ['<li data-view="pagination">', '<ul>'],
 					pages = Math.ceil(res.total/res.limit),
 					page = Math.ceil(res.index/res.limit);
 				for(var i=1; i<=pages; i++) {
-					pagination.push('<li data-page="'+i+'" '+(page == i ? ' class="customdesign-color"' : '')+'>'+i+'</li>');
+					pagination.push('<li data-page="'+i+'" '+(page == i ? ' class="magic-color"' : '')+'>'+i+'</li>');
 				}
 				pagination.push('</ul></li>');
 				prods.push(pagination.join(''));
 			}
 			
-			$('#customdesign-lightbox-content').html('<div id="customdesign-list-items-wrp"></div>');
-			$('#customdesign-list-items-wrp').html(cates.join('')).append(prods.join(''));
+			$('#magic-lightbox-content').html('<div id="magic-list-items-wrp"></div>');
+			$('#magic-list-items-wrp').html(cates.join('')).append(prods.join(''));
 			
 			trigger({
 				
-				el: $('#customdesign-list-items-wrp'),
+				el: $('#magic-list-items-wrp'),
 				
 				events: {
 					'ul[data-view="categories"] li': 'category',
@@ -213,17 +213,17 @@ jQuery(document).ready(function($){
 				
 				category: function() {
 					
-					var wrp = $(this).closest('#customdesign-change-products-wrp'),
+					var wrp = $(this).closest('#magic-change-products-wrp'),
 						id = this.getAttribute('data-id');
 					
-					$('#customdesign-list-items-wrp').css({background: '#f2f2f2'}).html('<center><i class="customdesign-spinner x3"></i></center>');
+					$('#magic-list-items-wrp').css({background: '#f2f2f2'}).html('<center><i class="magic-spinner x3"></i></center>');
 					
 					ops.products.query.s = storage_products.s;
 					ops.products.query.category = id;
 					ops.products.query.index = 0;
 					
 					$.ajax({
-						url: customdesignjs.admin_ajax_url,
+						url: magicjs.admin_ajax_url,
 						method: 'POST',
 						data: ops.products.query,
 						statusCode: {
@@ -246,13 +246,13 @@ jQuery(document).ready(function($){
 					let id = this.getAttribute('data-id'),
 						product = ops.products.res.products.filter(function(p){return p.id == id;});
 					
-					$(this).closest('#customdesign-lightbox').remove();
+					$(this).closest('#magic-lightbox').remove();
 					$('body').css({overflow: ''});
 					
 					if (typeof ops.products.cfg.action_fn == 'function')
 						return ops.products.cfg.action_fn(product[0]);
 						
-					$('#customdesign_product_base').val(product[0].id);
+					$('#magic_product_base').val(product[0].id);
 					render_product(product[0]);
 					ops.current_product = product[0].id;
 					
@@ -263,7 +263,7 @@ jQuery(document).ready(function($){
 				
 				new_product: function(e) {
 					
-					$('#customdesign-lightbox-content').addClass('full-screen').html('<iframe src="'+customdesignjs.admin_url+'&customdesign-page=product&callback=edit-cms-product"></iframe>');
+					$('#magic-lightbox-content').addClass('full-screen').html('<iframe src="'+magicjs.admin_url+'&magic-page=product&callback=edit-cms-product"></iframe>');
 						
 				},
 				
@@ -272,14 +272,14 @@ jQuery(document).ready(function($){
 					if (e.keyCode !== 13)
 						return;
 					
-					$('#customdesign-list-items-wrp').css({background: '#f2f2f2'}).html('<center><i class="customdesign-spinner x3"></i></center>');
+					$('#magic-list-items-wrp').css({background: '#f2f2f2'}).html('<center><i class="magic-spinner x3"></i></center>');
 					
 					ops.products.query.s = this.value.toLowerCase();
 					ops.products.query.category = (storage_products.category ? storage_products.category : '');
 					ops.products.query.index = 0;
 						
 					$.ajax({
-						url: customdesignjs.admin_ajax_url,
+						url: magicjs.admin_ajax_url,
 						method: 'POST',
 						data: ops.products.query,
 						statusCode: {
@@ -303,7 +303,7 @@ jQuery(document).ready(function($){
 						
 					var p = parseInt(this.getAttribute('data-page'));
 					
-					$('#customdesign-list-items-wrp').css({background: '#f2f2f2'}).html('<center><i class="customdesign-spinner x3"></i></center>');
+					$('#magic-list-items-wrp').css({background: '#f2f2f2'}).html('<center><i class="magic-spinner x3"></i></center>');
 					
 					var limit = parseInt(storage_products.limit);
 					
@@ -315,7 +315,7 @@ jQuery(document).ready(function($){
 					ops.products.query.index = (p*limit)-limit;
 					
 					$.ajax({
-						url: customdesignjs.admin_ajax_url,
+						url: magicjs.admin_ajax_url,
 						method: 'POST',
 						data: ops.products.query,
 						statusCode: {
@@ -342,11 +342,11 @@ jQuery(document).ready(function($){
 			
 			var cates = [
 					'<ul data-view="categories">',
-					'<h3>'+customdesignjs._i56+'</h3>',
-					'<li data-id="" '+(res.category === '' ? 'class="active"' : '')+' data-lv="0"> '+customdesignjs._i57+'</li>'
+					'<h3>'+magicjs._i56+'</h3>',
+					'<li data-id="" '+(res.category === '' ? 'class="active"' : '')+' data-lv="0"> '+magicjs._i57+'</li>'
 				],
 				prods = [
-					'<h3 data-view="top"><input id="search-templates-inp" type="search" placeholder="'+customdesignjs._i67+'" value="'+encodeURIComponent(res.q)+'" /></h3>',
+					'<h3 data-view="top"><input id="search-templates-inp" type="search" placeholder="'+magicjs._i67+'" value="'+encodeURIComponent(res.q)+'" /></h3>',
 					'<ul data-view="items">'
 				];
 			
@@ -362,8 +362,8 @@ jQuery(document).ready(function($){
 						
 					prods.push(
 						'<li data-id="'+p.id+'"'+((ops.current_design == p.id)?' data-current="true"':'')+'>\
-							<span data-view="thumbn" data-start="'+customdesignjs._i58+'">\
-								<img src="'+(p.screenshot.match(/^(?:http|https):\/\//gm) ? p.screenshot : customdesignjs.upload_url + p.screenshot  )+'" />\
+							<span data-view="thumbn" data-start="'+magicjs._i58+'">\
+								<img src="'+(p.screenshot.match(/^(?:http|https):\/\//gm) ? p.screenshot : magicjs.upload_url + p.screenshot  )+'" />\
 							</span>\
 							<span data-view="name">'+p.name+'</span>\
 						</li>'
@@ -373,13 +373,13 @@ jQuery(document).ready(function($){
 				if (res.index+res.limit < res.total) {
 					prods.push(
 						'<li data-loadmore="'+(res.index+res.limit)+'">\
-							<span>'+customdesignjs._i68+'</span>\
+							<span>'+magicjs._i68+'</span>\
 						</li>'
 					);
 				}
 				
 			}
-			else prods.push('<li data-view="noitem" data-category="'+res.category+'">'+customdesignjs._i42+'</li>');
+			else prods.push('<li data-view="noitem" data-category="'+res.category+'">'+magicjs._i42+'</li>');
 			
 				
 			if (res.index == 0) {
@@ -389,22 +389,22 @@ jQuery(document).ready(function($){
 				cates.push('</ul>');
 				prods.push('</ul>');
 				
-				$('#customdesign-lightbox-content').html('<div id="customdesign-list-items-wrp"></div>');
-				$('#customdesign-list-items-wrp').html(cates.join('')).append(prods.join(''));
+				$('#magic-lightbox-content').html('<div id="magic-list-items-wrp"></div>');
+				$('#magic-list-items-wrp').html(cates.join('')).append(prods.join(''));
 				
 			}else{
 				
 				ops.designs = ops.designs.concat(res.items);
 				
-				$('#customdesign-lightbox-content ul[data-view="items"] li[data-loadmore]').remove();
+				$('#magic-lightbox-content ul[data-view="items"] li[data-loadmore]').remove();
 				prods[0] = '';
 				prods[1] = '';
-				$('#customdesign-lightbox-content ul[data-view="items"]').append(prods.join(''));
+				$('#magic-lightbox-content ul[data-view="items"]').append(prods.join(''));
 			}
 			
 			trigger({
 				
-				el: $('#customdesign-list-items-wrp'),
+				el: $('#magic-list-items-wrp'),
 				
 				events: {
 					'ul[data-view="categories"] li': 'category',
@@ -430,7 +430,7 @@ jQuery(document).ready(function($){
 					var id = this.getAttribute('data-id'),
 						design = ops.designs.filter(function(p){return p.id == id;});
 					
-					$(this).closest('#customdesign-lightbox').remove();
+					$(this).closest('#magic-lightbox').remove();
 					$('body').css({overflow: ''});
 					
 					render_design(design[0]);
@@ -439,7 +439,7 @@ jQuery(document).ready(function($){
 				
 				load_more: function(e) {
 					
-					this.innerHTML = '<i class="customdesign-spinner x3"></i>';
+					this.innerHTML = '<i class="magic-spinner x3"></i>';
 					this.style.background = 'transparent';
 					$(this).off('click');
 					
@@ -463,7 +463,7 @@ jQuery(document).ready(function($){
 		},
 		render_product = function(data) {
 			
-			window['customdesign-seclect-base'].style.display = '';
+			window['magic-seclect-base'].style.display = '';
 			
 			var data_stages;
 					
@@ -509,41 +509,41 @@ jQuery(document).ready(function($){
 				Object.keys(stages).map(function(s, i){
 						
 					stage = stages[s];
-					design = customdesignjs.current_design !== undefined && customdesignjs.current_design[s] !== undefined ?
-							customdesignjs.current_design[s] : null;
+					design = magicjs.current_design !== undefined && magicjs.current_design[s] !== undefined ?
+							magicjs.current_design[s] : null;
 					
 					if (design !== null) {
-						design.scr = '<img src="'+(design.screenshot.match(/^(?:http|https):\/\//gm) ? design.screenshot : customdesignjs.upload_url + design.screenshot  )+'" height="'+design.offset.natural_height+'" width="'+design.offset.natural_width+'" class="customdesign-design-view" style="'+design.css+'" />';	
+						design.scr = '<img src="'+(design.screenshot.match(/^(?:http|https):\/\//gm) ? design.screenshot : magicjs.upload_url + design.screenshot  )+'" height="'+design.offset.natural_height+'" width="'+design.offset.natural_width+'" class="magic-design-view" style="'+design.css+'" />';	
 					};
 					
 					if(stage.source == 'raws')
-						img_url = customdesignjs.assets_url + 'raws/' + stage.url;
+						img_url = magicjs.assets_url + 'raws/' + stage.url;
 					else
-						img_url = customdesignjs.upload_url + stage.url;
+						img_url = magicjs.upload_url + stage.url;
 					
-					nav += '<li'+(i==0 ? ' class="active"' : '')+'><a href="#customdesign-tab-'+s+'">'+(stage.label ? stage.label : customdesignjs['_'+s])+'</a></li>';
+					nav += '<li'+(i==0 ? ' class="active"' : '')+'><a href="#magic-tab-'+s+'">'+(stage.label ? stage.label : magicjs['_'+s])+'</a></li>';
 					
-					tabs += '<div class="customdesign_tab_content'+(i==0 ? ' active' : '')+'" id="customdesign-tab-'+s+'" data-stage="'+s+'">\
-								<div class="customdesign-stage-settings customdesign-product-design" id="customdesign-product-design-'+s+'">\
-									<div class="customdesign-stage-body">\
-										<div class="customdesign-stage-design-view">\
-											<img style="background:'+color+'" src="'+img_url+'" width="'+stage.product_width+'" height="'+stage.product_height+'" class="customdesign-stage-image" />\
-											<div class="customdesign-stage-editzone" style="margin-left: '+stage.edit_zone.left+'px;margin-top: '+stage.edit_zone.top+'px;width: '+stage.edit_zone.width+'px;height: '+stage.edit_zone.height+'px;border-color: '+invert(color)+';border-radius:'+stage.edit_zone.radius+'%">\
+					tabs += '<div class="magic_tab_content'+(i==0 ? ' active' : '')+'" id="magic-tab-'+s+'" data-stage="'+s+'">\
+								<div class="magic-stage-settings magic-product-design" id="magic-product-design-'+s+'">\
+									<div class="magic-stage-body">\
+										<div class="magic-stage-design-view">\
+											<img style="background:'+color+'" src="'+img_url+'" width="'+stage.product_width+'" height="'+stage.product_height+'" class="magic-stage-image" />\
+											<div class="magic-stage-editzone" style="margin-left: '+stage.edit_zone.left+'px;margin-top: '+stage.edit_zone.top+'px;width: '+stage.edit_zone.width+'px;height: '+stage.edit_zone.height+'px;border-color: '+invert(color)+';border-radius:'+stage.edit_zone.radius+'%">\
 												<div class="design-template-inner" data-id="'+(design !== null ? design.id : '')+'" style="border-radius:'+stage.edit_zone.radius+'%">'+(design !== null ? design.scr : '')+'</div>\
 											</div>\
 										</div>\
-										<div class="customdesign-stage-btn">\
-											<button class="customdesign-button customdesign-button-primary" data-func="select-design">\
+										<div class="magic-stage-btn">\
+											<button class="magic-button magic-button-primary" data-func="select-design">\
 												<i class="fa fa-paint-brush"></i>\
-												'+customdesignjs._i58+'\
+												'+magicjs._i58+'\
 											</button> &nbsp; \
-											<button class="customdesign-button customdesign-button-link-delete'+(design === null ? ' hidden' : '')+'" data-func="clear-design" title="'+customdesignjs._i69+'">\
+											<button class="magic-button magic-button-link-delete'+(design === null ? ' hidden' : '')+'" data-func="clear-design" title="'+magicjs._i69+'">\
 												<i class="fa fa-trash"></i>\
-												'+customdesignjs._i70+'\
+												'+magicjs._i70+'\
 											</button> &nbsp; \
-											<button class="customdesign-button'+(design === null ? ' hidden' : '')+'" data-func="download-design" title="'+customdesignjs._i73+'">\
+											<button class="magic-button'+(design === null ? ' hidden' : '')+'" data-func="download-design" title="'+magicjs._i73+'">\
 												<i class="fa fa-download"></i>\
-												'+customdesignjs._i72+'\
+												'+magicjs._i72+'\
 											</button>\
 										</div>\
 										<div class="editzone-ranges'+(design !== null ? '' : ' hidden')+'">\
@@ -558,40 +558,40 @@ jQuery(document).ready(function($){
 					
 				});
 				
-				if (customdesignjs.inline_edit === true) {
+				if (magicjs.inline_edit === true) {
 					btn = '<span data-view="product-name">\
-							<a title="'+data.name+'" href="'+customdesignjs.admin_url+'&customdesign-page=product&id='+data.id+'&callback=edit-base-product" data-func="edit-base-product" class="customdesign-button" title="'+customdesignjs._i61+'">\
+							<a title="'+data.name+'" href="'+magicjs.admin_url+'&magic-page=product&id='+data.id+'&callback=edit-base-product" data-func="edit-base-product" class="magic-button" title="'+magicjs._i61+'">\
 								<i class="fa fa-pencil"></i> \
-								'+customdesignjs._i61+'\
+								'+magicjs._i61+'\
 							</a>\
 						</span>';
 				} else {
 					btn = '';
 				};
 				
-				nav = '<ul class="customdesign_tab_nav">'+nav+'</ul>';
+				nav = '<ul class="magic_tab_nav">'+nav+'</ul>';
 				
-				html = '<div class="customdesign_tabs_wrapper" id="customdesign-stages-wrp" data-id="stages">\
+				html = '<div class="magic_tabs_wrapper" id="magic-stages-wrp" data-id="stages">\
 							'+btn+'\
-							<div class="customdesign_tab_nav_wrap">\
+							<div class="magic_tab_nav_wrap">\
 								<i data-move="left" class="fa fa-chevron-left"></i>\
-								<div class="customdesign_tab_nav_inner">\
+								<div class="magic_tab_nav_inner">\
 									'+nav+'\
 								</div>\
 								<i data-move="right" class="fa fa-chevron-right"></i>\
 							</div>\
-							<div class="customdesign_tabs">'+
+							<div class="magic_tabs">'+
 								tabs+
 							'</div>\
 						</div>';
 				
 			}
 			
-			$('#customdesign-product-base').html(html).addClass('set-product');
+			$('#magic-product-base').html(html).addClass('set-product');
 				
 			trigger({
 				
-				el : $('#customdesign-product-base'),
+				el : $('#magic-product-base'),
 				
 				events : {
 					'button[data-func="select-design"]': 'select_design',
@@ -599,10 +599,10 @@ jQuery(document).ready(function($){
 					'button[data-func="download-design"]': 'download_design',
 					'a[data-func="edit-base-product"]': 'edit_product',
 					'a[data-func="remove-base-product"]': 'delete_product',
-					'ul.customdesign_tab_nav li a': 'tab',
+					'ul.magic_tab_nav li a': 'tab',
 					'.editzone-ranges .design-scale input[type="range"]:input': 'design_scale',
-					'div.customdesign_tab_nav_wrap': 'is_stage_accord',
-					'div.customdesign_tab_nav_wrap>i[data-move]': 'stage_accord'
+					'div.magic_tab_nav_wrap': 'is_stage_accord',
+					'div.magic_tab_nav_wrap>i[data-move]': 'stage_accord'
 				},
 				
 				select_design : function(e) {
@@ -616,10 +616,10 @@ jQuery(document).ready(function($){
 					
 					$(this).addClass('hidden').
 							parent().find('button[data-func="download-design"]').addClass('hidden').
-							closest('.customdesign-stage-body').
-							find('.customdesign-stage-editzone .design-template-inner').
+							closest('.magic-stage-body').
+							find('.magic-stage-editzone .design-template-inner').
 							html('').attr({'data-id': ''}).
-							closest('.customdesign-stage-body').
+							closest('.magic-stage-body').
 							find('.editzone-ranges').
 							addClass('hidden');
 							
@@ -633,9 +633,9 @@ jQuery(document).ready(function($){
 					
 					var canvas = document.createElement('canvas'),
 						editcanvas = document.createElement('canvas'),
-						img = $(this).closest('.customdesign-stage-body').find('img.customdesign-stage-image').get(0),
-						temp = $(this).closest('.customdesign-stage-body').find('img.customdesign-design-view').get(0),
-						editzone = $(this).closest('.customdesign-stage-body').find('.customdesign-stage-editzone').get(0),
+						img = $(this).closest('.magic-stage-body').find('img.magic-stage-image').get(0),
+						temp = $(this).closest('.magic-stage-body').find('img.magic-design-view').get(0),
+						editzone = $(this).closest('.magic-stage-body').find('.magic-stage-editzone').get(0),
 						ctx = canvas.getContext('2d'),
 						ectx = editcanvas.getContext('2d'),
 						ratio = img.width/img.naturalWidth;
@@ -696,9 +696,9 @@ jQuery(document).ready(function($){
 					});
 
 					var a = document.createElement('a'),
-						name = $('#customdesign-stages-wrp [data-func="edit-base-product"]').attr('title');
+						name = $('#magic-stages-wrp [data-func="edit-base-product"]').attr('title');
 					
-					name += '-'+$('#customdesign-stages-wrp ul.customdesign_tab_nav li.active a').text();
+					name += '-'+$('#magic-stages-wrp ul.magic_tab_nav li.active a').text();
 					
 					a.download = name+'.jpg';
 					a.href = URL.createObjectURL(blob);
@@ -724,8 +724,8 @@ jQuery(document).ready(function($){
 				
 				delete_product : function(e) {
 					
-					$('#customdesign_product_base, #customdesign_design_template').val('');
-					$('#customdesign-product-base').html('').removeClass('set-product');
+					$('#magic_product_base, #magic_design_template').val('');
+					$('#magic-product-base').html('').removeClass('set-product');
 					
 					e.preventDefault();
 					
@@ -733,9 +733,9 @@ jQuery(document).ready(function($){
 				
 				tab: function(e) {
 					
-					var wrp = $(this).closest('div#customdesign-stages-wrp');
+					var wrp = $(this).closest('div#magic-stages-wrp');
 					
-					wrp.find('div.customdesign_tab_content.active, ul.customdesign_tab_nav li.active').removeClass('active');
+					wrp.find('div.magic_tab_content.active, ul.magic_tab_nav li.active').removeClass('active');
 					$(this).parent().addClass('active');
 					
 					wrp.find(this.getAttribute('href')).addClass('active');
@@ -746,7 +746,7 @@ jQuery(document).ready(function($){
 					
 				design_scale: function(e) {
 					
-					var img = $(this).closest('.customdesign-stage-body').find('.design-template-inner img');
+					var img = $(this).closest('.magic-stage-body').find('.design-template-inner img');
 					
 					if (img.length === 0)
 						return;
@@ -789,8 +789,8 @@ jQuery(document).ready(function($){
 				is_stage_accord: function(e) {
 					
 					var el = $(this),
-						nav = el.find('ul.customdesign_tab_nav'),
-						wrp = el.find('div.customdesign_tab_nav_inner'),
+						nav = el.find('ul.magic_tab_nav'),
+						wrp = el.find('div.magic_tab_nav_inner'),
 						act = nav.find('li.active');
 						
 					if (nav.width() > wrp.width()) {
@@ -815,8 +815,8 @@ jQuery(document).ready(function($){
 				stage_accord: function(e) {
 					
 					var dir = this.getAttribute('data-move'),
-						wrp = $(this.parentNode).find('div.customdesign_tab_nav_inner'),
-						inner = wrp.find('ul.customdesign_tab_nav'),
+						wrp = $(this.parentNode).find('div.magic_tab_nav_inner'),
+						inner = wrp.find('ul.magic_tab_nav'),
 						ww = wrp.width(),
 						iw = inner.width(),
 						il = parseFloat(inner.css('left'));
@@ -832,28 +832,28 @@ jQuery(document).ready(function($){
 			});
 			
 			$('body').css({overflow: ''});
-			$('#customdesign_product_base').val(data.id);
-			$('#customdesign-enable-customize, #customdesign_product_data a[data-func="remove-base-product"]').removeClass('hidden');
+			$('#magic_product_base').val(data.id);
+			$('#magic-enable-customize, #magic_product_data a[data-func="remove-base-product"]').removeClass('hidden');
 			
-			$('#customdesign-product-base .customdesign_tab_nav_wrap').trigger('click');
+			$('#magic-product-base .magic_tab_nav_wrap').trigger('click');
 			
 		},
 		render_design = function(data, stage) {
 			
 			var view = stage !== undefined ? 
-						$('#customdesign-product-base .customdesign_tabs .customdesign_tab_content[data-stage="'+stage+'"]')
-						: $('#customdesign-product-base .customdesign_tabs .customdesign_tab_content.active')
+						$('#magic-product-base .magic_tabs .magic_tab_content[data-stage="'+stage+'"]')
+						: $('#magic-product-base .magic_tabs .magic_tab_content.active')
 				
 			if (view.length === 0)
 				return;
 			
 			var img = new Image();
-			img.src =(data.screenshot.match(/^(?:http|https):\/\//gm) ? data.screenshot : customdesignjs.upload_url + data.screenshot  );
-			img.className = 'customdesign-design-view';
+			img.src =(data.screenshot.match(/^(?:http|https):\/\//gm) ? data.screenshot : magicjs.upload_url + data.screenshot  );
+			img.className = 'magic-design-view';
 			
-			view.find('.customdesign-stage-btn button[data-func="clear-design"],.customdesign-stage-btn button[data-func="download-design"]').removeClass('hidden');
+			view.find('.magic-stage-btn button[data-func="clear-design"],.magic-stage-btn button[data-func="download-design"]').removeClass('hidden');
 			view.find('.design-template-inner').
-				css({"border-radius" : view.find('.customdesign-stage-editzone').css('border-radius') }).
+				css({"border-radius" : view.find('.magic-stage-editzone').css('border-radius') }).
 				attr({"data-id": data.id}).html('').append(img);
 			
 			img.onload = function(){
@@ -866,7 +866,7 @@ jQuery(document).ready(function($){
 				this.style.left = ((this.parentNode.offsetWidth/2)-(this.width/2))+'px';
 				this.style.top = ((this.parentNode.offsetHeight/2)-(this.height/2))+'px';
 				
-				var rang = $(this).closest('.customdesign-stage-body').find('.editzone-ranges');
+				var rang = $(this).closest('.magic-stage-body').find('.editzone-ranges');
 				
 				rang.removeClass('hidden');
 				
@@ -880,15 +880,15 @@ jQuery(document).ready(function($){
 			
 			if (ops.index === undefined || ops.index === 0) {
 				lightbox({
-					content: '<center><i class="customdesign-spinner x3"></i></center>'
+					content: '<center><i class="magic-spinner x3"></i></center>'
 				});
 			};
 			
 			$.ajax({
-				url: customdesignjs.admin_ajax_url,
+				url: magicjs.admin_ajax_url,
 				method: 'POST',
 				data: {
-					nonce: 'CUSTOMDESIGN-SECURITY-BACKEND:'+customdesignjs.nonce_backend,
+					nonce: 'MAGIC-SECURITY-BACKEND:'+magicjs.nonce_backend,
 					ajax: 'backend',
 					action: 'templates',
 					category: ops.category !== undefined ? ops.category : '',
@@ -906,13 +906,13 @@ jQuery(document).ready(function($){
 		},
 		before_submit = function() {
 			
-			if ($('#customdesign_product_base').val() === '') {
-				$('#customdesign_design_template').val('');
+			if ($('#magic_product_base').val() === '') {
+				$('#magic_design_template').val('');
 				return;
 			};
 			
 			var templ = {};
-			$('#customdesign_product_data .customdesign_tabs .customdesign_tab_content').each(function() {
+			$('#magic_product_data .magic_tabs .magic_tab_content').each(function() {
 				var _this = $(this),
 					im = _this.find('.design-template-inner img').get(0);
 				_this.css({display: 'inline-block'});
@@ -934,8 +934,8 @@ jQuery(document).ready(function($){
 				};
 				_this.css({display: ''});
 			});
-			customdesignjs.current_design = templ;
-			$('#customdesign_design_template').val(encodeURIComponent(JSON.stringify(templ)));
+			magicjs.current_design = templ;
+			$('#magic_design_template').val(encodeURIComponent(JSON.stringify(templ)));
 		},
 		ops = {
 			designs: [],
@@ -945,10 +945,10 @@ jQuery(document).ready(function($){
 			}
 		};
 		
-	window.customdesign_reset_products = function(data) {
+	window.magic_reset_products = function(data) {
 		delete ops.products.res;
-		$('#customdesign-lightbox').remove();
-		$('#customdesign_product_base').val(data.id);
+		$('#magic-lightbox').remove();
+		$('#magic_product_base').val(data.id);
 		before_submit();
 		render_product(data);
 	};
@@ -956,11 +956,11 @@ jQuery(document).ready(function($){
 	window.load_product_bases = function(query, cfg) {
 		
 		lightbox({
-			content: '<center><i class="customdesign-spinner x3"></i></center>'
+			content: '<center><i class="magic-spinner x3"></i></center>'
 		});
 		
 		ops.products.query = {
-			nonce: 'CUSTOMDESIGN-SECURITY-BACKEND:'+customdesignjs.nonce_backend,
+			nonce: 'MAGIC-SECURITY-BACKEND:'+magicjs.nonce_backend,
 			ajax: 'backend',
 			action: 'list_products',
 			task: 'cms_product',
@@ -971,7 +971,7 @@ jQuery(document).ready(function($){
 		
 		ops.products.cfg = {
 			can_create_new: true,
-			action_text: customdesignjs._i64	
+			action_text: magicjs._i64	
 		};
 		
 		if (
@@ -996,7 +996,7 @@ jQuery(document).ready(function($){
 			return render_products(ops.products.res);
 		
 		$.ajax({
-			url: customdesignjs.admin_ajax_url,
+			url: magicjs.admin_ajax_url,
 			method: 'POST',
 			data: ops.products.query,
 			statusCode: {
@@ -1016,12 +1016,12 @@ jQuery(document).ready(function($){
 	
 	trigger({
 		
-		el: $('#customdesign_product_data'),
+		el: $('#magic_product_data'),
 		
 		events: {
 			'a[data-func="products"]': 'products',
 			'a[data-func="remove-base-product"]': 'remove_product',
-			'#customdesign-product-base:mousedown' : 'start_drag'
+			'#magic-product-base:mousedown' : 'start_drag'
 		},
 		
 		products: function(e) {
@@ -1033,16 +1033,16 @@ jQuery(document).ready(function($){
 		},
 		
 		remove_product: function(e) {
-			$('#customdesign-enable-customize, #customdesign_product_data a[data-func="remove-base-product"]').addClass('hidden');
-			$('#customdesign-product-base').html('<p class="notice notice-warning">'+customdesignjs._i71+'</p>');
-			$('#customdesign_product_base, #customdesign_design_template').val('');
-			$('html,body').animate({scrollTop: $('#customdesign_product_data').offset().top-100});
+			$('#magic-enable-customize, #magic_product_data a[data-func="remove-base-product"]').addClass('hidden');
+			$('#magic-product-base').html('<p class="notice notice-warning">'+magicjs._i71+'</p>');
+			$('#magic_product_base, #magic_design_template').val('');
+			$('html,body').animate({scrollTop: $('#magic_product_data').offset().top-100});
 			e.preventDefault();
 		},
 		
 		start_drag: function(e) {
 			
-			if (e.target.tagName == 'IMG' && e.target.className == 'customdesign-design-view') {
+			if (e.target.tagName == 'IMG' && e.target.className == 'magic-design-view') {
 						
 				var $this = $(e.target),
 					clientX = e.clientX,
@@ -1089,37 +1089,37 @@ jQuery(document).ready(function($){
 
 	});
 	
-	$('#customdesign_product_data').closest('form').on('submit', before_submit);
+	$('#magic_product_data').closest('form').on('submit', before_submit);
 
 	$('#product-type').on('change', function(e) {
 		
 		if (this.value == 'simple') {
 			
-			$('ul.product_data_tabs li.customdesign_options.customdesign_tab, #customdesign-seclect-base').show();
+			$('ul.product_data_tabs li.magic_options.magic_tab, #magic-seclect-base').show();
 			
-			if (window.customdesignjs.current_data !== undefined) {
-				render_product(customdesignjs.current_data);
+			if (window.magicjs.current_data !== undefined) {
+				render_product(magicjs.current_data);
 			} else {
-				$('#customdesign-product-base').html('<p class="notice notice-warning">'+customdesignjs._i71+'</p>');
-				$('#customdesign-enable-customize, #customdesign_product_data a[data-func="remove-base-product"]').addClass('hidden');
+				$('#magic-product-base').html('<p class="notice notice-warning">'+magicjs._i71+'</p>');
+				$('#magic-enable-customize, #magic_product_data a[data-func="remove-base-product"]').addClass('hidden');
 			};
 			
-			$('#customdesign_product_data').closest('div.dokan-other-options.dokan-edit-row').show();
+			$('#magic_product_data').closest('div.dokan-other-options.dokan-edit-row').show();
 			
 		} else if (this.value == "variable") {
 			
-			$('#customdesign-product-base').html(
-				'<p class="notice notice-warning">This is variable product, Please set the Customdesign Configuration in <a href="#" onclick="jQuery(\'li.variations_options a\').click();return false;">Variations Tab</a></p>'
+			$('#magic-product-base').html(
+				'<p class="notice notice-warning">This is variable product, Please set the Magic Configuration in <a href="#" onclick="jQuery(\'li.variations_options a\').click();return false;">Variations Tab</a></p>'
 			);
 			
-			$('#customdesign-seclect-base').hide();
-			$('ul.product_data_tabs li.customdesign_options.customdesign_tab').show();
+			$('#magic-seclect-base').hide();
+			$('ul.product_data_tabs li.magic_options.magic_tab').show();
 			
-			$('#customdesign_product_data').closest('div.dokan-other-options.dokan-edit-row').hide();
+			$('#magic_product_data').closest('div.dokan-other-options.dokan-edit-row').hide();
 			
 		} else {
-			$('ul.product_data_tabs li.customdesign_options.customdesign_tab').hide();
-			$('#customdesign_product_data').closest('div.dokan-other-options.dokan-edit-row').hide();
+			$('ul.product_data_tabs li.magic_options.magic_tab').hide();
+			$('#magic_product_data').closest('div.dokan-other-options.dokan-edit-row').hide();
 		};
 		
 	}).change();
@@ -1128,26 +1128,26 @@ jQuery(document).ready(function($){
 	$('#product_type').on('change', function(e) {
 		
 		if (this.value == 'simple') {
-			$('#customdesign_product_data').closest('div.dokan-other-options.dokan-edit-row').show();
+			$('#magic_product_data').closest('div.dokan-other-options.dokan-edit-row').show();
 			
 		} else {
-			$('#customdesign_product_data').closest('div.dokan-other-options.dokan-edit-row').hide();
+			$('#magic_product_data').closest('div.dokan-other-options.dokan-edit-row').hide();
 		};
 		
 	}).change();
 	
-	$('select#field_to_edit option[value="delete_all"]').after('<option value="delete_all_customdesign">Clear all Customdesign Configuations</option>');
+	$('select#field_to_edit option[value="delete_all"]').after('<option value="delete_all_magic">Clear all Magic Configuations</option>');
 	$('select#field_to_edit+a').on('click', (e) => {
-		if ($('select#field_to_edit').val() == 'delete_all_customdesign') {
-			if (confirm('Are you sure that you want to clear all Customdesign Configuations?'))
-			$('textarea.customdesign-vari-inp').val('');
-			$('div.variable_customdesign_data').attr('data-empty', 'true').removeAttr('is').find('iframe').remove();
+		if ($('select#field_to_edit').val() == 'delete_all_magic') {
+			if (confirm('Are you sure that you want to clear all Magic Configuations?'))
+			$('textarea.magic-vari-inp').val('');
+			$('div.variable_magic_data').attr('data-empty', 'true').removeAttr('is').find('iframe').remove();
 			$('div#woocommerce-product-data').append(`<div class="UIloading blockUI blockOverlay" style="z-index: 1000; border: none; margin: 0px; padding: 0px; width: 100%; height: 100%; top: 0px; left: 0px; background: rgb(255, 255, 255); opacity: 0.6; cursor: wait; position: absolute;"></div>`);
 			$.ajax({
-				url: customdesignjs.admin_ajax_url,
+				url: magicjs.admin_ajax_url,
 				method: 'POST',
 				data: {
-					nonce: 'CUSTOMDESIGN-SECURITY-BACKEND:'+customdesignjs.nonce_backend,
+					nonce: 'MAGIC-SECURITY-BACKEND:'+magicjs.nonce_backend,
 					ajax: 'backend',
 					action: 'product_variation',
 					clear_all_config: window.post_ID.value

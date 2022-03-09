@@ -5,32 +5,32 @@
     padding: 0
 }
 
-#customdesign-logo {
+#magic-logo {
     border: 0;
     margin: 0 0 24px;
     padding: 0;
     text-align: center
 }
 
-#customdesign-logo img {
+#magic-logo img {
     max-width: 30%
 }
 
-.customdesign-setup {
+.magic-setup {
     text-align: center;
     margin: 3em auto;
     font-size: 1em;
 }
 
-.customdesign-setup .select2-container {
+.magic-setup .select2-container {
     text-align: left
 }
 
-.customdesign-setup .hidden {
+.magic-setup .hidden {
     display: none
 }
 
-body.customdesign-setup .customdesign-setup-content {
+body.magic-setup .magic-setup-content {
     box-shadow: 0 1px 3px rgba(0,0,0,.13);
     padding: 2em;
     margin: 0 0 20px;
@@ -42,7 +42,7 @@ body.customdesign-setup .customdesign-setup-content {
     width: 100%;
     position: relative;
 }
-body.customdesign-setup .customdesign-setup-content.loading:before {
+body.magic-setup .magic-setup-content.loading:before {
     content: "";
     position: absolute;
     top: 0px;
@@ -52,7 +52,7 @@ body.customdesign-setup .customdesign-setup-content.loading:before {
     background: #ffffffbf;
     z-index: 1000;
 }
-body.customdesign-setup .customdesign-setup-content.loading:after {
+body.magic-setup .magic-setup-content.loading:after {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -71,11 +71,11 @@ body.customdesign-setup .customdesign-setup-content.loading:after {
     padding: 10px;
     margin: -26px 0 0 -26px;
 }
-body.customdesign-setup .customdesign-setup-content .store-container {
+body.magic-setup .magic-setup-content .store-container {
     box-shadow: none;
     padding: 0px;
 }
-body.customdesign-setup .customdesign-setup-content .store-container h1{
+body.magic-setup .magic-setup-content .store-container h1{
     margin: 0 0 20px;
     border: 0;
     padding: 0;
@@ -84,38 +84,38 @@ body.customdesign-setup .customdesign-setup-content .store-container h1{
     font-weight: normal;
     font-size: 24px;
 }
-body.customdesign-setup .customdesign-setup-content .store-container .customdesign_form_group{
+body.magic-setup .magic-setup-content .store-container .magic_form_group{
     width: 50%;
     text-align: left;
     margin-bottom: 14px;
 }
-body.customdesign-setup .customdesign-setup-content .store-container .customdesign_form_group .img-preview img {
+body.magic-setup .magic-setup-content .store-container .magic_form_group .img-preview img {
     max-width: 73%;
 }
-body.customdesign-setup .customdesign-setup-content .store-container .customdesign_form_group.customdesign_field_color{
+body.magic-setup .magic-setup-content .store-container .magic_form_group.magic_field_color{
     padding-left: 0.5em;
 }
-body.customdesign-setup .customdesign-setup-content .store-container .customdesign_form_group>span{
+body.magic-setup .magic-setup-content .store-container .magic_form_group>span{
     text-align: left;
     font-size: 13px;
     font-weight: 500;
     color: #666666;
     width: 100%;
 }
-.customdesign_form_group .img-preview label{
+.magic_form_group .img-preview label{
     font-size: 14px;
 }
-.customdesign_form_group.customdesign_field_color .customdesign-field-color li {
+.magic_form_group.magic_field_color .magic-field-color li {
     height: 40px;
     width: 40px;
     border-radius: 100%;
     border: 3px solid rgba(200, 200, 200, 0.3);
 }
-body.customdesign-setup .customdesign-field-color li:not(.choosed):after,
-body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
+body.magic-setup .magic-field-color li:not(.choosed):after,
+body.magic-setup .magic-field-color li:not(.choosed):before{
     display: none !important;
 }
-.customdesign-setup-content h1,.customdesign-setup-content h2,.customdesign-setup-content h3,.customdesign-setup-content table {
+.magic-setup-content h1,.magic-setup-content h2,.magic-setup-content h3,.magic-setup-content table {
     margin: 0 0 20px;
     border: 0;
     padding: 0;
@@ -124,47 +124,47 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     font-weight: 500
 }
 
-.customdesign-setup-content store-container p {
+.magic-setup-content store-container p {
     margin: 20px 0;
     font-size: 16px;
     line-height: 1.75em;
     color: #666;
 }
 
-.customdesign-setup-content table {
+.magic-setup-content table {
     font-size: 1em;
     line-height: 1.75em;
     color: #666
 }
 
-.store-container .customdesign-setup-content a {
+.store-container .magic-setup-content a {
     color: #a16696
 }
 
-.customdesign-setup-content a:focus,.customdesign-setup-content a:hover {
+.magic-setup-content a:focus,.magic-setup-content a:hover {
     color: #111
 }
 
-.customdesign-setup-content .form-table th {
+.magic-setup-content .form-table th {
     width: 35%;
     vertical-align: top;
     font-weight: 400
 }
 
-.customdesign-setup-content .form-table td {
+.magic-setup-content .form-table td {
     vertical-align: top
 }
 
-.customdesign-setup-content .form-table td input,.customdesign-setup-content .form-table td select {
+.magic-setup-content .form-table td input,.magic-setup-content .form-table td select {
     width: 100%;
     box-sizing: border-box
 }
 
-.customdesign-setup-content .form-table td input[size] {
+.magic-setup-content .form-table td input[size] {
     width: auto
 }
 
-.customdesign-setup-content .form-table td .description {
+.magic-setup-content .form-table td .description {
     line-height: 1.5em;
     display: block;
     margin-top: .25em;
@@ -172,7 +172,7 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     font-style: italic
 }
 
-.customdesign-setup-content .form-table td .input-checkbox,.customdesign-setup-content .form-table td .input-radio {
+.magic-setup-content .form-table td .input-checkbox,.magic-setup-content .form-table td .input-radio {
     width: auto;
     box-sizing: inherit;
     padding: inherit;
@@ -180,44 +180,44 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     box-shadow: none
 }
 
-.customdesign-setup-content .form-table .section_title td {
+.magic-setup-content .form-table .section_title td {
     padding: 0
 }
 
-.customdesign-setup-content .form-table .section_title td h2,.customdesign-setup-content .form-table .section_title td p {
+.magic-setup-content .form-table .section_title td h2,.magic-setup-content .form-table .section_title td p {
     margin: 12px 0 0
 }
 
-.customdesign-setup-content .form-table td,.customdesign-setup-content .form-table th {
+.magic-setup-content .form-table td,.magic-setup-content .form-table th {
     padding: 12px 0;
     margin: 0;
     border: 0
 }
 
-.customdesign-setup-content .form-table td:first-child,.customdesign-setup-content .form-table th:first-child {
+.magic-setup-content .form-table td:first-child,.magic-setup-content .form-table th:first-child {
     padding-right: 1em
 }
 
-.customdesign-setup-content table.tax-rates {
+.magic-setup-content table.tax-rates {
     width: 100%;
     font-size: .92em
 }
 
-.customdesign-setup-content table.tax-rates th {
+.magic-setup-content table.tax-rates th {
     padding: 0;
     text-align: center;
     width: auto;
     vertical-align: middle
 }
 
-.customdesign-setup-content table.tax-rates td {
+.magic-setup-content table.tax-rates td {
     border: 1px solid #f5f5f5;
     padding: 6px;
     text-align: center;
     vertical-align: middle
 }
 
-.customdesign-setup-content table.tax-rates td input {
+.magic-setup-content table.tax-rates td input {
     outline: 0;
     border: 0;
     padding: 0;
@@ -226,21 +226,21 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     width: 100%
 }
 
-.customdesign-setup-content table.tax-rates td.sort {
+.magic-setup-content table.tax-rates td.sort {
     cursor: move;
     color: #ccc
 }
 
-.customdesign-setup-content table.tax-rates td.sort::before {
+.magic-setup-content table.tax-rates td.sort::before {
     content: '\f333';
     font-family: dashicons
 }
 
-.customdesign-setup-content table.tax-rates td.readonly {
+.magic-setup-content table.tax-rates td.readonly {
     background: #f5f5f5
 }
 
-.customdesign-setup-content table.tax-rates .add {
+.magic-setup-content table.tax-rates .add {
     padding: 1em 0 0 1em;
     line-height: 1em;
     font-size: 1em;
@@ -252,7 +252,7 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     display: inline-block
 }
 
-.customdesign-setup-content table.tax-rates .add::before {
+.magic-setup-content table.tax-rates .add::before {
     content: '\f502';
     font-family: dashicons;
     position: absolute;
@@ -260,7 +260,7 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     top: 0
 }
 
-.customdesign-setup-content table.tax-rates .remove {
+.magic-setup-content table.tax-rates .remove {
     padding: 1em 0 0 1em;
     line-height: 1em;
     font-size: 1em;
@@ -272,7 +272,7 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     display: inline-block
 }
 
-.customdesign-setup-content table.tax-rates .remove::before {
+.magic-setup-content table.tax-rates .remove::before {
     content: '\f182';
     font-family: dashicons;
     position: absolute;
@@ -280,40 +280,40 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     top: 0
 }
 
-.customdesign-setup-content .customdesign-setup-pages {
+.magic-setup-content .magic-setup-pages {
     width: 100%;
     border-top: 1px solid #eee
 }
 
-.customdesign-setup-content .customdesign-setup-pages thead th {
+.magic-setup-content .magic-setup-pages thead th {
     display: none
 }
 
-.customdesign-setup-content .customdesign-setup-pages .page-name {
+.magic-setup-content .magic-setup-pages .page-name {
     width: 30%;
     font-weight: 700
 }
 
-.customdesign-setup-content .customdesign-setup-pages td,.customdesign-setup-content .customdesign-setup-pages th {
+.magic-setup-content .magic-setup-pages td,.magic-setup-content .magic-setup-pages th {
     padding: 14px 0;
     border-bottom: 1px solid #eee
 }
 
-.customdesign-setup-content .customdesign-setup-pages td:first-child,.customdesign-setup-content .customdesign-setup-pages th:first-child {
+.magic-setup-content .magic-setup-pages td:first-child,.magic-setup-content .magic-setup-pages th:first-child {
     padding-right: 9px
 }
 
-.customdesign-setup-content .customdesign-setup-pages th {
+.magic-setup-content .magic-setup-pages th {
     padding-top: 0
 }
 
-.customdesign-setup-content .customdesign-setup-pages .page-options p {
+.magic-setup-content .magic-setup-pages .page-options p {
     color: #777;
     margin: 6px 0 0 24px;
     line-height: 1.75em
 }
 
-.customdesign-setup-content .customdesign-setup-pages .page-options p input {
+.magic-setup-content .magic-setup-pages .page-options p input {
     vertical-align: middle;
     margin: 1px 0 0;
     height: 1.75em;
@@ -321,54 +321,54 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     line-height: 1.75em
 }
 
-.customdesign-setup-content .customdesign-setup-pages .page-options p label {
+.magic-setup-content .magic-setup-pages .page-options p label {
     line-height: 1
 }
 
 @media screen and (max-width: 782px) {
-    .customdesign-setup-content .form-table tbody th {
+    .magic-setup-content .form-table tbody th {
         width:auto
     }
 }
 
-.customdesign-setup-content .twitter-share-button {
+.magic-setup-content .twitter-share-button {
     float: right
 }
 
-.customdesign-setup-content .customdesign-setup-next-steps {
+.magic-setup-content .magic-setup-next-steps {
     overflow: hidden;
     margin: 0 0 24px;
     padding-bottom: 2px
 }
 
-.customdesign-setup-content .customdesign-setup-next-steps h2 {
+.magic-setup-content .magic-setup-next-steps h2 {
     margin-bottom: 12px
 }
 
-.customdesign-setup-content .customdesign-setup-next-steps .customdesign-setup-next-steps-first {
+.magic-setup-content .magic-setup-next-steps .magic-setup-next-steps-first {
     float: left;
     width: 50%;
     box-sizing: border-box
 }
 
-.customdesign-setup-content .customdesign-setup-next-steps .customdesign-setup-next-steps-last {
+.magic-setup-content .magic-setup-next-steps .magic-setup-next-steps-last {
     float: right;
     width: 50%;
     box-sizing: border-box
 }
 
-.customdesign-setup-content .customdesign-setup-next-steps ul {
+.magic-setup-content .magic-setup-next-steps ul {
     padding: 0 2em 0 0;
     list-style: none outside;
     margin: 0
 }
 
-.customdesign-setup-content .customdesign-setup-next-steps ul li a {
+.magic-setup-content .magic-setup-next-steps ul li a {
     display: block;
     padding: 0 0 .75em
 }
 
-.customdesign-setup-content .customdesign-setup-next-steps ul .setup-product a.button {
+.magic-setup-content .magic-setup-next-steps ul .setup-product a.button {
     background-color: #f7f7f7;
     border-color: #ccc;
     color: #23282d;
@@ -383,12 +383,12 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     text-align: center
 }
 
-.customdesign-setup-content .customdesign-setup-next-steps ul .setup-product a.button:active,.customdesign-setup-content .customdesign-setup-next-steps ul .setup-product a.button:focus,.customdesign-setup-content .customdesign-setup-next-steps ul .setup-product a.button:hover {
+.magic-setup-content .magic-setup-next-steps ul .setup-product a.button:active,.magic-setup-content .magic-setup-next-steps ul .setup-product a.button:focus,.magic-setup-content .magic-setup-next-steps ul .setup-product a.button:hover {
     background: #f5f5f5;
     border-color: #aaa
 }
 
-.customdesign-setup-content .customdesign-setup-next-steps ul .setup-product a.button-primary {
+.magic-setup-content .magic-setup-next-steps ul .setup-product a.button-primary {
     color: #fff;
     background-color: #bb77ae;
     border-color: #a36597;
@@ -396,14 +396,14 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     text-shadow: 0 -1px 1px #a36597,1px 0 1px #a36597,0 1px 1px #a36597,-1px 0 1px #a36597
 }
 
-.customdesign-setup-content .customdesign-setup-next-steps ul .setup-product a.button-primary:active,.customdesign-setup-content .customdesign-setup-next-steps ul .setup-product a.button-primary:focus,.customdesign-setup-content .customdesign-setup-next-steps ul .setup-product a.button-primary:hover {
+.magic-setup-content .magic-setup-next-steps ul .setup-product a.button-primary:active,.magic-setup-content .magic-setup-next-steps ul .setup-product a.button-primary:focus,.magic-setup-content .magic-setup-next-steps ul .setup-product a.button-primary:hover {
     color: #fff;
     background: #a36597;
     border-color: #a36597;
     box-shadow: inset 0 1px 0 rgba(255,255,255,.25),0 1px 0 #a36597
 }
 
-.customdesign-setup-content .customdesign-setup-next-steps ul li a::before {
+.magic-setup-content .magic-setup-next-steps ul li a::before {
     color: #82878c;
     font: normal 20px/1 dashicons;
     speak: none;
@@ -415,35 +415,35 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     vertical-align: top
 }
 
-.customdesign-setup-content .customdesign-setup-next-steps ul .learn-more a::before {
+.magic-setup-content .magic-setup-next-steps ul .learn-more a::before {
     content: '\f105'
 }
 
-.customdesign-setup-content .customdesign-setup-next-steps ul .video-walkthrough a::before {
+.magic-setup-content .magic-setup-next-steps ul .video-walkthrough a::before {
     content: '\f126'
 }
 
-.customdesign-setup-content .customdesign-setup-next-steps ul .newsletter a::before {
+.magic-setup-content .magic-setup-next-steps ul .newsletter a::before {
     content: '\f465'
 }
 
-.customdesign-setup-content .updated,.customdesign-setup-content .woocommerce-newsletter {
+.magic-setup-content .updated,.magic-setup-content .woocommerce-newsletter {
     padding: 24px 24px 0;
     margin: 0 0 24px;
     overflow: hidden;
     background: #f5f5f5
 }
 
-.customdesign-setup-content .updated p,.customdesign-setup-content .woocommerce-newsletter p {
+.magic-setup-content .updated p,.magic-setup-content .woocommerce-newsletter p {
     padding: 0;
     margin: 0 0 12px
 }
 
-.customdesign-setup-content .updated form,.customdesign-setup-content .updated p:last-child,.customdesign-setup-content .woocommerce-newsletter form,.customdesign-setup-content .woocommerce-newsletter p:last-child {
+.magic-setup-content .updated form,.magic-setup-content .updated p:last-child,.magic-setup-content .woocommerce-newsletter form,.magic-setup-content .woocommerce-newsletter p:last-child {
     margin: 0 0 24px
 }
 
-.customdesign-setup-content .woocommerce-tracker {
+.magic-setup-content .woocommerce-tracker {
     margin: 24px 0;
     border: 1px solid #eee;
     padding: 20px;
@@ -451,12 +451,12 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     overflow: hidden
 }
 
-.customdesign-setup-content .woocommerce-tracker p {
+.magic-setup-content .woocommerce-tracker p {
     font-size: 14px;
     line-height: 1.5em
 }
 
-.customdesign-setup-content .woocommerce-tracker .checkbox {
+.magic-setup-content .woocommerce-tracker .checkbox {
     line-height: 24px;
     font-weight: 500;
     font-size: 1em;
@@ -464,25 +464,25 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     margin-bottom: 20px
 }
 
-.customdesign-setup-content .checkbox input[type=checkbox] {
+.magic-setup-content .checkbox input[type=checkbox] {
     opacity: 0;
     position: absolute;
     left: -9999px
 }
 
-.customdesign-setup-content .checkbox label {
+.magic-setup-content .checkbox label {
     position: relative;
     display: inline-block;
     padding-left: 28px
 }
 
-.customdesign-setup-content .checkbox label:after,.customdesign-setup-content .checkbox label:before {
+.magic-setup-content .checkbox label:after,.magic-setup-content .checkbox label:before {
     position: absolute;
     content: "";
     display: inline-block
 }
 
-.customdesign-setup-content .checkbox label:before {
+.magic-setup-content .checkbox label:before {
     height: 16px;
     width: 16px;
     left: 0;
@@ -492,7 +492,7 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     border-radius: 3px
 }
 
-.customdesign-setup-content .checkbox label:after {
+.magic-setup-content .checkbox label:after {
     height: 5px;
     width: 9px;
     border-left: 2px solid;
@@ -505,24 +505,24 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     color: #fff
 }
 
-.customdesign-setup-content .checkbox input[type=checkbox]+label::after {
+.magic-setup-content .checkbox input[type=checkbox]+label::after {
     content: none
 }
 
-.customdesign-setup-content .checkbox input[type=checkbox]:checked+label::after {
+.magic-setup-content .checkbox input[type=checkbox]:checked+label::after {
     content: ""
 }
 
-.customdesign-setup-content .checkbox input[type=checkbox]:focus+label::before {
+.magic-setup-content .checkbox input[type=checkbox]:focus+label::before {
     outline: #3b99fc auto 5px
 }
 
-.customdesign-setup-content .checkbox input[type=checkbox]:checked+label::before {
+.magic-setup-content .checkbox input[type=checkbox]:checked+label::before {
     background: #935687;
     border-color: #935687
 }
 
-.customdesign-setup-steps {
+.magic-setup-steps {
     padding: 0 0 24px;
     margin: 0;
     list-style: none outside;
@@ -533,7 +533,7 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     display: inline-flex;
 }
 
-.customdesign-setup-steps li {
+.magic-setup-steps li {
     width: 100%;
     float: left;
     padding: 0 0 .8em;
@@ -544,7 +544,7 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     line-height: 1.4em;
 }
 
-.customdesign-setup-steps li a {
+.magic-setup-steps li a {
     color: #47c1bf;
     text-decoration: none;
     padding: 1.5em;
@@ -553,12 +553,12 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     z-index: 1;
 }
 
-.customdesign-setup-steps li a:focus,.customdesign-setup-steps li a:hover {
+.magic-setup-steps li a:focus,.magic-setup-steps li a:hover {
     color: #111;
     text-decoration: underline
 }
 
-.customdesign-setup-steps li::before {
+.magic-setup-steps li::before {
     content: '';
     border: 4px solid #ccc;
     border-radius: 100%;
@@ -573,27 +573,27 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     box-sizing: content-box;
 }
 
-.customdesign-setup-steps li.active {
+.magic-setup-steps li.active {
     border-color: #47c1bf;
     color: #47c1bf;
     font-weight: 700;
 }
 
-.customdesign-setup-steps li.active::before {
+.magic-setup-steps li.active::before {
     border-color: #47c1bf;
 }
 
-.customdesign-setup-steps li.done {
+.magic-setup-steps li.done {
     border-color: #47c1bf;
     color: #47c1bf;
 }
 
-.customdesign-setup-steps li.done::before {
+.magic-setup-steps li.done::before {
     border-color: #47c1bf;
     background: #ffffff;
 }
 
-.customdesign-setup .customdesign-setup-actions {
+.magic-setup .magic-setup-actions {
     overflow: hidden;
     margin: 1em 0;
     position: relative;
@@ -603,7 +603,7 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     display: flex;
 }
 
-.customdesign-setup .customdesign-setup-actions .button {
+.magic-setup .magic-setup-actions .button {
     font-size: 1.25em;
     padding: .5em 1em;
     line-height: 1em;
@@ -613,7 +613,7 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     border-radius: 4px
 }
 
-.customdesign-setup .customdesign-setup-actions .button-primary {
+.magic-setup .magic-setup-actions .button-primary {
     background-color: #47c1bf;
     border-color: #3eafad;
     box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 1px 0 #49bfaf;
@@ -622,105 +622,105 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     opacity: 1;
 }
 
-.customdesign-setup .customdesign-setup-actions .button-primary:active,
-.customdesign-setup .customdesign-setup-actions .button-primary:hover {
+.magic-setup .magic-setup-actions .button-primary:active,
+.magic-setup .magic-setup-actions .button-primary:hover {
     background: #349e9d;
     border-color: #2d8a88;
     box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 1px 0 #368e3a;
 }
 
-.customdesign-setup-content p:last-child {
+.magic-setup-content p:last-child {
     margin-bottom: 0;
 }
 
-.customdesign-setup-content p.store-setup{
+.magic-setup-content p.store-setup{
     margin: 10px 0 30px;
     font-size: 16px;
 }
-.customdesign-setup-content p.store-setup.error{
+.magic-setup-content p.store-setup.error{
     background: #ffecf3;
     padding: 10px 14px;
     border-left: 4px solid #E91E63;
 }
-.customdesign-setup-footer-links {
+.magic-setup-footer-links {
     font-size: .85em;
     color: #7b7b7b;
     margin: 1.18em auto;
     display: inline-block;
     text-align: center;
 }
-.customdesign-setup-footer-links.disabled {
+.magic-setup-footer-links.disabled {
     cursor: default;
 }
-.customdesign-setup-footer-links:hover {
+.magic-setup-footer-links:hover {
     color: #47c1bf;
 }
 
-.customdesign-wizard-storefront .customdesign-wizard-storefront-intro {
+.magic-wizard-storefront .magic-wizard-storefront-intro {
     padding: 40px 40px 0;
     background: #f5f5f5;
     text-align: center
 }
 
-.customdesign-wizard-storefront .customdesign-wizard-storefront-intro img {
+.magic-wizard-storefront .magic-wizard-storefront-intro img {
     margin: 40px 0 0 0;
     width: 100%;
     display: block
 }
 
-.customdesign-wizard-storefront .customdesign-wizard-storefront-features {
+.magic-wizard-storefront .magic-wizard-storefront-features {
     list-style: none outside;
     margin: 0 0 20px;
     padding: 0 0 0 30px;
     overflow: hidden
 }
 
-.customdesign-wizard-storefront .customdesign-wizard-storefront-feature {
+.magic-wizard-storefront .magic-wizard-storefront-feature {
     margin: 0;
     padding: 20px 30px 20px 2em;
     width: 50%;
     box-sizing: border-box
 }
 
-.customdesign-wizard-storefront .customdesign-wizard-storefront-feature::before {
+.magic-wizard-storefront .magic-wizard-storefront-feature::before {
     margin-left: -2em;
     position: absolute
 }
 
-.customdesign-wizard-storefront .customdesign-wizard-storefront-feature.first {
+.magic-wizard-storefront .magic-wizard-storefront-feature.first {
     clear: both;
     float: left
 }
 
-.customdesign-wizard-storefront .customdesign-wizard-storefront-feature.last {
+.magic-wizard-storefront .magic-wizard-storefront-feature.last {
     float: right
 }
 
-.customdesign-wizard-storefront .customdesign-wizard-storefront-feature__bulletproof::before {
+.magic-wizard-storefront .magic-wizard-storefront-feature__bulletproof::before {
     content: '🔒'
 }
 
-.customdesign-wizard-storefront .customdesign-wizard-storefront-feature__mobile::before {
+.magic-wizard-storefront .magic-wizard-storefront-feature__mobile::before {
     content: '📱'
 }
 
-.customdesign-wizard-storefront .customdesign-wizard-storefront-feature__accessibility::before {
+.magic-wizard-storefront .magic-wizard-storefront-feature__accessibility::before {
     content: '👓'
 }
 
-.customdesign-wizard-storefront .customdesign-wizard-storefront-feature__search::before {
+.magic-wizard-storefront .magic-wizard-storefront-feature__search::before {
     content: '🔍'
 }
 
-.customdesign-wizard-storefront .customdesign-wizard-storefront-feature__compatibility::before {
+.magic-wizard-storefront .magic-wizard-storefront-feature__compatibility::before {
     content: '🔧'
 }
 
-.customdesign-wizard-storefront .customdesign-wizard-storefront-feature__extendable::before {
+.magic-wizard-storefront .magic-wizard-storefront-feature__extendable::before {
     content: '🎨'
 }
 
-.customdesign-wizard-services {
+.magic-wizard-services {
     border: 1px solid #eee;
     padding: 0;
     margin: 0 0 1.2em;
@@ -729,14 +729,14 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     overflow: hidden;
 }
 
-.customdesign-wizard-services p {
+.magic-wizard-services p {
     margin: 0 0 1em 0;
     padding: 0;
     font-size: 1em;
     line-height: 1.5em
 }
 
-.customdesign-wizard-service-item,.customdesign-wizard-services-list-toggle {
+.magic-wizard-service-item,.magic-wizard-services-list-toggle {
     display: -webkit-box;
     display: flex;
     flex-wrap: nowrap;
@@ -749,15 +749,15 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     align-items: center
 }
 
-.customdesign-wizard-service-item:last-child,.customdesign-wizard-services-list-toggle:last-child {
+.magic-wizard-service-item:last-child,.magic-wizard-services-list-toggle:last-child {
     border-bottom: 0
 }
 
-.customdesign-wizard-service-item .payment-gateway-fee,.customdesign-wizard-services-list-toggle .payment-gateway-fee {
+.magic-wizard-service-item .payment-gateway-fee,.magic-wizard-services-list-toggle .payment-gateway-fee {
     color: #a6a6a6
 }
 
-.customdesign-wizard-service-item .customdesign-wizard-service-name,.customdesign-wizard-services-list-toggle .customdesign-wizard-service-name {
+.magic-wizard-service-item .magic-wizard-service-name,.magic-wizard-services-list-toggle .magic-wizard-service-name {
     flex-basis: 0;
     min-width: 160px;
     text-align: center;
@@ -768,77 +768,77 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     align-items: baseline;
 }
 
-.customdesign-wizard-payment-gateway-form .customdesign-wizard-service-item .customdesign-wizard-service-name,.customdesign-wizard-payment-gateway-form .customdesign-wizard-services-list-toggle .customdesign-wizard-service-name {
+.magic-wizard-payment-gateway-form .magic-wizard-service-item .magic-wizard-service-name,.magic-wizard-payment-gateway-form .magic-wizard-services-list-toggle .magic-wizard-service-name {
     -webkit-box-pack: center;
     justify-content: center
 }
 
-.customdesign-wizard-service-item .customdesign-wizard-service-name img,.customdesign-wizard-services-list-toggle .customdesign-wizard-service-name img {
+.magic-wizard-service-item .magic-wizard-service-name img,.magic-wizard-services-list-toggle .magic-wizard-service-name img {
     max-width: 100px;
 }
 
-.customdesign-wizard-service-item.stripe-logo .customdesign-wizard-service-name img,.customdesign-wizard-services-list-toggle.stripe-logo .customdesign-wizard-service-name img {
+.magic-wizard-service-item.stripe-logo .magic-wizard-service-name img,.magic-wizard-services-list-toggle.stripe-logo .magic-wizard-service-name img {
     padding: 8px 0
 }
 
-.customdesign-wizard-service-item.paypal-logo .customdesign-wizard-service-name img,.customdesign-wizard-services-list-toggle.paypal-logo .customdesign-wizard-service-name img {
+.magic-wizard-service-item.paypal-logo .magic-wizard-service-name img,.magic-wizard-services-list-toggle.paypal-logo .magic-wizard-service-name img {
     max-width: 87px;
     padding: 2px 0
 }
 
-.customdesign-wizard-service-item.klarna-logo .customdesign-wizard-service-name,.customdesign-wizard-services-list-toggle.klarna-logo .customdesign-wizard-service-name {
+.magic-wizard-service-item.klarna-logo .magic-wizard-service-name,.magic-wizard-services-list-toggle.klarna-logo .magic-wizard-service-name {
     background: #000
 }
 
-.customdesign-wizard-service-item.klarna-logo .customdesign-wizard-service-name img,.customdesign-wizard-services-list-toggle.klarna-logo .customdesign-wizard-service-name img {
+.magic-wizard-service-item.klarna-logo .magic-wizard-service-name img,.magic-wizard-services-list-toggle.klarna-logo .magic-wizard-service-name img {
     max-width: 87px;
     padding: 12px 0
 }
 
-.customdesign-wizard-service-item.square-logo .customdesign-wizard-service-name,.customdesign-wizard-services-list-toggle.square-logo .customdesign-wizard-service-name {
+.magic-wizard-service-item.square-logo .magic-wizard-service-name,.magic-wizard-services-list-toggle.square-logo .magic-wizard-service-name {
     background: #000
 }
 
-.customdesign-wizard-service-item.square-logo .customdesign-wizard-service-name img,.customdesign-wizard-services-list-toggle.square-logo .customdesign-wizard-service-name img {
+.magic-wizard-service-item.square-logo .magic-wizard-service-name img,.magic-wizard-services-list-toggle.square-logo .magic-wizard-service-name img {
     max-width: 95px;
     padding: 12px 0
 }
 
-.customdesign-wizard-service-item.eway-logo .customdesign-wizard-service-name img,.customdesign-wizard-services-list-toggle.eway-logo .customdesign-wizard-service-name img {
+.magic-wizard-service-item.eway-logo .magic-wizard-service-name img,.magic-wizard-services-list-toggle.eway-logo .magic-wizard-service-name img {
     max-width: 87px
 }
 
-.customdesign-wizard-service-item.payfast-logo .customdesign-wizard-service-name img,.customdesign-wizard-services-list-toggle.payfast-logo .customdesign-wizard-service-name img {
+.magic-wizard-service-item.payfast-logo .magic-wizard-service-name img,.magic-wizard-services-list-toggle.payfast-logo .magic-wizard-service-name img {
     max-width: 140px
 }
 
-.customdesign-wizard-service-item .customdesign-wizard-service-description,.customdesign-wizard-services-list-toggle .customdesign-wizard-service-description {
+.magic-wizard-service-item .magic-wizard-service-description,.magic-wizard-services-list-toggle .magic-wizard-service-description {
     -webkit-box-flex: 1;
     flex-grow: 1;
     padding: 20px
 }
 
-.customdesign-wizard-service-item .customdesign-wizard-service-description p,.customdesign-wizard-services-list-toggle .customdesign-wizard-service-description p {
+.magic-wizard-service-item .magic-wizard-service-description p,.magic-wizard-services-list-toggle .magic-wizard-service-description p {
     margin-bottom: 1em
 }
-.customdesign-wizard-service-item .customdesign-wizard-service-description p strong,
-.customdesign-wizard-services-list-toggle .customdesign-wizard-service-description p strong{
+.magic-wizard-service-item .magic-wizard-service-description p strong,
+.magic-wizard-services-list-toggle .magic-wizard-service-description p strong{
     display: inline-block;
     margin-bottom: 8px;
     font-size: 15px;
 }
-.customdesign-wizard-service-item .customdesign-wizard-service-description p:last-child,.customdesign-wizard-services-list-toggle .customdesign-wizard-service-description p:last-child {
+.magic-wizard-service-item .magic-wizard-service-description p:last-child,.magic-wizard-services-list-toggle .magic-wizard-service-description p:last-child {
     margin-bottom: 0
 }
 
-.customdesign-wizard-service-item .customdesign-wizard-service-description .customdesign-wizard-service-settings-description,.customdesign-wizard-services-list-toggle .customdesign-wizard-service-description .customdesign-wizard-service-settings-description {
+.magic-wizard-service-item .magic-wizard-service-description .magic-wizard-service-settings-description,.magic-wizard-services-list-toggle .magic-wizard-service-description .magic-wizard-service-settings-description {
     display: block;
     font-style: italic;
     color: #999
 }
 
-.customdesign-wizard-service-item .customdesign-wizard-service-enable,
-.customdesign-wizard-services-list-toggle .customdesign-wizard-service-enable {
+.magic-wizard-service-item .magic-wizard-service-enable,
+.magic-wizard-services-list-toggle .magic-wizard-service-enable {
     flex-basis: 0;
     min-width: 75px;
     text-align: center;
@@ -848,13 +848,13 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     max-height: 1.5em;
     align-self: flex-start;
 }
-.customdesign-wizard-service-item .customdesign-wizard-service-enable i,
-.customdesign-wizard-services-list-toggle .customdesign-wizard-service-enable i{
+.magic-wizard-service-item .magic-wizard-service-enable i,
+.magic-wizard-services-list-toggle .magic-wizard-service-enable i{
     color: #47c1bf;
     font-size: 20px;
     cursor: default;
 }
-.customdesign-wizard-service-item .customdesign-wizard-service-toggle,.customdesign-wizard-services-list-toggle .customdesign-wizard-service-toggle {
+.magic-wizard-service-item .magic-wizard-service-toggle,.magic-wizard-services-list-toggle .magic-wizard-service-toggle {
     height: 24px;
     width: 44px;
     border: 2px solid #47c1bf;
@@ -865,11 +865,11 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     position: relative;
 }
 
-.customdesign-wizard-service-item .customdesign-wizard-service-toggle input[type=checkbox],.customdesign-wizard-services-list-toggle .customdesign-wizard-service-toggle input[type=checkbox] {
+.magic-wizard-service-item .magic-wizard-service-toggle input[type=checkbox],.magic-wizard-services-list-toggle .magic-wizard-service-toggle input[type=checkbox] {
     display: none
 }
 
-.customdesign-wizard-service-item .customdesign-wizard-service-toggle:before,.customdesign-wizard-services-list-toggle .customdesign-wizard-service-toggle:before {
+.magic-wizard-service-item .magic-wizard-service-toggle:before,.magic-wizard-services-list-toggle .magic-wizard-service-toggle:before {
     content: "";
     display: block;
     width: 20px;
@@ -881,44 +881,44 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     border-radius: 100%;
 }
 
-.customdesign-wizard-service-item .customdesign-wizard-service-toggle.disabled,.customdesign-wizard-services-list-toggle .customdesign-wizard-service-toggle.disabled {
+.magic-wizard-service-item .magic-wizard-service-toggle.disabled,.magic-wizard-services-list-toggle .magic-wizard-service-toggle.disabled {
     border-color: #999;
     background-color: #999
 }
 
-.customdesign-wizard-service-item .customdesign-wizard-service-toggle.disabled:before,.customdesign-wizard-services-list-toggle .customdesign-wizard-service-toggle.disabled:before {
+.magic-wizard-service-item .magic-wizard-service-toggle.disabled:before,.magic-wizard-services-list-toggle .magic-wizard-service-toggle.disabled:before {
     right: auto;
     left: 0
 }
 
-.customdesign-wizard-service-item .customdesign-wizard-service-settings,.customdesign-wizard-services-list-toggle .customdesign-wizard-service-settings {
+.magic-wizard-service-item .magic-wizard-service-settings,.magic-wizard-services-list-toggle .magic-wizard-service-settings {
     display: none;
     margin-top: .75em;
     margin-bottom: 0;
     cursor: default
 }
 
-.customdesign-wizard-service-item .customdesign-wizard-service-settings.hide,.customdesign-wizard-services-list-toggle .customdesign-wizard-service-settings.hide {
+.magic-wizard-service-item .magic-wizard-service-settings.hide,.magic-wizard-services-list-toggle .magic-wizard-service-settings.hide {
     display: none
 }
 
-.customdesign-wizard-service-item.checked .customdesign-wizard-service-settings,.customdesign-wizard-services-list-toggle.checked .customdesign-wizard-service-settings {
+.magic-wizard-service-item.checked .magic-wizard-service-settings,.magic-wizard-services-list-toggle.checked .magic-wizard-service-settings {
     display: inline-block
 }
 
-.customdesign-wizard-service-item.checked .customdesign-wizard-service-settings.hide,.customdesign-wizard-services-list-toggle.checked .customdesign-wizard-service-settings.hide {
+.magic-wizard-service-item.checked .magic-wizard-service-settings.hide,.magic-wizard-services-list-toggle.checked .magic-wizard-service-settings.hide {
     display: none
 }
 
-.customdesign-wizard-service-item.closed,.customdesign-wizard-services-list-toggle.closed {
+.magic-wizard-service-item.closed,.magic-wizard-services-list-toggle.closed {
     border-bottom: 0
 }
 
-.customdesign-wizard-services-list-toggle {
+.magic-wizard-services-list-toggle {
     cursor: pointer
 }
 
-.customdesign-wizard-services-list-toggle .customdesign-wizard-service-enable::before {
+.magic-wizard-services-list-toggle .magic-wizard-service-enable::before {
     content: "\f343";
     font-family: dashicons;
     visibility: initial;
@@ -930,20 +930,20 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     visibility: visible
 }
 
-.customdesign-wizard-services-list-toggle.closed .customdesign-wizard-service-enable::before {
+.magic-wizard-services-list-toggle.closed .magic-wizard-service-enable::before {
     content: "\f347"
 }
 
-.customdesign-wizard-services-list-toggle .customdesign-wizard-service-enable input {
+.magic-wizard-services-list-toggle .magic-wizard-service-enable input {
     visibility: hidden;
     position: relative
 }
 
-.customdesign-wizard-services.manual .customdesign-wizard-service-item {
+.magic-wizard-services.manual .magic-wizard-service-item {
     display: none
 }
 
-.customdesign-wizard-services.shipping .customdesign-wizard-service-name {
+.magic-wizard-services.shipping .magic-wizard-service-name {
     font-weight: 400;
     text-align: left;
     -webkit-box-align: center;
@@ -952,40 +952,40 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     padding: 0
 }
 
-.customdesign-wizard-services.shipping .customdesign-wizard-service-item {
+.magic-wizard-services.shipping .magic-wizard-service-item {
     padding-left: 2em;
     padding-top: .67em
 }
 
-.customdesign-wizard-services.shipping .customdesign-wizard-service-item:first-child {
+.magic-wizard-services.shipping .magic-wizard-service-item:first-child {
     border-bottom: 0;
     padding-bottom: 0;
     font-weight: 700
 }
 
-.customdesign-wizard-services.shipping .customdesign-wizard-service-item:first-child .customdesign-wizard-service-name {
+.magic-wizard-services.shipping .magic-wizard-service-item:first-child .magic-wizard-service-name {
     font-weight: 700
 }
 
-.customdesign-wizard-services.shipping .shipping-method-setting,.customdesign-wizard-services.shipping .customdesign-wizard-shipping-method-select {
+.magic-wizard-services.shipping .shipping-method-setting,.magic-wizard-services.shipping .magic-wizard-shipping-method-select {
     display: -webkit-box;
     display: flex
 }
 
-.customdesign-wizard-services.shipping .shipping-method-setting.hide,.customdesign-wizard-services.shipping .customdesign-wizard-shipping-method-select.hide {
+.magic-wizard-services.shipping .shipping-method-setting.hide,.magic-wizard-services.shipping .magic-wizard-shipping-method-select.hide {
     display: none
 }
 
-.customdesign-wizard-services.shipping .shipping-method-setting input,.customdesign-wizard-services.shipping .customdesign-wizard-shipping-method-dropdown {
+.magic-wizard-services.shipping .shipping-method-setting input,.magic-wizard-services.shipping .magic-wizard-shipping-method-dropdown {
     margin-right: 2em;
     margin-bottom: 1em
 }
 
-.customdesign-wizard-services.shipping .shipping-method-setting input .select2,.customdesign-wizard-services.shipping .customdesign-wizard-shipping-method-dropdown .select2 {
+.magic-wizard-services.shipping .shipping-method-setting input .select2,.magic-wizard-services.shipping .magic-wizard-shipping-method-dropdown .select2 {
     min-width: 130px
 }
 
-.customdesign-wizard-services.shipping .customdesign-wizard-service-description {
+.magic-wizard-services.shipping .magic-wizard-service-description {
     display: -webkit-box;
     display: flex;
     -webkit-box-orient: vertical;
@@ -994,12 +994,12 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     color: #a6a6a6
 }
 
-.customdesign-wizard-services.shipping .customdesign-wizard-service-item:not(:first-child) .customdesign-wizard-service-description {
+.magic-wizard-services.shipping .magic-wizard-service-item:not(:first-child) .magic-wizard-service-description {
     font-size: .92em;
     padding-bottom: 10px
 }
 
-.customdesign-wizard-services.shipping .shipping-method-setting input {
+.magic-wizard-services.shipping .shipping-method-setting input {
     width: 95px;
     border: 1px solid #aaa;
     border-color: #ddd;
@@ -1013,42 +1013,42 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     display: inline-block
 }
 
-.customdesign-wizard-services.shipping .shipping-method-description,.customdesign-wizard-services.shipping .shipping-method-setting .description {
+.magic-wizard-services.shipping .shipping-method-description,.magic-wizard-services.shipping .shipping-method-setting .description {
     color: #7e7e7e;
     font-size: .9em
 }
 
-.customdesign-wizard-services.shipping .shipping-method-setting input::-webkit-input-placeholder {
+.magic-wizard-services.shipping .shipping-method-setting input::-webkit-input-placeholder {
     color: #e1e1e1
 }
 
-.customdesign-wizard-services.shipping .shipping-method-setting input::-moz-placeholder {
+.magic-wizard-services.shipping .shipping-method-setting input::-moz-placeholder {
     color: #e1e1e1
 }
 
-.customdesign-wizard-services.shipping .shipping-method-setting input:-ms-input-placeholder {
+.magic-wizard-services.shipping .shipping-method-setting input:-ms-input-placeholder {
     color: #e1e1e1
 }
 
-.customdesign-wizard-services.shipping .shipping-method-setting input::-ms-input-placeholder {
+.magic-wizard-services.shipping .shipping-method-setting input::-ms-input-placeholder {
     color: #e1e1e1
 }
 
-.customdesign-wizard-services.shipping .shipping-method-setting input::placeholder {
+.magic-wizard-services.shipping .shipping-method-setting input::placeholder {
     color: #e1e1e1
 }
 
-.customdesign-setup-shipping-units p {
+.magic-setup-shipping-units p {
     line-height: 1.5em;
     font-size: 13px;
     margin-bottom: .25em
 }
 
-.customdesign-setup-shipping-units .customdesign-setup-shipping-unit {
+.magic-setup-shipping-units .magic-setup-shipping-unit {
     margin-bottom: 1.75em
 }
 
-.customdesign-setup-shipping-units .customdesign-setup-shipping-unit .select2 {
+.magic-setup-shipping-units .magic-setup-shipping-unit .select2 {
     min-width: 100%
 }
 
@@ -1056,7 +1056,7 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     display: none
 }
 
-.customdesign-wizard-features {
+.magic-wizard-features {
     display: -webkit-box;
     display: flex;
     flex-wrap: wrap;
@@ -1064,33 +1064,33 @@ body.customdesign-setup .customdesign-field-color li:not(.choosed):before{
     padding: 0
 }
 
-.customdesign-wizard-features .customdesign-wizard-feature-item {
+.magic-wizard-features .magic-wizard-feature-item {
     flex-basis: calc(50% - 4em - 3px);
     border: 1px solid #eee;
     padding: 2em
 }
 
-.customdesign-wizard-features .customdesign-wizard-feature-item:nth-child(1) {
+.magic-wizard-features .magic-wizard-feature-item:nth-child(1) {
     border-radius: 4px 0 0 0
 }
 
-.customdesign-wizard-features .customdesign-wizard-feature-item:nth-child(2) {
+.magic-wizard-features .magic-wizard-feature-item:nth-child(2) {
     border-left: 0;
     border-radius: 0 4px 0 0
 }
 
-.customdesign-wizard-features .customdesign-wizard-feature-item:nth-child(3) {
+.magic-wizard-features .magic-wizard-feature-item:nth-child(3) {
     border-top: 0;
     border-radius: 0 0 0 4px
 }
 
-.customdesign-wizard-features .customdesign-wizard-feature-item:nth-child(4) {
+.magic-wizard-features .magic-wizard-feature-item:nth-child(4) {
     border-top: 0;
     border-left: 0;
     border-radius: 0 0 4px 0
 }
 
-.customdesign-wizard-features p.customdesign-wizard-feature-description,.customdesign-wizard-features p.customdesign-wizard-feature-name {
+.magic-wizard-features p.magic-wizard-feature-description,.magic-wizard-features p.magic-wizard-feature-name {
     margin: 0;
     line-height: 1.5em
 }
@@ -1121,7 +1121,7 @@ h3.jetpack-reasons {
     text-align: center
 }
 
-.customdesign-setup .customdesign-setup-actions .button {
+.magic-setup .magic-setup-actions .button {
     font-weight: 400;
     font-size: 16px;
     padding: 1em 2em;
@@ -1131,14 +1131,14 @@ h3.jetpack-reasons {
     margin: 0 auto 1.2em;
     float: none;
 }
-.customdesign-setup .customdesign-setup-actions.step .button {
+.magic-setup .magic-setup-actions.step .button {
     margin: 0 auto;    
 }
-.customdesign-setup .customdesign-setup-actions .button:active,.customdesign-setup .customdesign-setup-actions .button:focus,.customdesign-setup .customdesign-setup-actions .button:hover {
+.magic-setup .magic-setup-actions .button:active,.magic-setup .magic-setup-actions .button:focus,.magic-setup .magic-setup-actions .button:hover {
     box-shadow: none
 }
 
-.customdesign-setup .customdesign-setup-actions .plugin-install-info {
+.magic-setup .magic-setup-actions .plugin-install-info {
     display: block;
     font-style: italic;
     color: #999;
@@ -1147,19 +1147,19 @@ h3.jetpack-reasons {
     margin: 5px 0
 }
 
-.customdesign-setup .customdesign-setup-actions .plugin-install-info>* {
+.magic-setup .magic-setup-actions .plugin-install-info>* {
     display: block
 }
 
-.customdesign-setup .customdesign-setup-actions .plugin-install-info .plugin-install-info-list-item:not(:last-child)::after {
+.magic-setup .magic-setup-actions .plugin-install-info .plugin-install-info-list-item:not(:last-child)::after {
     content: ', '
 }
 
-.customdesign-setup .customdesign-setup-actions .plugin-install-info a {
+.magic-setup .magic-setup-actions .plugin-install-info a {
     white-space: nowrap
 }
 
-.customdesign-setup .customdesign-setup-actions .plugin-install-info a:not(:hover):not(:focus) {
+.magic-setup .magic-setup-actions .plugin-install-info a:not(:hover):not(:focus) {
     color: inherit
 }
 
@@ -1167,7 +1167,7 @@ h3.jetpack-reasons {
     background: rgba(187,119,174,.15)
 }
 
-.plugin-install-source:not(.customdesign-wizard-service-item) {
+.plugin-install-source:not(.magic-wizard-service-item) {
     box-shadow: 0 0 0 10px rgba(187,119,174,.15)
 }
 
@@ -1239,7 +1239,7 @@ textarea.location-input {
     margin-left: 0
 }
 
-.customdesign-wizard-service-settings .payment-email-input {
+.magic-wizard-service-settings .payment-email-input {
     border: 1px solid #aaa;
     border-color: #ddd;
     border-radius: 4px;
@@ -1276,42 +1276,42 @@ textarea.location-input {
     flex-grow: 0
 }
 
-.customdesign-setup .customdesign-setup-actions .button.newsletter-form-button {
+.magic-setup .magic-setup-actions .button.newsletter-form-button {
     height: 42px;
     padding: 0 1em;
     margin: 0
 }
 
-.customdesign-wizard-next-steps {
+.magic-wizard-next-steps {
     border: 1px solid #eee;
     border-radius: 4px;
     list-style: none;
     padding: 0
 }
 
-.customdesign-wizard-next-steps li {
+.magic-wizard-next-steps li {
     padding: 0;
     display: inline-block;
     width: 100%;
 }
 
-.customdesign-wizard-next-steps .customdesign-wizard-next-step-item {
+.magic-wizard-next-steps .magic-wizard-next-step-item {
     display: -webkit-box;
     display: flex;
     border-top: 1px solid #eee
 }
 
-.customdesign-wizard-next-steps .customdesign-wizard-next-step-item:first-child {
+.magic-wizard-next-steps .magic-wizard-next-step-item:first-child {
     border-top: 0
 }
 
-.customdesign-wizard-next-steps .customdesign-wizard-next-step-description {
+.magic-wizard-next-steps .magic-wizard-next-step-description {
     display: block;
     margin: 10px 1em 0;
     font-size: 16px;
 }
 
-.customdesign-wizard-next-steps .customdesign-wizard-next-step-action {
+.magic-wizard-next-steps .magic-wizard-next-step-action {
     -webkit-box-flex: 0;
     flex-grow: 0;
     display: -webkit-box;
@@ -1321,44 +1321,44 @@ textarea.location-input {
     width: 100%;
 }
 
-.customdesign-wizard-next-steps .customdesign-wizard-next-step-action .button {
+.magic-wizard-next-steps .magic-wizard-next-step-action .button {
 }
 
-.customdesign-wizard-next-steps p.next-step-heading {
+.magic-wizard-next-steps p.next-step-heading {
     margin: 0;
     font-size: .95em;
     font-weight: 400;
     font-variant: all-petite-caps
 }
 
-.customdesign-wizard-next-steps p.next-step-extra-info {
+.magic-wizard-next-steps p.next-step-extra-info {
     margin: 0
 }
 
-.customdesign-wizard-next-steps h3.next-step-description {
+.magic-wizard-next-steps h3.next-step-description {
     margin: 0;
     font-size: 16px;
     font-weight: 600
 }
 
-.customdesign-wizard-next-steps .customdesign-wizard-additional-steps {
+.magic-wizard-next-steps .magic-wizard-additional-steps {
     border-top: 1px solid #eee
 }
 
-.customdesign-wizard-next-steps .customdesign-wizard-additional-steps .customdesign-wizard-next-step-description {
+.magic-wizard-next-steps .magic-wizard-additional-steps .magic-wizard-next-step-description {
     margin-bottom: 0
 }
 
-.customdesign-wizard-next-steps .customdesign-wizard-additional-steps .customdesign-setup-actions {
+.magic-wizard-next-steps .magic-wizard-additional-steps .magic-setup-actions {
     margin: 0 0 1.5em 0
 }
 
-.customdesign-wizard-next-steps .customdesign-wizard-additional-steps .customdesign-setup-actions .button {
+.magic-wizard-next-steps .magic-wizard-additional-steps .magic-setup-actions .button {
     font-size: 15px;
     margin: 1em 0 1em 1.5em
 }
 
-.customdesign-wizard-next-steps .customdesign-wizard-additional-steps .customdesign-setup-actions .button::last-child {
+.magic-wizard-next-steps .magic-wizard-additional-steps .magic-setup-actions .button::last-child {
     margin-right: 1.5em
 }
 
@@ -1398,18 +1398,18 @@ p.jetpack-terms {
     font-size: .85em
 }
 
-.woocommerce-error .customdesign-setup-actions .button {
+.woocommerce-error .magic-setup-actions .button {
     font-size: 14px
 }
 
-.customdesign-wizard-service-setting-ppec_paypal_reroute_requests,.customdesign-wizard-service-setting-stripe_create_account {
+.magic-wizard-service-setting-ppec_paypal_reroute_requests,.magic-wizard-service-setting-stripe_create_account {
     display: -webkit-box;
     display: flex;
     -webkit-box-align: start;
     align-items: flex-start
 }
 
-.customdesign-wizard-service-setting-ppec_paypal_reroute_requests .payment-checkbox-input,.customdesign-wizard-service-setting-stripe_create_account .payment-checkbox-input {
+.magic-wizard-service-setting-ppec_paypal_reroute_requests .payment-checkbox-input,.magic-wizard-service-setting-stripe_create_account .payment-checkbox-input {
     -webkit-box-ordinal-group: 2;
     order: 1;
     margin-top: 5px;
@@ -1418,18 +1418,18 @@ p.jetpack-terms {
     width: 1.5em
 }
 
-.customdesign-wizard-service-setting-ppec_paypal_reroute_requests .ppec_paypal_reroute_requests,.customdesign-wizard-service-setting-ppec_paypal_reroute_requests .stripe_create_account,.customdesign-wizard-service-setting-stripe_create_account .ppec_paypal_reroute_requests,.customdesign-wizard-service-setting-stripe_create_account .stripe_create_account {
+.magic-wizard-service-setting-ppec_paypal_reroute_requests .ppec_paypal_reroute_requests,.magic-wizard-service-setting-ppec_paypal_reroute_requests .stripe_create_account,.magic-wizard-service-setting-stripe_create_account .ppec_paypal_reroute_requests,.magic-wizard-service-setting-stripe_create_account .stripe_create_account {
     -webkit-box-ordinal-group: 3;
     order: 2;
     margin-left: .3em
 }
 
-.customdesign-wizard-service-setting-ppec_paypal_email,.customdesign-wizard-service-setting-stripe_email {
+.magic-wizard-service-setting-ppec_paypal_email,.magic-wizard-service-setting-stripe_email {
     margin-top: .75em;
     margin-left: 1.5em
 }
 
-.customdesign-wizard-service-setting-ppec_paypal_email label.ppec_paypal_email,.customdesign-wizard-service-setting-ppec_paypal_email label.stripe_email,.customdesign-wizard-service-setting-stripe_email label.ppec_paypal_email,.customdesign-wizard-service-setting-stripe_email label.stripe_email {
+.magic-wizard-service-setting-ppec_paypal_email label.ppec_paypal_email,.magic-wizard-service-setting-ppec_paypal_email label.stripe_email,.magic-wizard-service-setting-stripe_email label.ppec_paypal_email,.magic-wizard-service-setting-stripe_email label.stripe_email {
     position: absolute;
     margin: -1px;
     padding: 0;
@@ -1440,28 +1440,28 @@ p.jetpack-terms {
     border: 0
 }
 
-.customdesign-wizard-service-setting-ppec_paypal_email input.payment-email-input,.customdesign-wizard-service-setting-stripe_email input.payment-email-input {
+.magic-wizard-service-setting-ppec_paypal_email input.payment-email-input,.magic-wizard-service-setting-stripe_email input.payment-email-input {
     box-sizing: border-box;
     margin-bottom: .5em;
     width: 100%;
     height: 32px
 }
 
-.customdesign-setup-content .recommended-step {
+.magic-setup-content .recommended-step {
     border: 1px solid #ebebeb;
     border-radius: 4px;
     padding: 2.5em
 }
 
-.customdesign-setup-content .recommended-step li {
+.magic-setup-content .recommended-step li {
     list-style: none
 }
 
-.customdesign-setup-content .recommended-step li:last-child label {
+.magic-setup-content .recommended-step li:last-child label {
     margin-bottom: 0
 }
 
-.customdesign-setup-content .recommended-step label {
+.magic-setup-content .recommended-step label {
     display: -webkit-box;
     display: flex;
     -webkit-box-align: center;
@@ -1469,15 +1469,15 @@ p.jetpack-terms {
     margin-bottom: 1.5em
 }
 
-.customdesign-setup-content .recommended-step label:after,.customdesign-setup-content .recommended-step label:before {
+.magic-setup-content .recommended-step label:after,.magic-setup-content .recommended-step label:before {
     top: auto
 }
 
-.customdesign-setup-content .recommended-step label:after {
+.magic-setup-content .recommended-step label:after {
     margin-top: -1.5px
 }
 
-.customdesign-setup-content .recommended-step .recommended-item-icon {
+.magic-setup-content .recommended-step .recommended-item-icon {
     border: 1px solid #fff;
     border-radius: 7px;
     height: 3.5em;
@@ -1485,33 +1485,33 @@ p.jetpack-terms {
     margin-left: 4px
 }
 
-.customdesign-setup-content .recommended-step .recommended-item-icon.recommended-item-icon-storefront_theme {
+.magic-setup-content .recommended-step .recommended-item-icon.recommended-item-icon-storefront_theme {
     background-color: #f4a224;
     max-height: 3em;
     max-width: 3em;
     padding: .25em
 }
 
-.customdesign-setup-content .recommended-step .recommended-item-icon.recommended-item-icon-automated_taxes {
+.magic-setup-content .recommended-step .recommended-item-icon.recommended-item-icon-automated_taxes {
     background-color: #d0011b;
     max-height: 1.75em;
     padding: .875em
 }
 
-.customdesign-setup-content .recommended-step .recommended-item-icon.recommended-item-icon-mailchimp {
+.magic-setup-content .recommended-step .recommended-item-icon.recommended-item-icon-mailchimp {
     background-color: #209bbb;
     height: 2em;
     padding: .75em
 }
 
-.customdesign-setup-content .recommended-step .recommended-item-description-container h3 {
+.magic-setup-content .recommended-step .recommended-item-description-container h3 {
     font-size: 15px;
     font-weight: 700;
     letter-spacing: .5px;
     margin-bottom: 0
 }
 
-.customdesign-setup-content .recommended-step .recommended-item-description-container p {
+.magic-setup-content .recommended-step .recommended-item-description-container p {
     margin-top: 0;
     line-height: 1.5em
 }

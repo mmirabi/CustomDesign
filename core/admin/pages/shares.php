@@ -12,43 +12,43 @@
 		$val = explode(',', $val);
 
 		if (!empty($id)) {
-			$dt = $customdesign_admin->get_row_id($id, 'shares');
-			$tar_file = $customdesign->cfg->upload_path.'shares/'.date('Y/m/', strtotime($dt['created'])).$dt['share_id'];
+			$dt = $magic_admin->get_row_id($id, 'shares');
+			$tar_file = $magic->cfg->upload_path.'shares/'.date('Y/m/', strtotime($dt['created'])).$dt['share_id'];
 			if (!empty($dt['share_id'])) {
 				if (file_exists($tar_file.'.jpg'))
 					unlink($tar_file.'.jpg');
 				if (file_exists($tar_file.'.lumi'))
 					unlink($tar_file.'.lumi');
 			}
-			$customdesign_admin->delete_row($id, 'shares');
+			$magic_admin->delete_row($id, 'shares');
 		}
 
 		foreach ($val as $value) {
 
-			$dt = $customdesign_admin->get_row_id($value, 'shares');
+			$dt = $magic_admin->get_row_id($value, 'shares');
 			switch ($data_action) {
 
 				case 'active':
 					$data = array(
 						'active' => 1
 					);
-					$dt = $customdesign_admin->edit_row( $value, $data, 'shares' );
+					$dt = $magic_admin->edit_row( $value, $data, 'shares' );
 					break;
 				case 'deactive':
 					$data = array(
 						'active' => 0
 					);
-					$dt = $customdesign_admin->edit_row( $value, $data, 'shares' );
+					$dt = $magic_admin->edit_row( $value, $data, 'shares' );
 					break;
 				case 'delete':
-					$tar_file = $customdesign->cfg->upload_path.'shares/'.date('Y/m/', strtotime($dt['created'])).$dt['share_id'];
+					$tar_file = $magic->cfg->upload_path.'shares/'.date('Y/m/', strtotime($dt['created'])).$dt['share_id'];
 					if (!empty($dt['share_id'])) {
 						if (file_exists($tar_file.'.jpg'))
 							unlink($tar_file.'.jpg');
 						if (file_exists($tar_file.'.lumi'))
 							unlink($tar_file.'.lumi');
 					}
-					$customdesign_admin->delete_row($value, 'shares');
+					$magic_admin->delete_row($value, 'shares');
 					break;
 				default:
 					break;
@@ -132,48 +132,48 @@
     );
 
     $start = ( $current_page - 1 ) *  $per_page;
-	$shares = $customdesign_admin->get_rows('shares', $search_filter, $orderby, $ordering, $per_page, $start);
-	$total_record = $customdesign_admin->get_rows_total('shares');
+	$shares = $magic_admin->get_rows('shares', $search_filter, $orderby, $ordering, $per_page, $start);
+	$total_record = $magic_admin->get_rows_total('shares');
 
     $config = array(
     	'current_page'  => $current_page,
 		'total_record'  => $shares['total_count'],
 		'total_page'    => $shares['total_page'],
  	    'limit'         => $per_page,
-	    'link_full'     => $customdesign->cfg->admin_url.'customdesign-page=shares&tpage={page}',
-	    'link_first'    => $customdesign->cfg->admin_url.'customdesign-page=shares',
+	    'link_full'     => $magic->cfg->admin_url.'magic-page=shares&tpage={page}',
+	    'link_first'    => $magic->cfg->admin_url.'magic-page=shares',
 	);
 
-	$customdesign_pagination->init($config);
+	$magic_pagination->init($config);
 
 ?>
 
-<div class="customdesign_wrapper">
+<div class="magic_wrapper">
 
-	<div class="customdesign_content">
+	<div class="magic_content">
 
-		<div class="customdesign_header">
-			<h2><?php echo $customdesign->lang('shares'); ?></h2>
+		<div class="magic_header">
+			<h2><?php echo $magic->lang('shares'); ?></h2>
 		</div>
 
 		<?php if ( isset($shares['total_count']) && $shares['total_count'] > 0) { ?>
 
-			<div class="customdesign_option">
+			<div class="magic_option">
 				<div class="left">
-					<form action="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=shares" method="post">
+					<form action="<?php echo $magic->cfg->admin_url;?>magic-page=shares" method="post">
 						<select name="action" class="art_per_page">
-							<option value="none"><?php echo $customdesign->lang('Bulk Actions'); ?></option>
-							<option value="active"><?php echo $customdesign->lang('Active'); ?></option>
-							<option value="deactive"><?php echo $customdesign->lang('Deactive'); ?></option>
-							<option value="delete"><?php echo $customdesign->lang('Delete'); ?></option>
+							<option value="none"><?php echo $magic->lang('Bulk Actions'); ?></option>
+							<option value="active"><?php echo $magic->lang('Active'); ?></option>
+							<option value="deactive"><?php echo $magic->lang('Deactive'); ?></option>
+							<option value="delete"><?php echo $magic->lang('Delete'); ?></option>
 						</select>
 						<input type="hidden" name="id_action" class="id_action">
-						<input  class="customdesign_submit" type="submit" name="action_submit" value="<?php echo $customdesign->lang('Apply'); ?>">
-						<?php $customdesign->securityFrom();?>
+						<input  class="magic_submit" type="submit" name="action_submit" value="<?php echo $magic->lang('Apply'); ?>">
+						<?php $magic->securityFrom();?>
 					</form>
-					<form action="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=shares" method="post">
+					<form action="<?php echo $magic->cfg->admin_url;?>magic-page=shares" method="post">
 						<select name="per_page" class="art_per_page" data-action="submit">
-							<option value="none">-- <?php echo $customdesign->lang('Per page'); ?> --</option>
+							<option value="none">-- <?php echo $magic->lang('Per page'); ?> --</option>
 							<?php
 								$per_pages = array('20', '50', '100', '200');
 
@@ -188,41 +188,41 @@
 								}
 							?>
 						</select>
-						<?php $customdesign->securityFrom();?>
+						<?php $magic->securityFrom();?>
 					</form>
-					<form action="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=shares" method="post">
+					<form action="<?php echo $magic->cfg->admin_url;?>magic-page=shares" method="post">
 						<select name="sort" class="art_per_page" data-action="submit">
-							<option value="">-- <?php echo $customdesign->lang('Sort by'); ?> --</option>
-							<option value="name_asc" <?php if ($dt_order == 'name_asc' ) echo 'selected' ; ?> ><?php echo $customdesign->lang('Name'); ?> A-Z</option>
-							<option value="name_desc" <?php if ($dt_order == 'name_desc' ) echo 'selected' ; ?> ><?php echo $customdesign->lang('Name'); ?> Z-A</option>
+							<option value="">-- <?php echo $magic->lang('Sort by'); ?> --</option>
+							<option value="name_asc" <?php if ($dt_order == 'name_asc' ) echo 'selected' ; ?> ><?php echo $magic->lang('Name'); ?> A-Z</option>
+							<option value="name_desc" <?php if ($dt_order == 'name_desc' ) echo 'selected' ; ?> ><?php echo $magic->lang('Name'); ?> Z-A</option>
 						</select>
-						<?php $customdesign->securityFrom();?>
+						<?php $magic->securityFrom();?>
 					</form>
 				</div>
 				<div class="right">
-					<form action="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=shares" method="post">
-						<input type="search" name="search" class="search" placeholder="<?php echo $customdesign->lang('Search ...'); ?>" value="<?php if(isset($_SESSION[$prefix.'data_search'])) echo $_SESSION[$prefix.'data_search']; ?>">
-						<input  class="customdesign_submit" type="submit" name="search_share" value="<?php echo $customdesign->lang('Search'); ?>">
-						<?php $customdesign->securityFrom();?>
+					<form action="<?php echo $magic->cfg->admin_url;?>magic-page=shares" method="post">
+						<input type="search" name="search" class="search" placeholder="<?php echo $magic->lang('Search ...'); ?>" value="<?php if(isset($_SESSION[$prefix.'data_search'])) echo $_SESSION[$prefix.'data_search']; ?>">
+						<input  class="magic_submit" type="submit" name="search_share" value="<?php echo $magic->lang('Search'); ?>">
+						<?php $magic->securityFrom();?>
 
 					</form>
 				</div>
 			</div>
-			<div class="customdesign_wrap_table">
-				<table class="customdesign_table customdesign_shares">
+			<div class="magic_wrap_table">
+				<table class="magic_table magic_shares">
 					<thead>
 						<tr>
-							<th class="customdesign_check">
-								<div class="customdesign_checkbox">
+							<th class="magic_check">
+								<div class="magic_checkbox">
 									<input type="checkbox" id="check_all">
 									<label for="check_all"><em class="check"></em></label>
 								</div>
 							</th>
-							<th><?php echo $customdesign->lang('Name'); ?></th>
-							<th><?php echo $customdesign->lang('Screenshot'); ?></th>
-							<th><?php echo $customdesign->lang('View'); ?></th>
-							<th><?php echo $customdesign->lang('Status'); ?></th>
-							<th><?php echo $customdesign->lang('Action'); ?></th>
+							<th><?php echo $magic->lang('Name'); ?></th>
+							<th><?php echo $magic->lang('Screenshot'); ?></th>
+							<th><?php echo $magic->lang('View'); ?></th>
+							<th><?php echo $magic->lang('Status'); ?></th>
+							<th><?php echo $magic->lang('Action'); ?></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -233,40 +233,40 @@
 								foreach ($shares['rows'] as $value) { ?>
 
 									<tr>
-										<td class="customdesign_check">
-											<div class="customdesign_checkbox">
+										<td class="magic_check">
+											<div class="magic_checkbox">
 												<input type="checkbox" name="checked[]" class="action_check" value="<?php if(isset($value['id'])) echo $value['id']; ?>" class="action" id="<?php if(isset($value['id'])) echo $value['id']; ?>">
 												<label for="<?php if(isset($value['id'])) echo $value['id']; ?>"><em class="check"></em></label>
 											</div>
 										</td>
 										<td>
 											<a href="<?php
-												$link = $customdesign->cfg->tool_url.(strpos($customdesign->cfg->tool_url, '?') === false ? '?' : '&').'product_base='.$value['product'].(!empty($value['product_cms']) ? '&product_cms='.$value['product_cms'] : '').'&share='.$value['share_id'];
+												$link = $magic->cfg->tool_url.(strpos($magic->cfg->tool_url, '?') === false ? '?' : '&').'product_base='.$value['product'].(!empty($value['product_cms']) ? '&product_cms='.$value['product_cms'] : '').'&share='.$value['share_id'];
 												echo str_replace('?&', '?', $link);
 												
-											?>" target="_blank" title="<?php echo $customdesign->lang('View this share design'); ?>">
+											?>" target="_blank" title="<?php echo $magic->lang('View this share design'); ?>">
 												<?php if(isset($value['name'])) echo $value['name']; ?>
 											</a>
 										</td>
 										<td><?php
-											echo '<img src="'.$customdesign->cfg->upload_url.'shares/'.date('Y/m/', strtotime($value['created'])).$value['share_id'].'.jpg" height="150" />';
+											echo '<img src="'.$magic->cfg->upload_url.'shares/'.date('Y/m/', strtotime($value['created'])).$value['share_id'].'.jpg" height="150" />';
 										?></td>
 										<td><?php if(isset($value['view'])) echo $value['view']; ?></td>
 										<td>
-											<a href="#" class="customdesign_action" data-type="shares" data-action="switch_active" data-status="<?php echo (isset($value['active']) ? $value['active'] : '0'); ?>" data-id="<?php if(isset($value['id'])) echo $value['id'] ?>">
+											<a href="#" class="magic_action" data-type="shares" data-action="switch_active" data-status="<?php echo (isset($value['active']) ? $value['active'] : '0'); ?>" data-id="<?php if(isset($value['id'])) echo $value['id'] ?>">
 												<?php
 													if (isset($value['active'])) {
 														if ($value['active'] == 1) {
-															echo '<em class="pub">'.$customdesign->lang('active').'</em>';
+															echo '<em class="pub">'.$magic->lang('active').'</em>';
 														} else {
-															echo '<em class="un pub">'.$customdesign->lang('deactive').'</em>';
+															echo '<em class="un pub">'.$magic->lang('deactive').'</em>';
 														}
 													}
 												?>
 											</a>
 										</td>
 										<td>
-											<a href="#" class="customdesign-item-action" data-item="<?php echo $value['id'];?>" data-func="delete"><?php echo $customdesign->lang('Delete'); ?></a>
+											<a href="#" class="magic-item-action" data-item="<?php echo $value['id'];?>" data-func="delete"><?php echo $magic->lang('Delete'); ?></a>
 										</td>
 									</tr>
 
@@ -278,16 +278,16 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="customdesign_pagination"><?php echo $customdesign_pagination->pagination_html(); ?></div>
+			<div class="magic_pagination"><?php echo $magic_pagination->pagination_html(); ?></div>
 
 		<?php } else {
 					if (isset($total_record) && $total_record > 0) {
-						echo '<p class="no-data">'.$customdesign->lang('Apologies, but no results were found.').'</p>';
+						echo '<p class="no-data">'.$magic->lang('Apologies, but no results were found.').'</p>';
 						$_SESSION[$prefix.'data_search'] = '';
-						echo '<a href="'.$customdesign->cfg->admin_url.'customdesign-page=shares" class="btn-back"><i class="fa fa-reply" aria-hidden="true"></i>'.$customdesign->lang('Back To Lists').'</a>';
+						echo '<a href="'.$magic->cfg->admin_url.'magic-page=shares" class="btn-back"><i class="fa fa-reply" aria-hidden="true"></i>'.$magic->lang('Back To Lists').'</a>';
 					}
 					else
-						echo '<p class="no-data">'.$customdesign->lang('No data. Please add share.').'</p>';
+						echo '<p class="no-data">'.$magic->lang('No data. Please add share.').'</p>';
 			}?>
 
 	</div>

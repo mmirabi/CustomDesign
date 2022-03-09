@@ -10,15 +10,15 @@
 		$val = isset($_POST['id_action']) ? $_POST['id_action'] : '';
 		$val = explode(',', $val);
 		
-		$customdesign_admin->check_caps('bugs');
+		$magic_admin->check_caps('bugs');
 		
 		foreach ($val as $value) {
 
-			$dt = $customdesign_admin->get_row_id($value, 'bugs');
+			$dt = $magic_admin->get_row_id($value, 'bugs');
 			switch ($data_action) {
 
 				case 'delete':
-					$customdesign_admin->delete_row($value, 'bugs');
+					$magic_admin->delete_row($value, 'bugs');
 					break;
 				default:
 					break;
@@ -102,49 +102,49 @@
     );
 
     $start = ( $current_page - 1 ) *  $per_page;
-	$bugs = $customdesign_admin->get_rows('bugs', $search_filter, $orderby, $ordering, $per_page, $start);
-	$total_record = $customdesign_admin->get_rows_total('bugs');
+	$bugs = $magic_admin->get_rows('bugs', $search_filter, $orderby, $ordering, $per_page, $start);
+	$total_record = $magic_admin->get_rows_total('bugs');
 
     $config = array(
     	'current_page'  => $current_page,
 		'total_record'  => $bugs['total_count'],
 		'total_page'    => $bugs['total_page'],
  	    'limit'         => $per_page,
-	    'link_full'     => $customdesign->cfg->admin_url.'customdesign-page=bugs&tpage={page}',
-	    'link_first'    => $customdesign->cfg->admin_url.'customdesign-page=bugs',
+	    'link_full'     => $magic->cfg->admin_url.'magic-page=bugs&tpage={page}',
+	    'link_first'    => $magic->cfg->admin_url.'magic-page=bugs',
 	);
 
-	$customdesign_pagination->init($config);
+	$magic_pagination->init($config);
 
 ?>
 
-<div class="customdesign_wrapper">
+<div class="magic_wrapper">
 
-	<div class="customdesign_content">
+	<div class="magic_content">
 
-		<div class="customdesign_header">
-			<h2><?php echo $customdesign->lang('bugs'); ?></h2>
-			<a href="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=bug" class="add-new customdesign-button">
+		<div class="magic_header">
+			<h2><?php echo $magic->lang('bugs'); ?></h2>
+			<a href="<?php echo $magic->cfg->admin_url;?>magic-page=bug" class="add-new magic-button">
 				<i class="fa fa-plus"></i> 
-				<?php echo $customdesign->lang('Add new bug'); ?>
+				<?php echo $magic->lang('Add new bug'); ?>
 			</a>
 			<?php
-				$customdesign_page = isset($_GET['customdesign-page']) ? $_GET['customdesign-page'] : '';
-				echo $customdesign_helper->breadcrumb($customdesign_page);
+				$magic_page = isset($_GET['magic-page']) ? $_GET['magic-page'] : '';
+				echo $magic_helper->breadcrumb($magic_page);
 			?>
 		</div>
 
-		<div class="customdesign_option">
+		<div class="magic_option">
 			<div class="left">
-				<form action="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=bugs" method="post">
+				<form action="<?php echo $magic->cfg->admin_url;?>magic-page=bugs" method="post">
 					<input type="hidden" name="id_action" class="id_action">
 					<input type="hidden" name="action" value="delete" />
-					<input  class="customdesign_submit" type="submit" name="action_submit" value="<?php echo $customdesign->lang('Delete'); ?>">
-					<?php $customdesign->securityFrom();?>
+					<input  class="magic_submit" type="submit" name="action_submit" value="<?php echo $magic->lang('Delete'); ?>">
+					<?php $magic->securityFrom();?>
 				</form>
-				<form action="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=bugs" method="post">
+				<form action="<?php echo $magic->cfg->admin_url;?>magic-page=bugs" method="post">
 					<select name="per_page" class="art_per_page" data-action="submit">
-						<option value="none">-- <?php echo $customdesign->lang('Per page'); ?> --</option>
+						<option value="none">-- <?php echo $magic->lang('Per page'); ?> --</option>
 						<?php
 							$per_pages = array('10', '25', '50', '100');
 
@@ -159,42 +159,42 @@
 							}
 						?>
 					</select>
-					<?php $customdesign->securityFrom();?>
+					<?php $magic->securityFrom();?>
 				</form>
-				<form action="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=bugs" method="post">
+				<form action="<?php echo $magic->cfg->admin_url;?>magic-page=bugs" method="post">
 					<select name="sort" class="art_per_page" data-action="submit">
-						<option value="">-- <?php echo $customdesign->lang('Sort by'); ?> --</option>
-						<option value="created_asc" <?php if ($dt_order == 'created_asc' ) echo 'selected' ; ?> ><?php echo $customdesign->lang('Created date'); ?> &uarr;</option>
-						<option value="created_desc" <?php if ($dt_order == 'created_desc' ) echo 'selected' ; ?> ><?php echo $customdesign->lang('Created date'); ?> &darr;</option>
-						<option value="upadted_asc" <?php if ($dt_order == 'upadted_asc' ) echo 'selected' ; ?> ><?php echo $customdesign->lang('Upadted date'); ?> &uarr;</option>
-						<option value="upadted_desc" <?php if ($dt_order == 'upadted_desc' ) echo 'selected' ; ?> ><?php echo $customdesign->lang('Upadted date'); ?> &darr;</option>
+						<option value="">-- <?php echo $magic->lang('Sort by'); ?> --</option>
+						<option value="created_asc" <?php if ($dt_order == 'created_asc' ) echo 'selected' ; ?> ><?php echo $magic->lang('Created date'); ?> &uarr;</option>
+						<option value="created_desc" <?php if ($dt_order == 'created_desc' ) echo 'selected' ; ?> ><?php echo $magic->lang('Created date'); ?> &darr;</option>
+						<option value="upadted_asc" <?php if ($dt_order == 'upadted_asc' ) echo 'selected' ; ?> ><?php echo $magic->lang('Upadted date'); ?> &uarr;</option>
+						<option value="upadted_desc" <?php if ($dt_order == 'upadted_desc' ) echo 'selected' ; ?> ><?php echo $magic->lang('Upadted date'); ?> &darr;</option>
 					</select>
-					<?php $customdesign->securityFrom();?>
+					<?php $magic->securityFrom();?>
 				</form>
 			</div>
 			<div class="right">
-				<form action="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=bugs" method="post">
-					<input type="search" name="search" class="search" placeholder="<?php echo $customdesign->lang('Search ...'); ?>" value="<?php if(isset($_SESSION[$prefix.'data_search'])) echo $_SESSION[$prefix.'data_search']; ?>">
-					<input  class="customdesign_submit" type="submit" name="search_bug" value="<?php echo $customdesign->lang('Search'); ?>">
-					<?php $customdesign->securityFrom();?>
+				<form action="<?php echo $magic->cfg->admin_url;?>magic-page=bugs" method="post">
+					<input type="search" name="search" class="search" placeholder="<?php echo $magic->lang('Search ...'); ?>" value="<?php if(isset($_SESSION[$prefix.'data_search'])) echo $_SESSION[$prefix.'data_search']; ?>">
+					<input  class="magic_submit" type="submit" name="search_bug" value="<?php echo $magic->lang('Search'); ?>">
+					<?php $magic->securityFrom();?>
 
 				</form>
 			</div>
 		</div>
 		<?php if ( isset($bugs['total_count']) && $bugs['total_count'] > 0) { ?>
-			<div class="customdesign_wrap_table">
-				<table class="customdesign_table customdesign_bugs">
+			<div class="magic_wrap_table">
+				<table class="magic_table magic_bugs">
 					<thead>
 						<tr>
-							<th class="customdesign_check">
-								<div class="customdesign_checkbox">
+							<th class="magic_check">
+								<div class="magic_checkbox">
 									<input type="checkbox" id="check_all">
 									<label for="check_all"><em class="check"></em></label>
 								</div>
 							</th>
-							<th><?php echo $customdesign->lang('Content'); ?></th>
-							<th><?php echo $customdesign->lang('Report to Customdesign'); ?></th>
-							<th><?php echo $customdesign->lang('Status'); ?></th>
+							<th><?php echo $magic->lang('Content'); ?></th>
+							<th><?php echo $magic->lang('Report to Magic'); ?></th>
+							<th><?php echo $magic->lang('Status'); ?></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -205,33 +205,33 @@
 								foreach ($bugs['rows'] as $value) { ?>
 
 									<tr>
-										<td class="customdesign_check">
-											<div class="customdesign_checkbox">
+										<td class="magic_check">
+											<div class="magic_checkbox">
 												<input type="checkbox" name="checked[]" class="action_check" value="<?php if(isset($value['id'])) echo $value['id']; ?>" class="action" id="<?php if(isset($value['id'])) echo $value['id']; ?>">
 												<label for="<?php if(isset($value['id'])) echo $value['id']; ?>"><em class="check"></em></label>
 											</div>
 										</td>
 										<td>
-											<a href="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=bug&id=<?php if(isset($value['id'])) echo $value['id'] ?>" class="name"><?php 
+											<a href="<?php echo $magic->cfg->admin_url;?>magic-page=bug&id=<?php if(isset($value['id'])) echo $value['id'] ?>" class="name"><?php 
 												if(isset($value['content'])) 
 													echo substr($value['content'], 0, 50); 
 												?>
 											</a>
 										</td>
 										<td><?php 
-											if($value['customdesign'] != 1) {
-												echo '<a href="#report-bug" data-id="'.$value['id'].'" title="'.$customdesign->lang('Report this bug to MagicRugs.com').'" class="send_customdesign">'.$customdesign->lang('Send now').'</a>';
-											}else echo $customdesign->lang('Sent!');
+											if($value['magic'] != 1) {
+												echo '<a href="#report-bug" data-id="'.$value['id'].'" title="'.$magic->lang('Report this bug to MagicRugs.com').'" class="send_magic">'.$magic->lang('Send now').'</a>';
+											}else echo $magic->lang('Sent!');
 										?></td>
 										<td>
 											<?php
 												if (isset($value['status'])) {
 													if ($value['status'] == 'new')
-														echo '<em class="new pub">'.$customdesign->lang('new').'</em>';
+														echo '<em class="new pub">'.$magic->lang('new').'</em>';
 													if ($value['status'] == 'pending')
-														echo '<em class="pen pub">'.$customdesign->lang('pending').'</em>';
+														echo '<em class="pen pub">'.$magic->lang('pending').'</em>';
 													if ($value['status'] == 'fixed')
-														echo '<em class="pub">'.$customdesign->lang('fixed').'</em>';
+														echo '<em class="pub">'.$magic->lang('fixed').'</em>';
 												}
 											?>
 										</td>
@@ -245,16 +245,16 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="customdesign_pagination"><?php echo $customdesign_pagination->pagination_html(); ?></div>
+			<div class="magic_pagination"><?php echo $magic_pagination->pagination_html(); ?></div>
 
 		<?php } else {
 					if (isset($total_record) && $total_record > 0) {
-						echo '<p class="no-data">'.$customdesign->lang('Apologies, but no results were found.').'</p>';
+						echo '<p class="no-data">'.$magic->lang('Apologies, but no results were found.').'</p>';
 						$_SESSION[$prefix.'data_search'] = '';
-						echo '<a href="'.$customdesign->cfg->admin_url.'customdesign-page=bugs" class="btn-back"><i class="fa fa-reply" aria-hidden="true"></i>'.$customdesign->lang('Back To Lists').'</a>';
+						echo '<a href="'.$magic->cfg->admin_url.'magic-page=bugs" class="btn-back"><i class="fa fa-reply" aria-hidden="true"></i>'.$magic->lang('Back To Lists').'</a>';
 					}
 					else
-						echo '<p class="no-data">'.$customdesign->lang('No data. Please add bug.').'</p>';
+						echo '<p class="no-data">'.$magic->lang('No data. Please add bug.').'</p>';
 			}?>
 
 	</div>

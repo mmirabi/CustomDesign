@@ -1,31 +1,31 @@
 <?php
 /**
-*
-*   (p) package: Custom Design
-*   (c) author: Mehdi Mirabi
-*   (i) website: https://www.magicrugs.com
+*	
+*	(p) package: MagicRugs
+*	(c) author:	Mehdi Mirabi
+*	(i) website: https://www.magicrugs.com
 *
 */
 
-if (!defined('CUSTOMDESIGN')) {
+if (!defined('MAGIC')) {
 	return header('HTTP/1.0 403 Forbidden');
 }
 
-class customdesign_secure{
+class magic_secure{
 	
 	static function create_nonce($name) {
 		
-		global $customdesign;
+		global $magic;
 		
-		$session_id	 = customdesign_secure::esc($_COOKIE['CUSTOMDESIGNSESSID']);
-		$name		 = customdesign_secure::esc($name);
+		$session_id	 = magic_secure::esc($_COOKIE['MAGICSESSID']);
+		$name		 = magic_secure::esc($name);
 		$time 		 = time();
-		$db 		 = "{$customdesign->db->prefix}sessions";
+		$db 		 = "{$magic->db->prefix}sessions";
 		
-		$nonce 		 = $customdesign->db->rawQuery(
+		$nonce 		 = $magic->db->rawQuery(
 			"SELECT `id`, `value`, `expires` 
 				FROM `$db` 
-				WHERE `author`='{$customdesign->vendor_id}' AND `session_id`='{$session_id}' AND `name`='{$name}'"
+				WHERE `author`='{$magic->vendor_id}' AND `session_id`='{$session_id}' AND `name`='{$name}'"
 		);
 		
 		if (count($nonce) > 0) {
@@ -40,10 +40,10 @@ class customdesign_secure{
 				) {
 					
 					if ($no['expires'] < $time+1000) {
-						$customdesign->db->rawQuery(
+						$magic->db->rawQuery(
 							"UPDATE `$db` 
 							SET `expires`=".($time+(60*60*24))." 
-							WHERE `author`='{$customdesign->vendor_id}' AND `id`='{$no['id']}'"
+							WHERE `author`='{$magic->vendor_id}' AND `id`='{$no['id']}'"
 						);
 					}
 					
@@ -56,27 +56,27 @@ class customdesign_secure{
 			if ( $valid !== false ) {
 				
 				if ( count($nonce) > 1 ) {
-					$customdesign->db->rawQuery(
-						"DELETE FROM `$db` WHERE `author`='{$customdesign->vendor_id}' AND `name`='{$name}' AND `session_id`='{$session_id}' AND `id` <> ".$valid['id']
+					$magic->db->rawQuery(
+						"DELETE FROM `$db` WHERE `author`='{$magic->vendor_id}' AND `name`='{$name}' AND `session_id`='{$session_id}' AND `id` <> ".$valid['id']
 					);
 				}
 				
 				return $valid['value'];
 			
 			} else {
-				$customdesign->db->rawQuery(
-					"DELETE FROM `$db` WHERE `author`='{$customdesign->vendor_id}' AND `name`='{$name}' AND `session_id`='{$session_id}'"
+				$magic->db->rawQuery(
+					"DELETE FROM `$db` WHERE `author`='{$magic->vendor_id}' AND `name`='{$name}' AND `session_id`='{$session_id}'"
 				);
 			}
 			
 		}
 		
-		$val = strtoupper($customdesign->generate_id(8));
+		$val = strtoupper($magic->generate_id(8));
 		
-		$customdesign->db->rawQuery(
+		$magic->db->rawQuery(
 			"INSERT INTO `$db` 
 				(`id`, `name`, `value`, `author`, `expires`, `session_id`) 
-				VALUES (NULL, '{$name}', '{$val}', '{$customdesign->vendor_id}', ".($time+(60*60*24)).", '{$session_id}')"
+				VALUES (NULL, '{$name}', '{$val}', '{$magic->vendor_id}', ".($time+(60*60*24)).", '{$session_id}')"
 		);
 		
 		return $val;
@@ -85,20 +85,20 @@ class customdesign_secure{
 	
 	static function check_nonce($name, $value) {
 		
-		global $customdesign;
+		global $magic;
 		
-		$db 			= "{$customdesign->db->prefix}sessions";
-		$query			= "DELETE FROM `$db` WHERE `author`='{$customdesign->vendor_id}' AND `expires` < ".time();
-		$nonce			= $customdesign->db->rawQuery($query);
+		$db 			= "{$magic->db->prefix}sessions";
+		$query			= "DELETE FROM `$db` WHERE `author`='{$magic->vendor_id}' AND `expires` < ".time();
+		$nonce			= $magic->db->rawQuery($query);
 		$time			= time();
 		
-		$session_id 	= customdesign_secure::esc($_COOKIE['CUSTOMDESIGNSESSID']);
-		$name 			= customdesign_secure::esc($name);
+		$session_id 	= magic_secure::esc($_COOKIE['MAGICSESSID']);
+		$name 			= magic_secure::esc($name);
 		
-		$nonce 			= $customdesign->db->rawQuery(
+		$nonce 			= $magic->db->rawQuery(
 			"SELECT `id`, `value`, `expires` 
 				FROM `$db` 
-				WHERE `author`='{$customdesign->vendor_id}' AND `name`='{$name}' AND `session_id`='{$session_id}'"
+				WHERE `author`='{$magic->vendor_id}' AND `name`='{$name}' AND `session_id`='{$session_id}'"
 		);
 		
 		$_return = false;
@@ -114,10 +114,10 @@ class customdesign_secure{
 					if (
 						$no['expires'] < $time+1000
 					) {
-						$customdesign->db->rawQuery(
+						$magic->db->rawQuery(
 							"UPDATE `$db` 
 							SET `expires`=".($time+(60*60*24))." 
-							WHERE `author`='{$customdesign->vendor_id}' AND `id`='{$no['id']}'"
+							WHERE `author`='{$magic->vendor_id}' AND `id`='{$no['id']}'"
 						);
 					}
 					
@@ -127,13 +127,13 @@ class customdesign_secure{
 				
 			}
 			
-			$_return = $customdesign->apply_filters('check-nonce', $_return, $name, $value);
+			$_return = $magic->apply_filters('check-nonce', $_return, $name, $value);
 			
 			if ( $_return !== false ) {
 				
 				if ( count($nonce) > 1 ) {
-					$customdesign->db->rawQuery(
-						"DELETE FROM `$db` WHERE `author`='{$customdesign->vendor_id}' AND `name`='{$name}' AND `session_id`='{$session_id}' AND `id` <> ".$_return
+					$magic->db->rawQuery(
+						"DELETE FROM `$db` WHERE `author`='{$magic->vendor_id}' AND `name`='{$name}' AND `session_id`='{$session_id}' AND `id` <> ".$_return
 					);
 				}
 				
@@ -144,7 +144,7 @@ class customdesign_secure{
 			}
 			
 		} else {
-			$_return = $customdesign->apply_filters('check-nonce', $_return, $name, $value);
+			$_return = $magic->apply_filters('check-nonce', $_return, $name, $value);
 			return $_return;
 		}
 		
@@ -152,15 +152,15 @@ class customdesign_secure{
 	
 	static function nonce_exist($name, $value) {
 		
-		global $customdesign;
+		global $magic;
 		
-		$session_id	 = customdesign_secure::esc($_COOKIE['CUSTOMDESIGNSESSID']);
-		$name		 = customdesign_secure::esc($name);
-		$db 		 = "{$customdesign->db->prefix}sessions";
-		$nonce 		 = $customdesign->db->rawQuery(
+		$session_id	 = magic_secure::esc($_COOKIE['MAGICSESSID']);
+		$name		 = magic_secure::esc($name);
+		$db 		 = "{$magic->db->prefix}sessions";
+		$nonce 		 = $magic->db->rawQuery(
 			"SELECT `value`, `expires` 
 				FROM `$db`
-				WHERE `author`='{$customdesign->vendor_id}' AND `name`='{$name}' AND `session_id`='{$session_id}'"
+				WHERE `author`='{$magic->vendor_id}' AND `name`='{$name}' AND `session_id`='{$session_id}'"
 		);
 		
 		if (count($nonce) > 0 && $nonce[0]["value"] == $value) {

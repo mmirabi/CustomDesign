@@ -2,10 +2,10 @@
 	$title = "Edit Design";
 
 	$arr = Array ("name");
-	$design = $customdesign_admin->get_rows_custom($arr,'customdesign_designs');
+	$design = $magic_admin->get_rows_custom($arr,'magic_designs');
 
 	if (isset($_GET['id'])) {
-		$data = $customdesign_admin->get_row_id($_GET['id'], 'customdesign_designs');
+		$data = $magic_admin->get_row_id($_GET['id'], 'magic_designs');
 	}
 
 	if (!empty($_POST['save_design'])) {
@@ -20,14 +20,14 @@
 		$errors = array();
 
 		if (empty($data['name'])) {
-			$errors['name'] = $customdesign->lang('Please Insert Name.');
+			$errors['name'] = $magic->lang('Please Insert Name.');
 		} else {
 
 			$data['name'] = trim($data['name']);
 			if (is_array($design) && count($design) >0) {
 				foreach ($design as $value) {
 					if ($value['name'] == $data['name'] && $data['name'] != $data_name) {
-						$errors['name'] = $customdesign->lang('The name provided already exists.');
+						$errors['name'] = $magic->lang('The name provided already exists.');
 					}
 				}
 			}
@@ -51,28 +51,28 @@
 		if (count($errors) == 0) {
 
 			if (!empty($data_id)) {
-				$id = $customdesign_admin->edit_row( $data_id, $data, 'customdesign_designs' );
+				$id = $magic_admin->edit_row( $data_id, $data, 'magic_designs' );
 			} else {
-				$id =$customdesign_admin->add_row( $data, 'customdesign_designs' );
+				$id =$magic_admin->add_row( $data, 'magic_designs' );
 			}
-			$customdesign_msg = array('status' => 'success');
-			$customdesign->connector->set_session('customdesign_msg', $customdesign_msg);
+			$magic_msg = array('status' => 'success');
+			$magic->connector->set_session('magic_msg', $magic_msg);
 
 		} else {
 
-			$customdesign_msg = array('status' => 'error', 'errors' => $errors);
-			$customdesign->connector->set_session('customdesign_msg', $customdesign_msg);
+			$magic_msg = array('status' => 'error', 'errors' => $errors);
+			$magic->connector->set_session('magic_msg', $magic_msg);
 			if (!empty($data_id)) {
-				$customdesign->redirect($customdesign->cfg->admin_url . "customdesign-page=design&id=".$data_id);
+				$magic->redirect($magic->cfg->admin_url . "magic-page=design&id=".$data_id);
 			} else {
-				$customdesign->redirect($customdesign->cfg->admin_url . "customdesign-page=design");
+				$magic->redirect($magic->cfg->admin_url . "magic-page=design");
 			}
 			exit;
 
 		}
 
 		if (isset($id) && $id == true ) {
-			$customdesign->redirect($customdesign->cfg->admin_url . "customdesign-page=design&id=".$id);
+			$magic->redirect($magic->cfg->admin_url . "magic-page=design&id=".$id);
 			exit;
 		}
 
@@ -80,69 +80,69 @@
 
 ?>
 
-<div class="customdesign_wrapper">
-	<div class="customdesign_content">
-		<div class="customdesign_header">
+<div class="magic_wrapper">
+	<div class="magic_content">
+		<div class="magic_header">
 			<?php
 
 				if (isset($_GET['id'])) {
-					echo '<h2>'.$customdesign->lang('Edit Design').'</h2><a href="'.$customdesign->cfg->admin_url.'customdesign-page=design" class="add-new customdesign-button">'.$customdesign->lang('Add New Design').'</a>';
+					echo '<h2>'.$magic->lang('Edit Design').'</h2><a href="'.$magic->cfg->admin_url.'magic-page=design" class="add-new magic-button">'.$magic->lang('Add New Design').'</a>';
 				} else {
-					echo '<h2>'.$customdesign->lang('Add Design').'</h2>';
+					echo '<h2>'.$magic->lang('Add Design').'</h2>';
 				}
-				$customdesign_page = isset($_GET['customdesign-page']) ? $_GET['customdesign-page'] : '';
-				echo $customdesign_helper->breadcrumb($customdesign_page); 
+				$magic_page = isset($_GET['magic-page']) ? $_GET['magic-page'] : '';
+				echo $magic_helper->breadcrumb($magic_page); 
 
 			?>
 		</div>
 		<?php 
 
-			$customdesign_msg = $customdesign->connector->get_session('customdesign_msg');
-			if (isset($customdesign_msg['status']) && $customdesign_msg['status'] == 'error') { ?>
+			$magic_msg = $magic->connector->get_session('magic_msg');
+			if (isset($magic_msg['status']) && $magic_msg['status'] == 'error') { ?>
 				
-				<div class="customdesign_message err">
+				<div class="magic_message err">
 
-					<?php foreach ($customdesign_msg['errors'] as $val) {
-						echo '<em class="customdesign_err"><i class="fa fa-times"></i>  ' . $val . '</em>';
-						$customdesign_msg = array('status' => '');
-						$customdesign->connector->set_session('customdesign_msg', $customdesign_msg);
+					<?php foreach ($magic_msg['errors'] as $val) {
+						echo '<em class="magic_err"><i class="fa fa-times"></i>  ' . $val . '</em>';
+						$magic_msg = array('status' => '');
+						$magic->connector->set_session('magic_msg', $magic_msg);
 					} ?>
 
 				</div>
 				
 			<?php }
 
-			if (isset($customdesign_msg['status']) && $customdesign_msg['status'] == 'success') { ?>
+			if (isset($magic_msg['status']) && $magic_msg['status'] == 'success') { ?>
 				
-				<div class="customdesign_message"> 
+				<div class="magic_message"> 
 					<?php
-						echo '<em class="customdesign_suc"><i class="fa fa-check"></i> '.$customdesign->lang('Your data has been successfully saved').'</em>';
-						$customdesign_msg = array('status' => '');
-						$customdesign->connector->set_session('customdesign_msg', $customdesign_msg);
+						echo '<em class="magic_suc"><i class="fa fa-check"></i> '.$magic->lang('Your data has been successfully saved').'</em>';
+						$magic_msg = array('status' => '');
+						$magic->connector->set_session('magic_msg', $magic_msg);
 					?>
 				</div>
 
 			<?php }
 
 		?>
-		<form action="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=design" method="post" class="customdesign_form">
-			<div class="customdesign_form_group">
-				<span><?php echo $customdesign->lang('Name'); ?><em class="required">*</em></span>
-				<div class="customdesign_form_content">
+		<form action="<?php echo $magic->cfg->admin_url;?>magic-page=design" method="post" class="magic_form">
+			<div class="magic_form_group">
+				<span><?php echo $magic->lang('Name'); ?><em class="required">*</em></span>
+				<div class="magic_form_content">
 					<input type="text" name="name" value="<?php echo !empty($data['name']) ? $data['name'] : '' ?>">
 					<input type="hidden" name="name_temp" value="<?php echo !empty($data['name']) ? $data['name'] : '' ?>">
 				</div>
 			</div>
-			<div class="customdesign_form_group">
-				<span><?php echo $customdesign->lang('Screenshot'); ?></span>
-				<div class="customdesign_form_content">
+			<div class="magic_form_group">
+				<span><?php echo $magic->lang('Screenshot'); ?></span>
+				<div class="magic_form_content">
 					<textarea name="screenshot"><?php echo !empty($data['screenshot']) ? $data['screenshot'] : '' ?></textarea>
 				</div>
 			</div>
-			<div class="customdesign_form_group">
-				<span><?php echo $customdesign->lang('Sharing'); ?></span>
-				<div class="customdesign_form_content">
-					<div class="customdesign-toggle">
+			<div class="magic_form_group">
+				<span><?php echo $magic->lang('Sharing'); ?></span>
+				<div class="magic_form_content">
+					<div class="magic-toggle">
 						<?php 
 							$check = '';
 							if (isset($data['sharing']) && $data['sharing'] == 1) {
@@ -150,15 +150,15 @@
 							}
 						?>
 						<input type="checkbox" name="sharing" <?php echo $check; ?>>
-						<span class="customdesign-toggle-label" data-on="Yes" data-off="No"></span>
-						<span class="customdesign-toggle-handle"></span>
+						<span class="magic-toggle-label" data-on="Yes" data-off="No"></span>
+						<span class="magic-toggle-handle"></span>
 					</div>
 				</div>
 			</div>
-			<div class="customdesign_form_group">
-				<span><?php echo $customdesign->lang('Active'); ?></span>
-				<div class="customdesign_form_content">
-					<div class="customdesign-toggle">
+			<div class="magic_form_group">
+				<span><?php echo $magic->lang('Active'); ?></span>
+				<div class="magic_form_content">
+					<div class="magic-toggle">
 						<?php 
 							$check = '';
 							if (isset($data['active']) && $data['active'] == 1) {
@@ -166,17 +166,17 @@
 							}
 						?>
 						<input type="checkbox" name="active" <?php echo $check; ?>>
-						<span class="customdesign-toggle-label" data-on="Yes" data-off="No"></span>
-						<span class="customdesign-toggle-handle"></span>
+						<span class="magic-toggle-label" data-on="Yes" data-off="No"></span>
+						<span class="magic-toggle-handle"></span>
 					</div>
 				</div>
 			</div>
-			<div class="customdesign_form_group">
+			<div class="magic_form_group">
 				<input type="hidden" name="id" value="<?php echo !empty($data['id']) ? $data['id'] : '' ?>"/>
-				<input type="submit" class="customdesign-button customdesign-button-primary" value="<?php echo $customdesign->lang('Save Design'); ?>"/>
+				<input type="submit" class="magic-button magic-button-primary" value="<?php echo $magic->lang('Save Design'); ?>"/>
 				<input type="hidden" name="save_design" value="true">
 			</div>
-			<?php $customdesign->securityFrom();?>
+			<?php $magic->securityFrom();?>
 		</form>
 	</div>
 </div>

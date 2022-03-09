@@ -12,7 +12,7 @@
  * @link      http://github.com/joshcam/PHP-MySQLi-Database-Class
  * @version   2.8-master
  */
-if(!defined('CUSTOMDESIGN')) {
+if(!defined('MAGIC')) {
 	header('HTTP/1.0 403 Forbidden');
 	exit;
 }
@@ -1411,7 +1411,7 @@ class MysqliDb
     protected function _buildQuery($numRows = null, $tableData = null)
     {
 	    
-	    global $customdesign;
+	    global $magic;
 	    
         // $this->_buildJoinOld();
         $this->_buildJoin();
@@ -1432,7 +1432,7 @@ class MysqliDb
 		
         $this->_lastQuery = $this->replacePlaceHolders($this->_query, $this->_bindParams);
 	    
-	    $this->_lastQuery = $customdesign->apply_filters('last_query', $this->_lastQuery);
+	    $this->_lastQuery = $magic->apply_filters('last_query', $this->_lastQuery);
 		
         if ($this->isSubQuery) {
             return;
@@ -1462,7 +1462,7 @@ class MysqliDb
         $parameters = array();
         $results = array();
         
-        if (defined('CUSTOMDESIGN_WPDB')) {
+        if (defined('MAGIC_WPDB')) {
 	        
 	        global $wpdb;
 	        

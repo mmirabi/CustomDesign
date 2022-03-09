@@ -10,34 +10,34 @@
 		$val = isset($_POST['id_action']) ? $_POST['id_action'] : '';
 		$val = explode(',', $val);
 		
-		$customdesign_admin->check_caps('products');
+		$magic_admin->check_caps('products');
 		
 		foreach ($val as $value) {
 
-			$dt = $customdesign_admin->get_row_id($value, 'products');
+			$dt = $magic_admin->get_row_id($value, 'products');
 			switch ($data_action) {
 
 				case 'active':
 					$data = array(
 						'active' => 1
 					);
-					$dt = $customdesign_admin->edit_row( $value, $data, 'products' );
+					$dt = $magic_admin->edit_row( $value, $data, 'products' );
 					break;
 				case 'deactive':
 					$data = array(
 						'active' => 0
 					);
-					$dt = $customdesign_admin->edit_row( $value, $data, 'products' );
+					$dt = $magic_admin->edit_row( $value, $data, 'products' );
 					break;
 				case 'delete':
-					$tar_file = realpath($customdesign->cfg->upload_path).DS;
+					$tar_file = realpath($magic->cfg->upload_path).DS;
 					if (!empty($dt['thumbnail'])) {
 						if (file_exists($tar_file.$dt['thumbnail'])) {
 							@unlink($tar_file.$dt['thumbnail']);
-							@unlink(str_replace(array($customdesign->cfg->upload_url, '/'), array($tar_file, DS), $dt['thumbnail_url']));
+							@unlink(str_replace(array($magic->cfg->upload_url, '/'), array($tar_file, DS), $dt['thumbnail_url']));
 						}
 					}
-					$customdesign_admin->delete_row($value, 'products');
+					$magic_admin->delete_row($value, 'products');
 					break;
 				default:
 					break;
@@ -138,22 +138,22 @@
     );
 	
     $start = ( $current_page - 1 ) *  $per_page;
-	$products = $customdesign_admin->get_rows('products', $search_filter, $orderby, $ordering, $per_page, $start);
-	$total_record = $customdesign_admin->get_rows_total('products');
+	$products = $magic_admin->get_rows('products', $search_filter, $orderby, $ordering, $per_page, $start);
+	$total_record = $magic_admin->get_rows_total('products');
 
     $config = array(
     	'current_page'  => $current_page,
 		'total_record'  => $products['total_count'],
 		'total_page'    => $products['total_page'],
  	    'limit'         => $per_page,
-	    'link_full'     => $customdesign->cfg->admin_url.'customdesign-page=products&tpage={page}',
-	    'link_first'    => $customdesign->cfg->admin_url.'customdesign-page=products',
+	    'link_full'     => $magic->cfg->admin_url.'magic-page=products&tpage={page}',
+	    'link_first'    => $magic->cfg->admin_url.'magic-page=products',
 	);
 
-	$customdesign_pagination->init($config);
+	$magic_pagination->init($config);
 	
 	if (isset($_GET['fix-attributes'])) {
-		$_products = $customdesign_admin->get_rows('products', array(), $orderby, $ordering, 10000, 0);
+		$_products = $magic_admin->get_rows('products', array(), $orderby, $ordering, 10000, 0);
 
 		foreach ($_products['rows'] as $p) {
 			
@@ -183,8 +183,8 @@
 			}
 			
 			if ($istrik === true) {
-				$attrs = $customdesign->lib->enjson($attrs);
-				$customdesign_admin->edit_row( $p['id'], array(
+				$attrs = $magic->lib->enjson($attrs);
+				$magic_admin->edit_row( $p['id'], array(
 					"attributes" => $attrs
 				), 'products' );
 				echo '<p>Fixed product #'.$p['id'].'</p>';
@@ -196,40 +196,40 @@
 	
 ?>
 
-<div class="customdesign_wrapper">
+<div class="magic_wrapper">
 
-	<div class="customdesign_content">
+	<div class="magic_content">
 
-		<div class="customdesign_header">
-			<h2><?php echo $customdesign->lang('Products Base'); ?></h2>
-			<a href="<?php echo $customdesign->cfg->admin_url; ?>customdesign-page=product" class="add-new customdesign-button">
+		<div class="magic_header">
+			<h2><?php echo $magic->lang('Products Base'); ?></h2>
+			<a href="<?php echo $magic->cfg->admin_url; ?>magic-page=product" class="add-new magic-button">
 				<i class="fa fa-plus"></i> 
-				<?php echo $customdesign->lang('Add New Product Base'); ?>
+				<?php echo $magic->lang('Add New Product Base'); ?>
 			</a>
 			<?php
-				$customdesign_page = isset($_GET['customdesign-page']) ? $_GET['customdesign-page'] : '';
-				echo $customdesign_helper->breadcrumb($customdesign_page);
+				$magic_page = isset($_GET['magic-page']) ? $_GET['magic-page'] : '';
+				echo $magic_helper->breadcrumb($magic_page);
 			?>
 		</div>
 
 		
 
-		<div class="customdesign_option">
+		<div class="magic_option">
 			<div class="left">
-				<form action="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=products" method="post">
+				<form action="<?php echo $magic->cfg->admin_url;?>magic-page=products" method="post">
 					<select name="action" class="art_per_page">
-						<option value="none"><?php echo $customdesign->lang('Bulk Actions'); ?></option>
-						<option value="active"><?php echo $customdesign->lang('Active'); ?></option>
-						<option value="deactive"><?php echo $customdesign->lang('Deactive'); ?></option>
-						<option value="delete"><?php echo $customdesign->lang('Delete'); ?></option>
+						<option value="none"><?php echo $magic->lang('Bulk Actions'); ?></option>
+						<option value="active"><?php echo $magic->lang('Active'); ?></option>
+						<option value="deactive"><?php echo $magic->lang('Deactive'); ?></option>
+						<option value="delete"><?php echo $magic->lang('Delete'); ?></option>
 					</select>
 					<input type="hidden" name="id_action" class="id_action">
-					<input  class="customdesign_submit" type="submit" name="action_submit" value="<?php echo $customdesign->lang('Apply'); ?>">
-					<?php $customdesign->securityFrom();?>
+					<input  class="magic_submit" type="submit" name="action_submit" value="<?php echo $magic->lang('Apply'); ?>">
+					<?php $magic->securityFrom();?>
 				</form>
-				<form class="less" action="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=products" method="post">
+				<form class="less" action="<?php echo $magic->cfg->admin_url;?>magic-page=products" method="post">
 					<select name="per_page" class="art_per_page" data-action="submit">
-						<option value="none">-- <?php echo $customdesign->lang('Per page'); ?> --</option>
+						<option value="none">-- <?php echo $magic->lang('Per page'); ?> --</option>
 						<?php
 							$per_pages = array('5', '10', '15', '20', '100');
 
@@ -244,45 +244,45 @@
 							}
 						?>
 					</select>
-					<?php $customdesign->securityFrom();?>
+					<?php $magic->securityFrom();?>
 				</form>
-				<form class="less" action="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=products" method="post">
+				<form class="less" action="<?php echo $magic->cfg->admin_url;?>magic-page=products" method="post">
 					<select name="sort" class="art_per_page" data-action="submit">
-						<option value="">-- <?php echo $customdesign->lang('Sort by'); ?> --</option>
-						<option value="order_asc" <?php if ($dt_order == 'order_asc' ) echo 'selected' ; ?> ><?php echo $customdesign->lang('Order ASC'); ?></option>
-						<option value="order_desc" <?php if ($dt_order == 'order_desc' ) echo 'selected' ; ?> ><?php echo $customdesign->lang('Order DESC'); ?></option>
-						<option value="id_asc" <?php if ($dt_order == 'id_asc' ) echo 'selected' ; ?> ><?php echo $customdesign->lang('ID ASC'); ?></option>
-						<option value="id_desc" <?php if ($dt_order == 'id_desc' ) echo 'selected' ; ?> ><?php echo $customdesign->lang('ID DESC'); ?></option>
-						<option value="name_asc" <?php if ($dt_order == 'name_asc' ) echo 'selected' ; ?> ><?php echo $customdesign->lang('Name'); ?> A-Z</option>
-						<option value="name_desc" <?php if ($dt_order == 'name_desc' ) echo 'selected' ; ?> ><?php echo $customdesign->lang('Name'); ?> Z-A</option>
+						<option value="">-- <?php echo $magic->lang('Sort by'); ?> --</option>
+						<option value="order_asc" <?php if ($dt_order == 'order_asc' ) echo 'selected' ; ?> ><?php echo $magic->lang('Order ASC'); ?></option>
+						<option value="order_desc" <?php if ($dt_order == 'order_desc' ) echo 'selected' ; ?> ><?php echo $magic->lang('Order DESC'); ?></option>
+						<option value="id_asc" <?php if ($dt_order == 'id_asc' ) echo 'selected' ; ?> ><?php echo $magic->lang('ID ASC'); ?></option>
+						<option value="id_desc" <?php if ($dt_order == 'id_desc' ) echo 'selected' ; ?> ><?php echo $magic->lang('ID DESC'); ?></option>
+						<option value="name_asc" <?php if ($dt_order == 'name_asc' ) echo 'selected' ; ?> ><?php echo $magic->lang('Name'); ?> A-Z</option>
+						<option value="name_desc" <?php if ($dt_order == 'name_desc' ) echo 'selected' ; ?> ><?php echo $magic->lang('Name'); ?> Z-A</option>
 					</select>
-					<?php $customdesign->securityFrom();?>
+					<?php $magic->securityFrom();?>
 				</form>
 			</div>
 			<div class="right">
-				<form action="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=products" method="post">
-					<input type="search" name="search" class="search" placeholder="<?php echo $customdesign->lang('Search ...'); ?>" value="<?php if(isset($_SESSION[$prefix.'data_search'])) echo $_SESSION[$prefix.'data_search']; ?>">
-					<input  class="customdesign_submit" type="submit" name="search_product" value="<?php echo $customdesign->lang('Search'); ?>">
-					<?php $customdesign->securityFrom();?>
+				<form action="<?php echo $magic->cfg->admin_url;?>magic-page=products" method="post">
+					<input type="search" name="search" class="search" placeholder="<?php echo $magic->lang('Search ...'); ?>" value="<?php if(isset($_SESSION[$prefix.'data_search'])) echo $_SESSION[$prefix.'data_search']; ?>">
+					<input  class="magic_submit" type="submit" name="search_product" value="<?php echo $magic->lang('Search'); ?>">
+					<?php $magic->securityFrom();?>
 
 				</form>
 			</div>
 		</div>
 		<?php if ( isset($products['total_count']) && $products['total_count'] > 0) { ?>
-			<div class="customdesign_wrap_table">
-				<table class="customdesign_table customdesign_products">
+			<div class="magic_wrap_table">
+				<table class="magic_table magic_products">
 					<thead>
 						<tr>
-							<th class="customdesign_check">
-								<div class="customdesign_checkbox">
+							<th class="magic_check">
+								<div class="magic_checkbox">
 									<input type="checkbox" id="check_all">
 									<label for="check_all"><em class="check"></em></label>
 								</div>
 							</th>
-							<th><?php echo $customdesign->lang('Name'); ?></th>
-							<th><?php echo $customdesign->lang('Description'); ?></th>
-							<th><?php echo $customdesign->lang('Stages'); ?></th>
-							<th><?php echo $customdesign->lang('Status'); ?></th>
+							<th><?php echo $magic->lang('Name'); ?></th>
+							<th><?php echo $magic->lang('Description'); ?></th>
+							<th><?php echo $magic->lang('Stages'); ?></th>
+							<th><?php echo $magic->lang('Status'); ?></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -293,15 +293,15 @@
 								foreach ($products['rows'] as $value) { ?>
 
 									<tr>
-										<td class="customdesign_check">
-											<div class="customdesign_checkbox">
+										<td class="magic_check">
+											<div class="magic_checkbox">
 												<input type="checkbox" name="checked[]" class="action_check" value="<?php if(isset($value['id'])) echo $value['id']; ?>" class="action" id="<?php if(isset($value['id'])) echo $value['id']; ?>">
 												<label for="<?php if(isset($value['id'])) echo $value['id']; ?>"><em class="check"></em></label>
 											</div>
 										</td>
 										<td>
-											<a href="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=product&id=<?php if(isset($value['id'])) echo $value['id'] ?>" class="name"><?php echo isset($value['name']) ? $value['name'] : ''; ?></a>
-											<a href="#" class="customdesign_action_duplicate" data-id="<?php if(isset($value['id'])) echo $value['id'] ?>" data-table="<?php echo $table_name; ?>"><?php echo $customdesign->lang('Duplicate'); ?></a>
+											<a href="<?php echo $magic->cfg->admin_url;?>magic-page=product&id=<?php if(isset($value['id'])) echo $value['id'] ?>" class="name"><?php echo isset($value['name']) ? $value['name'] : ''; ?></a>
+											<a href="#" class="magic_action_duplicate" data-id="<?php if(isset($value['id'])) echo $value['id'] ?>" data-table="<?php echo $table_name; ?>"><?php echo $magic->lang('Duplicate'); ?></a>
 										</td>
 										<td><?php echo isset($value['description']) ? substr($value['description'], 0, 50) : ''; ?></td>
 										<td><?php
@@ -309,7 +309,7 @@
 											$color = '#f0f0f0';
 											
 											if (isset($value['attributes']) && !empty($value['attributes'])) {
-												$attrs = $customdesign_admin->dejson($value['attributes']);
+												$attrs = $magic_admin->dejson($value['attributes']);
 												foreach ($attrs as $k => $attr) {
 													if (is_string($attr->values))
 														$attr->values = @json_decode($attr->values);
@@ -332,7 +332,7 @@
 											
 											if (isset($value['stages']) && !empty($value['stages'])) {
 												
-												$data = $customdesign_admin->dejson($value['stages']);
+												$data = $magic_admin->dejson($value['stages']);
 												
 												if ($data !== null) {
 													
@@ -364,8 +364,8 @@
 																		isset($stages->{$sname}->source) && 
 																		$stages->{$sname}->source == 'raws'
 																	) ? 
-																	$customdesign->cfg->assets_url.'raws/' : 
-																	$customdesign->cfg->upload_url
+																	$magic->cfg->assets_url.'raws/' : 
+																	$magic->cfg->upload_url
 																).$stages->{$sname}->url.'" height="100" /></li>';
 														}
 													}
@@ -379,13 +379,13 @@
 											}
 										?></td>
 										<td>
-											<a href="#" class="customdesign_action" data-type="products" data-action="switch_active" data-status="<?php echo (isset($value['active']) ? $value['active'] : '0'); ?>" data-id="<?php if(isset($value['id'])) echo $value['id'] ?>">
+											<a href="#" class="magic_action" data-type="products" data-action="switch_active" data-status="<?php echo (isset($value['active']) ? $value['active'] : '0'); ?>" data-id="<?php if(isset($value['id'])) echo $value['id'] ?>">
 												<?php
 													if (isset($value['active'])) {
 														if ($value['active'] == 1) {
-															echo '<em class="pub">'.$customdesign->lang('active').'</em>';
+															echo '<em class="pub">'.$magic->lang('active').'</em>';
 														} else {
-															echo '<em class="un pub">'.$customdesign->lang('deactive').'</em>';
+															echo '<em class="un pub">'.$magic->lang('deactive').'</em>';
 														}
 													}
 												?>
@@ -401,16 +401,16 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="customdesign_pagination"><?php echo $customdesign_pagination->pagination_html(); ?></div>
+			<div class="magic_pagination"><?php echo $magic_pagination->pagination_html(); ?></div>
 
 		<?php } else {
 					if (isset($total_record) && $total_record > 0) {
-						echo '<p class="no-data">'.$customdesign->lang('Apologies, but no results were found.').'</p>';
+						echo '<p class="no-data">'.$magic->lang('Apologies, but no results were found.').'</p>';
 						$_SESSION[$prefix.'data_search'] = '';
-						echo '<a href="'.$customdesign->cfg->admin_url.'customdesign-page=products" class="btn-back"><i class="fa fa-reply" aria-hidden="true"></i>'.$customdesign->lang('Back To Lists').'</a>';
+						echo '<a href="'.$magic->cfg->admin_url.'magic-page=products" class="btn-back"><i class="fa fa-reply" aria-hidden="true"></i>'.$magic->lang('Back To Lists').'</a>';
 					}
 					else
-						echo '<p class="no-data">'.$customdesign->lang('No data. Please add product.').'</p>';
+						echo '<p class="no-data">'.$magic->lang('No data. Please add product.').'</p>';
 			}?>
 
 	</div>

@@ -2,7 +2,7 @@
 	
 	window.URL = window.URL || window.webkitURL;
 	
-	window.customdesign_create_thumbn = function(ops) {
+	window.magic_create_thumbn = function(ops) {
 				
 		var img = new Image();
     		img.onload = function(){
@@ -44,7 +44,7 @@
 			
 	};
 	
-	window.customdesign_validate_file = function(file) {
+	window.magic_validate_file = function(file) {
 		
 		if (['image/png', 'image/jpeg', 'image/svg+xml'].indexOf(file.type) === -1)
 			return false;
@@ -60,7 +60,7 @@
 		var w = 200,
 			h = 200*(img.naturalHeight/img.naturalWidth),
 			time = new Date().getTime(),
-			data = {"stages":{"customdesign":{"data":{"objects":[null,null,{"type":"image","originX":"center","originY":"center","left":w/2,"top":h/2,"width":w,"height":h,"fill":"rgb(0,0,0)","stroke":"","strokeWidth":0,"strokeLineCap":"butt","strokeLineJoin":"miter","strokeMiterLimit":10,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"visible":true,"backgroundColor":"","fillRule":"nonzero","globalCompositeOperation":"source-over","skewX":0,"skewY":0,"crossOrigin":"","alignX":"none","alignY":"none","meetOrSlice":"meet","src":img.src,"evented":true,"selectable":true,"filters":[],"resizeFilters":[]}],"background":"#ebeced","devicePixelRatio":2,"product_color":"#00ff7f","limit_zone":{"width":207.69375,"height":332.31,"top":0,"left":0},"edit_zone":{"height":h,"width":w,"left":0,"top":0,"radius":"0"},"product_width":500,"product_height":500,"screenshot":thumbn},"screenshot":thumbn,"edit_zone":{"height":h,"width":w,"left":0,"top":0,"radius":"0"},"updated":time,"padding":[0,0]}},"updated":time}
+			data = {"stages":{"magic":{"data":{"objects":[null,null,{"type":"image","originX":"center","originY":"center","left":w/2,"top":h/2,"width":w,"height":h,"fill":"rgb(0,0,0)","stroke":"","strokeWidth":0,"strokeLineCap":"butt","strokeLineJoin":"miter","strokeMiterLimit":10,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"visible":true,"backgroundColor":"","fillRule":"nonzero","globalCompositeOperation":"source-over","skewX":0,"skewY":0,"crossOrigin":"","alignX":"none","alignY":"none","meetOrSlice":"meet","src":img.src,"evented":true,"selectable":true,"filters":[],"resizeFilters":[]}],"background":"#ebeced","devicePixelRatio":2,"product_color":"#00ff7f","limit_zone":{"width":207.69375,"height":332.31,"top":0,"left":0},"edit_zone":{"height":h,"width":w,"left":0,"top":0,"radius":"0"},"product_width":500,"product_height":500,"screenshot":thumbn},"screenshot":thumbn,"edit_zone":{"height":h,"width":w,"left":0,"top":0,"radius":"0"},"updated":time,"padding":[0,0]}},"updated":time}
 		
 		return 'data:application/octet-stream;base64,'+btoa(encodeURIComponent(JSON.stringify(data)));
 		
@@ -140,15 +140,15 @@
 
 			if (ops == 'close') {
 				popup_actions('close');
-				return $('#customdesign-lightbox').remove();
+				return $('#magic-lightbox').remove();
 			};
-			var getWidthParent = $('div#customdesign-product-page').width();
+			var getWidthParent = $('div#magic-product-page').width();
 			if(getWidthParent >= 1000){
 				getWidthParent = 1000;
 			}
-			// var tmpl = '<div id="customdesign-lightbox" class="customdesign-lightbox">\
-			// 				<div id="customdesign-lightbox-body">\
-			// 					<div id="customdesign-lightbox-content" style="min-width:%width%px">\
+			// var tmpl = '<div id="magic-lightbox" class="magic-lightbox">\
+			// 				<div id="magic-lightbox-body">\
+			// 					<div id="magic-lightbox-content" style="min-width:%width%px">\
 			// 						%content%\
 			// 					</div>\
 			// 					%footer%\
@@ -166,9 +166,9 @@
 			// 		onclose: function(){}
 			// 	}, ops);
 
-			var tmpl = '<div id="customdesign-lightbox" class="customdesign-lightbox">\
-							<div id="customdesign-lightbox-body">\
-								<div id="customdesign-lightbox-content" style="min-width:'+getWidthParent+'px">\
+			var tmpl = '<div id="magic-lightbox" class="magic-lightbox">\
+							<div id="magic-lightbox-body">\
+								<div id="magic-lightbox-content" style="min-width:'+getWidthParent+'px">\
 									%content%\
 								</div>\
 								%footer%\
@@ -187,20 +187,20 @@
 				}, ops);
 
 			if (cfg.footer !== '')
-				cfg.footer = '<div id="customdesign-lightbox-footer">'+cfg.footer+'</div>';
+				cfg.footer = '<div id="magic-lightbox-footer">'+cfg.footer+'</div>';
 
 			tmpl = $(tmpl.replace(/\%width\%/g, cfg.width).
 						replace(/\%content\%/g, cfg.content).
 						replace(/\%footer\%/g, cfg.footer));
 
-			$('.customdesign-lightbox').remove();
+			$('.magic-lightbox').remove();
 			$('body').append(tmpl);
 
 			cfg.onload(tmpl);
 			tmpl.find('a.kalb-close,div.kalb-overlay').on('click', function(e){
 				cfg.onclose(tmpl);
 				popup_actions('close');
-				$('.customdesign-lightbox').remove();
+				$('.magic-lightbox').remove();
 			});
 			
 			popup_actions('open');
@@ -211,7 +211,7 @@
 			var formData = new FormData(), 
 				no_data = true;
 			
-			$('input.customdesign-upload-helper-inp').each(function() {
+			$('input.magic-upload-helper-inp').each(function() {
 				
 				var el = $(this),
 					val = el.val();
@@ -232,9 +232,9 @@
 					
 				el.attr({'data-processing': 'true'});
 				
-				$('div.customdesign_form_submit a.customdesign_cancel').remove();
+				$('div.magic_form_submit a.magic_cancel').remove();
 				
-				$('div.customdesign_form_submit input[type="submit"]').hide().after('<button disabled="true" style="padding: 0 14px;margin-left:180px" class="customdesign_cancel" id="customdesign-form-submitting"><i class="fa fa-spin fa-spinner"></i> Uploading..</button>');
+				$('div.magic_form_submit input[type="submit"]').hide().after('<button disabled="true" style="padding: 0 14px;margin-left:180px" class="magic_cancel" id="magic-form-submitting"><i class="fa fa-spin fa-spinner"></i> Uploading..</button>');
 				
 				formData.append(this.getAttribute('name'), new Blob([btoa(encodeURIComponent(val))]));
 				
@@ -244,12 +244,12 @@
 			if (no_data === false) {
 				
 				formData.append('action', 'upload_fields');
-				formData.append('nonce', 'CUSTOMDESIGN_ADMIN:'+CustomdesignDesign.nonce); 
+				formData.append('nonce', 'MAGIC_ADMIN:'+MagicDesign.nonce); 
 			
 				$.ajax({
 				    data	:	 formData,
 				    type	:	 "POST",
-				    url		:	 CustomdesignDesign.ajax,
+				    url		:	 MagicDesign.ajax,
 				    contentType: false,
 				    processData: false,
 				    xhr: function() {
@@ -260,7 +260,7 @@
 					        	txt = '<i class="fa fa-spin fa-spinner"></i>  '+parseInt(percentComplete*100)+'% upload complete';
 					        if (percentComplete === 1)
 					        	txt = '<i class="fa fa-spin fa-refresh"></i> Submitting..';
-					       	$('#customdesign-form-submitting').html(txt);
+					       	$('#magic-form-submitting').html(txt);
 					      }
 					    }, false);
 					    return xhr;
@@ -277,10 +277,10 @@
 					    files = JSON.parse(decodeURIComponent(res.success));
 					    
 					    Object.keys(files).map(function(n) {
-						    $('input.customdesign-upload-helper-inp[name="'+n+'"]').val(files[n]);
+						    $('input.magic-upload-helper-inp[name="'+n+'"]').val(files[n]);
 					    });
 					    
-					    $('input.customdesign-upload-helper-inp').eq(0).closest('form').submit();
+					    $('input.magic-upload-helper-inp').eq(0).closest('form').submit();
 					    
 					}
 				});
@@ -306,10 +306,10 @@
 				  .replace(/\</g, '&lt;');
 	};
 	
-	window.customdesign = {
+	window.magic = {
 
 		i : function(s){
-			return CustomdesignDesign.js_lang[s.toString()];
+			return MagicDesign.js_lang[s.toString()];
 		},
 		
 		filters : {},
@@ -349,66 +349,66 @@
 				
 		product: {		
 			
-			popup: $('#customdesign-popup'),
+			popup: $('#magic-popup'),
 			
 			init: function(cfg) {
 				
 				if (cfg.bases !== undefined)
-					customdesign.product.bases = cfg.bases;
+					magic.product.bases = cfg.bases;
 				
 				trigger({
 					
-					el: $('#customdesign-product-page'),
+					el: $('#magic-product-page'),
 					
 					events: {
-						'.customdesign-popup-content .close-pop': 'close_popup',
-						'#customdesign-product-form:submit': 'before_submit',
-						'#customdesign-popup': 'popup_click',
-						'#customdesign-stages-wrp ul.customdesign_tab_nav li[data-add="tab"]': 'new_stage',
-						'#customdesign-stages-upload-helper:change': 'upload_image_helper',
-						'#customdesign-stages-wrp .customdesign_tab_nav_wrap': 'is_stage_accord',
-						'#customdesign-stages-wrp div.customdesign_tab_nav_wrap>i[data-move]': 'stage_accord',
+						'.magic-popup-content .close-pop': 'close_popup',
+						'#magic-product-form:submit': 'before_submit',
+						'#magic-popup': 'popup_click',
+						'#magic-stages-wrp ul.magic_tab_nav li[data-add="tab"]': 'new_stage',
+						'#magic-stages-upload-helper:change': 'upload_image_helper',
+						'#magic-stages-wrp .magic_tab_nav_wrap': 'is_stage_accord',
+						'#magic-stages-wrp div.magic_tab_nav_wrap>i[data-move]': 'stage_accord',
 						'div.fill-base-color input:change': 'fill_variation'
 					},
 					
 					fill_variation : function(e) {
 						
-						let wrp = $(this).closest('div.customdesign-stages-wrp');
+						let wrp = $(this).closest('div.magic-stages-wrp');
 						
 						wrp.find('div.fill-base-color input').val(this.value);
 						
-						wrp.find('div.customdesign-stage-body .customdesign-stage-design-view').css({
+						wrp.find('div.magic-stage-body .magic-stage-design-view').css({
 							background: this.value
 						}).click();
 						
-						wrp.find('div.customdesign-stage-editzone').css({
-							'border-color': customdesign.invert_color(this.value)
+						wrp.find('div.magic-stage-editzone').css({
+							'border-color': magic.invert_color(this.value)
 						});
 					},
 					
 					change_color: function(e) {
 						
 						if (this.tagName === 'INPUT') {
-							customdesign.invert_color(this.value);
-							return $('div.customdesign-stage-body .customdesign-stage-design-view').css({background: this.value});
+							magic.invert_color(this.value);
+							return $('div.magic-stage-body .magic-stage-design-view').css({background: this.value});
 						}
 						
 						var color = e.target.getAttribute('data-color');
 						
 						if (color) {
-							customdesign.invert_color(e.target.getAttribute('data-color'));
-							$('div.customdesign-stage-body .customdesign-stage-design-view').css({background: e.target.getAttribute('data-color')});
+							magic.invert_color(e.target.getAttribute('data-color'));
+							$('div.magic-stage-body .magic-stage-design-view').css({background: e.target.getAttribute('data-color')});
 						}
 		
 					},
 					
 					invert: function(color) {
-						$('.customdesign-stage-editzone').css({'border-color': customdesign.invert_color(color), 'color': customdesign.invert_color(color)});
+						$('.magic-stage-editzone').css({'border-color': magic.invert_color(color), 'color': magic.invert_color(color)});
 					},
 					
 					close_popup: function(e) {
 						
-						$('#customdesign-popup').hide();
+						$('#magic-popup').hide();
 						popup_actions('close');
 						e.preventDefault();
 						
@@ -419,13 +419,13 @@
 						/*
 						*	Printing
 						*/	
-						$('.customdesign_field_printing').each(function(){
+						$('.magic_field_printing').each(function(){
 							var vals = {};
-							$(this).find('.customdesign_checkbox').each(function(){
+							$(this).find('.magic_checkbox').each(function(){
 								if ($(this).find('input.action_check').prop('checked')) {
 									
 									var v = $(this).find('input.action_check').val().toString(),
-										r = $(this).find('.customdesign_radios input[type="radio"]:checked').val();
+										r = $(this).find('.magic_radios input[type="radio"]:checked').val();
 									
 									/* if (this.getAttribute('data-type') == 'size') {
 										if (r !== null && r !== undefined) {
@@ -444,12 +444,12 @@
 						*	Stages
 						*/
 						
-						var stages = customdesign.product.get_stages($('#customdesign-stages-wrp')),
-							variations = customdesign.product.get_variations();
+						var stages = magic.product.get_stages($('#magic-stages-wrp')),
+							variations = magic.product.get_variations();
 						
-						$('textarea#customdesign-field-stages-inp').val(enjson(stages));
-						$('textarea#customdesign-field-variations-inp').val(enjson(variations));
-						var attrs = customdesign.product.get_attributes();
+						$('textarea#magic-field-stages-inp').val(enjson(stages));
+						$('textarea#magic-field-variations-inp').val(enjson(variations));
+						var attrs = magic.product.get_attributes();
 						Object.keys(attrs).map(function(index) {
 							if(['select', 'product_color', 'color', 'checkbox', 'radio'].indexOf(attrs[index].type) < 0)
 							{
@@ -457,9 +457,9 @@
 							}
 							attrs[index].values = typeof attrs[index].values === "string" ?  JSON.parse(attrs[index].values): attrs[index].values;
 						})
-						$('textarea#customdesign-field-attributes-inp').val(enjson(attrs))
+						$('textarea#magic-field-attributes-inp').val(enjson(attrs))
 						
-						return true; /*customdesign.product.upload_images_submit(stages, variations);*/
+						return true; /*magic.product.upload_images_submit(stages, variations);*/
 						
 					},
 					
@@ -468,7 +468,7 @@
 						var act = e.target.getAttribute('data-act'),
 							etarget = e.target;
 						
-						if (e.target.id == 'customdesign-popup')
+						if (e.target.id == 'magic-popup')
 							act = 'close';
 						
 						if (!act)
@@ -484,12 +484,12 @@
 								var url = e.target.getAttribute('data-src'),
 									source = e.target.getAttribute('data-source');
 									
-								customdesign.product.set_image(url, source);
+								magic.product.set_image(url, source);
 								
 							break;
 							case 'upload': 
 								
-								customdesign.product.upload({
+								magic.product.upload({
 									max_width: 5000,//1350,
 									max_height: 5000,//815,
 									/*min_size: {
@@ -507,24 +507,24 @@
 									callback: function(url) {
 										
 										var formData = new FormData(),
-											tx = $('#customdesign-base-upload-progress div[data-view="uploading"]>span'),
+											tx = $('#magic-base-upload-progress div[data-view="uploading"]>span'),
 											name = new Date().getTime().toString(36);
 								
-										$('#customdesign-base-upload-progress div[data-view]').addClass('hidden');
-										$('#customdesign-base-upload-progress,#customdesign-base-upload-progress div[data-view="uploading"]').removeClass('hidden');
+										$('#magic-base-upload-progress div[data-view]').addClass('hidden');
+										$('#magic-base-upload-progress,#magic-base-upload-progress div[data-view="uploading"]').removeClass('hidden');
 																		
 										formData.append(name, new Blob([url]));
 										
 										formData.append('action', 'upload_product_images'); 
-										formData.append('nonce', 'CUSTOMDESIGN_ADMIN:'+CustomdesignDesign.nonce);
-										formData.append('vendor', window.parent && window.parent.customdesignjs && window.parent.customdesignjs.is_admin === false ? 'true' : 'false');
+										formData.append('nonce', 'MAGIC_ADMIN:'+MagicDesign.nonce);
+										formData.append('vendor', window.parent && window.parent.magicjs && window.parent.magicjs.is_admin === false ? 'true' : 'false');
 										
 										tx.html('Starting upload..');
 										
 										$.ajax({
 										    data	:	 formData,
 										    type	:	 "POST",
-										    url		:	 CustomdesignDesign.ajax,
+										    url		:	 MagicDesign.ajax,
 										    contentType: false,
 										    processData: false,
 										    xhr		:	 function() {
@@ -543,32 +543,32 @@
 											},
 										    success: function (res, status) {
 											    
-												$('#customdesign-base-upload-progress div[data-view]').addClass('hidden');
+												$('#magic-base-upload-progress div[data-view]').addClass('hidden');
 											    
 											    if (res.indexOf('Error') === 0) {
-												    $('#customdesign-base-upload-progress div[data-view="fail"]').removeClass('hidden');
+												    $('#magic-base-upload-progress div[data-view="fail"]').removeClass('hidden');
 												    alert(res);
 												    return;
 											    };
 											    
 											    res = JSON.parse(res);
 											    
-											    $('#customdesign-base-upload-progress div[data-view="success"]')
+											    $('#magic-base-upload-progress div[data-view="success"]')
 											    	.removeClass('hidden')
 											    	.find('img')
-											    	.attr({src: customdesign_upload_url+res[name], 'data-src': res[name]});
+											    	.attr({src: magic_upload_url+res[name], 'data-src': res[name]});
 											    
-											    $('#customdesign-uploaded-bases').prepend('<li><img data-act="base" data-src="'+res[name]+'" data-source="uploads" src="'+customdesign_upload_url+res[name]+'"><i class="fa fa-trash" title="Delete" data-act="delete" data-file="'+name+'.jpg"></i><span data-file="'+name+'.jpg" data-act="edit-name" data-name="'+name+'" title="Click to edit image name">'+name+' <i data-file="'+name+'.jpg" data-act="edit-name" data-name="'+name+'" class="fa fa-pencil"></i></span></li>');
+											    $('#magic-uploaded-bases').prepend('<li><img data-act="base" data-src="'+res[name]+'" data-source="uploads" src="'+magic_upload_url+res[name]+'"><i class="fa fa-trash" title="Delete" data-act="delete" data-file="'+name+'.jpg"></i><span data-file="'+name+'.jpg" data-act="edit-name" data-name="'+name+'" title="Click to edit image name">'+name+' <i data-file="'+name+'.jpg" data-act="edit-name" data-name="'+name+'" class="fa fa-pencil"></i></span></li>');
 											    
 										    },
 										    error: function() {
-											    $('#customdesign-base-upload-progress div[data-view]').addClass('hidden');
-											    $('#customdesign-base-upload-progress div[data-view="fail"]').removeClass('hidden');
+											    $('#magic-base-upload-progress div[data-view]').addClass('hidden');
+											    $('#magic-base-upload-progress div[data-view="fail"]').removeClass('hidden');
 											    alert('Error: could not upload images this time, please try again later');
 										    }
 										});
 										
-										//customdesign.product.set_image(url, 'uploads', etarget);
+										//magic.product.set_image(url, 'uploads', etarget);
 									}
 								});
 								
@@ -578,26 +578,26 @@
 							
 							case 'use' : 
 							
-								var url = $('#customdesign-base-upload-progress div[data-view="success"] img').attr('data-src'),
+								var url = $('#magic-base-upload-progress div[data-view="success"] img').attr('data-src'),
 									source = 'uploads';
 									
-								customdesign.product.set_image(url, source);
+								magic.product.set_image(url, source);
 								
 							break;
 							
 							case 'dismiss' : 
-								$('#customdesign-base-upload-progress').addClass('hidden');
+								$('#magic-base-upload-progress').addClass('hidden');
 							break;
 							
 							case 'samples' : 
-								$('#customdesign-uploaded-bases,button[data-act="samples"],button[data-act="upload"]').addClass('hidden');
-								$('#customdesign-sample-bases,button[data-act="uploaded"]').removeClass('hidden');
+								$('#magic-uploaded-bases,button[data-act="samples"],button[data-act="upload"]').addClass('hidden');
+								$('#magic-sample-bases,button[data-act="uploaded"]').removeClass('hidden');
 								e.preventDefault();
 							break;
 							
 							case 'uploaded' : 
-								$('#customdesign-uploaded-bases,button[data-act="samples"],button[data-act="upload"]').removeClass('hidden');
-								$('#customdesign-sample-bases,button[data-act="uploaded"]').addClass('hidden');
+								$('#magic-uploaded-bases,button[data-act="samples"],button[data-act="upload"]').removeClass('hidden');
+								$('#magic-sample-bases,button[data-act="uploaded"]').addClass('hidden');
 								e.preventDefault();
 							break;
 							
@@ -610,19 +610,19 @@
 									return;
 								
 								$.ajax({
-									url: CustomdesignDesign.ajax,
+									url: MagicDesign.ajax,
 									method: 'POST',
 									data: {
-										nonce: 'CUSTOMDESIGN_ADMIN:'+CustomdesignDesign.nonce,
+										nonce: 'MAGIC_ADMIN:'+MagicDesign.nonce,
 										ajax: 'backend',
 										action: 'edit_name_product_image',
 										name: name,
 										file: file,
-										vendor: window.parent && window.parent.customdesignjs && window.parent.customdesignjs.is_admin === false ? 'true' : 'false'
+										vendor: window.parent && window.parent.magicjs && window.parent.magicjs.is_admin === false ? 'true' : 'false'
 									},
 									statusCode: {
 										403: function(){
-											alert(CustomdesignDesign.js_lang.error_403);
+											alert(MagicDesign.js_lang.error_403);
 										}
 									},
 									success: function(res) {
@@ -642,27 +642,27 @@
 							
 							case 'delete': 
 							
-								if (confirm(customdesign.i(170))) {
+								if (confirm(magic.i(170))) {
 									
 									var file = e.target.getAttribute('data-file'),
 										li = $(e.target).closest('li');
 									
 									li.attr({'data-act': 'load-more', 'data-loading': 'true'})
-										.html('<i class="fa fa-spin fa-spinner fa-2x"></i><br>'+customdesign.i('wait'));
+										.html('<i class="fa fa-spin fa-spinner fa-2x"></i><br>'+magic.i('wait'));
 									
 									$.ajax({
-										url: CustomdesignDesign.ajax,
+										url: MagicDesign.ajax,
 										method: 'POST',
 										data: {
-											nonce: 'CUSTOMDESIGN_ADMIN:'+CustomdesignDesign.nonce,
+											nonce: 'MAGIC_ADMIN:'+MagicDesign.nonce,
 											ajax: 'backend',
 											action: 'delete_base_image',
 											file: file.split('/').pop(),
-											vendor: window.parent && window.parent.customdesignjs && window.parent.customdesignjs.is_admin === false ? 'true' : 'false'
+											vendor: window.parent && window.parent.magicjs && window.parent.magicjs.is_admin === false ? 'true' : 'false'
 										},
 										statusCode: {
 											403: function(){
-												alert(CustomdesignDesign.js_lang.error_403);
+												alert(MagicDesign.js_lang.error_403);
 											}
 										},
 										success: function(res) {
@@ -684,23 +684,23 @@
 								if (e.target.getAttribute('data-loading') == 'true')
 									return;
 								
-								e.target.innerHTML = '<i class="fa fa-spin fa-spinner fa-2x"></i><br>'+customdesign.i('wait');
+								e.target.innerHTML = '<i class="fa fa-spin fa-spinner fa-2x"></i><br>'+magic.i('wait');
 								e.target.setAttribute('data-loading', 'true');
 								
 								$.ajax({
-									url: CustomdesignDesign.ajax,
+									url: MagicDesign.ajax,
 									method: 'POST',
 									data: {
-										nonce: 'CUSTOMDESIGN_ADMIN:'+CustomdesignDesign.nonce,
+										nonce: 'MAGIC_ADMIN:'+MagicDesign.nonce,
 										ajax: 'backend',
 										action: 'load_more_bases',
 										limit: 18,
 										start: e.target.getAttribute('data-start'),
-										vendor: window.parent && window.parent.customdesignjs && window.parent.customdesignjs.is_admin === false ? 'true' : 'false'
+										vendor: window.parent && window.parent.magicjs && window.parent.magicjs.is_admin === false ? 'true' : 'false'
 									},
 									statusCode: {
 										403: function(){
-											alert(CustomdesignDesign.js_lang.error_403);
+											alert(MagicDesign.js_lang.error_403);
 										}
 									},
 									success: function(res) {
@@ -722,14 +722,14 @@
 												if (res.names !== undefined && res.names[i] !== '')
 													name = res.names[i];
 												
-												ul.append('<li><img data-act="base" data-src="products/'+re+'" data-source="uploads" src="'+customdesign_upload_url+'products/'+re+'" /><i class="fa fa-trash" title="'+customdesign.i('delete')+'" data-act="delete" data-file="'+re+'"></i><span data-file="'+re+'" data-act="edit-name" data-name="'+encodeURIComponent(name)+'" title="'+customdesign.i(171)+'">'+name+' <i data-file="'+re+'" data-act="edit-name" data-name="'+encodeURIComponent(name)+'" class="fa fa-pencil"></i></span></li>');
+												ul.append('<li><img data-act="base" data-src="products/'+re+'" data-source="uploads" src="'+magic_upload_url+'products/'+re+'" /><i class="fa fa-trash" title="'+magic.i('delete')+'" data-act="delete" data-file="'+re+'"></i><span data-file="'+re+'" data-act="edit-name" data-name="'+encodeURIComponent(name)+'" title="'+magic.i(171)+'">'+name+' <i data-file="'+re+'" data-act="edit-name" data-name="'+encodeURIComponent(name)+'" class="fa fa-pencil"></i></span></li>');
 											});
 											
 											if (res.items.length+res.start < res.total) {
-												ul.append('<li data-act="load-more" data-start="'+(res.items.length+res.start)+'">'+customdesign.i(94)+' &rarr;</li>');
+												ul.append('<li data-act="load-more" data-start="'+(res.items.length+res.start)+'">'+magic.i(94)+' &rarr;</li>');
 											}
 										} else if (res.start === 0) {
-											ul.append('<li data-view="noitems">'+customdesign.i(169)+'</li>');
+											ul.append('<li data-view="noitems">'+magic.i(169)+'</li>');
 										}
 										
 									}
@@ -743,35 +743,35 @@
 					
 					new_stage: function(e) {
 						
-						var wrp = $(this).closest('div.customdesign_tabs_wrapper'),
-							navs = wrp.find('.customdesign_tab_nav_wrap ul.customdesign_tab_nav');
+						var wrp = $(this).closest('div.magic_tabs_wrapper'),
+							navs = wrp.find('.magic_tab_nav_wrap ul.magic_tab_nav');
 						
 						if (navs.find('>li').length > cfg.max_stages) {
-							alert(customdesign.i(163));
+							alert(magic.i(163));
 							e.preventDefault();
 							return;	
 						};
 						
 						var nav = navs.find('li[data-add="tab"]').prev().clone(true),
-							bod = wrp.find('div.customdesign_tabs div.customdesign_tab_content').last().clone(true),
+							bod = wrp.find('div.magic_tabs div.magic_tab_content').last().clone(true),
 							num = new Date().getTime().toString(36);
 							
 						navs.find('li[data-add="tab"]').before(nav);
 						
-						nav.find('a').attr({"href": '#customdesign-stage-'+num, "data-label": "Untitled"}).find('text').html('Untitled');
+						nav.find('a').attr({"href": '#magic-stage-'+num, "data-label": "Untitled"}).find('text').html('Untitled');
 						nav.find('>a>span').remove();
 						
-						bod.attr({"id": "customdesign-stage-"+num, "data-stage": num});
+						bod.attr({"id": "magic-stage-"+num, "data-stage": num});
 						
-						wrp.find('div.customdesign_tabs').append(bod);
+						wrp.find('div.magic_tabs').append(bod);
 						
-						wrp.find('.customdesign_tab_content.active, ul.customdesign_tab_nav li.active').removeClass('active');
+						wrp.find('.magic_tab_content.active, ul.magic_tab_nav li.active').removeClass('active');
 						   
-						bod.find('div.customdesign-stage-settings').attr({id: 'customdesign-product-design-'+num});
+						bod.find('div.magic-stage-settings').attr({id: 'magic-product-design-'+num});
 						bod.find('input.product-upload').attr({"name": "product-upload-"+num});
 						
-						bod.find('.customdesign-stage-btn button[data-btn="reset"]').click();
-						wrp.find('div.customdesign_tab_nav_wrap>i[data-move="right"]').click();
+						bod.find('.magic-stage-btn button[data-btn="reset"]').click();
+						wrp.find('div.magic_tab_nav_wrap>i[data-move="right"]').click();
 						
 						setTimeout(function(el) {el.click()}, 10, nav.find('a'));
 						
@@ -798,8 +798,8 @@
 					is_stage_accord: function(e) {
 						
 						var el = $(this),
-							nav = el.find('ul.customdesign_tab_nav'),
-							wrp = el.find('div.customdesign_tab_nav_inner'),
+							nav = el.find('ul.magic_tab_nav'),
+							wrp = el.find('div.magic_tab_nav_inner'),
 							act = nav.find('li.active');
 							
 						if (nav.width() !== 0 && nav.width() > wrp.width()) {
@@ -824,8 +824,8 @@
 					stage_accord: function(e) {
 						
 						var dir = this.getAttribute('data-move'),
-							wrp = $(this.parentNode).find('div.customdesign_tab_nav_inner'),
-							inner = wrp.find('ul.customdesign_tab_nav'),
+							wrp = $(this.parentNode).find('div.magic_tab_nav_inner'),
+							inner = wrp.find('ul.magic_tab_nav'),
 							ww = wrp.width(),
 							iw = inner.width(),
 							il = parseFloat(inner.css('left'));
@@ -849,7 +849,7 @@
 				
 				trigger({
 					
-					el: $('#customdesign-product-page'),
+					el: $('#magic-product-page'),
 					
 					events: {
 						
@@ -869,35 +869,35 @@
 							else $(this).addClass('active');
 						},
 						'i[data-func="resize"]': 'input_size',
-						'.customdesign-stage-editzone:mousedown': 'start_drag',
-						'.customdesign-stage-editzone:mouseup': function() {
-							customdesign.product.update_pos($(this).closest('div.customdesign-stage-design-view'));
+						'.magic-stage-editzone:mousedown': 'start_drag',
+						'.magic-stage-editzone:mouseup': function() {
+							magic.product.update_pos($(this).closest('div.magic-stage-design-view'));
 						},
 						'.editzone-ranges .design-scale input:input': 'design_scale',
 						'.editzone-ranges .editzone-radius input:input': 'editradius',
-						'.customdesign-stage-editzone button': 'edit_funcs',
+						'.magic-stage-editzone button': 'edit_funcs',
 												
-						'#customdesign_template': 'template', 
-						'#customdesign_template_btn': 'select_template',
-						'#customdesign-stages-wrp ul.customdesign_tab_nav li a': 'edit_stage_label',
+						'#magic_template': 'template', 
+						'#magic_template_btn': 'select_template',
+						'#magic-stages-wrp ul.magic_tab_nav li a': 'edit_stage_label',
 						
-						'.customdesign_form_content input[name="is_mask"]:change': 'is_mask',
-						'#customdesign-stages-wrp ul.customdesign_tab_nav a:dragstart': function(e){e.preventDefault();}
+						'.magic_form_content input[name="is_mask"]:change': 'is_mask',
+						'#magic-stages-wrp ul.magic_tab_nav a:dragstart': function(e){e.preventDefault();}
 						
 					},
 										
 					select_base: function(e) {
 						
-						if ($('#customdesign-popup').attr('data-moved') !== true) {
-							$('body').append($('#customdesign-popup').attr({'data-moved': true}));
+						if ($('#magic-popup').attr('data-moved') !== true) {
+							$('body').append($('#magic-popup').attr({'data-moved': true}));
 						}
 						
-						$('#customdesign-popup').show().attr({
-							'data-stage': $(this).closest('div.customdesign_tab_content').attr('data-stage')
+						$('#magic-popup').show().attr({
+							'data-stage': $(this).closest('div.magic_tab_content').attr('data-stage')
 						});
 						
-						if ($('#customdesign-uploaded-bases li[data-act="load-more"][data-start="0"]').length > 0)
-							$('#customdesign-uploaded-bases li[data-act="load-more"]').click();
+						if ($('#magic-uploaded-bases li[data-act="load-more"][data-start="0"]').length > 0)
+							$('#magic-uploaded-bases li[data-act="load-more"]').click();
 						
 						popup_actions('open');
 							
@@ -911,10 +911,10 @@
 						
 						let canvas = document.createElement('canvas'),
 							editcanvas = document.createElement('canvas'),
-							sbody =  $(this).closest('.customdesign-stage-body'),
-							img = sbody.find('img.customdesign-stage-image').get(0),
+							sbody =  $(this).closest('.magic-stage-body'),
+							img = sbody.find('img.magic-stage-image').get(0),
 							temp = sbody.find('div.design-template-inner>img').get(0),
-							editzone = sbody.find('.customdesign-stage-editzone').get(0),
+							editzone = sbody.find('.magic-stage-editzone').get(0),
 							ctx = canvas.getContext('2d'),
 							ectx = editcanvas.getContext('2d'),
 							ratio = img.width/img.naturalWidth;
@@ -986,7 +986,7 @@
 								type: dataURL[0].substring(dataURL[0].indexOf('image/'), dataURL[0].indexOf(';')-1)
 							}),
 							a = document.createElement('a'),
-							name = 'customdesign-mockup'
+							name = 'magic-mockup'
 						
 						a.download = name+'.jpg';
 						a.href = URL.createObjectURL(blob);
@@ -997,9 +997,9 @@
 					
 					reset_base: function(e) {
 						
-						var wrp = $(this).closest('.customdesign-stage-settings');
+						var wrp = $(this).closest('.magic-stage-settings');
 						
-						wrp.find('img.customdesign-stage-image').attr({'src': '', 'data-url': ''});
+						wrp.find('img.magic-stage-image').attr({'src': '', 'data-url': ''});
 						wrp.removeClass('stage-enabled').addClass('stage-disabled');
 						
 						e.preventDefault();
@@ -1009,9 +1009,9 @@
 					select_size: function(e) {
 						
 						var size = this.value,
-							wrp = $(this).closest('div.customdesign-stage-body'),
-							edz = wrp.find('div.customdesign-stage-editzone'),
-							img = wrp.find('img.customdesign-stage-image');
+							wrp = $(this).closest('div.magic-stage-body'),
+							edz = wrp.find('div.magic-stage-editzone'),
+							img = wrp.find('img.magic-stage-image');
 					
 						if (size != 'custom' && size !== '') {
 							
@@ -1066,17 +1066,17 @@
 							wrp.find('div.edr-row[data-row="values"], div.edr-row[data-row="unit"]').hide();
 						}
 						
-						customdesign.product.update_pos(wrp);
+						magic.product.update_pos(wrp);
 						
 					},
 					
 					change_size: function(e) {
 						
-						var wrp = $(this).closest('div.customdesign-stage-design-view'),
-							iel = wrp.find('img.customdesign-stage-image'),
+						var wrp = $(this).closest('div.magic-stage-design-view'),
+							iel = wrp.find('img.magic-stage-image'),
 							wel = wrp.find('input[data-name="width"]'),
 							hel = wrp.find('input[data-name="height"]'),
-							edz = wrp.find('div.customdesign-stage-editzone'),
+							edz = wrp.find('div.magic-stage-editzone'),
 							nw = 0, nh = 0;
 							
 						if (hel.val() !== '' && wel.val() !== '') {
@@ -1113,13 +1113,13 @@
 							
 						}
 						
-						customdesign.product.update_pos(wrp);
+						magic.product.update_pos(wrp);
 						
 					},
 					
 					crop_marks_bleed : function(e) {
 						
-						let wrp = $(this).closest('div.customdesign-stage-body');
+						let wrp = $(this).closest('div.magic-stage-body');
 						if (this.checked)
 							wrp.find('div.edr-row[data-row="bleed-range"]').show();
 						else
@@ -1134,8 +1134,8 @@
 							e.data.select_template(e);
 						} else if (func == 'clear-design') {
 							
-							var view = $('#customdesign-stages-wrp .customdesign_tab_content.active .customdesign-stage-editzone');
-							if (view.length > 0 && confirm(customdesign.i(101)))
+							var view = $('#magic-stages-wrp .magic_tab_content.active .magic-stage-editzone');
+							if (view.length > 0 && confirm(magic.i(101)))
 								view.find('.design-template-inner').remove();
 							
 							this.style.display = 'none';
@@ -1143,12 +1143,12 @@
 							view.append(
 								'<button data-func="select-design" class="design-template-btn">\
 								<i class="fa fa-paint-brush"></i> \
-								'+customdesign.i(91)+'\
+								'+magic.i(91)+'\
 								</button>'
 							);
 							
 							view.find('button').on('click', e.data.select_template);
-							$('.customdesign_field_stages .customdesign_tab_content.active .editzone-ranges .design-scale').hide();
+							$('.magic_field_stages .magic_tab_content.active .editzone-ranges .design-scale').hide();
 							
 						};
 						
@@ -1159,7 +1159,7 @@
 					
 					design_scale: function(e) {
 						
-						var img = $(this).closest('.customdesign-stage-design-view').find('.design-template-inner img');
+						var img = $(this).closest('.magic-stage-design-view').find('.design-template-inner img');
 						if (img.length === 0)
 							return;
 							
@@ -1196,12 +1196,12 @@
 							top : (ct-nt)+'px'
 						});
 						
-						customdesign.product.update_pos($(this).closest('div.customdesign-stage-design-view'));
+						magic.product.update_pos($(this).closest('div.magic-stage-design-view'));
 					},
 					
 					editradius: function(e) {
 						
-						$(this).closest('.customdesign-stage-design-view').find('.customdesign-stage-editzone,.design-template-inner').css({
+						$(this).closest('.magic-stage-design-view').find('.magic-stage-editzone,.design-template-inner').css({
 							borderRadius: this.value+'%'
 						});	
 						
@@ -1241,7 +1241,7 @@
 								height = this.offsetHeight,
 								limit = true,
 								etarget = $(e.target),
-								dview = etarget.closest('.customdesign-stage-design-view'),
+								dview = etarget.closest('.magic-stage-design-view'),
 								size = dview.find('select[data-name="sizes"]').val(),
 								constrain = dview.find('span.constrain-aspect-ratio').hasClass('active'),
 								width_el = dview.find('input[data-name="width"]'),
@@ -1407,7 +1407,7 @@
 								) {
 									
 									var inp = prompt(
-										customdesign.i(167), 
+										magic.i(167), 
 										this.getAttribute('data-info')
 									),
 									old = this.getAttribute('data-info').split('x');
@@ -1416,9 +1416,9 @@
 										
 										inp = inp.split('x');
 										
-										var wrp = $(this).closest('div.customdesign-stage-design-view').
-													find('img.customdesign-stage-image'),
-											edt = $(this).closest('div.customdesign-stage-editzone');
+										var wrp = $(this).closest('div.magic-stage-design-view').
+													find('img.magic-stage-image'),
+											edt = $(this).closest('div.magic-stage-editzone');
 										
 										if (parseFloat(inp[0]) > wrp.width()) {
 											inp[0] = wrp.width();
@@ -1467,7 +1467,7 @@
 						
 						if (e.target.tagName == 'I' && e.target.parentNode.getAttribute('href') == '#delete') {
 							this.innerHTML = '';
-							$('#customdesign_template_inp').val('');
+							$('#magic_template_inp').val('');
 						}else{
 							e.data.select_template(e);
 						}	
@@ -1477,7 +1477,7 @@
 					},
 					
 					select_template: function(e) {
-						customdesign.product.load_designs({});
+						magic.product.load_designs({});
 						e.preventDefault();
 					},
 					
@@ -1503,7 +1503,7 @@
 									 $(e.target).closest('li').find('a>i') : 
 									 $(e.target);
 									 
-							customdesign.product.upload({
+							magic.product.upload({
 								max_height: 160,
 								callback: function(url) {
 									
@@ -1528,7 +1528,7 @@
 						) {
 							
 							var text = prompt(
-								CustomdesignDesign.js_lang['151'], 
+								MagicDesign.js_lang['151'], 
 								decodeURIComponent(e.target.parentNode.getAttribute('data-label'))
 									.replace(/\&gt\;/, '>')
 									.replace(/\&lt\;/, '<')
@@ -1554,8 +1554,8 @@
 					},
 					
 					is_mask: function(e) {
-						let inps = $(this).closest('div.customdesign-stages-wrp').
-							find('div.customdesign-stage-body').
+						let inps = $(this).closest('div.magic-stages-wrp').
+							find('div.magic-stage-body').
 							attr({'data-is-mask': this.checked}).
 							find('input[name="is_mask"]');
 						if (this.checked)
@@ -1566,12 +1566,12 @@
 					
 				}, true);
 				
-				$('.customdesign-stages-wrp ul.customdesign_tab_nav').sortable({
+				$('.magic-stages-wrp ul.magic_tab_nav').sortable({
 					items : '>li:not([data-add="tab"])',
 					tolerance: 'pointer'
 				});
 				
-				$('.customdesign-stages-wrp .customdesign_tab_nav_wrap').click();
+				$('.magic-stages-wrp .magic_tab_nav_wrap').click();
 				
 			},
 			
@@ -1588,7 +1588,7 @@
 						e.data.load_variations(e);
 					},
 					
-					el: $('#customdesign-product-form'),
+					el: $('#magic-product-form'),
 					
 					events: {
 						':click': function(e) {
@@ -1610,23 +1610,23 @@
 						
 						delete: function(e) {
 							if (confirm('Are you sure?')) {
-								$(e.target).closest('.customdesign-att-layout-item').remove();
+								$(e.target).closest('.magic-att-layout-item').remove();
 								e.data.refresh_variations(e);
 							}
 						},
 						
 						toggle: function(e) {
 							
-							$(e.target).closest('.customdesign-att-layout-item').find('.att-layout-body').slideToggle(
+							$(e.target).closest('.magic-att-layout-item').find('.att-layout-body').slideToggle(
 								250,
 								function() {
 									if (this.style.display == 'none') {
-										$(this).closest('.customdesign-att-layout-item')
+										$(this).closest('.magic-att-layout-item')
 										.find('.att-layout-headitem i[data-act="toggle"]')
 										.removeClass('fa-caret-up')
 										.addClass('fa-caret-down');
 									} else {
-										$(this).closest('.customdesign-att-layout-item')
+										$(this).closest('.magic-att-layout-item')
 										.find('.att-layout-headitem i[data-act="toggle"]')
 										.removeClass('fa-caret-down')
 										.addClass('fa-caret-up');
@@ -1641,7 +1641,7 @@
 						
 						var edata = e.data;
 						
-						$('#customdesign-product-form .customdesign-att-layout-item:not([data-event="added"])').each(function() {
+						$('#magic-product-form .magic-att-layout-item:not([data-event="added"])').each(function() {
 							
 							this.setAttribute('data-event', 'added');
 							
@@ -1657,7 +1657,7 @@
 								},
 								
 								name: function(e) {
-									$(this).closest('.customdesign-att-layout-item')
+									$(this).closest('.magic-att-layout-item')
 									.find('.att-layout-headitem strong[data-name]')
 									.html(this.value);
 								},
@@ -1696,24 +1696,24 @@
 									
 									if ($(this).find('option:selected').attr('data-unique') == 'true') {
 										var exist = false, _this = this, val = $(this).val();
-										$(this).closest('#customdesign-field-attributes-items')
+										$(this).closest('#magic-field-attributes-items')
 										.find('select[data-name="type"]').each(function() {
 											if (this !== _this && this.value == val)
 												exist = true;	
 										});
 										if (exist === true) {
-											alert(document.customdesignconfig.noc);
+											alert(document.magicconfig.noc);
 											$(this).val('');
 											return false;
 										}
 									};
 									
-									$(this).closest('.customdesign-att-layout-item')
+									$(this).closest('.magic-att-layout-item')
 									.find('.att-layout-headitem em[data-view="attr-type"]')
 									.html(this.options[this.selectedIndex].text);
 									
-									customdesign.product.render_values(
-										$(this).closest('div.customdesign-att-layout-item').find('div[data-field="values"]'), 
+									magic.product.render_values(
+										$(this).closest('div.magic-att-layout-item').find('div[data-field="values"]'), 
 										this.value
 									);
 									
@@ -1725,7 +1725,7 @@
 							
 						});
 						
-						$('#customdesign-product-form .customdesign-field-layout-items').sortable({
+						$('#magic-product-form .magic-field-layout-items').sortable({
 							//items : '>li:not([data-add="tab"])',
 							handle: 'a[data-act="arrange"]',
 							update: function(e) {
@@ -1737,7 +1737,7 @@
 					
 					add_variation_events: function(e) {
 						
-						$('#customdesign-product-form .customdesign-att-layout-item:not([data-event="added"])').each(function() {
+						$('#magic-product-form .magic-att-layout-item:not([data-event="added"])').each(function() {
 							
 							this.setAttribute('data-event', 'added');
 							this.edata = e.data;
@@ -1760,7 +1760,7 @@
 											$(this).html('').hide();
 										});
 									} else {
-										customdesign.product.clone_stages(wrp);
+										magic.product.clone_stages(wrp);
 									}
 								},
 								
@@ -1773,7 +1773,7 @@
 											$(this).html('').hide();
 										});
 									} else {
-										customdesign.product.clone_printing(wrp);
+										magic.product.clone_printing(wrp);
 									}
 								}
 								
@@ -1781,7 +1781,7 @@
 							
 						});
 						
-						$('#customdesign-product-form .customdesign-field-layout-items').sortable({
+						$('#magic-product-form .magic-field-layout-items').sortable({
 							handle: 'a[data-act="arrange"]'
 						});
 						
@@ -1789,7 +1789,7 @@
 					
 					bulk_edit_variation: function(e) {
 						
-						var attrs = customdesign.product.get_attributes(true),
+						var attrs = magic.product.get_attributes(true),
 							condi = '';
 						
 						if (Object.keys(attrs).length > 0) {
@@ -1827,33 +1827,33 @@
 						
 						lightbox({
 							width: 750,
-							content: '<div class="customdesign-bulk-form">\
-									<h3>'+CustomdesignDesign.js_lang[203]+'</h3>\
-									<p class="customdesign-update-notice success hidden" style="width: 100%;"></p>\
+							content: '<div class="magic-bulk-form">\
+									<h3>'+MagicDesign.js_lang[203]+'</h3>\
+									<p class="magic-update-notice success hidden" style="width: 100%;"></p>\
 									<p data-view="conditions">\
-										<label>'+CustomdesignDesign.js_lang[200]+':</label>\
+										<label>'+MagicDesign.js_lang[200]+':</label>\
 										'+condi+'\
 									</p>\
 									<p>\
-										<label>'+CustomdesignDesign.js_lang[201]+':</label>\
+										<label>'+MagicDesign.js_lang[201]+':</label>\
 										<select name="apply-for">\
-											<option value="price">'+CustomdesignDesign.js_lang[104]+'</option>\
-											<option value="min-qty">'+CustomdesignDesign.js_lang[205]+'</option>\
-											<option value="max-qty">'+CustomdesignDesign.js_lang[206]+'</option>\
-											<option value="description">'+CustomdesignDesign.js_lang[207]+'</option>\
+											<option value="price">'+MagicDesign.js_lang[104]+'</option>\
+											<option value="min-qty">'+MagicDesign.js_lang[205]+'</option>\
+											<option value="max-qty">'+MagicDesign.js_lang[206]+'</option>\
+											<option value="description">'+MagicDesign.js_lang[207]+'</option>\
 										</select>\
 									</p>\
 									<p>\
-										<label>'+CustomdesignDesign.js_lang[202]+':</label>\
+										<label>'+MagicDesign.js_lang[202]+':</label>\
 										<textarea name="new-value" style="width: 550px;height: 120px;"></textarea>\
 									</p>\
 									<hr>\
-									<p><center><button class="apply customdesign-button customdesign-button-primary customdesign-button-large">'+CustomdesignDesign.js_lang.apply+'</button> &nbsp; <button class="cancel customdesign-button customdesign-button-large">'+CustomdesignDesign.js_lang.cancel+'</button></center></p>\
+									<p><center><button class="apply magic-button magic-button-primary magic-button-large">'+MagicDesign.js_lang.apply+'</button> &nbsp; <button class="cancel magic-button magic-button-large">'+MagicDesign.js_lang.cancel+'</button></center></p>\
 								</div>'
 						});	
 						
 						trigger({
-							el: $('#customdesign-lightbox'),
+							el: $('#magic-lightbox'),
 							events: {
 								'button.apply': 'apply',
 								'button.cancel': 'cancel',
@@ -1870,7 +1870,7 @@
 									conditions[this.getAttribute('data-name')] = $(this).val();
 								});
 								
-								$('#customdesign-field-variations-items>div.customdesign-att-layout-item').each(function() {
+								$('#magic-field-variations-items>div.magic-att-layout-item').each(function() {
 									
 									var valid = true;
 									
@@ -1898,17 +1898,17 @@
 									
 								});
 								
-								e.data.el.find('.customdesign-update-notice').
+								e.data.el.find('.magic-update-notice').
 									removeClass('hidden').
-									html(CustomdesignDesign.js_lang[204].replace('%s', count));
+									html(MagicDesign.js_lang[204].replace('%s', count));
 								
 							},
 							cancel: function(e) {
-								$('#customdesign-lightbox').remove();
+								$('#magic-lightbox').remove();
 								e.preventDefault();
 							},
 							remove_notice: function(e) {
-								e.data.el.find('.customdesign-update-notice').addClass('hidden');
+								e.data.el.find('.magic-update-notice').addClass('hidden');
 							}
 						});
 						
@@ -1918,14 +1918,14 @@
 					
 					add_att: function(el) {
 						
-						var wrp = $(el).closest('.customdesign-att-layout'),
-							tmpl = wrp.find('div.customdesign-att-layout-tmpl>div.customdesign-att-layout-item').clone(),
-							body = wrp.find('.customdesign-field-layout-items'),
+						var wrp = $(el).closest('.magic-att-layout'),
+							tmpl = wrp.find('div.magic-att-layout-tmpl>div.magic-att-layout-item').clone(),
+							body = wrp.find('.magic-field-layout-items'),
 							id = new Date().getTime().toString(36).substr(4).toUpperCase();
 						
-						wrp.find('.customdesign-att-layout-item>.att-layout-body')
+						wrp.find('.magic-att-layout-item>.att-layout-body')
 							.hide()
-							.closest('.customdesign-att-layout-item')
+							.closest('.magic-att-layout-item')
 							.find('.att-layout-headitem i[data-act="toggle"]')
 							.removeClass('fa-caret-up')
 							.addClass('fa-caret-down');
@@ -1937,7 +1937,7 @@
 							.find('div.att-layout-body')
 							.show()
 							.find('input').first().focus()
-							.closest('.customdesign-att-layout-item')
+							.closest('.magic-att-layout-item')
 							.find('.att-layout-headitem i[data-act="toggle"]')
 							.removeClass('fa-caret-down')
 							.addClass('fa-caret-up');
@@ -1948,7 +1948,7 @@
 					
 					add_attribute : function(e) {
 						
-						var tmpl = e.data.add_att($(e.target).closest('.customdesign-att-layout')),
+						var tmpl = e.data.add_att($(e.target).closest('.magic-att-layout')),
 							id = tmpl.attr('data-id');
 							
 						tmpl.find('[data-field="use_variation"] label').attr({'for': 'use-var-'+id});
@@ -1957,7 +1957,7 @@
 						tmpl.find('[data-field="required"] label').attr({'for': 'required-'+id});
 						tmpl.find('[data-field="required"] input').attr({'id': 'required-'+id});
 						
-						customdesign.product.render_values(tmpl.find('div[data-field="values"]'), 'input');
+						magic.product.render_values(tmpl.find('div[data-field="values"]'), 'input');
 						
 						e.data.add_attribute_events(e);
 						e.preventDefault();
@@ -1966,13 +1966,13 @@
 					
 					add_variation : function(e) {
 
-						var tmpl = e.data.add_att($(e.target).closest('.customdesign-att-layout')),
+						var tmpl = e.data.add_att($(e.target).closest('.magic-att-layout')),
 							id = tmpl.attr('data-id');
 						
 						tmpl.find('.att-layout-conditions>strong').html('#'+id);
 						tmpl.find('.att-layout-conditions').append(
-							$(e.target).closest('.customdesign-att-layout')
-							.find('.customdesign-att-layout-default .att-layout-conditions select')
+							$(e.target).closest('.magic-att-layout')
+							.find('.magic-att-layout-default .att-layout-conditions select')
 							.clone()
 						);
 						tmpl.find('.att-layout-conditions select').each(function() {
@@ -1984,7 +1984,7 @@
 						tmpl.find('input[data-cfgstages="yes"]').attr({id: 'custom-config-yes-'+id, name: 'cfgstages-'+id});
 						tmpl.find('label[data-cfgstages="yes"]').attr({'for': 'custom-config-yes-'+id});
 						
-						$(e.target).closest('.customdesign-att-layout').find('.customdesign-att-layout-default').removeClass('hidden');
+						$(e.target).closest('.magic-att-layout').find('.magic-att-layout-default').removeClass('hidden');
 						
 						e.data.add_variation_events(e);
 						e.data.refresh_variations(e);
@@ -1996,10 +1996,10 @@
 						
 						e.preventDefault();
 						
-						$(e.target).closest('.customdesign-att-layout')
+						$(e.target).closest('.magic-att-layout')
 							.find('.att-layout-body')
 							.show()
-							.closest('.customdesign-att-layout-item')
+							.closest('.magic-att-layout-item')
 							.find('.att-layout-headitem i[data-act="toggle"]')
 							.removeClass('fa-caret-down')
 							.addClass('fa-caret-up');
@@ -2010,10 +2010,10 @@
 						
 						e.preventDefault();
 						
-						$(e.target).closest('.customdesign-att-layout')
+						$(e.target).closest('.magic-att-layout')
 							.find('.att-layout-body')
 							.hide()
-							.closest('.customdesign-att-layout-item')
+							.closest('.magic-att-layout-item')
 							.find('.att-layout-headitem i[data-act="toggle"]')
 							.removeClass('fa-caret-up')
 							.addClass('fa-caret-down');
@@ -2023,8 +2023,8 @@
 					load_attributes: function(e) {
 						
 						var edata = e.data,
-							wrp = $('#customdesign-tab-attributes .customdesign-att-layout'),
-							data = $('#customdesign-field-attributes-inp').val();
+							wrp = $('#magic-tab-attributes .magic-att-layout'),
+							data = $('#magic-field-attributes-inp').val();
 						
 						if (data === undefined || data === '')
 							return;
@@ -2036,7 +2036,7 @@
 							var tmpl = e.data.add_att(wrp),
 								attr = data[id];
 							
-							customdesign.product.render_values(
+							magic.product.render_values(
 								tmpl.find('div[data-field="values"]'), 
 								attr.type != '' ? attr.type : 'input',
 								attr.values
@@ -2074,8 +2074,8 @@
 					load_variations: function(e) {
 						
 						var edata = e.data,
-							wrp = $('#customdesign-tab-variations .customdesign-att-layout'),
-							data = $('#customdesign-field-variations-inp').val();
+							wrp = $('#magic-tab-variations .magic-att-layout'),
+							data = $('#magic-field-variations-inp').val();
 						
 						if (data === undefined || data === '')
 							return;
@@ -2109,11 +2109,11 @@
 							});
 							
 							if (vari.stages !== null && typeof vari.stages == 'object') {
-								customdesign.product.clone_stages(tmpl.find('.att-layout-cfgstages'), vari.stages);
+								magic.product.clone_stages(tmpl.find('.att-layout-cfgstages'), vari.stages);
 							}
 							
 							if (vari.printings !== null && typeof vari.printings == 'object') {
-								customdesign.product.clone_printing(tmpl.find('.att-layout-cfgprinting'), vari.printings);
+								magic.product.clone_printing(tmpl.find('.att-layout-cfgprinting'), vari.printings);
 							}
 							
 							edata.add_variation_events(e);
@@ -2121,7 +2121,7 @@
 						});
 						
 						Object.keys(data.default).map(function(id) {
-							wrp.find('.customdesign-att-layout-default .att-layout-conditions').append(
+							wrp.find('.magic-att-layout-default .att-layout-conditions').append(
 								'<select data-name="'+id+'"><option selected value="'+data.default[id]+'"></option></select>'
 							);
 						});
@@ -2133,7 +2133,7 @@
 					
 					refresh_variations: function(e) {
 						
-						var attrs = customdesign.product.get_attributes(true)
+						var attrs = magic.product.get_attributes(true)
 						
 						if (
 							window.old_refresh_variations !== undefined &&
@@ -2142,20 +2142,20 @@
 						
 						window.old_refresh_variations = JSON.stringify(attrs);
 						
-						var vars = $('#customdesign-variations'),
-							items = vars.find('.customdesign-field-layout-items>.customdesign-att-layout-item'),
+						var vars = $('#magic-variations'),
+							items = vars.find('.magic-field-layout-items>.magic-att-layout-item'),
 							current = {};
 							
-						vars.find('.customdesign-att-layout-default select').each(function() {
+						vars.find('.magic-att-layout-default select').each(function() {
 							current[this.getAttribute('data-name')] = this.value;
 						});
-						vars.find('.customdesign-att-layout-default select').remove();
+						vars.find('.magic-att-layout-default select').remove();
 						
 						if (Object.keys(attrs).length === 0) {
 							
 							items.remove();
 							
-							vars.find('.customdesign-att-layout-default').addClass('hidden');
+							vars.find('.magic-att-layout-default').addClass('hidden');
 							vars.find('[data-act="add_variation"], a[data-act], [data-act="bulk_edit_variation"]').hide();
 							vars.find('p[data-view="notice"]').show();
 							
@@ -2190,14 +2190,14 @@
 										});
 									}
 								};
-								vars.find('.customdesign-att-layout-default .att-layout-conditions').
+								vars.find('.magic-att-layout-default .att-layout-conditions').
 									append('<select data-name="'+k+'">'+ops+'</select>');
 									
 							});
 							
 							if (items.length > 0)
-								vars.find('.customdesign-att-layout-default').removeClass('hidden');
-							else vars.find('.customdesign-att-layout-default').addClass('hidden');
+								vars.find('.magic-att-layout-default').removeClass('hidden');
+							else vars.find('.magic-att-layout-default').addClass('hidden');
 							
 							items.each(function() {
 								
@@ -2257,11 +2257,11 @@
 				var _this = this,
 					cates = [
 						'<ul data-view="categories">',
-						'<h3>'+customdesign.i(90)+'</h3>',
-						'<li data-id="" '+(res.category === '' ? 'class="active"' : '')+' data-lv="0"> '+customdesign.i(57)+'</li>'
+						'<h3>'+magic.i(90)+'</h3>',
+						'<li data-id="" '+(res.category === '' ? 'class="active"' : '')+' data-lv="0"> '+magic.i(57)+'</li>'
 					],
 					prods = [
-						'<h3 data-view="top">'+customdesign.i(91)+'<input id="search-templates-inp" type="search" placeholder="'+customdesign.i(92)+'" value="'+encodeURIComponent(res.q)+'" /></h3>',
+						'<h3 data-view="top">'+magic.i(91)+'<input id="search-templates-inp" type="search" placeholder="'+magic.i(92)+'" value="'+encodeURIComponent(res.q)+'" /></h3>',
 						'<ul data-view="items">'
 					];
 				
@@ -2272,13 +2272,13 @@
 				};
 	
 				if (res.items && res.items.length > 0) {
-					var current_design = $('#customdesign_template').val();
+					var current_design = $('#magic_template').val();
 					window.ops_designs = res.items;
 					res.items.map(function(p) {
 							
 						prods.push(
 							'<li data-id="'+p.id+'"'+((current_design == p.id)?' data-current="true"':'')+'>\
-								<span data-view="thumbn" data-start="'+customdesign.i(93)+'">\
+								<span data-view="thumbn" data-start="'+magic.i(93)+'">\
 									<img src="'+p.screenshot+'" />\
 								</span>\
 								<span data-view="name">'+p.name+'</span>\
@@ -2289,13 +2289,13 @@
 					if (res.index+res.limit < res.total) {
 						prods.push(
 							'<li data-loadmore="'+(res.index+res.limit)+'">\
-								<span>'+customdesign.i(94)+'</span>\
+								<span>'+magic.i(94)+'</span>\
 							</li>'
 						);
 					}
 					
 				}
-				else prods.push('<li data-view="noitem" data-category="'+res.category+'">'+customdesign.i(42)+'</li>');
+				else prods.push('<li data-view="noitem" data-category="'+res.category+'">'+magic.i(42)+'</li>');
 				
 					
 				if (res.index == 0) {
@@ -2303,20 +2303,20 @@
 					cates.push('</ul>');
 					prods.push('</ul>');
 					
-					$('#customdesign-lightbox-content').html('<div id="customdesign-list-items-wrp"></div>');
-					$('#customdesign-list-items-wrp').html(cates.join('')).append(prods.join(''));
+					$('#magic-lightbox-content').html('<div id="magic-list-items-wrp"></div>');
+					$('#magic-list-items-wrp').html(cates.join('')).append(prods.join(''));
 					
 				}else{
 					
-					$('#customdesign-lightbox-content ul[data-view="items"] li[data-loadmore]').remove();
+					$('#magic-lightbox-content ul[data-view="items"] li[data-loadmore]').remove();
 					prods[0] = '';
 					prods[1] = '';
-					$('#customdesign-lightbox-content ul[data-view="items"]').append(prods.join(''));
+					$('#magic-lightbox-content ul[data-view="items"]').append(prods.join(''));
 				}
 				
 				trigger({
 					
-					el: $('#customdesign-list-items-wrp'),
+					el: $('#magic-list-items-wrp'),
 					
 					events: {
 						'ul[data-view="categories"] li': 'category',
@@ -2327,7 +2327,7 @@
 					
 					category: function(e) {
 	
-						customdesign.product.load_designs({
+						magic.product.load_designs({
 							category: this.getAttribute('data-id'), 
 							index: 0, 
 							q: $('#search-templates-inp').val()
@@ -2345,23 +2345,23 @@
 						var id = this.getAttribute('data-id'),
 							design = ops_designs.filter(function(p){return p.id == id;});
 						
-						$(this).closest('#customdesign-lightbox').remove();
+						$(this).closest('#magic-lightbox').remove();
 						popup_actions('close');
-						if($('body.CustomdesignDesign').width() > 1000){
+						if($('body.MagicDesign').width() > 1000){
 							$('body').css({overflow: ''});
 						}
 						
-						customdesign.product.render_design(design[0]);
+						magic.product.render_design(design[0]);
 						
 					},
 					
 					load_more: function(e) {
 						
-						this.innerHTML = '<i class="customdesign-spinner x3"></i>';
+						this.innerHTML = '<i class="magic-spinner x3"></i>';
 						this.style.background = 'transparent';
 						$(this).off('click');
 						
-						customdesign.product.load_designs({
+						magic.product.load_designs({
 							category: this.getAttribute('data-category'),
 							index: this.getAttribute('data-loadmore'),
 							q: $('#search-templates-inp').val()
@@ -2372,7 +2372,7 @@
 					search: function(e) {
 						
 						if (e.keyCode !== undefined && e.keyCode === 13)
-							customdesign.product.load_designs({q: this.value});
+							magic.product.load_designs({q: this.value});
 						
 					}
 					
@@ -2382,7 +2382,7 @@
 			
 			render_design: function(data) {
 				
-				var view = $('#customdesign-stages-wrp .customdesign_tab_content.active .customdesign-stage-editzone');
+				var view = $('#magic-stages-wrp .magic_tab_content.active .magic-stage-editzone');
 				
 				if (view.length === 0)
 					return;
@@ -2407,13 +2407,13 @@
 					this.style.left = ((this.parentNode.offsetWidth/2)-(this.width/2))+'px';
 					this.style.top = ((this.parentNode.offsetHeight/2)-(this.height/2))+'px';
 					
-					var rang = $(this).closest('.customdesign-stage-design-view').find('.editzone-ranges .design-scale');
+					var rang = $(this).closest('.magic-stage-design-view').find('.editzone-ranges .design-scale');
 					
 					rang.show();
 					
 					rang.find('input').val((this.width/this.naturalWidth)*100).trigger('input');
 					
-					customdesign.product.update_pos($(this).closest('div.customdesign-stage-design-view'));
+					magic.product.update_pos($(this).closest('div.magic-stage-design-view'));
 					
 				};
 				
@@ -2423,15 +2423,15 @@
 				
 				if (ops.index === undefined || ops.index === 0) {
 					lightbox({
-						content: '<center><i class="customdesign-spinner x3"></i></center>'
+						content: '<center><i class="magic-spinner x3"></i></center>'
 					});
 				};
 				
 				$.ajax({
-					url: window.parent && window.parent.customdesignjs && window.parent.customdesignjs.is_admin === false ? window.parent.customdesignjs.admin_ajax_url : CustomdesignDesign.ajax,
+					url: window.parent && window.parent.magicjs && window.parent.magicjs.is_admin === false ? window.parent.magicjs.admin_ajax_url : MagicDesign.ajax,
 					method: 'POST',
 					data: {
-						nonce: window.parent && window.parent.customdesignjs && window.parent.customdesignjs.is_admin === false ? 'CUSTOMDESIGN-SECURITY-BACKEND:'+window.parent.customdesignjs.nonce_backend : 'CUSTOMDESIGN_ADMIN:'+CustomdesignDesign.nonce,
+						nonce: window.parent && window.parent.magicjs && window.parent.magicjs.is_admin === false ? 'MAGIC-SECURITY-BACKEND:'+window.parent.magicjs.nonce_backend : 'MAGIC_ADMIN:'+MagicDesign.nonce,
 						ajax: 'backend',
 						action: 'templates',
 						category: ops.category !== undefined ? ops.category : '',
@@ -2440,43 +2440,43 @@
 					},
 					statusCode: {
 						403: function(){
-							alert(CustomdesignDesign.js_lang.error_403);
+							alert(MagicDesign.js_lang.error_403);
 						}
 					},
-					success: customdesign.product.render_designs
+					success: magic.product.render_designs
 				});
 				
 			},
 			
 			set_image: function(url, source) {
 				
-				var stage = $('#customdesign-popup').hide().attr('data-stage'),
-					wrp = $('#customdesign-product-design-'+stage);
+				var stage = $('#magic-popup').hide().attr('data-stage'),
+					wrp = $('#magic-product-design-'+stage);
 				
 				popup_actions('close');
 				
 				if (url.indexOf("image/svg+xml") > -1 || url.split('.').pop() == 'svg')
-					wrp.find('img.customdesign-stage-image').attr({'data-svg': '1'});
-				else wrp.find('img.customdesign-stage-image').attr({'data-svg': ''});
+					wrp.find('img.magic-stage-image').attr({'data-svg': '1'});
+				else wrp.find('img.magic-stage-image').attr({'data-svg': ''});
 				
 				var _url = url;
 				
 				if (source == 'raws')
-					_url = customdesign_assets_url+'raws/'+url;
+					_url = magic_assets_url+'raws/'+url;
 				else if (url.indexOf('data:image/') === -1)
-					_url = url.match(/^(?:http|https):\/\//gm) ? url: customdesign_upload_url+url;
+					_url = url.match(/^(?:http|https):\/\//gm) ? url: magic_upload_url+url;
 				
 				if (_url.split('.').pop() == 'jpg' || _url.indexOf('data:image/jpeg') === 0)
 					wrp.find('input[name="is_mask"]').prop({checked: false});
-				console.log(wrp.find('img.customdesign-stage-image'));	
-				wrp.find('img.customdesign-stage-image').attr({
+				console.log(wrp.find('img.magic-stage-image'));	
+				wrp.find('img.magic-stage-image').attr({
 					'src': _url, 
 					'data-url': url, 
 					'data-source': source
 				}).off('load').on('load', function() {
 					
-					var edz = wrp.find('div.customdesign-stage-editzone'),
-						img = wrp.find('.customdesign-stage-image');
+					var edz = wrp.find('div.magic-stage-editzone'),
+						img = wrp.find('.magic-stage-image');
 					
 					edz.css({left: '', top: '', height: '', width: ''});
 					wrp.addClass('stage-enabled').removeClass('stage-disabled');
@@ -2484,7 +2484,7 @@
 					if (img.height() <= 280) {
 						edz.css({
 							top: '10px', 
-							height: (wrp.find('.customdesign-stage-image').height()-20)+'px'
+							height: (wrp.find('.magic-stage-image').height()-20)+'px'
 						});
 						edz.css({
 							width: edz.width()+'px',
@@ -2506,7 +2506,7 @@
 					if (wrp.find('input[name="old-product-upload-'+stage+'"]').val() !== '')
 						wrp.find('button[data-btn="revert"]').show();
 					
-					$('html,body').scrollTop($('#customdesign-stages-wrp').offset().top+30);
+					$('html,body').scrollTop($('#magic-stages-wrp').offset().top+30);
 					
 				});
 					
@@ -2559,14 +2559,14 @@
 					return true;
 				
 				formData.append('action', 'upload_product_images'); 
-				formData.append('nonce', 'CUSTOMDESIGN_ADMIN:'+CustomdesignDesign.nonce); 
+				formData.append('nonce', 'MAGIC_ADMIN:'+MagicDesign.nonce); 
 				
-				$('#customdesign-product-form input[type="submit"]').hide().after('<button disabled="true" class="customdesign-btn" id="customdesign-product-form-submitting"><i class="fa fa-spin fa-spinner"></i> Uploading..</button>');
+				$('#magic-product-form input[type="submit"]').hide().after('<button disabled="true" class="magic-btn" id="magic-product-form-submitting"><i class="fa fa-spin fa-spinner"></i> Uploading..</button>');
 				
 				$.ajax({
 				    data	:	 formData,
 				    type	:	 "POST",
-				    url		:	 CustomdesignDesign.ajax,
+				    url		:	 MagicDesign.ajax,
 				    contentType: false,
 				    processData: false,
 				    xhr		:	 function() {
@@ -2576,11 +2576,11 @@
 						    if (evt.lengthComputable) {
 						        var percentComplete = evt.loaded / evt.total;
 						        if (percentComplete < 1)
-						       		$('#customdesign-product-form-submitting').html(
+						       		$('#magic-product-form-submitting').html(
 						       			'<i class="fa fa-spin fa-spinner"></i> '+
 						       			parseInt(percentComplete*100)+'% upload complete'
 						       		);
-						        else $('#customdesign-product-form-submitting').html('Submiting..');
+						        else $('#magic-product-form-submitting').html('Submiting..');
 						    }
 						    
 					    }, false);
@@ -2605,10 +2605,10 @@
 						    }
 					    });
 					    
-					    $('textarea#customdesign-field-stages-inp').val(enjson(stages));
-					    $('textarea#customdesign-field-variations-inp').val(enjson(variations));
+					    $('textarea#magic-field-stages-inp').val(enjson(stages));
+					    $('textarea#magic-field-variations-inp').val(enjson(variations));
 					    
-					    $('#customdesign-product-form').off('submit').submit();
+					    $('#magic-product-form').off('submit').submit();
 					    
 				    },
 				    error: function() {
@@ -2622,7 +2622,7 @@
 			
 			upload: function(ops) {
 				
-				$('#customdesign-stages-upload-helper').get(0).cb = function(e) {
+				$('#magic-stages-upload-helper').get(0).cb = function(e) {
 					
 					if (
 						this.file.type.indexOf('image/') !== 0 &&
@@ -2665,7 +2665,7 @@
 					}
 					
 					if (e.target.result.indexOf('data:image/svg+xml') === 0) {
-						return ops.callback(customdesign.svguni(e.target.result));
+						return ops.callback(magic.svguni(e.target.result));
 					}
 					
 					var img = new Image();
@@ -2775,7 +2775,7 @@
 					img.src = e.target.result;
 					
 				};
-				$('#customdesign-stages-upload-helper').click();
+				$('#magic-stages-upload-helper').click();
 			},
 			
 			get_attributes: function(is_vari) {
@@ -2786,13 +2786,13 @@
 					color = '#f0f0f0';
 				
 				if (
-					$('div#customdesign-stages-wrp div.fill-base-color').length > 0 &&
-					$('div#customdesign-stages-wrp div.fill-base-color')[0].value !== ''
+					$('div#magic-stages-wrp div.fill-base-color').length > 0 &&
+					$('div#magic-stages-wrp div.fill-base-color')[0].value !== ''
 				) {
-					color = $('div#customdesign-stages-wrp div.fill-base-color')[0].value;
+					color = $('div#magic-stages-wrp div.fill-base-color')[0].value;
 				};
 				
-				$('#customdesign-field-attributes-items>.customdesign-att-layout-item').each(function() {
+				$('#magic-field-attributes-items>.magic-att-layout-item').each(function() {
 					
 					el = $(this);
 					type = el.find('select[data-name="type"]').val();
@@ -2833,8 +2833,8 @@
 					
 				});
 				
-				$('.customdesign-stage-editzone').css({'border-color': customdesign.invert_color(color), 'color': customdesign.invert_color(color)});
-				$('div.customdesign-stage-body .customdesign-stage-design-view').css({background: color});
+				$('.magic-stage-editzone').css({'border-color': magic.invert_color(color), 'color': magic.invert_color(color)});
+				$('div.magic-stage-body .magic-stage-design-view').css({background: color});
 						
 				return data;
 				
@@ -2848,7 +2848,7 @@
 					variations: {}
 				}, is_default = false;
 				
-				$('#customdesign-variations .customdesign-att-layout-default select').each(function() {
+				$('#magic-variations .magic-att-layout-default select').each(function() {
 					data.default[this.getAttribute('data-name')] = this.value;
 					data.attrs.push(this.getAttribute('data-name'));
 					if (this.value !== '')
@@ -2858,7 +2858,7 @@
 				if (is_default === false)
 					data.default = '';
 					
-				$('#customdesign-field-variations-items>.customdesign-att-layout-item').each(function() {
+				$('#magic-field-variations-items>.magic-att-layout-item').each(function() {
 					
 					var condi = {}, 
 						wrp = $(this),
@@ -2883,9 +2883,9 @@
 					};
 					
 					if (data.variations[id].cfgstages)
-						data.variations[id].stages = customdesign.product.get_stages(wrp.find('div.customdesign-stages-wrp'));
+						data.variations[id].stages = magic.product.get_stages(wrp.find('div.magic-stages-wrp'));
 					if (data.variations[id].cfgprinting)
-						data.variations[id].printings = customdesign.product.get_printing(wrp.find('div.att-layout-cfgprinting'));
+						data.variations[id].printings = magic.product.get_printing(wrp.find('div.att-layout-cfgprinting'));
 					
 				});
 				
@@ -2903,7 +2903,7 @@
 				
 				var has_stage = false;
 				
-				wrp.find('.customdesign_tab_content img.customdesign-stage-image').each(function(){
+				wrp.find('.magic_tab_content img.magic-stage-image').each(function(){
 					if (this.getAttribute('data-url') !== '')
 						has_stage = true;
 				});
@@ -2913,16 +2913,16 @@
 					return false;
 				};
 			
-				wrp.find('.customdesign_tab_nav li:not([data-add]) a').each(function() {
+				wrp.find('.magic_tab_nav li:not([data-add]) a').each(function() {
 				   
 					let tab = $(this.getAttribute('href')),
-				    	url = tab.find('img.customdesign-stage-image').attr('data-url'),
-						source = tab.find('img.customdesign-stage-image').attr('data-source'),
+				    	url = tab.find('img.magic-stage-image').attr('data-url'),
+						source = tab.find('img.magic-stage-image').attr('data-source'),
 						overlay = tab.find('input[name="is_mask"]').prop('checked'),
 						pos = tab.find('input[name="pos"]').val(),
 						ret = {},
-						b = tab.find('.customdesign-stage-design-view img.customdesign-stage-image').get(0),
-						l = tab.find('.customdesign-stage-editzone').get(0),
+						b = tab.find('.magic-stage-design-view img.magic-stage-image').get(0),
+						l = tab.find('.magic-stage-editzone').get(0),
 						templ = {},
 						stg = tab.attr('data-stage');
 				   
@@ -2990,7 +2990,7 @@
 				   	
 				   	pos.edit_zone.radius = tab.find('.editzone-radius input').val();
 					
-					data[stg] = customdesign.apply_filter('save_stage', {
+					data[stg] = magic.apply_filter('save_stage', {
 						edit_zone: pos.edit_zone,
 						url: url,
 						source: source,
@@ -3013,7 +3013,7 @@
 					
 				});
 				
-				data = customdesign.apply_filter('save_stages', data, wrp);
+				data = magic.apply_filter('save_stages', data, wrp);
 				
 				return data;
 						
@@ -3022,12 +3022,12 @@
 			get_printing: function(wrp) {
 				
 				var vals = {};
-				wrp.find('.customdesign_checkbox').each(function(){
+				wrp.find('.magic_checkbox').each(function(){
 					if ($(this).find('input.action_check').prop('checked')) {
 						var v = $(this).find('input.action_check').val();
 						vals['_'+v] = '';
 						if (this.getAttribute('data-type') == 'size') {
-							vals['_'+v] = $(this).find('.customdesign_radios input[type="radio"]:checked').val();
+							vals['_'+v] = $(this).find('.magic_radios input[type="radio"]:checked').val();
 						}
 					}
 				});
@@ -3041,44 +3041,44 @@
 				if (wrp.find('textarea[data-name="values"]').length > 0)
 					var values = wrp.find('textarea[data-name="values"]').val();
 				
-				if (customdesign_attribute_values_render[type] !== undefined) {
+				if (magic_attribute_values_render[type] !== undefined) {
 									
-					if (typeof customdesign_attribute_values_render[type] == 'string') {
+					if (typeof magic_attribute_values_render[type] == 'string') {
 						try {
-							customdesign_attribute_values_render[type] = Function(
-								"wrp", "$", "customdesign", "values", 
-								customdesign_attribute_values_render[type]
+							magic_attribute_values_render[type] = Function(
+								"wrp", "$", "magic", "values", 
+								magic_attribute_values_render[type]
 							);
 						} catch (ex) {
 							console.warn(ex);
 						}
 					}
 							
-					if (typeof customdesign_attribute_values_render[type] == 'function') {
-						customdesign_attribute_values_render[type](
+					if (typeof magic_attribute_values_render[type] == 'function') {
+						magic_attribute_values_render[type](
 							wrp,
 							$,
-							customdesign,
+							magic,
 							values
 						);
 					}
 					
 				} else {
-					if (typeof customdesign_attribute_values_render._values == 'string') {
+					if (typeof magic_attribute_values_render._values == 'string') {
 						try {
-							customdesign_attribute_values_render._values = Function(
-								"wrp", "$", "customdesign", "values", 
-								customdesign_attribute_values_render._values
+							magic_attribute_values_render._values = Function(
+								"wrp", "$", "magic", "values", 
+								magic_attribute_values_render._values
 							);
 						} catch (ex) {
 							console.warn(ex);
 						};
 					}
-					if (typeof customdesign_attribute_values_render._values == 'function') {
-						customdesign_attribute_values_render._values(
+					if (typeof magic_attribute_values_render._values == 'function') {
+						magic_attribute_values_render._values(
 							wrp,
 							$,
-							customdesign,
+							magic,
 							values
 						);
 					}
@@ -3088,66 +3088,66 @@
 			
 			clone_stages: function(wrp, data) {
 				
-				$('#customdesign-stages-wrp ul.customdesign_tab_nav').sortable('destroy');
+				$('#magic-stages-wrp ul.magic_tab_nav').sortable('destroy');
 								
-				var clone = $('#customdesign-stages-wrp').clone(true);
+				var clone = $('#magic-stages-wrp').clone(true);
 				/*
 				* Disable select design in variation
 				*/
 				clone.find('.design-template-inner,.design-scale, [data-func="select-design"], [data-func="clear-design"]').remove();
 				
-				clone.removeAttr('id').find('ul.customdesign_tab_nav>li>a[data-label]').each(function(i){
+				clone.removeAttr('id').find('ul.magic_tab_nav>li>a[data-label]').each(function(i){
 				
 					var id = Math.random().toString(36).substr(6);
 					
-					this.setAttribute('href', '#customdesign-stage-'+id);
+					this.setAttribute('href', '#magic-stage-'+id);
 					
-					clone.find('.customdesign_tabs>.customdesign_tab_content').eq(i).attr({
-						id: 'customdesign-stage-'+id,
+					clone.find('.magic_tabs>.magic_tab_content').eq(i).attr({
+						id: 'magic-stage-'+id,
 						'data-stage': id
-					}).find('div.customdesign-stage-settings').attr({
-						id: 'customdesign-product-design-'+id
+					}).find('div.magic-stage-settings').attr({
+						id: 'magic-product-design-'+id
 					});
 					
 				});
 				
 				wrp.hide().html('').append(clone).slideToggle(250);
 				
-				clone.find('ul.customdesign_tab_nav').sortable({
+				clone.find('ul.magic_tab_nav').sortable({
 					items : '>li:not([data-add="tab"])',
 					tolerance: 'pointer'
 				});
-				$('#customdesign-stages-wrp ul.customdesign_tab_nav').sortable({
+				$('#magic-stages-wrp ul.magic_tab_nav').sortable({
 					items : '>li:not([data-add="tab"])',
 					tolerance: 'pointer'
 				});
 				
 				if (data !== undefined && data !== null && typeof data == 'object') {
 					
-					clone.find('ul.customdesign_tab_nav>li:not([data-add]):not(:first-child)').remove();
-					clone.find('div.customdesign_tabs>div.customdesign_tab_content:not(:first-child)').remove();
+					clone.find('ul.magic_tab_nav>li:not([data-add]):not(:first-child)').remove();
+					clone.find('div.magic_tabs>div.magic_tab_content:not(:first-child)').remove();
 						
 					Object.keys(data).map(function(id, i) {
 						
-						clone.find('ul.customdesign_tab_nav>li[data-add]').click();
+						clone.find('ul.magic_tab_nav>li[data-add]').click();
 						
 						if (i === 0) {
-							clone.find('ul.customdesign_tab_nav>li:not([data-add])').first().remove();
-							clone.find('div.customdesign_tabs>div.customdesign_tab_content').first().remove();
+							clone.find('ul.magic_tab_nav>li:not([data-add])').first().remove();
+							clone.find('div.magic_tabs>div.magic_tab_content').first().remove();
 						};
 						
-						var new_nav = clone.find('ul.customdesign_tab_nav>li:not([data-add])').last(),
-							new_body = clone.find('div.customdesign_tabs>div.customdesign_tab_content').last(),
+						var new_nav = clone.find('ul.magic_tab_nav>li:not([data-add])').last(),
+							new_body = clone.find('div.magic_tabs>div.magic_tab_content').last(),
 							url = data[id].url;
 						
 						if (data[id].source == 'raws')
-							_url = customdesign_assets_url+'raws/'+data[id].url;
+							_url = magic_assets_url+'raws/'+data[id].url;
 						else if (url.indexOf('data:image/') === -1)
-							_url = customdesign_upload_url+data[id].url;
+							_url = magic_upload_url+data[id].url;
 						
 						new_nav.find('a')
 							.attr({
-								 href: '#customdesign-stage-'+id
+								 href: '#magic-stage-'+id
 							 })
 							 .attr({
 								 'data-label': data[id].label.replace(/\"/g, '%22')
@@ -3156,13 +3156,13 @@
 							 	data[id].label.replace(/\>/g, '%3E').replace(/\</g, '%3C')
 							 );
 						
-						new_body.find('img.customdesign-stage-image').attr({
+						new_body.find('img.magic-stage-image').attr({
 							src: _url, 
 							'data-url': data[id].url, 
 							'data-source': data[id].source
 						});
 						
-						new_body.find('div.customdesign-stage-editzone').css({
+						new_body.find('div.magic-stage-editzone').css({
 							height: data[id].edit_zone.height+'px',
 							width: data[id].edit_zone.width+'px',
 							left: (data[id].edit_zone.left+(data[id].product_width/2)-(data[id].edit_zone.width/2))+'px',
@@ -3170,13 +3170,13 @@
 							borderRadius: data[id].edit_zone.radius+'px'
 						});
 						
-						new_body.attr({'data-id': id, 'id': 'customdesign-stage-'+id, 'data-stage': id})
-								  .find('div.customdesign-stage-settings')
-								  .attr({id: 'customdesign-product-design-'+id});
+						new_body.attr({'data-id': id, 'id': 'magic-stage-'+id, 'data-stage': id})
+								  .find('div.magic-stage-settings')
+								  .attr({id: 'magic-product-design-'+id});
 						
-						new_body.find('.customdesign-stage-body').attr({'data-is-mask': data[id].overlay ? 'true' : 'false'});
+						new_body.find('.magic-stage-body').attr({'data-is-mask': data[id].overlay ? 'true' : 'false'});
 						
-						var dsview = new_body.find('.customdesign-stage-design-view');
+						var dsview = new_body.find('.magic-stage-design-view');
 						
 						dsview.attr({
 							'data-info': dsview.attr('data-info').split(':')[0]+': '
@@ -3228,10 +3228,10 @@
 			
 			clone_printing: function(wrp, data) {
 				
-				$('#customdesign-tab-details .customdesign_field_printing .customdesign_checkboxes').sortable('destroy');
+				$('#magic-tab-details .magic_field_printing .magic_checkboxes').sortable('destroy');
 				
-				var clone = $('#customdesign-tab-details .customdesign_field_printing .customdesign_form_content').clone(true),
-					uni = wrp.closest('.customdesign-att-layout-item').attr('data-id');
+				var clone = $('#magic-tab-details .magic_field_printing .magic_form_content').clone(true),
+					uni = wrp.closest('.magic-att-layout-item').attr('data-id');
 				
 				clone.find('.field_children').each(function() {
 					$(this).find('.radio input[type="radio"]').each(function() {
@@ -3241,7 +3241,7 @@
 					});
 				});
 				
-				clone.find('.customdesign_checkbox[data-type]').each(function() {
+				clone.find('.magic_checkbox[data-type]').each(function() {
 					$(this).find('input.action_check').prop({checked: false}).get(0).id += '-'+uni;
 				});
 				
@@ -3253,14 +3253,14 @@
 				
 				wrp.hide().html('').append(clone).slideToggle(250);
 				
-				$('#customdesign-tab-details .customdesign_field_printing .customdesign_checkboxes').sortable();
-				clone.find('.customdesign_checkboxes').sortable();
+				$('#magic-tab-details .magic_field_printing .magic_checkboxes').sortable();
+				clone.find('.magic_checkboxes').sortable();
 				
 				if (data !== undefined && typeof data == 'object') {
 					Object.keys(data).reverse().map(function(prnt, i) {
 						var id = prnt.substr(1);
-						clone.find('div.customdesign_checkboxes').prepend(
-							clone.find('input.action_check[value="'+id+'"]').prop({checked: true}).closest('div.customdesign_checkbox')
+						clone.find('div.magic_checkboxes').prepend(
+							clone.find('input.action_check[value="'+id+'"]').prop({checked: true}).closest('div.magic_checkbox')
 						);
 						if (data[prnt] !== '') {
 							clone.find('.field_children[data-parent="'+id+'"] input[type="radio"][value="'+data[prnt]+'"]').prop({checked: true});
@@ -3272,8 +3272,8 @@
 			
 			update_pos: function(stage) {
 				
-				var e = stage.find('.customdesign-stage-editzone').get(0),
-					b = stage.find('img.customdesign-stage-image').get(0),
+				var e = stage.find('.magic-stage-editzone').get(0),
+					b = stage.find('img.magic-stage-image').get(0),
 					pos = {
 						template : {},
 						edit_zone : {
@@ -3311,28 +3311,28 @@
 			init: function(cfg) {
 				
 				if (cfg.bases !== undefined)
-					customdesign.product.bases = cfg.bases;
+					magic.product.bases = cfg.bases;
 				
 				trigger({
 					
-					el: $('#customdesign-template-page'),
+					el: $('#magic-template-page'),
 					
 					events: {
-						'#customdesign-template-form:submit': 'before_submit_template'
+						'#magic-template-form:submit': 'before_submit_template'
 					},
 					
 					before_submit_template: function(e) {
 						
 						var form = $(this),
-							inp = form.find('#customdesign-upload-input'), 
-							old = form.find('#customdesign-upload-input-old')
+							inp = form.find('#magic-upload-input'), 
+							old = form.find('#magic-upload-input-old')
 						
 						if (inp.val() === '' || inp.val() == old.val()) {
 							return true;
 						}
 						
-						form.find('.customdesign_form_submit *').hide();
-						form.find('.customdesign_form_submit').append('<button disabled="true" class="customdesign-btn" id="customdesign-files-form-submitting" style="margin-left: 180px;"><i class="fa fa-spin fa-spinner"></i> Uploading..</button>');
+						form.find('.magic_form_submit *').hide();
+						form.find('.magic_form_submit').append('<button disabled="true" class="magic-btn" id="magic-files-form-submitting" style="margin-left: 180px;"><i class="fa fa-spin fa-spinner"></i> Uploading..</button>');
 						
 						
 						var formData = new FormData();
@@ -3340,12 +3340,12 @@
 						formData.append(inp.attr('name'), new Blob([btoa(encodeURIComponent(inp.val()))]));
 
 						formData.append('action', 'upload_fields');
-						formData.append('nonce', 'CUSTOMDESIGN_ADMIN:'+CustomdesignDesign.nonce); 
+						formData.append('nonce', 'MAGIC_ADMIN:'+MagicDesign.nonce); 
 					
 						$.ajax({
 						    data	:	 formData,
 						    type	:	 "POST",
-						    url		:	 CustomdesignDesign.ajax,
+						    url		:	 MagicDesign.ajax,
 						    contentType: false,
 						    processData: false,
 						    xhr: function() {
@@ -3356,7 +3356,7 @@
 							        	txt = '<i class="fa fa-spin fa-spinner"></i>  '+parseInt(percentComplete*100)+'% upload complete';
 							        if (percentComplete === 1)
 							        	txt = '<i class="fa fa-spin fa-refresh"></i> Submitting..';
-							       	$('#customdesign-form-submitting').html(txt);
+							       	$('#magic-form-submitting').html(txt);
 							      }
 							    }, false);
 							    return xhr;
@@ -3397,7 +3397,7 @@
 						el: wrp,
 						
 						events: {
-							'.customdesign_tab_nav li': 'active_tab',
+							'.magic_tab_nav li': 'active_tab',
 							':click': 'tbody_funcs',
 							'input[data-func="show_detail"]:change': 'show_detail',
 							'input[data-func="cfgpricing"]:change': 'cfgpricing',
@@ -3416,19 +3416,19 @@
 								return e.data.remove_tab(e, this);
 							};
 							
-							e.data.el.find('.customdesign_tab_nav li.active').removeClass('active');
-							e.data.el.find('.customdesign_tabs .customdesign_tab_content').hide();
+							e.data.el.find('.magic_tab_nav li.active').removeClass('active');
+							e.data.el.find('.magic_tabs .magic_tab_content').hide();
 							
 							$(this).addClass('active');
 							
-							e.data.el.find('.customdesign_tabs .customdesign_tab_content[data-stage="'+s+'"]').show().addClass('active');
+							e.data.el.find('.magic_tabs .magic_tab_content[data-stage="'+s+'"]').show().addClass('active');
 							
 						},
 						
 						remove_tab: function(e, el) {
 							
-							if ($(el).closest('ul.customdesign_tab_nav').find('>li').length === 2) {
-								alert(customdesign.i(162));
+							if ($(el).closest('ul.magic_tab_nav').find('>li').length === 2) {
+								alert(magic.i(162));
 								return;	
 							};
 							
@@ -3436,11 +3436,11 @@
 								$(el).next('li:not([data-add])').click();
 							else $(el).prev('li:not([data-add])').click();
 							
-							var ul = $(el).closest('ul.customdesign_tab_nav');
+							var ul = $(el).closest('ul.magic_tab_nav');
 							
 							$(el).remove();
 							
-							e.data.el.find('.customdesign_tabs .customdesign_tab_content[data-stage="'+el.getAttribute('data-stage')+'"]').remove();
+							e.data.el.find('.magic_tabs .magic_tab_content[data-stage="'+el.getAttribute('data-stage')+'"]').remove();
 							ul.find('>li:not([data-add])').each(function(i) {
 								$(this).find('text').html('Stage '+(i+1));
 							});	
@@ -3450,12 +3450,12 @@
 							
 							e.preventDefault();
 							
-							var ul = $(el).closest('ul.customdesign_tab_nav'),
-								tabs = ul.parent().find('div.customdesign_tabs')
+							var ul = $(el).closest('ul.magic_tab_nav'),
+								tabs = ul.parent().find('div.magic_tabs')
 								id = new Date().getTime().toString(36);
 							
 							if (ul.find('>li').length > cfg.ops.max_stages) {
-								alert(customdesign.i(163));
+								alert(magic.i(163));
 								return;
 							};
 							
@@ -3463,7 +3463,7 @@
 								ul.find('>li').first().clone().removeClass('active').attr({'data-stage': id})
 							);
 							tabs.append(
-								tabs.find('>div.customdesign_tab_content').first().clone().css({display: ''}).attr({'data-stage': id})
+								tabs.find('>div.magic_tab_content').first().clone().css({display: ''}).attr({'data-stage': id})
 							);
 							
 							ul.find('>li:not([data-add])').each(function(i) {
@@ -3488,14 +3488,14 @@
 						},
 						
 						delete_row: function(e) {
-							if ($(e.target).closest('.customdesign_tab_content').find('tbody tr').length > 1)
+							if ($(e.target).closest('.magic_tab_content').find('tbody tr').length > 1)
 								$(e.target).closest('tr').remove();
 							else alert(cfg.ops.langs.nd);
 						},
 						
 						add_row: function(e) {
 							
-							var tbody = $(e.target).closest('.customdesign_tab_content').find('tbody');
+							var tbody = $(e.target).closest('.magic_tab_content').find('tbody');
 								last = tbody.find('tr').last();
 							
 							tbody.append(last.clone());
@@ -3512,14 +3512,14 @@
 							
 							var type = e.target.getAttribute('data-type'),
 								label = '', 
-								tabs = $(e.target).closest('div.customdesign_tabs').find('div.customdesign_tab_content');
+								tabs = $(e.target).closest('div.magic_tabs').find('div.magic_tab_content');
 							
 							if (type == 'color') {
                                 if(tabs.eq(0).find('thead tr td').length-2 == 0){
-                                    label = prompt(CustomdesignDesign.js_lang['152'],'Full');
+                                    label = prompt(MagicDesign.js_lang['152'],'Full');
 
                                 }else{
-								    label = prompt(CustomdesignDesign.js_lang['152'], (tabs.eq(0).find('thead tr td').length-2));
+								    label = prompt(MagicDesign.js_lang['152'], (tabs.eq(0).find('thead tr td').length-2));
 								    label = label.replace(/\D/g, '');
 
                                 }
@@ -3533,10 +3533,10 @@
                                 }    
 							} else if(type == 'line' || type == 'character'){
 								if(tabs.eq(0).find('thead tr td').length-2 == 0){
-                                    label = prompt(CustomdesignDesign.js_lang['152'],'Full');
+                                    label = prompt(MagicDesign.js_lang['152'],'Full');
 
                                 }else{
-								    label = prompt(CustomdesignDesign.js_lang['152'], (tabs.eq(0).find('thead tr td').length-2));
+								    label = prompt(MagicDesign.js_lang['152'], (tabs.eq(0).find('thead tr td').length-2));
 								    label = label.replace(/\D/g, '');
                                 }
                       
@@ -3545,7 +3545,7 @@
 								if (label !== '')
 									label = label+'-'+type;  
 							}else { 
-								label = prompt(CustomdesignDesign.js_lang['155'], '');
+								label = prompt(MagicDesign.js_lang['155'], '');
 								label = encodeURIComponent(
 									label.replace(/\"/g, '&quot;').
 										  replace(/\'/g, '&apos;').
@@ -3576,7 +3576,7 @@
 							
 							var type = e.target.getAttribute('data-type');
 							
-							$(e.target).closest('div.customdesign_tabs').find('div.customdesign_tab_content').each(function() {
+							$(e.target).closest('div.magic_tabs').find('div.magic_tab_content').each(function() {
 								var tabl = $(this).find('table');
 								
 								if (tabl.find('thead tr td').length > (type == 'color' ? 4 : 3)) {
@@ -3599,8 +3599,8 @@
 						cfgpricing: function(e) {
 							e.data.el.find('input[data-func="cfgpricing"]').prop({'checked': this.checked});
 							cfg.ops.cfgpricing = this.checked ? '1' : '0';
-							var table = $(e.target).closest('.customdesign_tab_content').find('table'),
-								content = $(e.target).closest('.customdesign_radio_content'),
+							var table = $(e.target).closest('.magic_tab_content').find('table'),
+								content = $(e.target).closest('.magic_radio_content'),
 								type = content.data('type'),
 								checked = this.checked;
 							if(type == 'color') {
@@ -3630,7 +3630,7 @@
 								checked = this.checked;
 							$(e.target).prop({'checked': this.checked});
 							
-							var table = $(e.target).closest('.customdesign_tab_content').find('table');
+							var table = $(e.target).closest('.magic_tab_content').find('table');
 							
 							table.find('tr').each(function(){
 								if(checked && cfg.ops.cfgpricing != 0){
@@ -3645,7 +3645,7 @@
 					
 				trigger({
 					
-					el: $('.customdesign_field_print'),
+					el: $('.magic_field_print'),
 					events: {
 						'input[data-func="type"]:change': 'change_type',
 						'input[data-func="multi"]:change': 'change_multi',
@@ -3653,31 +3653,31 @@
 					
 					change_type: function(e) {
 						var multi = e.data.el.find('input[data-func="multi"]').is(':checked'),
-							content = $(this).closest('.customdesign_radios').find('.customdesign_radio_content');
+							content = $(this).closest('.magic_radios').find('.magic_radio_content');
 							
-						e.data.el.find('.customdesign_radio_content').removeClass('customdesign-open').attr({'data-multi': multi ? 'yes' : 'no'});
-						content.addClass('customdesign-open');
+						e.data.el.find('.magic_radio_content').removeClass('magic-open').attr({'data-multi': multi ? 'yes' : 'no'});
+						content.addClass('magic-open');
 						
 						if (content.html() === '')
 							e.data.render_tabs(e, this);
 
-						$('.customdesign_radio_content.customdesign-open input[data-func]').trigger('change');	
+						$('.magic_radio_content.magic-open input[data-func]').trigger('change');	
 					},
 					
 					change_multi: function(e) {
-						e.data.el.find('.customdesign_radio_content').attr({'data-multi': this.checked ? 'yes' : 'no'});
+						e.data.el.find('.magic_radio_content').attr({'data-multi': this.checked ? 'yes' : 'no'});
 						
 						if (!this.checked) {
-							$(e.data.el).find('.customdesign_radio_content.customdesign-open').find('.customdesign_tab_nav a').first().trigger('click');
+							$(e.data.el).find('.magic_radio_content.magic-open').find('.magic_tab_nav a').first().trigger('click');
 						}
 					},
 
 					render_tabs: function(e, el) {
 						
-						var wrp = $(el).closest('.customdesign_radios').find('.customdesign_radio_content'),
+						var wrp = $(el).closest('.magic_radios').find('.magic_radio_content'),
 							id = new Date().getTime().toString(36),
-							nav = $('<ul class="customdesign_tab_nav"></ul>'),
-							tabs = $('<div class="customdesign_tabs"></div>'),
+							nav = $('<ul class="magic_tab_nav"></ul>'),
+							tabs = $('<div class="magic_tabs"></div>'),
 							opts = $('<div class="tab_option"></div>');
 
 						if (
@@ -3694,7 +3694,7 @@
 									</a>\
 								</li>');
 							tabs.append(
-								'<div class="customdesign_tab_content" data-stage="'+s+'">'+
+								'<div class="magic_tab_content" data-stage="'+s+'">'+
 									e.data.render_table(e, el.value, s)+
 								'</div>'
 							);
@@ -3705,12 +3705,12 @@
 						if(el.value != 'acreage' && el.value != 'fixed' && el.value != 'acreage '){
 							opts.append(
 								'<div data-view="advance">\
-									<div class="customdesign-toggle">\
+									<div class="magic-toggle">\
 										<input type="checkbox" data-func="cfgpricing" value="1" '+(
 											cfg.ops.cfgpricing == '1' ? ' checked' : ''
 										)+'>\
-										<span class="customdesign-toggle-label" data-on="Yes" data-off="No"></span>\
-										<span class="customdesign-toggle-handle"></span>\
+										<span class="magic-toggle-label" data-on="Yes" data-off="No"></span>\
+										<span class="magic-toggle-handle"></span>\
 									</div>\
 									<label>Advance option</label>\
 								</div>');
@@ -3720,12 +3720,12 @@
 							Object.keys(cfg.ops.data[el.value].options).map(function(s, i) {
 								s == 'ppu' || opts.append(
 								'<div data-option="'+(s)+'" class="hidden">\
-									<div class="customdesign-toggle">\
+									<div class="magic-toggle">\
 										<input type="checkbox" data-func="'+(s)+'" value="1" '+(
 											cfg.ops[s.replace('-', '_')] == '1' ? ' checked' : ''
 										)+'>\
-										<span class="customdesign-toggle-label" data-on="Yes" data-off="No"></span>\
-										<span class="customdesign-toggle-handle"></span>\
+										<span class="magic-toggle-label" data-on="Yes" data-off="No"></span>\
+										<span class="magic-toggle-handle"></span>\
 									</div>\
 									<label>'+( cfg.ops.data[el.value].options[s] )+'</label>\
 								</div>');
@@ -3772,8 +3772,8 @@
 						return '<div data-view="table"><table>'+th+tb+'</table></div>\
 								<a href="#" data-func="add_row">'+cfg.ops.langs.aqr+'</a>'+(
 									(type == 'color' || type == 'size' || type == 'character' || type == 'line') ? 
-									' <a href="#" data-func="add_column" data-type="'+type+'">'+CustomdesignDesign.js_lang['153']+'</a> \
-									 <a href="#" data-func="reduce_column" data-type="'+type+'">'+CustomdesignDesign.js_lang['154']+'</a>' 
+									' <a href="#" data-func="add_column" data-type="'+type+'">'+MagicDesign.js_lang['153']+'</a> \
+									 <a href="#" data-func="reduce_column" data-type="'+type+'">'+MagicDesign.js_lang['154']+'</a>' 
 									 : '')+'<input type="checkbox" data-func="show_detail" id="showindt-'+type+'"'+(
 										 cfg.ops.show_detail == '1' ? ' checked' : ''
 									 )+' /> &nbsp; <label for="showindt-'+type+'">Show in details?</label>';
@@ -3806,10 +3806,10 @@
 					
 				}, 'prt');
 					
-				$('.customdesign_field_print input[data-func="type"]:checked').trigger('change');
+				$('.magic_field_print input[data-func="type"]:checked').trigger('change');
 				
-				$('.customdesign_form').on('submit', function(e) {
-					$('.customdesign_field_print').each(function(){
+				$('.magic_form').on('submit', function(e) {
+					$('.magic_field_print').each(function(){
 						
 						var el = $(this),
 							vals = function(el) {
@@ -3826,24 +3826,24 @@
 							data = {
 								multi: el.find('input[data-func="multi"]').is(':checked'),
 								type: el.find('input[data-func="type"]:checked').val(),
-								show_detail: el.find('.customdesign-open input[data-func="show_detail"]').
+								show_detail: el.find('.magic-open input[data-func="show_detail"]').
 											eq(0).is(':checked') ? '1' : '0',
-								white_base: el.find('.customdesign-open input[data-func="white-base"]').
+								white_base: el.find('.magic-open input[data-func="white-base"]').
 											eq(0).is(':checked') ? '1' : '0',		
-								full_color	: el.find('.customdesign-open input[data-func="full-color"]').
+								full_color	: el.find('.magic-open input[data-func="full-color"]').
 								eq(0).is(':checked') ? '1' : '0',			
 								cfgpricing:	el.find('input[data-func="cfgpricing"]').is(':checked'),
 								values: {}
 							};
 							
-						var active = el.find('.customdesign_radio_content.customdesign-open');
+						var active = el.find('.magic_radio_content.magic-open');
 						
 						if (data.multi) {
-							active.find('.customdesign_tab_content').each(function(){
+							active.find('.magic_tab_content').each(function(){
 								data.values[this.getAttribute('data-stage')] = vals($(this));
 							});
 						}else{
-							var ctn = active.find('.customdesign_tab_content').first();
+							var ctn = active.find('.magic_tab_content').first();
 							data.values[ctn.attr('data-stage')] = vals(ctn);
 						}
 						
@@ -3851,7 +3851,7 @@
 						
 					});
 					
-					$('.customdesign_field_advance_option').each(function(){
+					$('.magic_field_advance_option').each(function(){
 						var el = $(this),
 							data = {
 								active: el.find('input[data-func="active"]').is(':checked') ? 1 : 0,
@@ -3891,7 +3891,7 @@
 				
 				trigger({
 					
-					el: $('.customdesign_field_advance_option'),
+					el: $('.magic_field_advance_option'),
 					events: {
 						'input[data-func="active"]:change': 'change_active'
 					},
@@ -3899,13 +3899,13 @@
 					change_active: function(e) {
 						
 						if (this.checked) 
-							$(this).closest('.customdesign_form_content').find('.customdesign_form_group').show();
+							$(this).closest('.magic_form_content').find('.magic_form_group').show();
 						else
-							$(this).closest('.customdesign_form_content').find('.customdesign_form_group').hide();
+							$(this).closest('.magic_form_content').find('.magic_form_group').hide();
 					},
 										
 				}, true);
-				$('.customdesign_field_advance_option input[data-func="active"]').trigger('change');
+				$('.magic_field_advance_option input[data-func="active"]').trigger('change');
 			}
 			
 		},
@@ -3986,7 +3986,7 @@
 	
 	$(document).ready(function($) {
 
-		$('div.customdesign_form_content .customdesign-toggle input[name="is_mask"]').parents('div.customdesign_form_content').append('<button class="button btn_fix_bug" style="cursor: pointer;margin-left: 7px;padding: 5px 5px;">Update position</button>');
+		$('div.magic_form_content .magic-toggle input[name="is_mask"]').parents('div.magic_form_content').append('<button class="button btn_fix_bug" style="cursor: pointer;margin-left: 7px;padding: 5px 5px;">Update position</button>');
 		
 		var color_maps = {"#000000":"black","#000080":"navy","#00008b":"darkblue","#0000cd":"mediumblue","#0000ff":"blue","#006400":"darkgreen","#008000":"green","#008080":"teal","#008b8b":"darkcyan","#00bfff":"deepskyblue","#00ced1":"darkturquoise","#00fa9a":"mediumspringgreen","#00ff00":"lime","#00ff7f":"springgreen","#00ffff":"cyan","#191970":"midnightblue","#1e90ff":"dodgerblue","#20b2aa":"lightseagreen","#228b22":"forestgreen","#2e8b57":"seagreen","#2f4f4f":"darkslategrey","#32cd32":"limegreen","#3cb371":"mediumseagreen","#40e0d0":"turquoise","#4169e1":"royalblue","#4682b4":"steelblue","#483d8b":"darkslateblue","#48d1cc":"mediumturquoise","#4b0082":"indigo","#556b2f":"darkolivegreen","#5f9ea0":"cadetblue","#6495ed":"cornflowerblue","#663399":"rebeccapurple","#66cdaa":"mediumaquamarine","#696969":"dimgrey","#6a5acd":"slateblue","#6b8e23":"olivedrab","#708090":"slategrey","#778899":"lightslategrey","#7b68ee":"mediumslateblue","#7cfc00":"lawngreen","#7fff00":"chartreuse","#7fffd4":"aquamarine","#800000":"maroon","#800080":"purple","#808000":"olive","#808080":"grey","#87ceeb":"skyblue","#87cefa":"lightskyblue","#8a2be2":"blueviolet","#8b0000":"darkred","#8b008b":"darkmagenta","#8b4513":"saddlebrown","#8fbc8f":"darkseagreen","#90ee90":"lightgreen","#9370db":"mediumpurple","#9400d3":"darkviolet","#98fb98":"palegreen","#9932cc":"darkorchid","#9acd32":"yellowgreen","#a0522d":"sienna","#a52a2a":"brown","#a9a9a9":"darkgrey","#add8e6":"lightblue","#adff2f":"greenyellow","#afeeee":"paleturquoise","#b0c4de":"lightsteelblue","#b0e0e6":"powderblue","#b22222":"firebrick","#b8860b":"darkgoldenrod","#ba55d3":"mediumorchid","#bc8f8f":"rosybrown","#bdb76b":"darkkhaki","#c0c0c0":"silver","#c71585":"mediumvioletred","#cd5c5c":"indianred","#cd853f":"peru","#d2691e":"chocolate","#d2b48c":"tan","#d3d3d3":"lightgrey","#d8bfd8":"thistle","#da70d6":"orchid","#daa520":"goldenrod","#db7093":"palevioletred","#dc143c":"crimson","#dcdcdc":"gainsboro","#dda0dd":"plum","#deb887":"burlywood","#e0ffff":"lightcyan","#e6e6fa":"lavender","#e9967a":"darksalmon","#ee82ee":"violet","#eee8aa":"palegoldenrod","#f08080":"lightcoral","#f0e68c":"khaki","#f0f8ff":"aliceblue","#f0fff0":"honeydew","#f0ffff":"azure","#f4a460":"sandybrown","#f5deb3":"wheat","#f5f5dc":"beige","#f5f5f5":"whitesmoke","#f5fffa":"mintcream","#f8f8ff":"ghostwhite","#fa8072":"salmon","#faebd7":"antiquewhite","#faf0e6":"linen","#fafad2":"lightgoldenrodyellow","#fdf5e6":"oldlace","#ff0000":"red","#ff00ff":"magenta","#ff1493":"deeppink","#ff4500":"orangered","#ff6347":"tomato","#ff69b4":"hotpink","#ff7f50":"coral","#ff8c00":"darkorange","#ffa07a":"lightsalmon","#ffa500":"orange","#ffb6c1":"lightpink","#ffc0cb":"pink","#ffd700":"gold","#ffdab9":"peachpuff","#ffdead":"navajowhite","#ffe4b5":"moccasin","#ffe4c4":"bisque","#ffe4e1":"mistyrose","#ffebcd":"blanchedalmond","#ffefd5":"papayawhip","#fff0f5":"lavenderblush","#fff5ee":"seashell","#fff8dc":"cornsilk","#fffacd":"lemonchiffon","#fffaf0":"floralwhite","#fffafa":"snow","#ffff00":"yellow","#ffffe0":"lightyellow","#fffff0":"ivory","#ffffff":"white"},
 		rgb2hex = function(rgb){
@@ -3999,7 +3999,7 @@
 			("0" + parseInt(rgb[3],10).toString(16)).slice(-2) : '';
 		};
 
-		var customdesign_action = function(event) {
+		var magic_action = function(event) {
 				
 				event.preventDefault();
 				
@@ -4014,17 +4014,17 @@
 			    that.html('<i class="fa fa-spinner fa-spin"></i>');
 
 				$.ajax({
-					url: CustomdesignDesign.ajax,
+					url: MagicDesign.ajax,
 					method: 'POST',
-					data: CustomdesignDesign.filter_ajax({
+					data: MagicDesign.filter_ajax({
 						action: 'switch_status',
-						nonce: 'CUSTOMDESIGN_ADMIN:'+CustomdesignDesign.nonce,
+						nonce: 'MAGIC_ADMIN:'+MagicDesign.nonce,
 						data: data
 					}),
 					dataType: 'json',
 					statusCode: {
 						403: function(){
-							alert(CustomdesignDesign.js_lang.error_403);
+							alert(MagicDesign.js_lang.error_403);
 						}
 					},
 					success: function(res){
@@ -4037,7 +4037,7 @@
 							}else{
 								$('#link-addon-bundle').css("display","block");
 							}
-							that.html('<em class="un pub">'+customdesign.i(86)+'</em>');
+							that.html('<em class="un pub">'+magic.i(86)+'</em>');
 							$('#license_noticesModal').css("display","block");
 							return;
 						}
@@ -4054,15 +4054,15 @@
 							var tdname = that.closest('tr').find('td[data-name]');
 							if (res.action == 'switch_active') {
 								if (res.value == 1) {
-									that.html('<em class="pub">'+customdesign.i(85)+'</em>');
+									that.html('<em class="pub">'+magic.i(85)+'</em>');
 									that.attr('data-status', 1);
 									if (data.type == 'addons') {
 										tdname.html(
-											'<a href="'+CustomdesignDesign.admin_url+'customdesign-page=addon&name='+tdname.attr('data-slug')+'">'+decodeURIComponent(tdname.attr('data-name'))+'</a>'
+											'<a href="'+MagicDesign.admin_url+'magic-page=addon&name='+tdname.attr('data-slug')+'">'+decodeURIComponent(tdname.attr('data-name'))+'</a>'
 										);
 									}
 								} else {
-									that.html('<em class="un pub">'+customdesign.i(86)+'</em>');
+									that.html('<em class="un pub">'+magic.i(86)+'</em>');
 									that.attr('data-status', 0);
 									if (data.type == 'addons') {
 										tdname.html(decodeURIComponent(tdname.attr('data-name')));
@@ -4076,7 +4076,7 @@
 				});
 			},
 
-			customdesign_action_duplicate = function(event) {
+			magic_action_duplicate = function(event) {
 				
 				event.preventDefault();
 				
@@ -4092,17 +4092,17 @@
 				that.attr({'data-working': 'true'});
 				
 				$.ajax({
-					url: CustomdesignDesign.ajax,
+					url: MagicDesign.ajax,
 					method: 'POST',
-					data: CustomdesignDesign.filter_ajax({
+					data: MagicDesign.filter_ajax({
 						action: 'duplicate_item',
-						nonce: 'CUSTOMDESIGN_ADMIN:'+CustomdesignDesign.nonce,
+						nonce: 'MAGIC_ADMIN:'+MagicDesign.nonce,
 						data: data
 					}),
 					dataType: 'json',
 					statusCode: {
 						403: function(){
-							alert(CustomdesignDesign.js_lang.error_403);
+							alert(MagicDesign.js_lang.error_403);
 						}
 					},
 					success: function(data){
@@ -4112,9 +4112,9 @@
 						if (data !== null && data.status == 'success') {
 
 							var elm = toptr.clone(),
-								check_input = elm.find('.customdesign_checkbox input'),
-								check_label = elm.find('.customdesign_checkbox label'),
-								action = elm.find('.customdesign_action'),
+								check_input = elm.find('.magic_checkbox input'),
+								check_label = elm.find('.magic_checkbox label'),
+								action = elm.find('.magic_action'),
 								name = elm.find('.name');
 
 							name.attr('href', data.data.url);
@@ -4134,8 +4134,8 @@
 								el: elm,
 								
 								events: {
-									'.customdesign_action': customdesign_action,
-									'.customdesign_action_duplicate': customdesign_action_duplicate,
+									'.magic_action': magic_action,
+									'.magic_action_duplicate': magic_action_duplicate,
 									'.action_check:change': function(e) {
 										var values = $("input[name='checked[]']:checked").map(function(){return $(this).val();}).get();
 										$('.id_action').val(values);
@@ -4159,27 +4159,27 @@
 				
 				'#check_all': 'check_all',
 				'.action_check': 'action_check',
-				'.customdesign_action': customdesign_action,
-				'.customdesign_action_duplicate': customdesign_action_duplicate,
-				'.customdesign_menu > li > a': 'left_menu',
+				'.magic_action': magic_action,
+				'.magic_action_duplicate': magic_action_duplicate,
+				'.magic_menu > li > a': 'left_menu',
 				'.btn-toggle-sidebar': 'toggle_menu',
 				'.btn-toggle-sidebar-mb': 'toggle_menu_mb',
 				'.overlay_mb': 'overlay_mb',
-				'.customdesign_tab_nav': 'tab_click',
+				'.magic_tab_nav': 'tab_click',
 				'[data-file-select]:change': 'select_file',
 				'[data-file-delete]': 'delete_upload',
-				'.customdesign_support_icon': 'button_help',
+				'.magic_support_icon': 'button_help',
 				
-				'.customdesign-field-color': 'change_color',
-				'.customdesign-field-color-wrp [data-func="create-color"]': 'create_color',
-				'.customdesign-field-color-wrp button[data-func="clear-color"]': 'clear_color',
+				'.magic-field-color': 'change_color',
+				'.magic-field-color-wrp [data-func="create-color"]': 'create_color',
+				'.magic-field-color-wrp button[data-func="clear-color"]': 'clear_color',
 				
 				'[data-action="submit"]:change': 'do_submit',
-				'#customdesign-product-form:submit': 'check_submit',
+				'#magic-product-form:submit': 'check_submit',
 				
-				'.customdesign-field-google_fonts': 'google_fonts',
+				'.magic-field-google_fonts': 'google_fonts',
 				
-				'.customdesign-item-action' : 'items_action',
+				'.magic-item-action' : 'items_action',
 				'a[href="#report-bug"]': 'report_bug',
 				'button.loaclik': function() {
 					this.innerHTML = '<i style="font-size: 16px;" class="fa fa-circle-o-notch fa-spin fa-fw"></i> please wait..';
@@ -4195,12 +4195,12 @@
 				
 				switch (func) {
 					case 'delete':
-						var conf = confirm(customdesign.i(121));
+						var conf = confirm(magic.i(121));
 						if (conf == true) {
 							$('<form>', {
-				                "id": "customdesign-item-delete",
+				                "id": "magic-item-delete",
 				                "method": "POST",
-				                "html": '<input type="hidden" name="id" value="' + item_id + '"/><input type="hidden" name="do" value="action"/><input type="hidden" name="action_submit" value="action"/><input type="hidden" name="action" value="delete"/><input type="hidden" name="nonce" value="CUSTOMDESIGN_ADMIN:' + CustomdesignDesign.nonce + '"/>',
+				                "html": '<input type="hidden" name="id" value="' + item_id + '"/><input type="hidden" name="do" value="action"/><input type="hidden" name="action_submit" value="action"/><input type="hidden" name="action" value="delete"/><input type="hidden" name="nonce" value="MAGIC_ADMIN:' + MagicDesign.nonce + '"/>',
 				                "action": window.location.href
 				            }).appendTo(document.body).submit();
 						}
@@ -4212,7 +4212,7 @@
 
 			button_help: function(e) {
 				$(this).toggleClass('open');
-				$(this).parents().find('.customdesign_list_icon').toggleClass('open');
+				$(this).parents().find('.magic_list_icon').toggleClass('open');
 			},
 			
 			check_all: function(){
@@ -4242,9 +4242,9 @@
 				var height=0,
 					wrp = $(this).parent(),
 					target = this,
-					sub = wrp.find('.customdesign_sub_menu');
-				$('.customdesign_icon_dropdown').removeClass('open');
-				$(".customdesign_sub_menu.open").css({'height': 0}).removeClass('open');
+					sub = wrp.find('.magic_sub_menu');
+				$('.magic_icon_dropdown').removeClass('open');
+				$(".magic_sub_menu.open").css({'height': 0}).removeClass('open');
 	
 				if( $(this).attr('data-height') === undefined) {
 					$(sub).find('li').each(function (i){
@@ -4255,7 +4255,7 @@
 	
 				if($(this).next().css('height') == '0px'){
 	
-					$(this).find('.customdesign_icon_dropdown').addClass('open');
+					$(this).find('.magic_icon_dropdown').addClass('open');
 	
 					$(sub).toggleClass(function (){
 						if($(this).is('.open'))
@@ -4271,16 +4271,16 @@
 			},
 			
 			toggle_menu: function() {
-				$(this).parents(".customdesign_sidebar").toggleClass('menu_icon');
+				$(this).parents(".magic_sidebar").toggleClass('menu_icon');
 				$(this).parents("body").toggleClass('page_sidebar_mini');
 			},
 
 			toggle_menu_mb: function() {
-				$(this).parents(".customdesign_mobile").toggleClass('open');
+				$(this).parents(".magic_mobile").toggleClass('open');
 			},
 
 			overlay_mb: function() {
-				$(this).parent(".customdesign_mobile").toggleClass('open');
+				$(this).parent(".magic_mobile").toggleClass('open');
 			},
 			
 			tab_click: function(e) {
@@ -4290,18 +4290,18 @@
 					e.preventDefault();
 					
 					if ($(this).find('>li').length <= 2) {
-						alert(customdesign.i(162));
+						alert(magic.i(162));
 						return;
 					};
 					
 					var s = $(e.target).closest('a').attr('href');
 					
-					$('.customdesign-stages-wrp').each(function() {
-						if ($(this).find('ul.customdesign_tab_nav a[href="'+s+'"]').parent().prev().length > 0)
-							$(this).find('ul.customdesign_tab_nav a[href="'+s+'"]').parent().prev().find('a').click();
-						else if ($(this).find('ul.customdesign_tab_nav a[href="'+s+'"]').parent().next().length > 0)
-							$(this).find('ul.customdesign_tab_nav a[href="'+s+'"]').parent().next().find('a').click();
-						$(this).find('ul.customdesign_tab_nav a[href="'+s+'"]').parent().remove();
+					$('.magic-stages-wrp').each(function() {
+						if ($(this).find('ul.magic_tab_nav a[href="'+s+'"]').parent().prev().length > 0)
+							$(this).find('ul.magic_tab_nav a[href="'+s+'"]').parent().prev().find('a').click();
+						else if ($(this).find('ul.magic_tab_nav a[href="'+s+'"]').parent().next().length > 0)
+							$(this).find('ul.magic_tab_nav a[href="'+s+'"]').parent().next().find('a').click();
+						$(this).find('ul.magic_tab_nav a[href="'+s+'"]').parent().remove();
 					});
 					
 					$(s).remove();
@@ -4315,15 +4315,15 @@
 					
 				var el = e.target.tagName == 'A' ? $(e.target) : $(e.target).closest('a'),
 					tid = el.attr('href'),
-					nav = $(this).closest('.customdesign_tab_nav'),
-					wrp = $(this).closest('.customdesign_tabs_wrapper');
+					nav = $(this).closest('.magic_tab_nav'),
+					wrp = $(this).closest('.magic_tabs_wrapper');
 				
 				if (el.parent().hasClass('active') || $(tid).length === 0) {
 					e.preventDefault();
 					return;
 				}
 				
-				wrp.find('>.customdesign_tabs>.customdesign_tab_content').hide().removeClass('active');
+				wrp.find('>.magic_tabs>.magic_tab_content').hide().removeClass('active');
 				nav.find('>li').removeClass('active');
 				el.parent().addClass('active');
 				
@@ -4331,7 +4331,7 @@
 				
 				if (wrp.attr('data-id') !== '') {
 					
-					var hist = localStorage.getItem('CUSTOMDESIGN-TABS');
+					var hist = localStorage.getItem('MAGIC-TABS');
 					
 					if (!hist)
 						hist = {};
@@ -4339,7 +4339,7 @@
 					
 					hist[wrp.attr('data-id')] = tid;
 					
-					localStorage.setItem('CUSTOMDESIGN-TABS', JSON.stringify(hist));
+					localStorage.setItem('MAGIC-TABS', JSON.stringify(hist));
 					
 				}
 				
@@ -4358,17 +4358,17 @@
 				
 				if (this.files && this.files[0]) {
 					
-					if (type != 'font' && type != 'design' && !customdesign_validate_file(this.files[0]))
+					if (type != 'font' && type != 'design' && !magic_validate_file(this.files[0]))
 						return alert('Error: Invalid upload file');
 					
 			        var reader = new FileReader();
 					reader.file = this.files[0];
 			        reader.onload = function (e) {
 				       
-				       	var result = customdesign.svguni(e.target.result);
+				       	var result = magic.svguni(e.target.result);
 				       	
 						if (type == 'font') {
-							customdesign_font_preview(
+							magic_font_preview(
 								Math.random().toString(36).substr(2).replace(/\d/g,''), 
 								'url('+result+')', 
 								preview
@@ -4382,7 +4382,7 @@
 							var data = {
 								data: result,
 								size: this.file.size,
-								name: 'customdesign-media-'+this.file.name.replace(/[^0-9a-zA-Z\.\-\_]/g, "").trim().replace(/\ /g, '+'),
+								name: 'magic-media-'+this.file.name.replace(/[^0-9a-zA-Z\.\-\_]/g, "").trim().replace(/\ /g, '+'),
 								type: this.file.type ? this.file.type : this.file.name.split('.').pop(),
 								old: $(attr('file-input')+'-old').val(),
 								path: $(attr('file-input')).attr('data-path')
@@ -4390,7 +4390,7 @@
 							
 							if (attr('file-thumbn-width') || attr('file-thumbn-height')) {
 							
-								customdesign_create_thumbn({
+								magic_create_thumbn({
 									source: result,
 									width: attr('file-thumbn-width') || null,
 									height: attr('file-thumbn-height') || null,
@@ -4416,7 +4416,7 @@
 									
 								} else if (result.indexOf('data:image/') > -1) {
 									
-									customdesign_create_thumbn({
+									magic_create_thumbn({
 										source: result,
 										width: 500,
 										height: null,
@@ -4473,7 +4473,7 @@
 			change_color: function(e) {
 
 				var color = e.target.getAttribute('data-color'),
-					wrp = $(this).closest('.customdesign-field-color-wrp');
+					wrp = $(this).closest('.magic-field-color-wrp');
 				
 				if (color) {
 					
@@ -4515,7 +4515,7 @@
 									</li>';
 							});
 						} else {
-							colors = ['<p class="empty">'+CustomdesignDesign.js_lang['144']+'</p>'];	
+							colors = ['<p class="empty">'+MagicDesign.js_lang['144']+'</p>'];	
 						};
 						
 						var lis = '';
@@ -4524,9 +4524,9 @@
 							lis += '<li data-color="'+c+'" style="color: '+c+'">'+color_maps[c]+'</li>';
 						});
 						
-						$('#customdesign-list-colors-body').html(
+						$('#magic-list-colors-body').html(
 							'<div class="col">\
-								<h3>'+CustomdesignDesign.js_lang['145']+'</h3>\
+								<h3>'+MagicDesign.js_lang['145']+'</h3>\
 								<div class="create-color-grp">\
 									<input type="text" name="label" placeholder="Color Label" />\
 									<input type="text" name="hex" placeholder="Color HEX" />\
@@ -4534,10 +4534,10 @@
 									<span>Color <br>picker</span>\
 									<p class="style_color_btn">\
 										<button data-func="apply-now">'+
-										CustomdesignDesign.js_lang.apply+
+										MagicDesign.js_lang.apply+
 										' <i class="fa fa-check"></i></button>\
 										<button data-func="add-list">'+
-										CustomdesignDesign.js_lang['140']+
+										MagicDesign.js_lang['140']+
 										' <i class="fa fa-arrow-right"></i></button>\
 									</p>\
 									<ul class="color-names">'+lis+'</ul>\
@@ -4545,10 +4545,10 @@
 							</div>\
 							<div class="col">\
 								<h3>\
-									'+CustomdesignDesign.js_lang['143']+'\
-									<a href="#unselectall">'+CustomdesignDesign.js_lang['142']+'</a>\
-									<a href="#selectall">'+CustomdesignDesign.js_lang['141']+'</a>\
-									<a href="#delete">'+CustomdesignDesign.js_lang['146']+'</a>\
+									'+MagicDesign.js_lang['143']+'\
+									<a href="#unselectall">'+MagicDesign.js_lang['142']+'</a>\
+									<a href="#selectall">'+MagicDesign.js_lang['141']+'</a>\
+									<a href="#delete">'+MagicDesign.js_lang['146']+'</a>\
 								</h3>\
 								<ul class="colors-ul">'+colors.join('')+'</ul>\
 							</div>'
@@ -4557,11 +4557,11 @@
 						
 						trigger({
 							
-							el: $('#customdesign-list-colors'),
+							el: $('#magic-list-colors'),
 							
 							events: {
 								':click': function(e) {
-									if (e.target.id == 'customdesign-list-colors')
+									if (e.target.id == 'magic-list-colors')
 										e.data.el.remove();
 								},
 								'.close-pop': 'close_pop',
@@ -4595,7 +4595,7 @@
 								};
 								
 								e.preventDefault();
-								$('#customdesign-list-colors').remove();
+								$('#magic-list-colors').remove();
 								
 							},
 							
@@ -4615,7 +4615,7 @@
 							
 							delete_selection: function(e) {
 								
-								if (confirm(CustomdesignDesign.js_lang.sure)) {
+								if (confirm(MagicDesign.js_lang.sure)) {
 									
 									var colors = [];
 									
@@ -4631,10 +4631,10 @@
 									});
 									
 									$.ajax({
-										url: CustomdesignDesign.ajax,
+										url: MagicDesign.ajax,
 										method: 'POST',
 										data: {
-											nonce: 'CUSTOMDESIGN_ADMIN:'+CustomdesignDesign.nonce,
+											nonce: 'MAGIC_ADMIN:'+MagicDesign.nonce,
 											ajax: 'backend',
 											action: 'list_colors',
 											save_action: colors.join(',')
@@ -4711,10 +4711,10 @@
 								});
 								
 								$.ajax({
-									url: CustomdesignDesign.ajax,
+									url: MagicDesign.ajax,
 									method: 'POST',
 									data: {
-										nonce: 'CUSTOMDESIGN_ADMIN:'+CustomdesignDesign.nonce,
+										nonce: 'MAGIC_ADMIN:'+MagicDesign.nonce,
 										ajax: 'backend',
 										action: 'list_colors',
 										save_action: colors.join(',')
@@ -4744,7 +4744,7 @@
 					apply = function(colors) {
 					
 						var val = _this.prev().val(),
-							wrp = _this.closest('.customdesign-field-color-wrp');
+							wrp = _this.closest('.magic-field-color-wrp');
 						
 						colors.map(function(c) {
 							
@@ -4752,14 +4752,14 @@
 							
 							if (wrp.find('li[data-color="'+c[0]+'"]').length === 0) {
 								
-								if (wrp.attr('id') == 'customdesign-product-colors') {
-									wrp.find('ul.customdesign-field-color li[data-add="color"]').before(
+								if (wrp.attr('id') == 'magic-product-colors') {
+									wrp.find('ul.magic-field-color li[data-add="color"]').before(
 										'<li data-color="'+c[0]+'" data-label="'+(c[1] !== undefined ? c[1].toString() : '')+'">'+
 									 	'<span data-func="color" style="background:'+c[0]+'"></span>'+
 									 	'<i class="fa fa-times" data-func="delete"></i>'+
 									 '</li>');
 								} else {
-									wrp.find('ul.customdesign-field-color').append('<li data-color="'+c[0]+'" style="background:'+c[0]+'" data-label="'+(c[1] !== undefined ? decodeURIComponent(c[1]).replace(/\"/g, '&quot;') : '')+'"><i class="fa fa-times" data-color="delete"></i></li>');
+									wrp.find('ul.magic-field-color').append('<li data-color="'+c[0]+'" style="background:'+c[0]+'" data-label="'+(c[1] !== undefined ? decodeURIComponent(c[1]).replace(/\"/g, '&quot;') : '')+'"><i class="fa fa-times" data-color="delete"></i></li>');
 								}
 							};
 							
@@ -4774,36 +4774,36 @@
 						else 
 							e.data.return_colors(wrp);
 						
-						$('#customdesign-list-colors').remove();
+						$('#magic-list-colors').remove();
 						
 					};
 				
 				$('body').append(
-					'<div id="customdesign-list-colors" class="customdesign-popup" style="display:block">\
-						<div class="customdesign-popup-content">\
+					'<div id="magic-list-colors" class="magic-popup" style="display:block">\
+						<div class="magic-popup-content">\
 							<header>\
-								<h3>'+CustomdesignDesign.js_lang['139']+'</h3>\
-								<span class="pop-save" title="'+CustomdesignDesign.js_lang.save+'"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="-150 -150 750 750" height="32px" width="32px" xml:space="preserve"><path d="M506.231,75.508c-7.689-7.69-20.158-7.69-27.849,0l-319.21,319.211L33.617,269.163c-7.689-7.691-20.158-7.691-27.849,0    c-7.69,7.69-7.69,20.158,0,27.849l139.481,139.481c7.687,7.687,20.16,7.689,27.849,0l333.133-333.136    C513.921,95.666,513.921,83.198,506.231,75.508z"></path></svg></span>\
-								<span class="close-pop" title="'+CustomdesignDesign.js_lang.close+'"><svg enable-background="new 0 0 32 32" height="32px" id="close" version="1.1" viewBox="-4 -4 40 40" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M17.459,16.014l8.239-8.194c0.395-0.391,0.395-1.024,0-1.414c-0.394-0.391-1.034-0.391-1.428,0  l-8.232,8.187L7.73,6.284c-0.394-0.395-1.034-0.395-1.428,0c-0.394,0.396-0.394,1.037,0,1.432l8.302,8.303l-8.332,8.286  c-0.394,0.391-0.394,1.024,0,1.414c0.394,0.391,1.034,0.391,1.428,0l8.325-8.279l8.275,8.276c0.394,0.395,1.034,0.395,1.428,0  c0.394-0.396,0.394-1.037,0-1.432L17.459,16.014z" fill="#121313" id="Close"></path></svg></span>\
+								<h3>'+MagicDesign.js_lang['139']+'</h3>\
+								<span class="pop-save" title="'+MagicDesign.js_lang.save+'"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="-150 -150 750 750" height="32px" width="32px" xml:space="preserve"><path d="M506.231,75.508c-7.689-7.69-20.158-7.69-27.849,0l-319.21,319.211L33.617,269.163c-7.689-7.691-20.158-7.691-27.849,0    c-7.69,7.69-7.69,20.158,0,27.849l139.481,139.481c7.687,7.687,20.16,7.689,27.849,0l333.133-333.136    C513.921,95.666,513.921,83.198,506.231,75.508z"></path></svg></span>\
+								<span class="close-pop" title="'+MagicDesign.js_lang.close+'"><svg enable-background="new 0 0 32 32" height="32px" id="close" version="1.1" viewBox="-4 -4 40 40" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M17.459,16.014l8.239-8.194c0.395-0.391,0.395-1.024,0-1.414c-0.394-0.391-1.034-0.391-1.428,0  l-8.232,8.187L7.73,6.284c-0.394-0.395-1.034-0.395-1.428,0c-0.394,0.396-0.394,1.037,0,1.432l8.302,8.303l-8.332,8.286  c-0.394,0.391-0.394,1.024,0,1.414c0.394,0.391,1.034,0.391,1.428,0l8.325-8.279l8.275,8.276c0.394,0.395,1.034,0.395,1.428,0  c0.394-0.396,0.394-1.037,0-1.432L17.459,16.014z" fill="#121313" id="Close"></path></svg></span>\
 							</header>\
-							<div id="customdesign-list-colors-body">\
-								<img src="'+CustomdesignDesign.assets+'assets/images/loading.gif" height="36" style="margin-top: 200px;" />\
+							<div id="magic-list-colors-body">\
+								<img src="'+MagicDesign.assets+'assets/images/loading.gif" height="36" style="margin-top: 200px;" />\
 							</div>\
 						</div>\
 					</div>'
 				);
 				
 				$.ajax({
-					url: CustomdesignDesign.ajax,
+					url: MagicDesign.ajax,
 					method: 'POST',
 					data: {
-						nonce: 'CUSTOMDESIGN_ADMIN:'+CustomdesignDesign.nonce,
+						nonce: 'MAGIC_ADMIN:'+MagicDesign.nonce,
 						ajax: 'backend',
 						action: 'list_colors'
 					},
 					statusCode: {
 						403: function(){
-							alert(CustomdesignDesign.js_lang.error_403);
+							alert(MagicDesign.js_lang.error_403);
 						}
 					},
 					success: function(res) {
@@ -4821,8 +4821,8 @@
 			
 			clear_color: function(e) {
 				
-				if (confirm(CustomdesignDesign.js_lang.sure)) {
-					$(this).closest('.customdesign-field-color-wrp').find('li[data-color]').remove();
+				if (confirm(MagicDesign.js_lang.sure)) {
+					$(this).closest('.magic-field-color-wrp').find('li[data-color]').remove();
 				};
 				
 				e.preventDefault();
@@ -4891,10 +4891,10 @@
 					case 'add' :
 					
 						lightbox({
-							content: '<iframe src="https://services.customdesign.com/fonts/?mode=select"></iframe>'
+							content: '<iframe src="https://services.magic.com/fonts/?mode=select"></iframe>'
 						});
 						
-						$('#customdesign-lightbox iframe').on('load', function() {
+						$('#magic-lightbox iframe').on('load', function() {
 							this.contentWindow.postMessage({
 								action: 'fonts',
 								fonts: wrp.find('textarea[data-func="value"]').val()
@@ -4914,17 +4914,17 @@
 				$(this).remove();
 				
 				$.ajax({
-					url: CustomdesignDesign.ajax,
+					url: MagicDesign.ajax,
 					method: 'POST',
 					data: {
-						nonce: 'CUSTOMDESIGN_ADMIN:'+CustomdesignDesign.nonce,
+						nonce: 'MAGIC_ADMIN:'+MagicDesign.nonce,
 						ajax: 'backend',
 						action: 'report_bug',
 						id: this.getAttribute('data-id')
 					},
 					statusCode: {
 						403: function(){
-							alert(CustomdesignDesign.js_lang.error_403);
+							alert(MagicDesign.js_lang.error_403);
 						}
 					},
 					success: function(res) {
@@ -4937,7 +4937,7 @@
 			
 		}, 'general_events');
 		
-		$('input.customdesign-upload-helper-inp').eq(0).closest('form').on('submit', function(e) {
+		$('input.magic-upload-helper-inp').eq(0).closest('form').on('submit', function(e) {
 			if (!process_submit_upload(this)) {
 				e.preventDefault();
 				return false;
@@ -4945,7 +4945,7 @@
 		});
 		
 		// Set Price(Cliparts)
-		$(".customdesign_set_price").on('change', function(event) {
+		$(".magic_set_price").on('change', function(event) {
 
 			event.preventDefault();
 			var data = {
@@ -4955,29 +4955,29 @@
 		    }, that = $(this);
 
 			$.ajax({
-				url: CustomdesignDesign.ajax,
+				url: MagicDesign.ajax,
 				method: 'POST',
-				data: CustomdesignDesign.filter_ajax({
-					action: 'customdesign_set_price',
-					nonce: 'CUSTOMDESIGN_ADMIN:'+CustomdesignDesign.nonce,
+				data: MagicDesign.filter_ajax({
+					action: 'magic_set_price',
+					nonce: 'MAGIC_ADMIN:'+MagicDesign.nonce,
 					data: data
 				}),
 				dataType: 'json',
 				statusCode: {
 					403: function(){
-						alert(CustomdesignDesign.js_lang.error_403);
+						alert(MagicDesign.js_lang.error_403);
 					}
 				},
 				success: function(data){
 					if (data.status == 'success') {
-						var obj = jQuery('<span class="set_success">'+customdesign.i(79)+'</span>');
+						var obj = jQuery('<span class="set_success">'+magic.i(79)+'</span>');
 						that.parent().append(obj);
 						that.val(data.value);
 						setTimeout(function(){
 						    obj.remove();
 						}, 600);
 					} else {
-						var obj = jQuery('<span class="set_error">'+customdesign.i(97)+'</span>');
+						var obj = jQuery('<span class="set_error">'+magic.i(97)+'</span>');
 						that.parent().append(obj);
 						setTimeout(function(){
 						    obj.remove();
@@ -4993,7 +4993,7 @@
 		    $.widget( "custom.combobox", {
 				_create: function() {
 					this.wrapper = $( "<div>" )
-					  .addClass( "customdesign-combobox" )
+					  .addClass( "magic-combobox" )
 					  .insertAfter( this.element );
 
 					this.element.hide();
@@ -5008,7 +5008,7 @@
 					this.input = $( "<input>" )
 						.appendTo( this.wrapper )
 						.val( value )
-						.addClass( "customdesign-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left" )
+						.addClass( "magic-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left" )
 						.autocomplete({
 							delay: 0,
 							minLength: 0,
@@ -5040,7 +5040,7 @@
 						.tooltip()
 						.appendTo( this.wrapper )
 						.removeClass( "ui-corner-all" )
-						.addClass( "customdesign-combobox-toggle ui-corner-right" )
+						.addClass( "magic-combobox-toggle ui-corner-right" )
 						.on( "mousedown", function() {
 							wasOpen = input.autocomplete( "widget" ).is( ":visible" );
 						})
@@ -5111,7 +5111,7 @@
 
 		   		});
 		 
-		    $( ".customdesign_currency" ).combobox();
+		    $( ".magic_currency" ).combobox();
 		});
 
 		// Multi Select Tag
@@ -5136,9 +5136,9 @@
 				minLength: 0,
 				source: function( request, response ) {
 					// delegate back to autocomplete, but extract the last term
-					if (window.customdesign_tag_values !== undefined) {
+					if (window.magic_tag_values !== undefined) {
 						response( $.ui.autocomplete.filter(
-							customdesign_tag_values, 
+							magic_tag_values, 
 							extractLast( request.term ) ) 
 						);
 					};
@@ -5162,9 +5162,9 @@
 		});
 
 		// Box Tab
-		if (typeof window.customdesign_sampleTags !== 'undefined') {
+		if (typeof window.magic_sampleTags !== 'undefined') {
 			$('.tagsfield').tagit({
-				availableTags: customdesign_sampleTags,
+				availableTags: magic_sampleTags,
 				autocomplete: {delay: 0, minLength: 2},
 				removeConfirmation: true,
 				afterTagAdded: function(event, ui) {
@@ -5175,28 +5175,28 @@
 				    }, that = $(this);
 				    if(!ui.duringInitialization)
 						$.ajax({
-							url: CustomdesignDesign.ajax,
+							url: MagicDesign.ajax,
 							method: 'POST',
-							data: CustomdesignDesign.filter_ajax({
+							data: MagicDesign.filter_ajax({
 								action: 'add_tags',
-								nonce: 'CUSTOMDESIGN_ADMIN:'+CustomdesignDesign.nonce,
+								nonce: 'MAGIC_ADMIN:'+MagicDesign.nonce,
 								data: data
 							}),
 							dataType: 'json',
 							statusCode: {
 								403: function(){
-									alert(CustomdesignDesign.js_lang.error_403);
+									alert(MagicDesign.js_lang.error_403);
 								}
 							},
 							success: function(data){
 								if (data.status == 'success') {
-									var obj = jQuery('<span class="set_success">'+customdesign.i(79)+'</span>');
+									var obj = jQuery('<span class="set_success">'+magic.i(79)+'</span>');
 									that.parent().append(obj);
 									setTimeout(function(){
 									    obj.remove();
 									}, 600);
 								} else{
-									var obj = jQuery('<span class="set_error">'+customdesign.i(97)+'</span>');
+									var obj = jQuery('<span class="set_error">'+magic.i(97)+'</span>');
 									that.parent().append(obj);
 									setTimeout(function(){
 									    obj.remove();
@@ -5213,28 +5213,28 @@
 				    }, that = $(this);
 
 					$.ajax({
-						url: CustomdesignDesign.ajax,
+						url: MagicDesign.ajax,
 						method: 'POST',
-						data: CustomdesignDesign.filter_ajax({
+						data: MagicDesign.filter_ajax({
 							action: 'remove_tags',
-							nonce: 'CUSTOMDESIGN_ADMIN:'+CustomdesignDesign.nonce,
+							nonce: 'MAGIC_ADMIN:'+MagicDesign.nonce,
 							data: data
 						}),
 						dataType: 'json',
 						statusCode: {
 							403: function(){
-								alert(CustomdesignDesign.js_lang.error_403);
+								alert(MagicDesign.js_lang.error_403);
 							}
 						},
 						success: function(data){
 							if (data.status == 'success') {
-								var obj = jQuery('<span class="set_success">'+customdesign.i(79)+'</span>');
+								var obj = jQuery('<span class="set_success">'+magic.i(79)+'</span>');
 								that.parent().append(obj);
 								setTimeout(function(){
 								    obj.remove();
 								}, 600);
 							} else{
-								var obj = jQuery('<span class="set_error">'+customdesign.i(97)+'</span>');
+								var obj = jQuery('<span class="set_error">'+magic.i(97)+'</span>');
 								that.parent().append(obj);
 								setTimeout(function(){
 								    obj.remove();
@@ -5247,7 +5247,7 @@
 		}
 
 		// Menu admin		
-		$(".customdesign_sub_menu.open").each( function(){
+		$(".magic_sub_menu.open").each( function(){
 			var height = 0;
 			$(this).find('li').each(function (i){
 				height += $(this).outerHeight();
@@ -5256,18 +5256,18 @@
 		});
 
 		// Back To Top
-		if ($(".customdesign_backtotop").length > 0) {
+		if ($(".magic_backtotop").length > 0) {
 
 			$(window).scroll(function () {
 				var e = $(window).scrollTop();
 				if (e > 250) {
-					$(".customdesign_backtotop").addClass('show')
+					$(".magic_backtotop").addClass('show')
 				} else {
-					$(".customdesign_backtotop").removeClass('show')
+					$(".magic_backtotop").removeClass('show')
 				}
 			});
 
-			$(".customdesign_backtotop").click(function () {
+			$(".magic_backtotop").click(function () {
 				$('body,html').animate({
 					scrollTop: 0
 				}, 500)
@@ -5276,10 +5276,10 @@
 		}
 		
 		// Active the first tab
-		$('.customdesign_tab_nav').each(function(){
+		$('.magic_tab_nav').each(function(){
 			
-			var wrp = $(this).closest('.customdesign_tabs_wrapper'),
-				hist = localStorage.getItem('CUSTOMDESIGN-TABS'),
+			var wrp = $(this).closest('.magic_tabs_wrapper'),
+				hist = localStorage.getItem('MAGIC-TABS'),
 				id = wrp.attr('data-id');
 					
 			if (!hist)
@@ -5292,41 +5292,41 @@
 			
 		});
 		
-		$('.customdesign_checkboxes').sortable({
+		$('.magic_checkboxes').sortable({
 			start: function(e, ui){
 				var wrp = $(ui.item[0]).parent();
 				wrp.css({'min-height': 0});
 				wrp.css({'min-height': wrp.height()});
 			}
 		}).find('.field_children input[type="radio"]').on('change', function() {
-			$(this).closest('div.customdesign_checkbox').find('input.action_check').prop({checked: true});
+			$(this).closest('div.magic_checkbox').find('input.action_check').prop({checked: true});
 		});
 				
-		if (document.customdesignconfig && customdesign[document.customdesignconfig.main])
-			customdesign[document.customdesignconfig.main].init(document.customdesignconfig);
+		if (document.magicconfig && magic[document.magicconfig.main])
+			magic[document.magicconfig.main].init(document.magicconfig);
 			
-		if (document.getElementById('customdesign-rss-display')) {
+		if (document.getElementById('magic-rss-display')) {
 			$.ajax({
-				url: CustomdesignDesign.ajax,
+				url: MagicDesign.ajax,
 				method: 'POST',
-				data: CustomdesignDesign.filter_ajax({
+				data: MagicDesign.filter_ajax({
 					action: 'get_rss',
-					nonce: 'CUSTOMDESIGN_ADMIN:'+CustomdesignDesign.nonce
+					nonce: 'MAGIC_ADMIN:'+MagicDesign.nonce
 				}),
 				statusCode: {
 					403: function(){
-						alert(CustomdesignDesign.js_lang.error_403);
+						alert(MagicDesign.js_lang.error_403);
 					}
 				},
 				success: function(data){
-					document.getElementById('customdesign-rss-display').innerHTML = data;
+					document.getElementById('magic-rss-display').innerHTML = data;
 				}
 			});
 		}	
 		
 	});
 	
-	window.customdesign_font_preview = function(family, url, preview) {
+	window.magic_font_preview = function(family, url, preview) {
 		
 		$('#font-ttf-upload').show();
 		
@@ -5346,13 +5346,13 @@
 	
 	window.addEventListener('message', function(e) {
 				
-		if (e.origin != 'https://services.customdesign.com')
+		if (e.origin != 'https://services.magic.com')
 			return;
 
 		if (e.data && e.data.action) {
 			switch (e.data.action) {
 				case 'fonts' : 
-					$('.customdesign-field-google_fonts textarea[data-func="value"]').val(JSON.stringify(e.data.fonts));
+					$('.magic-field-google_fonts textarea[data-func="value"]').val(JSON.stringify(e.data.fonts));
 					var txt, list = '';
 					Object.keys(e.data.fonts).map(function(f){
 						txt = decodeURIComponent(f).replace(/\ /g, '+')+':'+e.data.fonts[f][1];
@@ -5362,7 +5362,7 @@
 						list += '<delete data-act="delete">Delete</delete>';
 						list += '</li>';
 					});
-					$('.customdesign-field-google_fonts').find('ul').html(list);
+					$('.magic-field-google_fonts').find('ul').html(list);
 				break;
 			}
 		}

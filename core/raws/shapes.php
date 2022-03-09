@@ -1,12 +1,12 @@
 <?php
 
-global $customdesign_helper;
+global $magic_helper;
 
-if (!defined('customdesign') || !isset($customdesign_helper)) {
+if (!defined('magic') || !isset($magic_helper)) {
 	return header('HTTP/1.0 403 Forbidden');
 }
 	
-$customdesign_helper->import_sample_shapes(
+$magic_helper->import_sample_shapes(
 	array(
 		'<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-10,-10,120,120"><polygon points="20 0, 80 0, 100 100, 0 100"></polygon></svg>',
 		'<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-10,-10,120,120"><polygon points="25 0, 100 0, 75 100, 0 100"></polygon></svg>',

@@ -125,7 +125,7 @@ class TCPDF_STATIC {
 	 * @public static
 	 */
 	public static function getTCPDFProducer() {
-		return "RugCustom Product Designer (https://magicrugs.com)";
+		return "Magic Product Designer (https://magicrugs.com)";
 	}
 
 	/**

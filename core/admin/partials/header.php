@@ -1,13 +1,13 @@
-header<?php
+<?php
 /**
 *
 *	(c) copyright:	magicrugs
 *	(i) website:	magicrugs
 *
 */
-global $customdesign, $customdesign_router;
+global $magic, $magic_router;
 
-if ($customdesign->connector->platform == 'php') {
+if ($magic->connector->platform == 'php') {
 ?><!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -15,50 +15,50 @@ if ($customdesign->connector->platform == 'php') {
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title><?php echo (isset($title) ? $title : 'MagicRugs Control Panel'); ?></title><?php
 }
-$customdesign->do_action('admin-header');
+$magic->do_action('admin-header');
 ?>
 		<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
-		<link rel="stylesheet" href="<?php echo $customdesign->cfg->admin_assets_url;?>css/font-awesome.min.css?version=<?php echo CUSTOMDESIGN; ?>">
-		<link rel="stylesheet" href="<?php echo $customdesign->cfg->admin_assets_url;?>css/admin.css?version=<?php echo CUSTOMDESIGN; ?>">
-		<link rel="stylesheet" href="<?php echo $customdesign->cfg->admin_assets_url;?>css/responsive.css?version=<?php echo CUSTOMDESIGN; ?>">
-		<?php if (is_file($customdesign->cfg->upload_path.'user_data'.DS.'custom.css')) { ?>
-		<link rel="stylesheet" href="<?php echo $customdesign->cfg->upload_url; ?>user_data/custom.css?version=<?php echo $customdesign->cfg->settings['last_update']; ?>">
+		<link rel="stylesheet" href="<?php echo $magic->cfg->admin_assets_url;?>css/font-awesome.min.css?version=<?php echo MAGIC; ?>">
+		<link rel="stylesheet" href="<?php echo $magic->cfg->admin_assets_url;?>css/admin.css?version=<?php echo MAGIC; ?>">
+		<link rel="stylesheet" href="<?php echo $magic->cfg->admin_assets_url;?>css/responsive.css?version=<?php echo MAGIC; ?>">
+		<?php if (is_file($magic->cfg->upload_path.'user_data'.DS.'custom.css')) { ?>
+		<link rel="stylesheet" href="<?php echo $magic->cfg->upload_url; ?>user_data/custom.css?version=<?php echo $magic->cfg->settings['last_update']; ?>">
 		<?php }
-		if ($customdesign->cfg->load_jquery){ ?>
-			<script src="<?php echo $customdesign->apply_filters('editor/jquery.min.js', $customdesign->cfg->assets_url.'assets/js/jquery.min.js?version='.CUSTOMDESIGN); ?>"></script>
+		if ($magic->cfg->load_jquery){ ?>
+			<script src="<?php echo $magic->apply_filters('editor/jquery.min.js', $magic->cfg->assets_url.'assets/js/jquery.min.js?version='.MAGIC); ?>"></script>
 		<?php }
 			
-	$customdesign->do_action('editor-header');
+	$magic->do_action('editor-header');
 
-	if ($customdesign->connector->platform == 'php') {
-		echo '</head><body class="CustomdesignDesign">';
+	if ($magic->connector->platform == 'php') {
+		echo '</head><body class="MagicDesign">';
 	}
 
 	if (isset($_GET['callback'])) {
-		echo '<link rel="stylesheet" href="'.$customdesign->cfg->admin_assets_url.'css/iframe.css?version='.CUSTOMDESIGN.'" />';
+		echo '<link rel="stylesheet" href="'.$magic->cfg->admin_assets_url.'css/iframe.css?version='.MAGIC.'" />';
 		return;
 	}
 
 ?>
-	<div class="customdesign_backtotop"><i class="fa fa-chevron-up"></i></div>
-	<div class="customdesign_sidebar">
-		<div class="customdesign_logo">
-			<a href="<?php echo $customdesign->cfg->admin_url; ?>" title="<?php echo $customdesign->lang("Home"); ?>"><img src="<?php echo $customdesign->cfg->admin_assets_url;?>images/logo.png"></a>
+	<div class="magic_backtotop"><i class="fa fa-chevron-up"></i></div>
+	<div class="magic_sidebar">
+		<div class="magic_logo">
+			<a href="<?php echo $magic->cfg->admin_url; ?>" title="<?php echo $magic->lang("Home"); ?>"><img src="<?php echo $magic->cfg->admin_assets_url;?>images/logo.png"></a>
 			<div class="btn-toggle-sidebar"><i class="fa fa-bars"></i></div>
 		</div>
 		<?php
 			
-			$menus = $customdesign_router->menus;
-			$customdesign_page = isset($_GET['customdesign-page']) ? $_GET['customdesign-page'] : '';
+			$menus = $magic_router->menus;
+			$magic_page = isset($_GET['magic-page']) ? $_GET['magic-page'] : '';
 			$id = isset($_GET['id']) ? $_GET['id'] : '';
 			$type = isset($_GET['type']) ? $_GET['type'] : '';
-			$html = '<ul class="customdesign_menu">';
+			$html = '<ul class="magic_menu">';
 
 			foreach ($menus as $keys => $values) {
 				if (
 					!isset($values['capability']) || 
-					$customdesign->caps($values['capability']) || 
-					$customdesign->caps(str_replace('_read_', '_edit_', $values['capability']))
+					$magic->caps($values['capability']) || 
+					$magic->caps(str_replace('_read_', '_edit_', $values['capability']))
 				) {
 				
 					$active = $open = '';
@@ -67,15 +67,15 @@ $customdesign->do_action('admin-header');
 	
 						if (
 							(
-								isset($values['child'][$customdesign_page]) && 
+								isset($values['child'][$magic_page]) && 
 								( 
-									empty($values['child'][$customdesign_page]['type']) || 
+									empty($values['child'][$magic_page]['type']) || 
 									(
-										!empty($values['child'][$customdesign_page]['type']) && 
-										$values['child'][$customdesign_page]['type'] == $type
+										!empty($values['child'][$magic_page]['type']) && 
+										$values['child'][$magic_page]['type'] == $type
 									)
 								)
-							) || (empty($customdesign_page) && $keys == 'dashboard')
+							) || (empty($magic_page) && $keys == 'dashboard')
 						) {
 							$open = 'open';
 							$active = 'active';
@@ -85,11 +85,11 @@ $customdesign->do_action('admin-header');
 									<a href="#" class="'.$active.'">
 										'.$values['icon'].'
 										<span class="title">'.$values['title'].'</span>
-										<span class="customdesign_icon_dropdown '.$open.'">
+										<span class="magic_icon_dropdown '.$open.'">
 											<i class="fa fa-angle-down"></i>
 										</span>
 									</a>
-									<ul class="customdesign_sub_menu '.$open.'">';
+									<ul class="magic_sub_menu '.$open.'">';
 	
 						foreach ($values['child'] as $key => $child) {
 	
@@ -97,7 +97,7 @@ $customdesign->do_action('admin-header');
 	
 								if (
 									(
-										$key == $customdesign_page && 
+										$key == $magic_page && 
 										(
 											empty($values['child'][$key]['type']) && 
 											empty($id) || (
@@ -105,7 +105,7 @@ $customdesign->do_action('admin-header');
 												$values['child'][$key]['type'] == $type
 											)
 										)
-									)  || (empty($customdesign_page) && $key == 'dashboard')
+									)  || (empty($magic_page) && $key == 'dashboard')
 								) {
 									$active = 'active';
 								} else {
@@ -124,7 +124,7 @@ $customdesign->do_action('admin-header');
 	
 						if (isset($values['link'])) {
 	
-							if ($keys == $customdesign_page || (empty($customdesign_page) && $keys == 'dashboard')) 
+							if ($keys == $magic_page || (empty($magic_page) && $keys == 'dashboard')) 
 								$active = 'active';
 								
 							$html .= '<li><a href="'.$values['link'].'" class="'.$active.'">'.$values['icon'].'<span class="title">'.$values['title'].'</span>'.'</a></li>';
@@ -139,35 +139,35 @@ $customdesign->do_action('admin-header');
 
 			}
 			
-			if ($customdesign->connector->platform == 'php') {
-				$html .= '<li><a href="'.$customdesign->cfg->admin_url.'signout=true"><i class="fa fa-sign-out"></i> '.$customdesign->lang('Sign out').'</a></li>';
+			if ($magic->connector->platform == 'php') {
+				$html .= '<li><a href="'.$magic->cfg->admin_url.'signout=true"><i class="fa fa-sign-out"></i> '.$magic->lang('Sign out').'</a></li>';
 			}
 			
 			$html .= '</ul>';
 			echo $html;
 
 		?>
-		<ver><span><a href="https://www.magicrugs.com/?utm_source=codecanyon&utm_medium=version-link&utm_campaign=client-site&utm_term=backend-link&utm_content=woocommerce" target=_blank>MagicRugs Version</span> <?php echo CUSTOMDESIGN; ?></a></ver>
+		<ver><span><a href="https://www.magicrugs.com/?utm_source=codecanyon&utm_medium=version-link&utm_campaign=client-site&utm_term=backend-link&utm_content=woocommerce" target=_blank>MagicRugs Version</span> <?php echo MAGIC; ?></a></ver>
 	</div>
 
-	<div class="customdesign_sidebar customdesign_mobile">
-		<div class="customdesign_logo">
-			<img src="<?php echo $customdesign->cfg->admin_assets_url;?>images/logo.png">
+	<div class="magic_sidebar magic_mobile">
+		<div class="magic_logo">
+			<img src="<?php echo $magic->cfg->admin_assets_url;?>images/logo.png">
 			<div class="btn-toggle-sidebar-mb"><i class="fa fa-bars"></i></div>
 		</div>
 		<?php
 
-			$customdesign_page = isset($_GET['customdesign-page']) ? $_GET['customdesign-page'] : '';
+			$magic_page = isset($_GET['magic-page']) ? $_GET['magic-page'] : '';
 			$id = isset($_GET['id']) ? $_GET['id'] : '';
 			$type = isset($_GET['type']) ? $_GET['type'] : '';
-			$html = '<ul class="customdesign_menu">';
+			$html = '<ul class="magic_menu">';
 
 			foreach ($menus as $keys => $values) {
 				
 				if (
 					!isset($values['capability']) || 
-					$customdesign->caps($values['capability']) || 
-					$customdesign->caps(str_replace('_read_', '_edit_', $values['capability']))
+					$magic->caps($values['capability']) || 
+					$magic->caps(str_replace('_read_', '_edit_', $values['capability']))
 				) {
 					
 					$active = $open = '';
@@ -175,19 +175,19 @@ $customdesign->do_action('admin-header');
 					if (isset($values['child']) && count($values['child']) > 0){
 	
 	
-						if (isset($values['child'][$customdesign_page]) && ( empty($values['child'][$customdesign_page]['type']) || (!empty($values['child'][$customdesign_page]['type']) && $values['child'][$customdesign_page]['type'] == $type) )) {
+						if (isset($values['child'][$magic_page]) && ( empty($values['child'][$magic_page]['type']) || (!empty($values['child'][$magic_page]['type']) && $values['child'][$magic_page]['type'] == $type) )) {
 							$open = 'open';
 							$active = 'active';
 						}
 	
-						$html .= '<li><a href="#" class="'.$active.'">'.$values['icon'].'<span class="title">'.$values['title'].'</span>'.'<span class="customdesign_icon_dropdown '.$open.'"><i class="fa fa-angle-down"></i></span></a>';
-						$html .= '<ul class="customdesign_sub_menu '.$open.'">';
+						$html .= '<li><a href="#" class="'.$active.'">'.$values['icon'].'<span class="title">'.$values['title'].'</span>'.'<span class="magic_icon_dropdown '.$open.'"><i class="fa fa-angle-down"></i></span></a>';
+						$html .= '<ul class="magic_sub_menu '.$open.'">';
 	
 						foreach ($values['child'] as $key => $child) {
 	
 							if (!isset($child['hidden']) || (isset($child['hidden']) && $child['hidden'] == false)) {
 	
-								if ($key == $customdesign_page && (empty($values['child'][$key]['type']) && empty($id) || (!empty($values['child'][$key]['type']) && $values['child'][$key]['type'] == $type))) {
+								if ($key == $magic_page && (empty($values['child'][$key]['type']) && empty($id) || (!empty($values['child'][$key]['type']) && $values['child'][$key]['type'] == $type))) {
 									$active = 'active';
 								} else {
 									$active = '';
@@ -204,7 +204,7 @@ $customdesign->do_action('admin-header');
 	
 						if (isset($values['link'])) {
 	
-							if ($keys == $customdesign_page) $active = 'active';
+							if ($keys == $magic_page) $active = 'active';
 							$html .= '<li><a href="'.$values['link'].'" class="'.$active.'">'.$values['icon'].'<span class="title">'.$values['title'].'</span>'.'</a></li>';
 	
 						} else {

@@ -1,105 +1,105 @@
 <?php
 	
-function customdesign_cms_product_data_fields($ops, $js_cfg, $id) {
+function magic_cms_product_data_fields($ops, $js_cfg, $id) {
     
-    global $customdesign;
+    global $magic;
     
-    $product = isset($ops['customdesign_product_base']) ? $ops['customdesign_product_base'] : '';
-    $design = isset($ops['customdesign_design_template']) ? $ops['customdesign_design_template'] : '';
-    $customize = isset($ops['customdesign_customize']) ? $ops['customdesign_customize'] : '';
-    $addcart = isset($ops['customdesign_disable_add_cart']) ? $ops['customdesign_disable_add_cart'] : '';
+    $product = isset($ops['magic_product_base']) ? $ops['magic_product_base'] : '';
+    $design = isset($ops['magic_design_template']) ? $ops['magic_design_template'] : '';
+    $customize = isset($ops['magic_customize']) ? $ops['magic_customize'] : '';
+    $addcart = isset($ops['magic_disable_add_cart']) ? $ops['magic_disable_add_cart'] : '';
 
     ?>
-	<link rel="stylesheet" href="<?php echo $customdesign->cfg->assets_url; ?>admin/assets/css/interg.css?version=<?php echo CUSTOMDESIGN; ?>" type="text/css" media="all" />
-    <div id="customdesign_product_data" class="panel woocommerce_options_panel">
-        <p class="form-field customdesign_customize_field options_group hidden" id="customdesign-enable-customize">
-			<label for="customdesign_customize">
-				<strong><?php echo $customdesign->lang('Hide cart button'); ?>:</strong>
+	<link rel="stylesheet" href="<?php echo $magic->cfg->assets_url; ?>admin/assets/css/interg.css?version=<?php echo MAGIC; ?>" type="text/css" media="all" />
+    <div id="magic_product_data" class="panel woocommerce_options_panel">
+        <p class="form-field magic_customize_field options_group hidden" id="magic-enable-customize">
+			<label for="magic_customize">
+				<strong><?php echo $magic->lang('Hide cart button'); ?>:</strong>
 			</label>
-			<span class="customdesign-toggle">
-				<input type="checkbox" name="customdesign_disable_add_cart"  <?php
+			<span class="magic-toggle">
+				<input type="checkbox" name="magic_disable_add_cart"  <?php
 				if ($addcart == 'yes')echo 'checked';
-			?> id="customdesign_customize" value="yes" />
-				<span class="customdesign-toggle-label" data-on="Yes" data-off="No"></span>
-				<span class="customdesign-toggle-handle"></span>
+			?> id="magic_customize" value="yes" />
+				<span class="magic-toggle-label" data-on="Yes" data-off="No"></span>
+				<span class="magic-toggle-handle"></span>
 			</span>
 			<span style="float: left;margin-left: 10px;">
-				<?php echo $customdesign->lang('Hide the Add To Cart button in product details page'); ?>
+				<?php echo $magic->lang('Hide the Add To Cart button in product details page'); ?>
 			</span>
 		</p>
-		<p class="form-field customdesign_customize_field options_group hidden" id="customdesign-enable-customize">
-			<label for="customdesign_customize">
-				<strong><?php echo $customdesign->lang('Allow customize'); ?>:</strong>
+		<p class="form-field magic_customize_field options_group hidden" id="magic-enable-customize">
+			<label for="magic_customize">
+				<strong><?php echo $magic->lang('Allow customize'); ?>:</strong>
 			</label>
-			<span class="customdesign-toggle">
-				<input type="checkbox" name="customdesign_customize"  <?php
+			<span class="magic-toggle">
+				<input type="checkbox" name="magic_customize"  <?php
 				if ($customize != 'no')echo 'checked';
-			?> id="customdesign_customize" value="yes" />
-				<span class="customdesign-toggle-label" data-on="Yes" data-off="No"></span>
-				<span class="customdesign-toggle-handle"></span>
+			?> id="magic_customize" value="yes" />
+				<span class="magic-toggle-label" data-on="Yes" data-off="No"></span>
+				<span class="magic-toggle-handle"></span>
 			</span>
 			<span style="float: left;margin-left: 10px;">
-				<?php echo $customdesign->lang('Users can change or customize the design before checkout.'); ?>
+				<?php echo $magic->lang('Users can change or customize the design before checkout.'); ?>
 			</span>
 		</p>
-        <div id="customdesign-product-base" class="options_group"></div>
-        <p id="customdesign-seclect-base">
-	        <a href="#" class="customdesign-button customdesign-button-primary customdesign-button-large" data-func="products">
+        <div id="magic-product-base" class="options_group"></div>
+        <p id="magic-seclect-base">
+	        <a href="#" class="magic-button magic-button-primary magic-button-large" data-func="products">
 		        <i class="fa fa-cubes"></i>
-		        <?php echo $customdesign->lang('Select product base'); ?>
+		        <?php echo $magic->lang('Select product base'); ?>
 		    </a>
 		    &nbsp;
-		    <a href="#" title="<?php echo $customdesign->lang('Remove product base'); ?>" class="customdesign-button customdesign-button-link-delete customdesign-button-large hidden" data-func="remove-base-product">
+		    <a href="#" title="<?php echo $magic->lang('Remove product base'); ?>" class="magic-button magic-button-link-delete magic-button-large hidden" data-func="remove-base-product">
 		        <i class="fa fa-trash"></i>
-		        <?php echo $customdesign->lang('Remove product'); ?>
+		        <?php echo $magic->lang('Remove product'); ?>
 		    </a>
         </p>
-        <?php $customdesign->do_action( 'product-customdesign-option-tab' ); ?>
-        <input type="hidden" value="<?php echo $product; ?>" name="customdesign_product_base" id="customdesign_product_base" />
-        <input type="hidden" value="<?php echo $design; ?>" name="customdesign_design_template" id="customdesign_design_template" />
+        <?php $magic->do_action( 'product-magic-option-tab' ); ?>
+        <input type="hidden" value="<?php echo $product; ?>" name="magic_product_base" id="magic_product_base" />
+        <input type="hidden" value="<?php echo $design; ?>" name="magic_design_template" id="magic_design_template" />
     </div>
 <?php 
 	
 	$js_cfg = array_merge(array(
-		'nonce_backend' => customdesign_secure::create_nonce('CUSTOMDESIGN-SECURITY-BACKEND'),
-		'ajax_url' => $customdesign->cfg->ajax_url,
-		'admin_ajax_url' => $customdesign->cfg->admin_ajax_url,
+		'nonce_backend' => magic_secure::create_nonce('MAGIC-SECURITY-BACKEND'),
+		'ajax_url' => $magic->cfg->ajax_url,
+		'admin_ajax_url' => $magic->cfg->admin_ajax_url,
 		'is_admin' => is_admin(),
-		'admin_url' => $customdesign->cfg->admin_url,
-		'assets_url' => $customdesign->cfg->assets_url,
-		'upload_url' => $customdesign->cfg->upload_url,
+		'admin_url' => $magic->cfg->admin_url,
+		'assets_url' => $magic->cfg->assets_url,
+		'upload_url' => $magic->cfg->upload_url,
 		'inline_edit' => (isset($ops['inline_edit']) ? $ops['inline_edit'] : true),
 		'current_product' => (isset($id) && !empty($id) ? $id : 0),
-		'color' => explode(':', ($customdesign->cfg->settings['colors'] ? $customdesign->cfg->settings['colors'] : ''))[0],
-		'_i42' => $customdesign->lang('No items found'),
-    	'_i62' => $customdesign->lang('Products'),
-    	'_i64' => $customdesign->lang('Select product'),
-    	'_i63' => $customdesign->lang('Search product'),
-    	'_i56' => $customdesign->lang('Categories'),
-    	'_i57' => $customdesign->lang('All categories'),
-    	'_i58' => $customdesign->lang('Select template'),
-    	'_i59' => $customdesign->lang('Create new'),
-    	'_i60' => $customdesign->lang('Stages'),
-    	'_i61' => $customdesign->lang('Edit Product Base'),
-		'_i65' => $customdesign->lang('Start Over'),
-    	'_i66' => $customdesign->lang('Design templates'),
-    	'_i67' => $customdesign->lang('Search design templates'),
-    	'_i68' => $customdesign->lang('Load more'),
-    	'_i69' => $customdesign->lang('Clear design template'),
-    	'_i70' => $customdesign->lang('Clear'),
-    	'_i71' => $customdesign->lang('You need to choose a product base to enable magicrugs Editor for this product.'),
-    	'_i72' => $customdesign->lang('Download'),
-    	'_i73' => $customdesign->lang('Download design template'),
-    	'_front' => $customdesign->lang($customdesign->cfg->settings['label_stage_1']),
-    	'_back' => $customdesign->lang($customdesign->cfg->settings['label_stage_2']),
-    	'_left' => $customdesign->lang($customdesign->cfg->settings['label_stage_3']),
-    	'_right' => $customdesign->lang($customdesign->cfg->settings['label_stage_4']),
+		'color' => explode(':', ($magic->cfg->settings['colors'] ? $magic->cfg->settings['colors'] : ''))[0],
+		'_i42' => $magic->lang('No items found'),
+    	'_i62' => $magic->lang('Products'),
+    	'_i64' => $magic->lang('Select product'),
+    	'_i63' => $magic->lang('Search product'),
+    	'_i56' => $magic->lang('Categories'),
+    	'_i57' => $magic->lang('All categories'),
+    	'_i58' => $magic->lang('Select template'),
+    	'_i59' => $magic->lang('Create new'),
+    	'_i60' => $magic->lang('Stages'),
+    	'_i61' => $magic->lang('Edit Product Base'),
+		'_i65' => $magic->lang('Start Over'),
+    	'_i66' => $magic->lang('Design templates'),
+    	'_i67' => $magic->lang('Search design templates'),
+    	'_i68' => $magic->lang('Load more'),
+    	'_i69' => $magic->lang('Clear design template'),
+    	'_i70' => $magic->lang('Clear'),
+    	'_i71' => $magic->lang('You need to choose a product base to enable magicrugs Editor for this product.'),
+    	'_i72' => $magic->lang('Download'),
+    	'_i73' => $magic->lang('Download design template'),
+    	'_front' => $magic->lang($magic->cfg->settings['label_stage_1']),
+    	'_back' => $magic->lang($magic->cfg->settings['label_stage_2']),
+    	'_left' => $magic->lang($magic->cfg->settings['label_stage_3']),
+    	'_right' => $magic->lang($magic->cfg->settings['label_stage_4']),
 	), $js_cfg);
 	
 	echo '<script type="text/javascript">';
-	echo 'var customdesignjs='.json_encode($js_cfg).';';
+	echo 'var magicjs='.json_encode($js_cfg).';';
 	echo '</script>';
-	echo '<script type="text/javascript" src="'.$customdesign->cfg->assets_url.'admin/assets/js/interg.js?version='.CUSTOMDESIGN.'"></script>';
+	echo '<script type="text/javascript" src="'.$magic->cfg->assets_url.'admin/assets/js/interg.js?version='.MAGIC.'"></script>';
 
 }
 

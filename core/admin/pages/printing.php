@@ -1,33 +1,33 @@
 <?php
-	global $customdesign;
+	global $magic;
 
 	$section = 'printing';
 
 	$components = array();
-	foreach ($customdesign->cfg->editor_menus as $key => $menu) {
+	foreach ($magic->cfg->editor_menus as $key => $menu) {
 		$components[$key] = $menu['label'];
 	}
 
 	$components = array_merge($components, array(
-		'shop' => $customdesign->lang('Shopping cart'),
-		'back' => $customdesign->lang('Back to Shop'),
+		'shop' => $magic->lang('Shopping cart'),
+		'back' => $magic->lang('Back to Shop'),
 	));
 	
-	$default_fonts = !empty($customdesign->cfg->default_fonts) ? stripslashes($customdesign->cfg->default_fonts) : array();
-	$font = $customdesign->get_fonts();
+	$default_fonts = !empty($magic->cfg->default_fonts) ? stripslashes($magic->cfg->default_fonts) : array();
+	$font = $magic->get_fonts();
 	$default_fonts = json_decode(htmlspecialchars_decode($default_fonts), true);
 	$font_available = array_merge(array_keys($default_fonts),array_column($font,'name_desc'));
 	$font_available = array_map('urldecode', $font_available);
 
 	$resource_args =array(
 		'font' => array(
-			'title'  => $customdesign->lang('Font'),
+			'title'  => $magic->lang('Font'),
 			'priority' => 10,
 			'fields' => array(
 				array(
 					'type' => 'multiselect',
 					'name' => 'font_available',
-					'label' => $customdesign->lang('Font available'),
+					'label' => $magic->lang('Font available'),
 					'default' => $font_available,
 					'value' => null,
 					'options' => $font_available
@@ -36,44 +36,44 @@
 					'type' => 'color',
 					'name' => 'colors',
 					'selection' => false,
-					'label' => $customdesign->lang('List colors'),
+					'label' => $magic->lang('List colors'),
 					'default' => '#3fc7ba:#546e7a,#757575,#6d4c41,#f4511e,#fb8c00,#ffb300,#fdd835,#c0cA33,#a0ce4e,#7cb342,#43a047,#00897b,#00acc1,#3fc7ba,#039be5,#3949ab,#5e35b1,#8e24aa,#d81b60,#eeeeee,#3a3a3a',
-					'desc' => $customdesign->lang('The default colors are used to fill objects'),
+					'desc' => $magic->lang('The default colors are used to fill objects'),
 				),
 				array(
 					'type' => 'toggle',
 					'name' => 'color_picker',
-					'label' => $customdesign->lang('Color picker'),
+					'label' => $magic->lang('Color picker'),
 					'default' => 'yes',
-					'desc' => $customdesign->lang('Allow users select colors from the color picker'),
+					'desc' => $magic->lang('Allow users select colors from the color picker'),
 					'value' => null
 				),
 				array(
 					'type' => 'advance_option',
 					'name' => 'options',
-					'label' => $customdesign->lang('Advance option'),
-					'option_fields' => $customdesign->views->get_resource_fields('font'),
+					'label' => $magic->lang('Advance option'),
+					'option_fields' => $magic->views->get_resource_fields('font'),
 				),
 			)
 		),  
 		'cliparts'=> array(
-			'title'  => $customdesign->lang('Clipart'),
+			'title'  => $magic->lang('Clipart'),
 			'priority' => 20,
 			'fields' => array(
 				array(
 					'type' => 'color',
 					'name' => 'colors',
 					'selection' => false,
-					'label' => $customdesign->lang('List colors'),
+					'label' => $magic->lang('List colors'),
 					'default' => '#3fc7ba:#546e7a,#757575,#6d4c41,#f4511e,#fb8c00,#ffb300,#fdd835,#c0cA33,#a0ce4e,#7cb342,#43a047,#00897b,#00acc1,#3fc7ba,#039be5,#3949ab,#5e35b1,#8e24aa,#d81b60,#eeeeee,#3a3a3a',
-					'desc' => $customdesign->lang('The default colors are used to fill objects'),
+					'desc' => $magic->lang('The default colors are used to fill objects'),
 				),
 				array(
 					'type' => 'toggle',
 					'name' => 'color_picker',
-					'label' => $customdesign->lang('Color picker'),
+					'label' => $magic->lang('Color picker'),
 					'default' => 'yes',
-					'desc' => $customdesign->lang('Allow users select colors from the color picker'),
+					'desc' => $magic->lang('Allow users select colors from the color picker'),
 					'value' => null
 				),
 				array(
@@ -81,37 +81,37 @@
 					'cate_type' => 'cliparts',
 					'parent' => 0,
 					'name' => 'categories',
-					'label' => $customdesign->lang('Categories'),
+					'label' => $magic->lang('Categories'),
 					'id' => 0,
 
 				),
 				array(
 					'type' => 'advance_option',
 					'name' => 'options',
-					'label' => $customdesign->lang('Advance option'),
-					'option_fields' => $customdesign->views->get_resource_fields('cliparts'),
+					'label' => $magic->lang('Advance option'),
+					'option_fields' => $magic->views->get_resource_fields('cliparts'),
 					
 				),
 			)
 		), 
 		'templates'=> array(
-			'title'  => $customdesign->lang('Template'),
+			'title'  => $magic->lang('Template'),
 			'priority' => 30,
 			'fields' => array(
 				array(
 					'type' => 'color',
 					'name' => 'colors',
 					'selection' => false,
-					'label' => $customdesign->lang('List colors'),
+					'label' => $magic->lang('List colors'),
 					'default' => '#3fc7ba:#546e7a,#757575,#6d4c41,#f4511e,#fb8c00,#ffb300,#fdd835,#c0cA33,#a0ce4e,#7cb342,#43a047,#00897b,#00acc1,#3fc7ba,#039be5,#3949ab,#5e35b1,#8e24aa,#d81b60,#eeeeee,#3a3a3a',
-					'desc' => $customdesign->lang('The default colors are used to fill objects'),
+					'desc' => $magic->lang('The default colors are used to fill objects'),
 				),
 				array(
 					'type' => 'toggle',
 					'name' => 'color_picker',
-					'label' => $customdesign->lang('Color picker'),
+					'label' => $magic->lang('Color picker'),
 					'default' => 'yes',
-					'desc' => $customdesign->lang('Allow users select colors from the color picker'),
+					'desc' => $magic->lang('Allow users select colors from the color picker'),
 					'value' => null
 				),
 				array(
@@ -119,102 +119,102 @@
 					'cate_type' => 'templates',
 					'parent' => 0,
 					'name' => 'categories',
-					'label' => $customdesign->lang('Categories'),
+					'label' => $magic->lang('Categories'),
 					'id' => 0,
 				),
 				array(
 					'type' => 'advance_option',
 					'name' => 'options',
-					'label' => $customdesign->lang('Advance option'),
-					'option_fields' => $customdesign->views->get_resource_fields('templates'),		
+					'label' => $magic->lang('Advance option'),
+					'option_fields' => $magic->views->get_resource_fields('templates'),		
 				),
 			)
 		),  
 		'image_upload'=> array(
-			'title'  => $customdesign->lang('Image Upload'),
+			'title'  => $magic->lang('Image Upload'),
 			'priority' => 40,
 			'fields' => array(
 				array(
 					'type' => 'color',
 					'name' => 'colors',
 					'selection' => false,
-					'label' => $customdesign->lang('List colors'),
+					'label' => $magic->lang('List colors'),
 					'default' => '#3fc7ba:#546e7a,#757575,#6d4c41,#f4511e,#fb8c00,#ffb300,#fdd835,#c0cA33,#a0ce4e,#7cb342,#43a047,#00897b,#00acc1,#3fc7ba,#039be5,#3949ab,#5e35b1,#8e24aa,#d81b60,#eeeeee,#3a3a3a',
-					'desc' => $customdesign->lang('The default colors are used to fill objects'),
+					'desc' => $magic->lang('The default colors are used to fill objects'),
 					
 				),
 				array(
 					'type' => 'toggle',
 					'name' => 'color_picker',
-					'label' => $customdesign->lang('Color picker'),
+					'label' => $magic->lang('Color picker'),
 					'default' => 'yes',
-					'desc' => $customdesign->lang('Allow users select colors from the color picker'),
+					'desc' => $magic->lang('Allow users select colors from the color picker'),
 					'value' => null
 				),
 				array(
 					'type' => 'advance_option',
 					'name' => 'options',
-					'label' => $customdesign->lang('Advance option'),
-					'option_fields' => $customdesign->views->get_resource_fields('image'),
+					'label' => $magic->lang('Advance option'),
+					'option_fields' => $magic->views->get_resource_fields('image'),
 					
 				),
 			)
 		),  
 		'shapes'=> array(
-			'title'  => $customdesign->lang('Shape'),
+			'title'  => $magic->lang('Shape'),
 			'priority' => 50,
 			'fields' => array(
 				array(
 					'type' => 'color',
 					'name' => 'colors',
 					'selection' => false,
-					'label' => $customdesign->lang('List colors'),
+					'label' => $magic->lang('List colors'),
 					'default' => '#3fc7ba:#546e7a,#757575,#6d4c41,#f4511e,#fb8c00,#ffb300,#fdd835,#c0cA33,#a0ce4e,#7cb342,#43a047,#00897b,#00acc1,#3fc7ba,#039be5,#3949ab,#5e35b1,#8e24aa,#d81b60,#eeeeee,#3a3a3a',
-					'desc' => $customdesign->lang('The default colors are used to fill objects'),
+					'desc' => $magic->lang('The default colors are used to fill objects'),
 				),
 				array(
 					'type' => 'toggle',
 					'name' => 'color_picker',
-					'label' => $customdesign->lang('Color picker'),
+					'label' => $magic->lang('Color picker'),
 					'default' => 'yes',
-					'desc' => $customdesign->lang('Allow users select colors from the color picker'),
+					'desc' => $magic->lang('Allow users select colors from the color picker'),
 					'value' => null
 				),
 				array(
 					'type' => 'advance_option',
 					'name' => 'options',
-					'label' => $customdesign->lang('Advance option'),
-					'option_fields' => $customdesign->views->get_resource_fields('shapes'),
+					'label' => $magic->lang('Advance option'),
+					'option_fields' => $magic->views->get_resource_fields('shapes'),
 					
 				),
 			)
 		),  
 	);
 	
-	$actives = $customdesign->get_option('active_addons');
+	$actives = $magic->get_option('active_addons');
 	if ($actives !== null && !empty($actives))
 		$actives = (Array)@json_decode($actives);
 	
 	if(in_array('images', array_keys($actives)) && $actives['images']){
 		$resource_args['image'] = array(
-			'title'  => $customdesign->lang('Image'),
+			'title'  => $magic->lang('Image'),
 			'priority' => 35,
 			'fields' => array(
 				array(
 					'type' => 'color',
 					'name' => 'colors',
 					'selection' => false,
-					'label' => $customdesign->lang('List colors'),
+					'label' => $magic->lang('List colors'),
 					'default' => '#3fc7ba:#546e7a,#757575,#6d4c41,#f4511e,#fb8c00,#ffb300,#fdd835,#c0cA33,#a0ce4e,#7cb342,#43a047,#00897b,#00acc1,#3fc7ba,#039be5,#3949ab,#5e35b1,#8e24aa,#d81b60,#eeeeee,#3a3a3a',
-					'desc' => $customdesign->lang('The default colors are used to fill objects'),
+					'desc' => $magic->lang('The default colors are used to fill objects'),
 					
 				),
 				array(
 					'type' => 'toggle',
 					'name' => 'color_picker',
-					'label' => $customdesign->lang('Color picker'),
+					'label' => $magic->lang('Color picker'),
 					'default' => 'yes',
-					'desc' => $customdesign->lang('Allow users select colors from the color picker'),
+					'desc' => $magic->lang('Allow users select colors from the color picker'),
 					'value' => null
 				),
 				array(
@@ -222,14 +222,14 @@
 					'cate_type' => 'images',
 					'parent' => 0,
 					'name' => 'categories',
-					'label' => $customdesign->lang('Categories'),
+					'label' => $magic->lang('Categories'),
 					'id' => 0,	
 				),
 				array(
 					'type' => 'advance_option',
 					'name' => 'options',
-					'label' => $customdesign->lang('Advance option'),
-					'option_fields' => $customdesign->views->get_resource_fields('image'),
+					'label' => $magic->lang('Advance option'),
+					'option_fields' => $magic->views->get_resource_fields('image'),
 					
 				),
 			)
@@ -238,23 +238,23 @@
 
 	if(in_array('backgrounds', array_keys($actives)) && $actives['backgrounds']){
 		$resource_args['backgrounds'] = array(
-			'title'  => $customdesign->lang('Background'),
+			'title'  => $magic->lang('Background'),
 			'priority' => 60,
 			'fields' => array(
 				array(
 					'type' => 'color',
 					'name' => 'colors',
 					'selection' => false,
-					'label' => $customdesign->lang('List colors'),
+					'label' => $magic->lang('List colors'),
 					'default' => '#3fc7ba:#546e7a,#757575,#6d4c41,#f4511e,#fb8c00,#ffb300,#fdd835,#c0cA33,#a0ce4e,#7cb342,#43a047,#00897b,#00acc1,#3fc7ba,#039be5,#3949ab,#5e35b1,#8e24aa,#d81b60,#eeeeee,#3a3a3a',
-					'desc' => $customdesign->lang('The default colors are used to fill objects'),
+					'desc' => $magic->lang('The default colors are used to fill objects'),
 				),
 				array(
 					'type' => 'toggle',
 					'name' => 'color_picker',
-					'label' => $customdesign->lang('Color picker'),
+					'label' => $magic->lang('Color picker'),
 					'default' => 'yes',
-					'desc' => $customdesign->lang('Allow users select colors from the color picker'),
+					'desc' => $magic->lang('Allow users select colors from the color picker'),
 					'value' => null
 				),
 				array(
@@ -262,14 +262,14 @@
 					'cate_type' => 'backgrounds',
 					'parent' => 0,
 					'name' => 'categories',
-					'label' => $customdesign->lang('Categories'),
+					'label' => $magic->lang('Categories'),
 					'id' => 0,	
 				),
 				array(
 					'type' => 'advance_option',
 					'name' => 'options',
-					'label' => $customdesign->lang('Advance option'),
-					'option_fields' => $customdesign->views->get_resource_fields('background'),
+					'label' => $magic->lang('Advance option'),
+					'option_fields' => $magic->views->get_resource_fields('background'),
 				),
 			)
 		);
@@ -284,11 +284,11 @@
 	
 	$args = array(
 		'tabs' => array(
-			'general:' . $customdesign->lang('General') => array(
+			'general:' . $magic->lang('General') => array(
 				array(
 					'type' => 'input',
 					'name' => 'title',
-					'label' => $customdesign->lang('Printing Title'),
+					'label' => $magic->lang('Printing Title'),
 					'required' => true,
 					'default' => 'Untitled'
 				),
@@ -298,40 +298,40 @@
 					'thumbn' => 'thumbnail',
 					'thumbn_width' => 320,
 					'path' => 'printings'.DS,
-					'label' => $customdesign->lang('Printing thumbnail'),
-					'desc' => $customdesign->lang('Supported files svg, png, jpg, jpeg. Max size 5MB'),
+					'label' => $magic->lang('Printing thumbnail'),
+					'desc' => $magic->lang('Supported files svg, png, jpg, jpeg. Max size 5MB'),
 				),
 				array(
 					'type' => 'text',
 					'name' => 'description',
-					'label' => $customdesign->lang('Description'),
+					'label' => $magic->lang('Description'),
 				),
 				array(
 					'type' => 'toggle',
 					'name' => 'active',
-					'label' => $customdesign->lang('Active'),
+					'label' => $magic->lang('Active'),
 					'default' => 'yes',
 					'value' => null
 				),
 			),
-			'ruler:' . $customdesign->lang('Price ruler') => array(
+			'ruler:' . $magic->lang('Price ruler') => array(
 				array(
 					'type' => 'print',
 					'name' => 'calculate',
-					'label' => $customdesign->lang('Calculation Price'),
-					'prints_type' => $customdesign->lib->get_print_types()
+					'label' => $magic->lang('Calculation Price'),
+					'prints_type' => $magic->lib->get_print_types()
 				),
 			),
-			'resource:' . $customdesign->lang('Resource') => array(
+			'resource:' . $magic->lang('Resource') => array(
 				array(
 					'type' => 'resource',
 					'name' => 'resource',	
-					'desc' => $customdesign->lang('Resource'),
+					'desc' => $magic->lang('Resource'),
 					'tabs' => $resource_args,
 					'default' => '[]',
 				),
 			),
-			'layout:' . $customdesign->lang('Layout') => array(
+			'layout:' . $magic->lang('Layout') => array(
 				array(
 					'type' => 'groups',
 					'name' => 'layout',
@@ -339,7 +339,7 @@
 						// array(
 						// 	'type' => 'dropbox',
 						// 	'name' => 'open_type',
-						// 	'label' => $customdesign->lang('Open product designer in'),
+						// 	'label' => $magic->lang('Open product designer in'),
 						// 	'default' => 'page',
 						// 	'options' => array(
 						// 		'popup' => 'Popup',
@@ -349,16 +349,16 @@
 						array(
 							'type' => 'checkboxes',
 							'name' => 'components',
-							'label' => $customdesign->lang('Select component'),
-							'desc' => $customdesign->lang('Show/hide components of editor, you also can arrange them as how you want'),
-							'default' => $customdesign->cfg->settings['components'],//implode(',', array_keys($components)),
+							'label' => $magic->lang('Select component'),
+							'desc' => $magic->lang('Show/hide components of editor, you also can arrange them as how you want'),
+							'default' => $magic->cfg->settings['components'],//implode(',', array_keys($components)),
 							'value' => null,
 							'options' => $components
 						),
 						array(
 							'type' => 'multiselect',
 							'name' => 'actions',
-							'label' => $customdesign->lang('Select action'),
+							'label' => $magic->lang('Select action'),
 							'default' => 'file,design,print,share,help,undo,redo,zoom,preview,qrcode',
 							'value' => null,
 							'options' => ['file', 'design', 'print', 'share', 'help', 'undo', 'redo', 'zoom', 'preview', 'qrcode']
@@ -366,7 +366,7 @@
 						array(
 							'type' => 'multiselect',
 							'name' => 'toolbars',
-							'label' => $customdesign->lang('Select toolbar '),
+							'label' => $magic->lang('Select toolbar '),
 							'default' => 'replace-image,crop,mask,remove-bg,filter,fill,layer,position,transform,advance-SVG,select-font,text-effect,font-size,line-height,letter-spacing,text-align,font-style',
 							'value' => null,
 							'options' => array (
@@ -395,32 +395,32 @@
 			),
 		)
 	);
-	$fields = $customdesign_admin->process_data($args, 'printings');
+	$fields = $magic_admin->process_data($args, 'printings');
 
 ?>
 
-<div class="customdesign_wrapper" id="customdesign-<?php echo $section; ?>-page">
-	<div class="customdesign_content">
+<div class="magic_wrapper" id="magic-<?php echo $section; ?>-page">
+	<div class="magic_content">
 		<?php
-			$customdesign->views->detail_header(array(
-				'add' => $customdesign->lang('Add new printing'),
-				'edit' => $fields['tabs']['general:' . $customdesign->lang('General')][0]['value'],
+			$magic->views->detail_header(array(
+				'add' => $magic->lang('Add new printing'),
+				'edit' => $fields['tabs']['general:' . $magic->lang('General')][0]['value'],
 				'page' => $section
 			));
 		?>
-		<form action="<?php echo $customdesign->cfg->admin_url; ?>customdesign-page=<?php
+		<form action="<?php echo $magic->cfg->admin_url; ?>magic-page=<?php
 			echo $section.(isset($_GET['callback']) ? '&callback='.$_GET['callback'] : '');
-		?>" id="customdesign-<?php echo $section; ?>-form" method="post" class="customdesign_form" enctype="multipart/form-data">
+		?>" id="magic-<?php echo $section; ?>-form" method="post" class="magic_form" enctype="multipart/form-data">
 
-			<?php $customdesign->views->tabs_render($fields); ?>
+			<?php $magic->views->tabs_render($fields); ?>
 
-			<div class="customdesign_form_group customdesign_form_submit">
-				<input type="submit" class="customdesign-button customdesign-button-primary" value="<?php echo $customdesign->lang('Save Printing'); ?>"/>
+			<div class="magic_form_group magic_form_submit">
+				<input type="submit" class="magic-button magic-button-primary" value="<?php echo $magic->lang('Save Printing'); ?>"/>
 				<input type="hidden" name="do" value="action" />
-				<a class="customdesign_cancel" href="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=<?php echo $section; ?>s">
-					<?php echo $customdesign->lang('Cancel'); ?>
+				<a class="magic_cancel" href="<?php echo $magic->cfg->admin_url;?>magic-page=<?php echo $section; ?>s">
+					<?php echo $magic->lang('Cancel'); ?>
 				</a>
-				<input type="hidden" name="customdesign-section" value="<?php echo $section; ?>">
+				<input type="hidden" name="magic-section" value="<?php echo $section; ?>">
 			</div>
 		</form>
 	</div>

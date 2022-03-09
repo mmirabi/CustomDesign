@@ -7,12 +7,12 @@
 	if (isset($_POST['action_submit']) && !empty($_POST['action_submit'])) {
 
 		$arr = array("id","tag_id","item_id");
-		$tag_ref = $customdesign_admin->get_rows_custom($arr, 'tags_reference', $orderby = 'id', $order='asc');
+		$tag_ref = $magic_admin->get_rows_custom($arr, 'tags_reference', $orderby = 'id', $order='asc');
 		$data_action = isset($_POST['action']) ? $_POST['action'] : '';
 		$val = isset($_POST['id_action']) ? $_POST['id_action'] : '';
 		$val = explode(',', $val);
 		
-		$customdesign_admin->check_caps('tags');
+		$magic_admin->check_caps('tags');
 		
 		foreach ($val as $value) {
 
@@ -23,19 +23,19 @@
 					foreach ($tag_ref as $vals) {
 						if ($vals['tag_id'] == $value) {
 							$data_tags = array();
-							$item_type = $customdesign_admin->get_row_id($vals['item_id'], $type);
-							$tag_name = $customdesign_admin->get_row_id($vals['tag_id'], 'tags');
+							$item_type = $magic_admin->get_row_id($vals['item_id'], $type);
+							$tag_name = $magic_admin->get_row_id($vals['tag_id'], 'tags');
 							$data_tags['tags'] = str_replace( $tag_name['name'], ' ' , $item_type['tags'] );
 							$data_tags['tags'] = str_replace( ', ,', ',' , $data_tags['tags'] );
 							$data_tags['tags'] = str_replace( ', ', '' , $data_tags['tags'] );
 							$data_tags['tags'] = str_replace( ' ,', '' , $data_tags['tags'] );
 							trim($data_tags['tags'], ',');
-							$customdesign_admin->edit_row($vals['item_id'],$data_tags,$type);
-							$customdesign_admin->delete_row($vals['id'],'tags_reference');
+							$magic_admin->edit_row($vals['item_id'],$data_tags,$type);
+							$magic_admin->delete_row($vals['id'],'tags_reference');
 						}
 					}
 
-					$customdesign_admin->delete_row($value, 'tags');
+					$magic_admin->delete_row($value, 'tags');
 
 					break;
 				default:
@@ -120,8 +120,8 @@
     );
 
     $start = ( $current_page - 1 ) *  $per_page;
-	$tags = $customdesign_admin->get_rows('tags', $search_filter, $orderby, $ordering, $per_page, $start, null, $type);
-    $total_record = $customdesign_admin->get_rows_total('tags', $type, 'type');
+	$tags = $magic_admin->get_rows('tags', $search_filter, $orderby, $ordering, $per_page, $start, null, $type);
+    $total_record = $magic_admin->get_rows_total('tags', $type, 'type');
 
     $tags['total_page'] = ceil($tags['total_count'] / $per_page);
     $config = array(
@@ -129,39 +129,39 @@
 		'total_record'  => $tags['total_count'],
 		'total_page'    => $tags['total_page'],
  	    'limit'         => $per_page,
-	    'link_full'     => $customdesign->cfg->admin_url.'customdesign-page=tags&type='.$type.'&tpage={page}',
-	    'link_first'    => $customdesign->cfg->admin_url.'customdesign-page=tags&type='.$type,
+	    'link_full'     => $magic->cfg->admin_url.'magic-page=tags&type='.$type.'&tpage={page}',
+	    'link_first'    => $magic->cfg->admin_url.'magic-page=tags&type='.$type,
 	);
 
-	$customdesign_pagination->init($config);
+	$magic_pagination->init($config);
 
 ?>
 
-<div class="customdesign_wrapper">
-	<div class="customdesign_content">
-		<div class="customdesign_header">
-			<h2><?php echo $customdesign->lang('Tags'); ?></h2>
-			<a href="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=tag&type=<?php echo $type; ?>" class="add-new customdesign-button"><?php echo $customdesign->lang('Add New Tag'); ?></a>
+<div class="magic_wrapper">
+	<div class="magic_content">
+		<div class="magic_header">
+			<h2><?php echo $magic->lang('Tags'); ?></h2>
+			<a href="<?php echo $magic->cfg->admin_url;?>magic-page=tag&type=<?php echo $type; ?>" class="add-new magic-button"><?php echo $magic->lang('Add New Tag'); ?></a>
 			<?php
-				$customdesign_page = isset($_GET['customdesign-page']) ? $_GET['customdesign-page'] : '';
+				$magic_page = isset($_GET['magic-page']) ? $_GET['magic-page'] : '';
 				$type = isset($_GET['type']) ? $_GET['type'] : '';
-				echo $customdesign_helper->breadcrumb($customdesign_page,$type);
+				echo $magic_helper->breadcrumb($magic_page,$type);
 			?>
 		</div>
 
 	
 
-		<div class="customdesign_option">
+		<div class="magic_option">
 			<div class="left">
-				<form action="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=tags&type=<?php echo $type; ?>" method="post">
+				<form action="<?php echo $magic->cfg->admin_url;?>magic-page=tags&type=<?php echo $type; ?>" method="post">
 					<input type="hidden" name="id_action" class="id_action">
 					<input type="hidden" name="action" value="delete" />
-					<input  class="customdesign_submit" type="submit" name="action_submit" value="<?php echo $customdesign->lang('Delete'); ?>">
-					<?php $customdesign->securityFrom();?>
+					<input  class="magic_submit" type="submit" name="action_submit" value="<?php echo $magic->lang('Delete'); ?>">
+					<?php $magic->securityFrom();?>
 				</form>
-				<form action="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=tags&type=<?php echo $type; ?>" method="post">
+				<form action="<?php echo $magic->cfg->admin_url;?>magic-page=tags&type=<?php echo $type; ?>" method="post">
 					<select name="per_page" class="art_per_page" data-action="submit">
-						<option value="none">-- <?php echo $customdesign->lang('Per page'); ?> --</option>
+						<option value="none">-- <?php echo $magic->lang('Per page'); ?> --</option>
 						<?php
 							$per_pages = array('5', '10', '15', '20', '100');
 
@@ -176,66 +176,66 @@
 							}
 						?>
 					</select>
-					<?php $customdesign->securityFrom();?>
+					<?php $magic->securityFrom();?>
 				</form>
-				<form action="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=tags&type=<?php echo $type; ?>" method="post">
+				<form action="<?php echo $magic->cfg->admin_url;?>magic-page=tags&type=<?php echo $type; ?>" method="post">
 					<select name="sort" class="art_per_page" data-action="submit">
-						<option value="">-- <?php echo $customdesign->lang('Sort by'); ?> --</option>
-						<option value="name_asc" <?php if ($dt_order == 'name_asc' ) echo 'selected' ; ?> ><?php echo $customdesign->lang('Name'); ?> A-Z</option>
-						<option value="name_desc" <?php if ($dt_order == 'name_desc' ) echo 'selected' ; ?> ><?php echo $customdesign->lang('Name'); ?> Z-A</option>
+						<option value="">-- <?php echo $magic->lang('Sort by'); ?> --</option>
+						<option value="name_asc" <?php if ($dt_order == 'name_asc' ) echo 'selected' ; ?> ><?php echo $magic->lang('Name'); ?> A-Z</option>
+						<option value="name_desc" <?php if ($dt_order == 'name_desc' ) echo 'selected' ; ?> ><?php echo $magic->lang('Name'); ?> Z-A</option>
 					</select>
-					<?php $customdesign->securityFrom();?>
+					<?php $magic->securityFrom();?>
 				</form>
 			</div>
 			<div class="right">
-				<form action="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=tags&type=<?php echo $type; ?>" method="post">
+				<form action="<?php echo $magic->cfg->admin_url;?>magic-page=tags&type=<?php echo $type; ?>" method="post">
 					<input class="search" type="search" name="search" class="form-control form_search" placeholder="Search ..." value="<?php if(isset($_SESSION[$prefix.$type.'data_search'])) echo $_SESSION[$prefix.$type.'data_search']; ?>">
-					<input class="customdesign_submit" type="submit" name="search_tag" value="<?php echo $customdesign->lang('Search'); ?>">
-					<?php $customdesign->securityFrom();?>
+					<input class="magic_submit" type="submit" name="search_tag" value="<?php echo $magic->lang('Search'); ?>">
+					<?php $magic->securityFrom();?>
 				</form>
 			</div>
 		</div>
 		
 		<?php if ( isset($tags['total_count']) && $tags['total_count'] > 0) { ?>
 			
-			<div class="customdesign_wrap_table">
-				<table class="customdesign_table">
+			<div class="magic_wrap_table">
+				<table class="magic_table">
 					<thead>
 						<tr>
-							<th class="customdesign_check">
-								<div class="customdesign_checkbox">
+							<th class="magic_check">
+								<div class="magic_checkbox">
 									<input type="checkbox" id="check_all">
 									<label for="check_all"><em class="check"></em></label>
 								</div>
 							</th>
-							<th><?php echo $customdesign->lang('Name'); ?></th>
+							<th><?php echo $magic->lang('Name'); ?></th>
 						</tr>
 					</thead>
 					<tbody>
 						<?php foreach ($tags['rows'] as $value) {?>
 								<tr>
-									<td class="customdesign_check">
-										<div class="customdesign_checkbox">
+									<td class="magic_check">
+										<div class="magic_checkbox">
 											<input type="checkbox" name="checked[]" class="action_check" value="<?php echo $value['id']; ?>" class="action" id="<?php echo $value['id']; ?>">
 											<label for="<?php echo $value['id']; ?>"><em class="check"></em></label>
 										</div>
 									</td>
-									<td><a href="<?php echo $customdesign->cfg->admin_url;?>customdesign-page=tag&type=<?php echo $type; ?>&id=<?php if(isset($value['id'])) echo $value['id']; ?>" class="name"><?php if(isset($value['name'])) echo $value['name']; ?></a></td>
+									<td><a href="<?php echo $magic->cfg->admin_url;?>magic-page=tag&type=<?php echo $type; ?>&id=<?php if(isset($value['id'])) echo $value['id']; ?>" class="name"><?php if(isset($value['name'])) echo $value['name']; ?></a></td>
 								</tr>
 						<?php } ?>
 					</tbody>
 				</table>
 			</div>
-			<div class="customdesign_pagination"><?php echo $customdesign_pagination->pagination_html(); ?></div>
+			<div class="magic_pagination"><?php echo $magic_pagination->pagination_html(); ?></div>
 
 		<?php } else {
 					if (isset($total_record) && $total_record > 0) {
-						echo '<p class="no-data">'.$customdesign->lang('Apologies, but no results were found.').'</p>';
+						echo '<p class="no-data">'.$magic->lang('Apologies, but no results were found.').'</p>';
 						$_SESSION[$prefix.$type.'data_search'] = '';
-						echo '<a href="'.$customdesign->cfg->admin_url.'customdesign-page=tags&type='.$type.'" class="btn-back"><i class="fa fa-reply" aria-hidden="true"></i>'.$customdesign->lang('Back To Lists').'</a>';
+						echo '<a href="'.$magic->cfg->admin_url.'magic-page=tags&type='.$type.'" class="btn-back"><i class="fa fa-reply" aria-hidden="true"></i>'.$magic->lang('Back To Lists').'</a>';
 					}
 					else
-						echo '<p class="no-data">'.$customdesign->lang('No data. Please add tag.').'</p>';
+						echo '<p class="no-data">'.$magic->lang('No data. Please add tag.').'</p>';
 			}?>
 	</div>
 </div>
