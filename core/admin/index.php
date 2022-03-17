@@ -43,14 +43,14 @@ class magic_router {
 						'title' => $magic->lang('Home'),
 						'link'   => $magic->cfg->admin_url.'magic-page=dashboard',
 					),
-					'updates' => array(
-						'title' => $magic->lang('Updates').(!empty($this->check_update) && isset($this->check_update->version) && version_compare(MAGIC, $this->check_update->version, '<') ? ' <span class="update-notice">1</span>' : ''),
-						'link'   => $magic->cfg->admin_url.'magic-page=updates',
-					),
-					'license' => array(
-						'title' => $magic->lang('License'),
-						'link'   => $magic->cfg->admin_url.'magic-page=license',
-					),
+					// 'updates' => array(
+					// 	'title' => $magic->lang('Updates').(!empty($this->check_update) && isset($this->check_update->version) && version_compare(MAGIC, $this->check_update->version, '<') ? ' <span class="update-notice">1</span>' : ''),
+					// 	'link'   => $magic->cfg->admin_url.'magic-page=updates',
+					// ),
+					// 'license' => array(
+					// 	'title' => $magic->lang('License'),
+					// 	'link'   => $magic->cfg->admin_url.'magic-page=license',
+					// ),
 					'system' => array(
 						'title' => $magic->lang('Status'),
 						'link'   => $magic->cfg->admin_url.'magic-page=system',
