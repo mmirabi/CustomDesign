@@ -296,30 +296,30 @@ class magic_router {
 				),
 				'capability' => 'magic_read_bugs'
 			),
-			'addons' => array(
-				'title' => $magic->lang('Addons'),
-				'icon'  => '<i class="fa fa-plug"></i>',
-				'link'   => $magic->cfg->admin_url.'magic-page=addons',
-				'child' => array(
-					'explore-addons' => array(
-						'type'   => '',
-						'title'  => $magic->lang('Explore'),
-						'link'   => $magic->cfg->admin_url.'magic-page=explore-addons',
-					),
-					'addons' => array(
-						'type'   => '',
-						'title'  => $magic->lang('Installed'),
-						'link'   => $magic->cfg->admin_url.'magic-page=addons',
-					),
-					'addon' => array(
-						'type'   => '',
-						'title'  => $magic->lang('Detail'),
-						'link'   => $magic->cfg->admin_url.'magic-page=addon',
-						'hidden' => true,
-					),
-				),
-				'capability' => 'magic_read_addons',
-			),
+			// 'addons' => array(
+			// 	'title' => $magic->lang('Addons'),
+			// 	'icon'  => '<i class="fa fa-plug"></i>',
+			// 	'link'   => $magic->cfg->admin_url.'magic-page=addons',
+			// 	'child' => array(
+			// 		'explore-addons' => array(
+			// 			'type'   => '',
+			// 			'title'  => $magic->lang('Explore'),
+			// 			'link'   => $magic->cfg->admin_url.'magic-page=explore-addons',
+			// 		),
+			// 		'addons' => array(
+			// 			'type'   => '',
+			// 			'title'  => $magic->lang('Installed'),
+			// 			'link'   => $magic->cfg->admin_url.'magic-page=addons',
+			// 		),
+			// 		'addon' => array(
+			// 			'type'   => '',
+			// 			'title'  => $magic->lang('Detail'),
+			// 			'link'   => $magic->cfg->admin_url.'magic-page=addon',
+			// 			'hidden' => true,
+			// 		),
+			// 	),
+			// 	'capability' => 'magic_read_addons',
+			// ),
 			'settings' => array(
 				'title' => $magic->lang('Settings'),
 				'icon'  => '<i class="fa fa-cog"></i>',
